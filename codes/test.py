@@ -22,7 +22,7 @@ file_path = os.getcwd()
 dir_path = os.path.dirname(file_path)
 
 # Constrói o caminho absoluto para a pasta pdf
-pdf_path = os.path.join(dir_path, 'pdf')
+pdf_path = os.path.join(dir_path, "pdf")
 
 # Carregando secrets definidos pelo arquivo .env
 load_dotenv()
@@ -30,7 +30,7 @@ load_dotenv()
 # Configurações do servidor SMTP do Gmail
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
-smtp_user = 'pleasecallmekindness@gmail.com'
+smtp_user = "pleasecallmekindness@gmail.com"
 smtp_password = os.getenv("EMAIL_PASSWORD")
 
 # Definição de um dicionário contendo as configuções SMTP
@@ -40,7 +40,7 @@ smtp_config = {"server": smtp_server,
                "password": smtp_password}
 
 # Destinatário
-destinatario = 'matheuschomem@hotmail.com'
+destinatario = "matheuschomem@hotmail.com"
 
 # Obtenha o diretório do notebook Jupyter
 notebook_directory = os.getcwd()
@@ -63,18 +63,18 @@ def send_email(smtp_config, destinatario, assunto:str, corpo_email, anexo_nome=N
 
     # Construa a mensagem
     mensagem = MIMEMultipart()
-    mensagem['From'] = remetente
-    mensagem['To'] = destinatario
-    mensagem['Subject'] = assunto
+    mensagem["From"] = remetente
+    mensagem["To"] = destinatario
+    mensagem["Subject"] = assunto
 
     # Adicione o corpo do e-mail
-    mensagem.attach(MIMEText(corpo_email, 'plain'))
+    mensagem.attach(MIMEText(corpo_email, "plain"))
 
     # Adicione anexo, se fornecido
     if anexo_nome:
-        with open(anexo_nome, 'rb') as arquivo:
+        with open(anexo_nome, "rb") as arquivo:
             anexo = MIMEText(arquivo.read())
-            anexo['Content-Disposition'] = f'attachment; filename={anexo_nome}'
+            anexo["Content-Disposition"] = f"attachment; filename={anexo_nome}"
             mensagem.attach(anexo)
 
     # Conecte-se ao servidor SMTP e envie o e-mail
@@ -83,7 +83,7 @@ def send_email(smtp_config, destinatario, assunto:str, corpo_email, anexo_nome=N
         server.login(smtp_user, smtp_password)
         server.sendmail(remetente, destinatario, mensagem.as_string())
 
-    print('E-mail enviado com sucesso!')
+    print("E-mail enviado com sucesso!")
 
 def translate_weekday(english_weekday):
     # Definição do Dicionário de Tradução de Dia da Semana
@@ -133,7 +133,7 @@ semana_do_ano = int(data_atual.strftime("%U")) + 1
 data_atual = datetime.now()
 
 # Obtém o nome do dia da semana
-dia_da_semana = data_atual.strftime('%A')
+dia_da_semana = data_atual.strftime("%A")
 
 # Criando um variável com os registros do formulário do dia anterior
 yest_regs = moon_df.iloc[-1]
@@ -154,10 +154,10 @@ file_path = os.getcwd()
 dir_path = os.path.dirname(file_path)
 
 # Constrói o caminho absoluto para a pasta pdf
-df_path = os.path.join(dir_path, 'reports/dev/')
+df_path = os.path.join(dir_path, "reports/dev/")
 
 # Constrói o caminho para o arquivo pdf que será gerado
-pdf_file_path = os.path.join(df_path, f'{today}.pdf')
+pdf_file_path = os.path.join(df_path, f"{today}.pdf")
 
 def generate_text(c, text, x, y, font, font_size):
     cm = 28.346456692913385
@@ -179,7 +179,7 @@ def generate_text(c, text, x, y, font, font_size):
         
         # Se a palavra não couber na página, começar uma nova linha
         if x + palavra_width > A4[0] - 2 * cm:
-            textobject.textLine('')
+            textobject.textLine("")
             x, y = 2 * cm, y - c.stringWidth("A", font, font_size)
 
         # Adicionar a palavra ao objeto de texto
@@ -198,31 +198,31 @@ def add_mementos(c):
 	c.setFont("Times-Roman", 18)
 	c.drawString(100, 725, "Sabedoria")
 	# Texto com o memento de sabedoria
-	generate_text(c, yest_regs['wis_memo'], 100, 710, "Times-Roman", 12)
+	generate_text(c, yest_regs["wis_memo"], 100, 710, "Times-Roman", 12)
 
 	# Subtítulo: Estabilidade
 	c.setFont("Times-Roman", 18)
 	c.drawString(100, 625, "Estabilidade")
 	# Texto com o memento de estabilidade
-	generate_text(c, yest_regs['con_memo'], 100, 610, "Times-Roman", 12)
+	generate_text(c, yest_regs["con_memo"], 100, 610, "Times-Roman", 12)
 
 	# Subtítulo: Força
 	c.setFont("Times-Roman", 18)
 	c.drawString(100, 525, "Força")
 	# Texto com o memento de força
-	generate_text(c, yest_regs['str_memo'], 100, 510, "Times-Roman", 12)
+	generate_text(c, yest_regs["str_memo"], 100, 510, "Times-Roman", 12)
 
 	# Subtítulo: Gentileza
 	c.setFont("Times-Roman", 18)
 	c.drawString(100, 425, "Gentileza")
 	# Texto com o memento de gentileza
-	generate_text(c, yest_regs['cha_memo'], 100, 410, "Times-Roman", 12)
+	generate_text(c, yest_regs["cha_memo"], 100, 410, "Times-Roman", 12)
 
 	# Subtítulo: Devoção
 	c.setFont("Times-Roman", 18)
 	c.drawString(100, 325, "Devoção")
 	# Texto com o memento de devoção
-	generate_text(c, yest_regs['fth_memo'], 100, 310, "Times-Roman", 12)
+	generate_text(c, yest_regs["fth_memo"], 100, 310, "Times-Roman", 12)
      
 def add_header(c):
     centralize_text(c, 800, "Relatório Diário", "Times-Bold", 30)
