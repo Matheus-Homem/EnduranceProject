@@ -9,6 +9,7 @@ def main():
 	#print(config.paths.filePdf)
 	send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
 
+
 	#attachment_path=os.path.join(config.paths.directoryPdf, "2024-01-11.pdf")
 
 if __name__ == "__main__":

@@ -6,8 +6,8 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 def send_email(configuration, subject="Assunto", email_body="Corpo", attachment_path=None):
-	if attachment_path == None:
-		attachment_path = configuration.paths.filePdf
+    # Setting attachment_path to configuration.paths.filePdf if no value is provided
+	attachment_path = attachment_path if attachment_path else configuration.paths.report_file
 	
 	# Build the message
 	message = MIMEMultipart()
