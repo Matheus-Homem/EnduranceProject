@@ -1,16 +1,19 @@
-from libs.reports import DailyReport
-from libs.mailing import send_email
+from libs.reports import MonthlyReport, WeeklyReport, DailyReport
 from config.settings import Config
-import os
 
 def main():
 	config = Config("dev")
 
-	#print(config.paths.filePdf)
-	send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
+	today = config.today.date
 
+	#send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
 
-	#attachment_path=os.path.join(config.paths.directoryPdf, "2024-01-11.pdf")
+	if today.day == 1:
+		MonthlyReport(config).generate_report()
+	elif today.weekday() == 0:
+		WeeklyReport(config).generate_report()
+	else:
+		DailyReport(config).generate_report()
 
 if __name__ == "__main__":
 	main()

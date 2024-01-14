@@ -84,19 +84,7 @@ def send_email(smtp_config, destinatario, assunto:str, corpo_email, anexo_nome=N
 
 	print("E-mail enviado com sucesso!")
 
-def translate_weekday(english_weekday):
-	# Definição do Dicionário de Tradução de Dia da Semana
-	translate_dict = {
-		"Monday": "Segunda-feira",
-		"Tuesday": "Terça-feira",
-		"Wednesday": "Quarta-feira",
-		"Thursday": "Quinta-feira",
-		"Friday": "Sexta-feira",
-		"Saturday": "Sábado",
-		"Sunday": "Domingo"		
-	}
-	# Retorna a versão do dia da semana traduzida
-	return translate_dict[english_weekday]
+
 
 def centralize_text(canvas, altura_inicial, texto, fonte, tamanho_fonte):
 	canvas.setFont(fonte, tamanho_fonte)
