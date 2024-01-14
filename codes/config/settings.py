@@ -56,13 +56,6 @@ class PathsConfig:
 		self.data_dir = os.path.join(self.files_dir, "data") # Path to the data folder inside the files folder (project/files/data/)
 		self.misc_dir = os.path.join(self.files_dir, "misc") # Path to the misc folder inside the files folder (project/files/misc/)
 
-		# Main files inside reports/env/ directory
-		#self.report_file = os.path.join(self.report_dir, f"{date.today()}.pdf") # Path to the pdf file to be generated
-
-		## Main files inside data/ directory
-		#self.morning_data_file = os.path.join(self.data_dir, "morning_routine_v2.xlsx") # Path to the morning_routine data file
-		#self.night_data_file = os.path.join(self.data_dir, "night_routine_v2.xlsx") # Path to the night_routine data file
-
 class DatesConfig:
 	def __init__(self, date_str):
 		
@@ -76,9 +69,9 @@ class DatesConfig:
 			self.date = date.today() - timedelta(days=1)
 			self.timestamp = datetime.combine(self.date, datetime.min.time())\
 
-		self.dateFormatted = self.date.strftime("%d/%m/%Y") # Get the current date formatted
-		self.weekDay = self.timestamp.strftime("%A") # Get the name of the day of the week
-		self.weekNumber = self.timestamp.isocalendar()[1] # Get the week number of the year
+		self.date_fmtd = self.date.strftime("%d/%m/%Y") # Get the current date formatted
+		self.week_day = self.timestamp.strftime("%A") # Get the name of the day of the week
+		self.week_number = self.timestamp.isocalendar()[1] # Get the week number of the year
 
 class MailConfig:
 	def __init__(self, username, password, recipient):
