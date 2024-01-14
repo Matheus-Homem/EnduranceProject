@@ -15,8 +15,8 @@ class Config:
 
 		# Loading email_settings defined in the JSON file
 		email_settings_path = os.path.join(self.paths.config_dir, 'email_settings.json')
-		with open(email_settings_path, 'r') as json_file:
-			email_settings = json.load(json_file)
+		with open(email_settings_path, 'r') as f:
+			email_settings = json.load(f)
 
 		# Group: TODAY DATE VARS
 		self.today = DatesConfig("today")
@@ -30,6 +30,11 @@ class Config:
 			password=os.getenv("SMTP_PASSWORD"), 
 			recipient=email_settings["SMTP_RECIPIENT"]
 		)
+
+	def get_file(self, directory, file_name):
+		full_dir = directory + "_dir"
+		dir_path = getattr(self.paths, full_dir)
+		return os.path.join(dir_path, file_name)
 
 class PathsConfig:
 	def __init__(self, env):
@@ -52,11 +57,11 @@ class PathsConfig:
 		self.misc_dir = os.path.join(self.files_dir, "misc") # Path to the misc folder inside the files folder (project/files/misc/)
 
 		# Main files inside reports/env/ directory
-		self.report_file = os.path.join(self.report_dir, f"{date.today()}.pdf") # Path to the pdf file to be generated
+		#self.report_file = os.path.join(self.report_dir, f"{date.today()}.pdf") # Path to the pdf file to be generated
 
-		# Main files inside data/ directory
-		self.morning_data_file = os.path.join(self.data_dir, "morning_routine_v2.xlsx") # Path to the morning_routine data file
-		self.night_data_file = os.path.join(self.data_dir, "night_routine_v2.xlsx") # Path to the night_routine data file
+		## Main files inside data/ directory
+		#self.morning_data_file = os.path.join(self.data_dir, "morning_routine_v2.xlsx") # Path to the morning_routine data file
+		#self.night_data_file = os.path.join(self.data_dir, "night_routine_v2.xlsx") # Path to the night_routine data file
 
 class DatesConfig:
 	def __init__(self, date_str):
