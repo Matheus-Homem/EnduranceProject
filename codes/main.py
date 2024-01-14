@@ -1,5 +1,4 @@
 from libs.reports import MonthlyReport, WeeklyReport, DailyReport
-from libs.mailing import send_email
 from config.settings import Config
 
 def main():
