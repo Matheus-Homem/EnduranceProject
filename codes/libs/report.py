@@ -1,28 +1,19 @@
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-
 class Report:
-	def __init__(self, configuration):
+	def __init__(self, configuration, canvas):
 		self.config = configuration
+		self.c = canvas
+		self.sections = []
 
-		# Create a canvas object to generate the PDF
-		c = canvas.Canvas(
-			self.config.get_file("report", f"{self.config.today.date}.pdf"), # File Name
-			pagesize=A4
-		)
+	def add_partlet(self, partlet):
+		partlet.generate_partlet()
 
-		# Definition of the PDF page dimensions
-		width, height = A4
-
-	def add_section(self, section):
-		self.section = section
+	def skip_page(self):
 		pass
 
-	def skip_page():
-		pass
+	def save(self):
+		
+		
+		self.c.save()
 
-	def save():
-		pass
-
-	def send():
+	def send(self):
 		pass
