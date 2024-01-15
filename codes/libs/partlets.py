@@ -12,7 +12,7 @@ class Header():
 		self.c = report.c  # Canvas object from the main report
 		self.up_start = initial_height  # Initial height for positioning elements
 
-	def generate_partlet(self):
+	def daily_generate(self):
 		# Generate the header partlet with centralized text and a line
 		# Title
 		wrt.centralized_text(self.c,

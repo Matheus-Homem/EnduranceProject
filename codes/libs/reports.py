@@ -95,7 +95,7 @@ class DailyReport():
 		#report.add_partlet(ptt.MeditationDiary())
 
 		## 21. Salvamento do relatório
-		report.save()
+		report.save("daily")
 
 		## 22. Envio do relatório por e-mail
 		#report.send()
