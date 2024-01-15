@@ -8,12 +8,16 @@ def main():
 
 	#send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
 
+	# Generate Monthly Report if it's the first day of the month
 	if today.day == 1:
 		MonthlyReport(config).generate_report()
-	elif today.weekday() == 0:
+	
+	# Generate Weekly Report if it's Monday
+	if today.weekday() == 0:
 		WeeklyReport(config).generate_report()
-	else:
-		DailyReport(config).generate_report()
+	
+	# Always generate Daily Report
+	DailyReport(config).generate_report()
 
 if __name__ == "__main__":
 	main()
