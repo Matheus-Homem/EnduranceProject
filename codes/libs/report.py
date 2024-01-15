@@ -5,13 +5,14 @@ class Report:
 		self.sections = []
 
 	def add_partlet(self, partlet):
-		partlet.generate_partlet()
+		self.sections.append(partlet)
 
 	def skip_page(self):
 		pass
 
 	def save(self):
-		
+		for partlet in self.sections:
+			partlet.generate_partlet()
 		
 		self.c.save()
 
