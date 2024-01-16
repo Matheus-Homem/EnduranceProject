@@ -1,13 +1,13 @@
 # The Compass Project
 
-- [Introdução](#introducao)
-  - [Objetivo](#objetivo)
-  - [Planejamento](#planejamento)
+- [Introduction](#introducao)
+  - [Objective](#objetivo)
+  - [Planning](#planejamento)
 - [Development Cycles](#ciclos)
   - [MVP](#ciclo1)
-- [Conclusão](#conclusao)
+- [Conclusions](#conclusao)
 
-## Introdução <a name="introducao"></a>
+## Introduction <a name="introducao"></a>
 
 ### Objective <a name="objetivo"></a>
 
@@ -15,7 +15,7 @@ The aim of this project is to establish a method for tracking habits, both healt
 
 Striving for better self-management, weekly reports will be sent on Monday mornings, and monthly reports will be dispatched on the first day of each month. This is a dynamic project that has been, is, and will always be subject to change, as life is anything but permanent.
 
-### Planejamento <a name="planejamento"></a>
+### Planning <a name="planejamento"></a>
 Explicação do planejamento usada para o projeto.
 
 ## Development Cycles <a name="ciclos"></a>
