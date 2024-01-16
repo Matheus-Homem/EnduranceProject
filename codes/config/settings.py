@@ -14,7 +14,7 @@ class Config:
 		load_dotenv(os.path.join(self.paths.project_dir, '.env'))
 
 		# Loading email_settings defined in the JSON file
-		email_settings_path = os.path.join(self.paths.config_dir, 'email_settings.json')
+		email_settings_path = os.path.join(self.paths.misc_dir, 'email_settings.json')
 		with open(email_settings_path, 'r') as f:
 			email_settings = json.load(f)
 
