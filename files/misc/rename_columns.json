@@ -2,7 +2,7 @@
 	"morning": {
 		"Carimbo de data/hora": {
 			"name":"timestamp",
-			"dtype":"date"},
+			"dtype":"string"},
 		"Endereço de e-mail" : {
 			"name": "email_confirmation",
 			"dtype": "string"},
