@@ -1,10 +1,12 @@
+from partlets import Partlet
+
 class Report:
 	def __init__(self, configuration, canvas):
 		self.config = configuration
 		self.c = canvas
 		self.sections = []
 
-	def add_partlet(self, partlet):
+	def add_partlet(self, partlet: Partlet):
 		self.sections.append(partlet)
 
 	def skip_page(self):
