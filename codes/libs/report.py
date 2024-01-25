@@ -1,4 +1,4 @@
-from partlets import Partlet
+from libs.partlets import Partlet
 
 class Report:
 	def __init__(self, configuration, canvas):
