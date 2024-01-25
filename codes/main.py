@@ -1,10 +1,16 @@
-from libs.reports import MonthlyReport, WeeklyReport, DailyReport
+from etl.data_cleaning_processor import DataCleaningProcessor
+from libs.reports import (MonthlyReport, 
+						  WeeklyReport, 
+						  DailyReport)
 from config.settings import Config
 
 def main():
 	config = Config("dev")
 
 	today = config.today.date
+
+	# Data cleaning executions
+	DataCleaningProcessor(config).execute()
 
 	#send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
 
