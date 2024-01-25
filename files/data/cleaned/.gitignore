@@ -1,0 +1,2 @@
+# Ignore cleaned data files
+*.parquet
