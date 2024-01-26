@@ -34,9 +34,6 @@ class DataCleaningProcessor():
 			#["night",   self.raw_night_path,   self.clnd_night_path]
 		]
 
-		# List of columns that are going to be corrected to microseconds (and further in pl.Duration)
-		self.time_cols = ['day_form_time', 'slp_fall', 'pho_time', 'slp_raise', 'slp_duration']
-
 	# Reading function to read data from the excel original file
 	def reading(self, raw_path):
 		df_raw = pl.read_excel(raw_path)
@@ -44,75 +41,121 @@ class DataCleaningProcessor():
 
 	# Cleaning function to rename and correct data formats
 	def cleaning(self, df_raw, table_id):
-		# Converts a time string in the "HH:MM" format to microseconds
-		def convert_time_to_microseconds(time_str):
-			# Check if the input time string is not None
-			if time_str is not None:
-				# Convert the time string to a datetime object
-				time_datetime = datetime.strptime(time_str, "%H:%M")
-				# Calculate the time difference from midnight and convert to microseconds
-				difference = time_datetime - datetime.strptime("00:00", "%H:%M")
-				microseconds = int(difference.total_seconds() * 1e6)
-				return microseconds
-			else:
-				return None
 
-		# Corrects the date format from "MM-dd-yy" to "YYYY-MM-dd"
-		def correct_date_format(date_var):
-			# Convert the date string to a datetime object and format it as "YYYY-MM-dd"
-			return datetime.strptime(date_var, "%m-%d-%y").strftime("%Y-%m-%d")
-
-		# Define the expressions of renaming and dtype from the "rename_columns.json"
-		def get_expressions(table_key: str):
+		# Define the expressions for renaming and dtype from the "rename_columns.json"
+		def get_expressions():
 			# Defining expression to rename columns when called
-			rename_expressions = [
+			self.rename_exp = [
 				pl.col(column_name).alias(column_config["name"])
-				for column_name, column_config in self.rename_columns_dict[table_key].items()
+				for column_name, column_config in self.rename_columns_dict[table_id].items()
 			]
 			# Defining expression to correct columns dtype when called
-			dtype_expressions = [
+			self.dtype_exp = [
 				pl.col(column_config["name"]).cast(self.pl_dtype_dict[column_config["dtype"]])
-				for column_name, column_config in self.rename_columns_dict[table_key].items()
+				for column_name, column_config in self.rename_columns_dict[table_id].items()
 			]
-			return rename_expressions, dtype_expressions
-
-		# Create the correct expression for the table from the table_id
-		rename_exp, dtype_exp = get_expressions(table_id)
-				
-		# Applying expression to rename columns
-		renamed_df = df_raw.select(rename_exp)
 
 		# Correction 'day_date' column from "MM-dd-yy" format to "YYYY-MM-dd" format
-		formatted_date_df = renamed_df.with_columns(
-			pl.col("day_date").map_elements(lambda x: correct_date_format(x)).alias("day_date")
-		)
+		def correct_date_fmt(df_raw):
+			# Correcting the format of the 'day_date' column from "MM-dd-yy" to "YYYY-MM-dd"
+			df1 = df_raw.with_columns(
+				# Using the map function to apply date formatting to each element in the 'day_date' column
+				pl.col("day_date").map_elements(lambda x: datetime.strptime(x, "%m-%d-%y").strftime("%Y-%m-%d")).alias("day_date")
+			)
+			return df1
 
-		# Applying 'convert_to_microseconds' function to the selected columns
-		corrected_time_df = formatted_date_df.select([
-			pl.col(col_name).map_elements(convert_time_to_microseconds).alias(col_name)
-			if col_name in self.time_cols
-			else col_name
-			for col_name in formatted_date_df.columns
-		])
+		def correct_duration_fmt(df1, cols_list):
+			# Converts a time string in the "HH:MM" format to microseconds
+			def convert_time_to_microseconds(time_str):
+				# Check if the input time string is not None
+				if time_str is not None:
+					# Convert the time string to a datetime object
+					time_datetime = datetime.strptime(time_str, "%H:%M")
+					# Calculate the time difference from midnight and convert to microseconds
+					difference = time_datetime - datetime.strptime("00:00", "%H:%M")
+					microseconds = int(difference.total_seconds() * 1e6)
+					return microseconds
+				else:
+					return None
 
-		# Applying expression to change columns dtype
-		df_cleaned = corrected_time_df.select(dtype_exp)	
+			# Applying 'convert_to_microseconds' function to the selected columns
+			df2 = df1.select([
+				pl.col(col_name).map_elements(convert_time_to_microseconds).alias(col_name)
+				if col_name in cols_list
+				else col_name
+				for col_name in df1.columns
+			])
 
+			# Applying expression to change columns dtype
+			df3 = (df2.select(self.dtype_exp)
+		  			  .sort("day_date"))
+
+			return df3
+
+		def correct_datetime_fmt(df3):
+			# Adaptacao do campo day_form_time para conter a data de day_date + 1, com o horario e os minutos de day_form_time
+			df4 = df3.with_columns(
+				[
+					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("day_form_time").dt.hour(), minutes=pl.col("day_form_time").dt.minute())).alias("day_form_time"),
+					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=0, hours=pl.col("slp_fall").dt.hour(),		 minutes=pl.col("slp_fall").dt.minute())).alias("slp_fall"),
+					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("slp_raise").dt.hour(),	 minutes=pl.col("slp_raise").dt.minute())).alias("slp_raise")
+				]
+			)
+
+			return df4
+
+		#########################
+		### Starting Cleaning ###
+		#########################
+
+		# List of columns that are going to be corrected to microseconds (and further in pl.Duration)
+		time_cols = ['day_form_time', 'slp_fall', 'pho_time', 'slp_raise', 'slp_duration']
+
+		# Expressions creation
+		get_expressions()
+
+		# Applying expression to rename columns
+		renamed_df = df_raw.select(self.rename_exp)
+
+		# Apply correction functions
+		df_cleaned = correct_datetime_fmt(
+						correct_duration_fmt(
+							correct_date_fmt(
+								renamed_df
+							),
+							time_cols
+						)
+					)
+		
 		return df_cleaned
 
+	# Verification function to filter the user email address from the raw file
+	def validating(self, df_cleaned):
+		# Filter the DataFrame based on the 'email_confirmation' column matching the configured 'verified_email'.
+		df_validated = df_cleaned.filter(pl.col("email_confirmation") == self.config.verified_email)
+
+		return df_validated
+
 	# Writing function to write the df_cleaned as a parquet file in the cleaned_path
-	def writing(self, df_cleaned, cleaned_path):
-		df_cleaned.write_parquet(cleaned_path)
+	def writing(self, df_validated, cleaned_path):
+		df_validated.write_parquet(cleaned_path)
 	
 	# Function to execute all the code combined
 	def execute(self):
 		# Gets the correct relation list from the tables_relation list
 		for table_id, raw_path, cleaned_path in self.tables_relation:
-			# Write the cleaned dataframe in the cleaned_path
+			# Write the validated dataframe in the cleaned_path
 			self.writing(
-				# Cleans the correct raw dataframe with the use of table_id
-				self.cleaning(
-					# Read the chosen dataframe from the path given
-					self.reading(raw_path),
-					table_id),
-				cleaned_path)
+				# Validate the cleaned dataframe to contain only the correct user answers
+				self.validating(
+					# Cleans the correct raw dataframe with the use of table_id
+					self.cleaning(
+						# Read the chosen dataframe from the path given
+						self.reading(
+							raw_path
+						),
+						table_id
+					)
+				),
+				cleaned_path
+			)
