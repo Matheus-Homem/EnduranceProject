@@ -10,6 +10,9 @@ class Config:
 		# Loading secrets defined in the .env file
 		load_dotenv()
 
+		# Verified email
+		self.verified_email = os.getenv("VERIFIED_EMAIL")
+
 		# Group: PATHS VARS
 		self.paths = PathsConfig(self.env, os.getenv("PATH_TO_SETTINGS"))
 
