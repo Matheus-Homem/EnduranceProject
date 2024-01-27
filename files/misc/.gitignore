@@ -1,3 +1,3 @@
-# Template
-rename_columns.json
+# Ignore private .json files
 email_settings.json
+rename_columns.json
