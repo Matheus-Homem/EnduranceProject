@@ -17,7 +17,7 @@ class Config:
 		self.paths = PathsConfig(self.env, os.getenv("PATH_TO_SETTINGS"))
 
 		# Loading email_settings defined in the JSON file
-		email_settings_path = os.path.join(self.paths.misc_dir, 'email_settings.json')
+		email_settings_path = os.path.join(self.paths.misc, 'email_settings.json')
 		with open(email_settings_path, 'r') as f:
 			email_settings = json.load(f)
 
@@ -45,11 +45,11 @@ class Config:
 		Returns:
 			str: The full path to the file.
 		"""
-		# Concatenate the suffix "_dir" to the directory name to get the corresponding attribute.
-		full_dir = directory + "_dir"
+		# Concatenate the suffix "" to the directory name to get the corresponding attribute.
+		#full = directory + ""
 
 		# Get the full directory path using the corresponding attribute.
-		dir_path = getattr(self.paths, full_dir)
+		dir_path = getattr(self.paths, directory)
 
 		# Return the full path to the file by combining the directory path and the file name.
 		return os.path.join(dir_path, file_name)
@@ -59,26 +59,26 @@ class PathsConfig:
 		self.env = env  # Defining environment variable
 
 		# Diretório pai
-		self.parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(settings_path)))
+		self.parent = os.path.dirname(os.path.dirname(os.path.dirname(settings_path)))
 
 		# Folders inside main project/ directory
-		self.report_dir = os.path.join(self.parent_dir, "reports", f"{self.env}")  # Path to the env folder inside the reports folder (project/reports/env/)
-		self.codes_dir = os.path.join(self.parent_dir,  "codes")  # Path to the codes folder (project/codes/)
-		self.files_dir = os.path.join(self.parent_dir,  "files")  # Path to the files folder (project/files/)
+		self.report = os.path.join(self.parent, "reports", f"{self.env}") # Path to the env folder inside the reports folder (project/reports/env/)
+		self.codes	= os.path.join(self.parent,	"codes")				  # Path to the codes folder (project/codes/)
+		self.files	= os.path.join(self.parent,	"files")				  # Path to the files folder (project/files/)
 
 		# Folders inside codes/ directory
-		self.config_dir = os.path.join(self.codes_dir, "config")  # Path to the config folder inside the codes folder (project/codes/config/)
-		self.libs_dir = os.path.join(self.codes_dir, "libs")  # Path to the libs folder inside the codes folder (project/codes/libs/)
+		self.config = os.path.join(self.codes, "config") # Path to the config folder inside the codes folder (project/codes/config/)
+		self.libs	= os.path.join(self.codes, "libs")	 # Path to the libs folder inside the codes folder (project/codes/libs/)
 
 		# Folders inside files/ directory
-		self.images_dir = os.path.join(self.files_dir, "images")  # Path to the images folder inside the files folder (project/files/images/)
-		self.data_dir = os.path.join(self.files_dir, "data")  # Path to the data folder inside the files folder (project/files/data/)
-		self.misc_dir = os.path.join(self.files_dir, "misc")  # Path to the misc folder inside the files folder (project/files/misc/)
+		self.images = os.path.join(self.files, "images") # Path to the images folder inside the files folder (project/files/images/)
+		self.data	= os.path.join(self.files, "data")	 # Path to the data folder inside the files folder (project/files/data/)
+		self.misc	= os.path.join(self.files, "misc")	 # Path to the misc folder inside the files folder (project/files/misc/)
 
 		# Folders inside data/ directory
-		self.ingestion_dir = os.path.join(self.data_dir, "ingestion")  # Path to the ingestion folder inside the files folder (project/files/ingestion/)
-		self.cleaned_dir = os.path.join(self.data_dir, "cleaned")  # Path to the cleaned folder inside the files folder (project/files/cleaned/)
-		self.bi_dir = os.path.join(self.data_dir, "bi")  # Path to the bi folder inside the files folder (project/files/bi/)
+		self.ingestion = os.path.join(self.data, "ingestion") # Path to the ingestion folder inside the files folder (project/files/ingestion/)
+		self.cleaned   = os.path.join(self.data, "cleaned")	  # Path to the cleaned folder inside the files folder (project/files/cleaned/)
+		self.refined   = os.path.join(self.data, "refined")	  # Path to the refined folder inside the files folder (project/files/refined/)
 
 
 class DatesConfig:
