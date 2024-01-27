@@ -126,14 +126,13 @@ class DataCleaningProcessor():
 							time_cols
 						)
 					)
-		
+
 		return df_cleaned
 
 	# Verification function to filter the user email address from the raw file
 	def validating(self, df_cleaned):
 		# Filter the DataFrame based on the 'email_confirmation' column matching the configured 'verified_email'.
 		df_validated = df_cleaned.filter(pl.col("email_confirmation") == self.config.verified_email)
-
 		return df_validated
 
 	# Writing function to write the df_cleaned as a parquet file in the cleaned_path
