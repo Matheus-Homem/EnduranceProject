@@ -1,4 +1,5 @@
 from etl.data_cleaning_processor import DataCleaningProcessor
+from etl.data_refining_processor import DataRefiningProcessor
 from libs.reports import (MonthlyReport, 
 						  WeeklyReport, 
 						  DailyReport)
@@ -11,6 +12,9 @@ def main():
 
 	# Data cleaning executions
 	DataCleaningProcessor(config).execute()
+
+	# Data refinement executions
+	DataRefiningProcessor(config).execute()
 
 	#send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
 

@@ -27,7 +27,7 @@ def translate_weekday(english_weekday):
 	WEEKDAY_NAME_FILE = os.path.join(parent_dir, "files", "misc", "ptbr_weekday_name.json")
 	
 	# Read font patterns from the JSON file
-	with open(WEEKDAY_NAME_FILE, 'r') as f:
+	with open(WEEKDAY_NAME_FILE, 'r', encoding="utf-8") as f:
 		translate_ptbr = json.load(f)
 
 	# Return the translated version of the weekday to PT-BR

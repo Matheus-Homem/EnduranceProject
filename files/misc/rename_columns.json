@@ -40,13 +40,13 @@
 			"name": "slp_deep",
 			"dtype": "float"},
 		"Qual o peso total de hoje?" : {
-			"name": "wgt_total",
+			"name": "ttl_weight",
 			"dtype": "float"},
 		"Qual a massa magra de hoje?" : {
-			"name": "wgt_muscle",
+			"name": "mus_weight",
 			"dtype": "float"},
 		"Qual o percentual de gordura (bf) de hoje?" : {
-			"name": "wgt_bf",
+			"name": "fat_percentage",
 			"dtype": "float"},
 		"Qual metabolismo basal aproximado?" : {
 			"name": "wgt_rmr",
