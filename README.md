@@ -1,13 +1,14 @@
 # The Compass Project
 
-1. [Overview](#overview-)
-	1.1. [Objective](#objective-)
-	1.2. [Planning](#planning-)
-2. [Release Versions](#release-versions-)
-	2.1. [Initial Release](#initial-release-)
-		2.1.1. [Features](#features1-)
-		2.1.2. [Insights](#insights1-)
-3. [Conclusions](#conclusions-)
+- [The Compass Project](#the-compass-project)
+	- [Overview ](#overview-)
+		- [Objective ](#objective-)
+		- [Planning ](#planning-)
+	- [Release Versions ](#release-versions-)
+		- [Initial Release ](#initial-release-)
+			- [Features ](#features-)
+			- [Insights ](#insights-)
+	- [Conclusions ](#conclusions-)
 
 ## Overview <a name="overview"></a>
 
