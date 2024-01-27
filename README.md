@@ -1,14 +1,14 @@
+<!-- omit in toc -->
 # The Compass Project
 
-- [The Compass Project](#the-compass-project)
-	- [Overview ](#overview-)
-		- [Objective ](#objective-)
-		- [Planning ](#planning-)
-	- [Release Versions ](#release-versions-)
-		- [Initial Release ](#initial-release-)
-			- [Features ](#features-)
-			- [Insights ](#insights-)
-	- [Conclusions ](#conclusions-)
+- [Overview ](#overview-)
+	- [Objective ](#objective-)
+	- [Planning ](#planning-)
+- [Release Versions ](#release-versions-)
+	- [Initial Release ](#initial-release-)
+		- [Features ](#features-)
+		- [Insights ](#insights-)
+- [Conclusions ](#conclusions-)
 
 ## Overview <a name="overview"></a>
 
