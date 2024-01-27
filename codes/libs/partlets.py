@@ -59,21 +59,14 @@ class WeightDiary():
 		self.up_start = initial_height  # Initial height for positioning elements
 
 	def daily_generate(self):
-		# Generate the header partlet with centralized text and a line
-		# Title
-		wrt.centralized_text(self.c,
-							 self.up_start,
-							 "Relatório Diário",
-							 "TITLE")
-
-		# Subtitle with date, weekday, and week number
+		# Subtitle identifing Pesagem (Weighting)
 		wrt.centralized_text(self.c,
 							 self.up_start - 20,
-							 f"{self.config.today.date_fmtd} | {translate_weekday(self.config.today.week_day)} | Semana: {self.config.today.week_number}",
-							 "SUBTITLE")
+							 "Pesagem",
+							 "CHAPTER_HEADER")
 
 		# Draw a line under the subtitle
-		self.c.line(100, self.up_start - 25, 500, self.up_start - 25)
+		self.c.line(100, self.up_start - 27, 500, self.up_start - 27)
 		pass
 
 class ReadingDiary(Partlet):
