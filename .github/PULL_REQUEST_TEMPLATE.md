@@ -1,6 +1,6 @@
 ## Pull Request Description
 
-<!-- Add a concise description of what this PR accomplishes. -->
+<!-- Include a brief overview describing the accomplishments of this pull request. -->
 
 ## Related Issues
 
