@@ -8,7 +8,8 @@
 
 ## Introduction
 
-This document outlines the naming conventions and commit guidelines to be followed while working on this project. Adhering to these conventions will ensure a standardized and clear approach to development.
+This document outlines the naming conventions and commit guidelines to be followed while working on this project. 
+Adhering to these conventions will ensure a standardized and clear approach to development.
 
 ## Branch Naming Conventions
 
@@ -62,5 +63,5 @@ This document outlines the naming conventions and commit guidelines to be follow
 
 ## Conclusion
 
-   Following these naming conventions and commit guidelines will contribute to a more organized and understandable version history.
-   Consistency in naming and committing practices is essential for effective collaboration within the development team.
+Following these naming conventions and commit guidelines will contribute to a more organized and understandable version history.
+Consistency in naming and committing practices is essential for effective collaboration within the development team.
