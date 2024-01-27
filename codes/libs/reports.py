@@ -35,7 +35,7 @@ class DailyReport():
 		#report.add_partlet(ptt.SleepDiary())
 
 		## 06. Cria a sessão de pesagem | 2
-		weight = ptt.WeightDiary(report, initial_height = 600)
+		weight = ptt.WeightDiary(report, initial_height = 750)
 		report.add_partlet(weight)
 
 		## Quebra de página
