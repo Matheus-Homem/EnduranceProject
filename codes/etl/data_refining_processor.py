@@ -72,7 +72,18 @@ class RefiningFunctions():
 				# Create boolean columns indicating whether there is a loss for ttl, mus, and fat
 				(pl.when(pl.col(f"{x}_diff") < 0).then(True).otherwise(False)).alias(f"{x}_loss")
 				for x in ["ttl", "mus", "fat"]
-			])
+			]).select(["day_date",
+					   "ttl_weight",
+					   "ttl_diff",
+					   "ttl_loss",
+					   "mus_weight",
+					   "mus_percentage",
+					   "mus_diff",
+					   "mus_loss",
+					   "fat_weight",
+					   "fat_percentage",
+					   "fat_diff",
+					   "fat_loss",])
 
 		# Return the refined dataframe
 		return df_refined
