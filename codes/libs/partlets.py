@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 from libs.font import translate_weekday
 import libs.write_patterns as wrt
+from reportlab.lib.units import inch
 
 
-class Partlet():
+class Partlet(ABC):
 	def __init__(self):
 		pass
 
@@ -41,7 +42,14 @@ class Header(Partlet):
 							 "SUBTITLE")
 
 		# Draw a line under the subtitle
-		self.c.line(100, self.up_start - 25, 500, self.up_start - 25)	
+		self.c.line(100, self.up_start - 25, 500, self.up_start - 25)
+
+	def weekly_generate(self):
+		pass
+	
+	def monthly_generate(self):
+		pass
+
 
 class Goals(Partlet):
 	def __init__(self):
@@ -51,7 +59,7 @@ class SleepDiary():
 	def __init__(self):
 		pass
 
-class WeightDiary():
+class WeightDiary(Partlet):
 	def __init__(self, report, initial_height):
 		# Initialize Header with reference to the main report, configuration, canvas, and initial height
 		self.config = report.config  # Configuration object from the main report
@@ -67,6 +75,16 @@ class WeightDiary():
 
 		# Draw a line under the subtitle
 		self.c.line(100, self.up_start - 27, 500, self.up_start - 27)
+
+		
+		# Adicione uma imagem PNG ao PDF
+		plot1_path = self.config.get_partitioned_file("images", f"WM_{self.config.today.date}.png")
+		self.c.drawImage(plot1_path, inch, inch/4, width=6*inch, height=9.5*inch)
+
+	def weekly_generate(self):
+		pass
+	
+	def monthly_generate(self):
 		pass
 
 class ReadingDiary(Partlet):
