@@ -4,8 +4,7 @@ from datetime import date, datetime, timedelta
 from dotenv import load_dotenv
 
 class Config:
-	def __init__(self, env):
-		self.env = env
+	def __init__(self):
 
 		# Loading secrets defined in the .env file
 		load_dotenv()
@@ -14,7 +13,7 @@ class Config:
 		self.verified_email = os.getenv("VERIFIED_EMAIL")
 
 		# Group: PATHS VARS
-		self.paths = PathsConfig(self.env, os.getenv("PATH_TO_SETTINGS"))
+		self.paths = PathsConfig(os.getenv("PATH_TO_SETTINGS"))
 
 		# Loading email_settings defined in the JSON file
 		email_settings_path = os.path.join(self.paths.misc, 'email_settings.json')
@@ -52,7 +51,7 @@ class Config:
 		# Return the full path to the file by combining the directory path and the file name.
 		return os.path.join(dir_path, file_name)
 
-	def get_partitioned_file(self, directory: str, file_name: str) -> str:
+	def get_partitioned_file(self, file_name: str) -> str:
 		"""
 		Create a partitioned directory structure for storing files based on the current date.
 
@@ -74,8 +73,6 @@ class Config:
 			they don't.
 
 		"""
-		# Get the full directory path using the corresponding attribute.
-		dir_base_path = getattr(self.paths, directory)
 
 		# Get the current date
 		date = self.today.date
@@ -84,7 +81,7 @@ class Config:
 		year, month, day = str(date.year), str(date.month).zfill(2), str(date.day).zfill(2)
 
 		# Construct the full path with partitioned directories.
-		dir_file_path = os.path.join(dir_base_path, year, month, day, file_name)
+		dir_file_path = os.path.join(self.paths.report, year, month, day, file_name)
 
 		# Check if the directory exists, and create it if necessary.
 		if not os.path.exists(os.path.dirname(dir_file_path)):
@@ -94,16 +91,15 @@ class Config:
 		return dir_file_path
 
 class PathsConfig:
-	def __init__(self, env, settings_path):
-		self.env = env  # Defining environment variable
-
-		# Diretório pai
+	def __init__(self, settings_path):
+		
+		# Parent Folder
 		self.parent = os.path.dirname(os.path.dirname(os.path.dirname(settings_path)))
 
 		# Folders inside main project/ directory
-		self.report = os.path.join(self.parent, "reports", f"{self.env}") # Path to the env folder inside the reports folder (project/reports/env/)
-		self.codes	= os.path.join(self.parent,	"codes")				  # Path to the codes folder (project/codes/)
-		self.files	= os.path.join(self.parent,	"files")				  # Path to the files folder (project/files/)
+		self.report = os.path.join(self.parent, "reports") # Path to the reports folder (project/reports/)
+		self.codes	= os.path.join(self.parent,	"codes")   # Path to the codes folder (project/codes/)
+		self.files	= os.path.join(self.parent,	"files")   # Path to the files folder (project/files/)
 
 		# Folders inside codes/ directory
 		self.config = os.path.join(self.codes, "config") # Path to the config folder inside the codes folder (project/codes/config/)

@@ -6,7 +6,7 @@ from libs.reports import (MonthlyReport,
 from config.settings import Config
 
 def main():
-	config = Config("dev")
+	config = Config()
 
 	today = config.today.date
 

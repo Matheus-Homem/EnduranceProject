@@ -11,7 +11,7 @@ class DailyReport():
 
 		# Create a canvas object to generate the PDF
 		self.c = canvas.Canvas(
-			self.config.get_partitioned_file("report", f"{self.config.today.date}.pdf"),
+			self.config.get_partitioned_file(f"{self.config.today.date}.pdf"),
 			pagesize=A4
 		)
 
