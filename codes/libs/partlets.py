@@ -78,7 +78,7 @@ class WeightDiary(Partlet):
 
 		
 		# Adicione uma imagem PNG ao PDF
-		plot1_path = self.config.get_partitioned_file("images", "test.png")
+		plot1_path = self.config.get_partitioned_file("images", f"WM_{self.config.today.date}.png")
 		self.c.drawImage(plot1_path, inch, inch/4, width=6*inch, height=9.5*inch)
 
 	def weekly_generate(self):
