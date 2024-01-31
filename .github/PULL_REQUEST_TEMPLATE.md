@@ -1,20 +1,16 @@
-## Pull Request Description
+## Pull Request Description :page_facing_up:
 
-<!-- Include a brief overview describing the accomplishments of this pull request. -->
+#### Write below **what** and **why** you made this change *(at least 50 characters)*: :arrow_heading_down:
+- 
 
-## Related Issues
+#### Write below if there is any **related issue** to this PR: :arrow_heading_down:
 
-<!-- List any issues related to this PR, if any. -->
+- 
 
-## Checklist
+#### **Checklist** :white_check_mark:
 
 - [ ] Were new features or functionalities added?
 - [ ] Was there maintenance or refactoring of existing code?
 - [ ] Were any bugs fixed?
 - [ ] Was any documentation added or modified (in code or documentation files)?
 - [ ] Were tests added or modified?
-
-
-## Additional Notes
-
-<!-- Add any additional information or context that might be relevant to reviewers. -->
