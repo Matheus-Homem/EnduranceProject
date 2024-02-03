@@ -1,33 +1,33 @@
-from etl.data_cleaning_processor import DataCleaningProcessor
-from etl.data_refining_processor import DataRefiningProcessor
-from libs.reports import (MonthlyReport, 
-						  WeeklyReport, 
-						  DailyReport)
-from config.settings import Config
+from codes.libs.reports import Report
+from etl.orchestrator import execute_orchestration
+
+import time
+import argparse
 
 def main():
-	config = Config()
 
-	today = config.today.date
+	# Crie um objeto ArgumentParser
+	parser = argparse.ArgumentParser(description="Script que executa main.py")
 
-	# Data cleaning executions
-	DataCleaningProcessor(config).execute()
+	# Adicione argumentos ao parser
+	parser.add_argument('--automate', type=bool, default=False, help='Argumento identificando a automação do script')
+	parser.add_argument('--date', default=None, help='Argumento identificando a data do script no formato "YYYYMMDD"')
 
-	# Data refinement executions
-	DataRefiningProcessor(config).execute()
+	# Parse os argumentos da linha de comando
+	args = parser.parse_args()
 
-	#send_email(config, subject="Relatório Diário", email_body="Teste de Relatório")
+	# Acesse os argumentos
+	automate_execution = args.automate
+	script_date = args.date
 
-	# Generate Monthly Report if it's the first day of the month
-	if today.day == 1:
-		MonthlyReport(config).generate_report()
-	
-	# Generate Weekly Report if it's Monday
-	if today.weekday() == 0:
-		WeeklyReport(config).generate_report()
-	
-	# Always generate Daily Report
-	DailyReport(config).generate_report()
+	while Report()._config_instance.date_validation(automate_execution) :
+		print("Databases not updated. Testing again in 1 minute.")
+		time.sleep(60) 
+
+	execute_orchestration()
+
+	# Everyday generate Daily Report
+	Report().daily_publish(date_str=script_date)
 
 if __name__ == "__main__":
 	main()
