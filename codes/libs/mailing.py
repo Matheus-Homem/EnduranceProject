@@ -5,14 +5,14 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-def send_email(config, subject="Assunto", email_body="Corpo", attachment_path=None):
-	# Setting attachment_path to configuration.paths.filePdf if no value is provided
-	attachment_path = attachment_path if attachment_path else config.get_file("report", f"{config.today.date}.pdf")
+def send_email(self, subject:str, email_body:str, attachment_path:str):
+	
+	self.config, self.c, self.height = self.get_params()
 	
 	# Build the message
 	message = MIMEMultipart()
-	message["From"] = config.smtp.username
-	message["To"] = config.smtp.recipient
+	message["From"] = self.config.smtp.username
+	message["To"] = self.config.smtp.recipient
 	message["Subject"] = subject
 
 	# Add the email body
@@ -28,9 +28,9 @@ def send_email(config, subject="Assunto", email_body="Corpo", attachment_path=No
 			message.attach(attachment)
 
 	# Connect to the SMTP server and send the email
-	with smtplib.SMTP(config.smtp.server, config.smtp.port) as server:
+	with smtplib.SMTP(self.config.smtp.server, self.config.smtp.port) as server:
 		server.starttls()
-		server.login(config.smtp.username, config.smtp.password)
-		server.sendmail(config.smtp.username, config.smtp.recipient, message.as_string())
+		server.login(self.config.smtp.username, self.config.smtp.password)
+		server.sendmail(self.config.smtp.username, self.config.smtp.recipient, message.as_string())
 
 	print("Email sent successfully!")

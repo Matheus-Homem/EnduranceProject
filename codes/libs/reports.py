@@ -1,116 +1,64 @@
-from reportlab.pdfgen import canvas
+from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.pagesizes import A4
-from libs.report import Report
-import libs.partlets as ptt
+from config.settings import Config
+from libs.mailing import send_email
+from libs.partlets import *
+from typing import List
 
-class DailyReport():
-	def __init__(self, configuration):
-		self.config = configuration
+class Report:
+	# Instanciate Config() class as _config_instance
+	_config_instance = Config()
 	
-	def generate_report(self):
+	def __init__(self):
+		# Create a config class attribute from _config_instance
+		self._config = self._config_instance
+		
+		# Create a sections attribute to list all Partlets inside Report
+		self._sections: List[Partlet] = []
+
+		self._height = 800
+
+	def get_params(self) -> [Config(), Canvas(), int]:
+		return self._config, self._c, self._height
+
+	def add_partlet(self, partlet: Partlet):
+		self._sections.append(partlet)
+
+	def skip_page(self):
+		pass
+
+	def save_file(self):
+		for partlet in self._sections:
+			partlet.daily()
+
+	def send_file(self):
+		send_email(self,
+				   subject = f"Daily Report: {self._config.dt.date}",
+				   email_body = f"| Daily Report | Date: {self._config.dt.date_fmtd} | Day of the Week: {self._config.dt.week_day} | Week Number: {self._config.dt.week_number} |",
+				   attachment_path = self._file_path
+		)
+
+	def daily_publish(self, date_str:str, send_email:bool=False):
+
+		## 01. Configure Setttings	
+		# Initiating DatesConfig classe with input date
+		self._config.init_DatesConfig(date_str)
+
+		# Create file path using get_partition_file function
+		self._file_path = self._config.get_partitioned_file(f"{self._config.dt.date}.pdf")
 
 		# Create a canvas object to generate the PDF
-		self.c = canvas.Canvas(
-			self.config.get_partitioned_file(f"{self.config.today.date}.pdf"),
+		self._c = Canvas(
+			self._file_path,
 			pagesize=A4
 		)
 
-		## 01. Cria o objeto de canvas
-		report = Report(self.config, self.c)
+		active_partlets = [Header(), WeightDiary()]
+		[self.add_partlet(partlets) for partlets in active_partlets]
 
-		## 02. Cria o cabeçalho | 1
-		header = ptt.Header(report, initial_height = 800)
-		report.add_partlet(header)
+		## Report Saving
+		self.save_file()
 
-		## 03. Cria a sessão de objetivos de ontem | 1
-		#report.add_partlet(ptt.Goals(self.config, "yesterday"))
-
-		## 04. Cria a sessão de objetivos de hoje | 1
-		#report.add_partlet(ptt.Goals(self.config, "today"))
-
-		## Quebra de página
-		#report.skip_page()
-
-		## 05. Cria a sessão de sono | 2
-		#report.add_partlet(ptt.SleepDiary())
-
-		## 06. Cria a sessão de pesagem | 2
-		weight = ptt.WeightDiary(report, initial_height = 750)
-		report.add_partlet(weight)
-
-		## Quebra de página
-		#report.skip_page()
-
-		## 07. Cria a sessão de leitura | 3
-		#report.add_partlet(ptt.ReadingDiary())
-
-		## 08. Cria a sessao de estudo (aprendizado) | 3
-		#report.add_partlet(ptt.LearningDiary())
-
-		## 09. Cria a sessao de hábitos (prática) | 3
-		#report.add_partlet(ptt.PracticeDiary())
-
-		## Quebra de página
-		#report.skip_page()
-		
-		## 10. Cria a sessao de trabalho | 4
-		#report.add_partlet(ptt.WorkDiary())
-
-		## 11. Cria a sessao de estudo técnico | 4
-		#report.add_partlet(ptt.StudyDiary())
-
-		## 12. Cria a sessao de monitoramento de sintomas | 4
-		#report.add_partlet(ptt.SymptomDiary())
-
-		## Quebra de página
-		#report.skip_page()
-
-		## 13. Cria a sessao de exercícios superiores | 5
-		#report.add_partlet(ptt.UpperBodyDiary())
-
-		## 14. Cria a sessao de exercícios inferiores | 5
-		#report.add_partlet(ptt.LowerBodyDiary())
-
-		## 15. Cria a sessao de nutrição | 5
-		#report.add_partlet(ptt.NutritionDiary())
-
-		## Quebra de página
-		#report.skip_page()
-
-		## 16. Cria a sessao de autocuidado | 6
-		#report.add_partlet(ptt.SelfcareDiary())
-
-		## 17. Cria a sessao de servidão | 6
-		#report.add_partlet(ptt.VolunteeringDiary())
-
-		## Quebra de página
-		#report.skip_page()
-
-		## 18. Cria a sessao de desaceleração | 7
-		#report.add_partlet(ptt.RelaxationDiary())
-
-		## 19. Cria a sessao de execelência | 7
-		#report.add_partlet(ptt.ExcellenceDiary())
-
-		## 20. Cria a sessao de meditação | 7
-		#report.add_partlet(ptt.MeditationDiary())
-
-		## 21. Salvamento do relatório
-		report.save("daily")
-
-		## 22. Envio do relatório por e-mail
-		#report.send()
-
-class WeeklyReport():
-	def __init__(self, configuration):
-		self.config = configuration
-	
-	def generate_report(self):
-		pass
-
-class MonthlyReport():
-	def __init__(self, configuration):
-		self.config = configuration
-	
-	def generate_report(self):
-		pass
+		if ~send_email:
+			## Report Sending
+			self.send_file()

@@ -1,7 +1,7 @@
 # TODO / Roadmap
 
 ## January
-- [ ] Divide the reports/dev/ folder to organize the pdf reports in year/month/day/ folders
+- [X] Divide the reports/dev/ folder to organize the pdf reports in year/month/day/ folders
 - [ ] Finish the implementation of the WeightDiary class
 
 ## February

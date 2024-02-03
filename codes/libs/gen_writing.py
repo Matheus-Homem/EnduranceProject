@@ -1,6 +1,25 @@
 import json
 import os
 
+def centralized_text(self, text, pattern):
+	# Load font and font size based on the provided pattern
+	font, font_size = load_font(pattern)
+
+	# Set the font and font size for the canvas
+	self.c.setFont(font, font_size)
+
+	# Calculate the width of the text using the selected font and font size
+	text_width = self.c.stringWidth(text, font, font_size)
+
+	# Calculate the left starting position to center the text horizontally
+	left_start = (595.276 - text_width) / 2
+
+	self.c.drawString(left_start, self.height, text)
+
+def horizontal_line(self):
+	# Draw horizontal line
+	self.c.line(100, self.height, 500, self.height)
+
 def load_font(font_type):
 	# Get the path to the parent directory of the current file
 	parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))

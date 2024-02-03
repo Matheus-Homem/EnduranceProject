@@ -1,144 +1,145 @@
+import codes.libs.gen_writing as gen
 from abc import ABC, abstractmethod
-from libs.font import translate_weekday
-import libs.write_patterns as wrt
 from reportlab.lib.units import inch
-
+from typing import List, Functions
 
 class Partlet(ABC):
 	def __init__(self):
-		pass
+		# Initialize Partlet with reference to the main report, configuration, canvas, and initial height
+		self.config, self.c, self.height = self.get_params()
+
+		# Initialize Partlet with a empyt list of elements
+		self._elements: List[Functions] = []
+
+	def deduce_height(self, value):
+		self.height -= value
+
+	def exe_line(self):
+		# Draw horizontal line
+		h_line = lambda: gen.horizontal_line(self)
+		self._elements.append(h_line)
 
 	@abstractmethod
-	def daily_generate(self):
-		pass
-	
-	@abstractmethod
-	def weekly_generate(self):
-		pass
-	
-	@abstractmethod
-	def monthly_generate(self):
-		pass
+	def daily(self):
+		for func in self._elements:
+			func()
 
 class Header(Partlet):
-	def __init__(self, report, initial_height):
-		# Initialize Header with reference to the main report, configuration, canvas, and initial height
-		self.config = report.config  # Configuration object from the main report
-		self.c = report.c  # Canvas object from the main report
-		self.up_start = initial_height  # Initial height for positioning elements
+	def __init__(self):
+		super().__init__()
 
-	def daily_generate(self):
-		# Generate the header partlet with centralized text and a line
+		self.exe_title()
+		self.deduce_height(20)
+		self.exe_subtitle()
+		self.deduce_height(10)
+		self.exe_line()
+		self.deduce_height(40)
+
+	def exe_title(self):
 		# Title
-		wrt.centralized_text(self.c,
-							 self.up_start,
-							 "Relatório Diário",
-							 "TITLE")
+		title = lambda: gen.centralized_text(self, text="Relatório Diário", pattern="TITLE")
+		self._elements.append(title)
 
+	def exe_subtitle(self):
 		# Subtitle with date, weekday, and week number
-		wrt.centralized_text(self.c,
-							 self.up_start - 20,
-							 f"{self.config.today.date_fmtd} | {translate_weekday(self.config.today.week_day)} | Semana: {self.config.today.week_number}",
-							 "SUBTITLE")
-
-		# Draw a line under the subtitle
-		self.c.line(100, self.up_start - 25, 500, self.up_start - 25)
-
-	def weekly_generate(self):
-		pass
-	
-	def monthly_generate(self):
-		pass
-
-
-class Goals(Partlet):
-	def __init__(self):
-		pass
-
-class SleepDiary():
-	def __init__(self):
-		pass
+		subtitle_text = f"{self._config.dt.date_fmtd} | {gen.translate_weekday(self._config.dt.week_day)} | Semana: {self._config.dt.week_number}"
+		subtitle = lambda: gen.centralized_text(self, text=subtitle_text, pattern="SUBTITLE")
+		self._elements.append(subtitle)
+		
+	def exe_line(self):
+		# Draw horizontal line
+		h_line = lambda: gen.horizontal_line(self)
+		self._elements.append(h_line)
 
 class WeightDiary(Partlet):
-	def __init__(self, report, initial_height):
-		# Initialize Header with reference to the main report, configuration, canvas, and initial height
-		self.config = report.config  # Configuration object from the main report
-		self.c = report.c  # Canvas object from the main report
-		self.up_start = initial_height  # Initial height for positioning elements
+	def __init__(self):
+		super().__init__()
 
-	def daily_generate(self):
+		self.exe_title()
+		self.deduce_height(20)
+		self.exe_line()
+		self.deduce_height(20)
+
+	def exe_title(self):
 		# Subtitle identifing Pesagem (Weighting)
-		wrt.centralized_text(self.c,
-							 self.up_start - 20,
+		title = lambda: gen.centralized_text(self, text="Pesagem", pattern="CHAPTER_HEADER")
+		self._elements.append(title)
+
+	def daily(self):
+		
+		gen.centralized_text(self.c,
+							 self.height - 20,
 							 "Pesagem",
 							 "CHAPTER_HEADER")
 
 		# Draw a line under the subtitle
-		self.c.line(100, self.up_start - 27, 500, self.up_start - 27)
+		self.c.line(100, self.height - 27, 500, self.height - 27)
 
 		
 		# Adicione uma imagem PNG ao PDF
-		plot1_path = self.config.get_partitioned_file(f"WM_{self.config.today.date}.png")
+		plot1_path = self._config.get_partitioned_file(f"WM_{self._config.dt.date}.png")
 		self.c.drawImage(plot1_path, inch, inch/4, width=6*inch, height=9.5*inch)
 
-	def weekly_generate(self):
-		pass
-	
-	def monthly_generate(self):
-		pass
+# class Goals(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class ReadingDiary(Partlet):
-	def __init__(self):
-		pass
+# class SleepDiary():
+# 	def __init__(self):
+# 		pass
 
-class LearningDiary(Partlet):
-	def __init__(self):
-		pass
+# class ReadingDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class PracticeDiary(Partlet):
-	def __init__(self):
-		pass
+# class LearningDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class WorkDiary(Partlet):
-	def __init__(self):
-		pass
+# class PracticeDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class StudyDiary(Partlet):
-	def __init__(self):
-		pass
+# class WorkDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class SymptomDiary(Partlet):
-	def __init__(self):
-		pass
+# class StudyDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class UpperBodyDiary(Partlet):
-	def __init__(self):
-		pass
+# class SymptomDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class LowerBodyDiary(Partlet):
-	def __init__(self):
-		pass
+# class UpperBodyDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class NutritionDiary(Partlet):
-	def __init__(self):
-		pass
+# class LowerBodyDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class SelfcareDiary(Partlet):
-	def __init__(self):
-		pass
+# class NutritionDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class VolunteeringDiary(Partlet):
-	def __init__(self):
-		pass
+# class SelfcareDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class RelaxationDiary(Partlet):
-	def __init__(self):
-		pass
+# class VolunteeringDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class ExcellenceDiary(Partlet):
-	def __init__(self):
-		pass
+# class RelaxationDiary(Partlet):
+# 	def __init__(self):
+# 		pass
 
-class MeditationDiary(Partlet):
-	def __init__(self):
-		pass
+# class ExcellenceDiary(Partlet):
+# 	def __init__(self):
+# 		pass
+
+# class MeditationDiary(Partlet):
+# 	def __init__(self):
+# 		pass

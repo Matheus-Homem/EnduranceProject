@@ -1,8 +1,11 @@
+from config.settings import Config
 import polars as pl
 
 class DataRefiningProcessor():
-	def __init__(self, config):
-		self.config = config
+	_config_instance = Config()
+
+	def __init__(self):
+		self.config = _config_instance
 
 		# Path formation
 		self.clnd_morning_path = self.config.get_file("cleaned", "mrn_cleaned.parquet")	

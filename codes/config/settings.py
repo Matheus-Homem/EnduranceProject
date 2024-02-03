@@ -1,6 +1,7 @@
 import os
 import json
-from datetime import date, datetime, timedelta
+import polars as pl
+from datetime import datetime, date
 from dotenv import load_dotenv
 
 class Config:
@@ -20,18 +21,16 @@ class Config:
 		with open(email_settings_path, 'r') as f:
 			email_settings = json.load(f)
 
-		# Group: TODAY DATE VARS
-		self.today = DatesConfig("today")
-
-		# Group: YESTERDAY'S DATE VARS
-		self.yesterday = DatesConfig("yesterday")
-		
 		# Group: SMTP VARS (MAILING)
 		self.smtp = MailConfig(
 			username=email_settings["SMTP_USERNAME"], 
 			password=os.getenv("SMTP_PASSWORD"), 
 			recipient=email_settings["SMTP_RECIPIENT"]
 		)
+
+	def init_DatesConfig(self, date:str|None=None):
+		# Group: DATE VARS
+		self.dt = DatesConfig(date)
 
 	def get_file(self, directory:str, file_name:str) -> str:
 		"""
@@ -75,7 +74,7 @@ class Config:
 		"""
 
 		# Get the current date
-		date = self.today.date
+		date = self.dt.date
 
 		# Extract year, month, and day as strings, ensuring month and day have leading zeros.
 		year, month, day = str(date.year), str(date.month).zfill(2), str(date.day).zfill(2)
@@ -89,6 +88,19 @@ class Config:
 
 		# Return the full path to the file within the partitioned structure.
 		return dir_file_path
+	
+	def date_validation(self, automate:bool = False):
+		if automate == True:
+			df_raw_morning = pl.read_excel(self.get_file("ingestion", "morning_routine_v2.xlsx"))
+			df_raw_night = pl.read_excel(self.get_file("ingestion", "night_routine_v2.xlsx"))
+			morning_true = str(self.dt.strftime("%m-%d-%y")) == df_raw_morning.select(df_raw_morning.columns[2])[-1]
+			night_true = str(self.dt.strftime("%m-%d-%y")) == df_raw_night.select(df_raw_night.columns[2])[-1]
+			if morning_true  and night_true:
+				return True
+			else:
+				return False
+		elif automate == False:
+			return False
 
 class PathsConfig:
 	def __init__(self, settings_path):
@@ -115,21 +127,15 @@ class PathsConfig:
 		self.cleaned   = os.path.join(self.data, "cleaned")	  # Path to the cleaned folder inside the files folder (project/files/cleaned/)
 		self.refined   = os.path.join(self.data, "refined")	  # Path to the refined folder inside the files folder (project/files/refined/)
 
-
 class DatesConfig:
 	def __init__(self, date_str):
-		
-		# Variable assignment based on the input string
-		if date_str == "today":
-			# Get the current date as date and as timestamp
-			self.date = date.today()
-			self.timestamp = datetime.now()
-		elif date_str == "yesterday":
-			# Get yesterday's date as date and as timestamp
-			self.date = date.today() - timedelta(days=1)
-			self.timestamp = datetime.combine(self.date, datetime.min.time())\
 
-		self.date_fmtd = self.date.strftime("%d/%m/%Y") # Get the current date formatted
+		# Convert the input string to a datetime object
+		self.dt = datetime.strptime(date_str, "%Y%m%d") if date_str != None else date.today()
+		self.timestamp = datetime.combine(self.dt, datetime.min.time())
+
+		# Calculate other variables
+		self.dt_fmtd = self.dt.strftime("%d/%m/%Y") # Get the current date formatted
 		self.week_day = self.timestamp.strftime("%A") # Get the name of the day of the week
 		self.week_number = self.timestamp.isocalendar()[1] # Get the week number of the year
 
@@ -143,5 +149,3 @@ class MailConfig:
 
 		# Mailing Recipient
 		self.recipient = recipient  # Email address of the recipient
-
-		

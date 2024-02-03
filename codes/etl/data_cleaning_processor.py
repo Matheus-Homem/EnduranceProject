@@ -1,10 +1,15 @@
+from config.settings import Config
 from datetime import datetime
+
 import polars as pl
 import json
 
+
 class DataCleaningProcessor():
-	def __init__(self, config):
-		self.config = config
+	_config_instance = Config()
+
+	def __init__(self):
+		self.config = _config_instance
 
 		# Path formation
 		self.json_path		   = self.config.get_file("misc",      "rename_columns.json")
