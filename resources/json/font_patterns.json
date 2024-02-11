@@ -1,0 +1,22 @@
+{
+	"TITLE": {
+		"font": "Times-Bold",
+		"font_size": 30
+	},
+	"SUBTITLE": {
+		"font": "Courier",
+		"font_size": 15
+	},
+	"CHAPTER_HEADER": {
+		"font": "Times-Bold",
+		"font_size": 24
+	},
+	"CHAPTER_SUBTITLE": {
+		"font": "Times-Roman",
+		"font_size": 18
+	},
+	"TEXT": {
+		"font": "Times-Roman",
+		"font_size": 12
+	}
+}
