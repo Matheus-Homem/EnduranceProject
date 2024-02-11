@@ -6,14 +6,14 @@ import argparse
 
 def main():
 
-	# Crie um objeto ArgumentParser
-	parser = argparse.ArgumentParser(description="Script que executa main.py")
+	# Create an ArgumentParser object
+	parser = argparse.ArgumentParser(description="Script that executes main.py")
 
-	# Adicione argumentos ao parser
-	parser.add_argument('--automate', type=bool, default=False, help='Argumento identificando a automação do script')
-	parser.add_argument('--date', default=None, help='Argumento identificando a data do script no formato "YYYYMMDD"')
+	# Add arguments to the parser
+	parser.add_argument('--automate', type=bool, default=False, help='Argument identifying script automation')
+	parser.add_argument('--date', default=None, help='Argument identifying script date in the format "YYYYMMDD"')
 
-	# Parse os argumentos da linha de comando
+	# Parse command line arguments
 	args = parser.parse_args()
 
 	# Acesse os argumentos
