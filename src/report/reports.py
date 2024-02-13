@@ -1,9 +1,14 @@
+from src.env.calendar import Calendar
+from src.report.email.manager import EmailManager
+
+
+
 from src.env.environment import EnvironmentConfig
 from src.report.topics.header import Header
 from src.report.topics.weight import WeightDiary
 from src.report.topics import instance
 
-from src.report.utils.mailing import send_email
+from src.report.email.manager import send_email
 from src.report.topics.partlet import *
 from typing import List
 
@@ -15,6 +20,8 @@ class Report:
 		
 		# Create a sections attribute to list all Partlets inside Report
 		self._sections: List[Partlet] = []
+
+		self.calendar = Calendar(date_param)
 
 		instance.update(self._config)
 
@@ -32,12 +39,11 @@ class Report:
 			partlet.daily()
 		instance.canvas.save()
 
-	def send_file(self):
-		send_email(self,
-				   subject = f"Daily Report: {self._config.dt.dt}",
-				   email_body = f"| Daily Report | Date: {self._config.dt.date_fmtd} | Day of the Week: {self._config.dt.week_day} | Week Number: {self._config.dt.week_number} |",
-				   attachment_path = self._file_path
-		)
+	def send(self):
+		email_manager = EmailManager()
+		email_manager.set_frequency("0 5 * * *")
+		email_manager.set_calendar(self.calendar)
+		email_manager.dispatch()
 
 	def daily_publish(self, send_email:bool=False):
 
