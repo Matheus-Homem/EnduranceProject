@@ -6,16 +6,16 @@ import time
 
 class Orchestrator:
 	
-	def __init__(self):
+	def __init__(self,date_param):
 		# Instanciate Paths
 		self.paths = Paths()
 
 	def execute_etl(self):
 		print("ETL engine started.")
 		# Perform data cleaning from raw to cleaned layer
-		DataCleaner.execute()
+		DataCleaner().execute()
 		# Perform data refinement from cleaned to refined layer
-		DataRefiner.execute()
+		DataRefiner().execute()
 		print("ETL engine finished.")
 
 	def validate_last_date(self, file_path):
