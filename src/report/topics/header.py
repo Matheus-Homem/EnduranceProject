@@ -1,4 +1,4 @@
-from .partlet import Partlet
+from src.report.topics.partlet import Partlet
 
 class Header(Partlet):
 	def __init__(self):
@@ -23,4 +23,4 @@ class Header(Partlet):
 		self.exe_subtitle() # Create a Subitle for the Header Partlet
 		self.exe_subtraction(10) # Subtract 10 from initial height
 		self.exe_line()  # Create a Horizontal Line for the Header Partlet
-		self.exe_subtraction(40) # Subtract 40 from initial height
+		self.exe_subtraction(40) # Subtract 40 from initial 

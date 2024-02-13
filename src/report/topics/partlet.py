@@ -1,4 +1,4 @@
-from . import instance
+from src.report.topics import instance
 from abc import ABC, abstractmethod
 from typing import List, Callable
 
