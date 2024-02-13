@@ -1,5 +1,6 @@
 from src.etl.orchestrator import Orchestrator
 from src.report.reports import Report
+from src.env import globals
 
 import argparse
 
@@ -18,6 +19,9 @@ def main():
 	# Acesse os argumentos
 	automated = args.automated
 	script_date = args.date
+
+	#Assign the value of `script_date` to the global variable in the file `globals.py`.
+	globals.exec_date = script_date
 
 	Orchestrator().run_pipeline(automated=automated)
 
