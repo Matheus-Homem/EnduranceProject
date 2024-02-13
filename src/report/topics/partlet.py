@@ -1,7 +1,8 @@
-from src.report.topics import instance
+from src.report.singletons import Height, CanvasSingleton
+from src.report.utils.scribe import PDFArtist
+
 from abc import ABC, abstractmethod
 from typing import List, Callable
-
 
 class Partlet(ABC):
 
@@ -9,10 +10,9 @@ class Partlet(ABC):
 		# Initialize Partlet with a empyt list of elements
 		self._elements: List[Callable] = []
 
-		self.instance = instance
-		self.draw = instance.draw
-		self.config = instance.config
-		self.draw.get_instance(instance)
+		self.height = Height()
+		self.canvas = CanvasSingleton().get_canvas()
+		self.draw = PDFArtist()
 
 	def exe_line(self):
 		# Draw horizontal line
