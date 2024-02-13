@@ -1,5 +1,5 @@
-from etl.orchestrator import Orchestrator
-from libs.reports import Report
+from src.etl.orchestrator import Orchestrator
+from src.libs.reports import Report
 
 import argparse
 
