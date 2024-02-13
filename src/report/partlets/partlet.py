@@ -1,5 +1,5 @@
 from src.report.singletons import Height, CanvasSingleton
-from src.report.utils.scribe import PDFArtist
+from src.report.partlets.typing.scribe import PDFArtist
 
 from abc import ABC, abstractmethod
 from typing import List, Callable
