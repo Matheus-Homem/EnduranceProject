@@ -19,7 +19,7 @@ def main():
 	automated = args.automated
 	script_date = args.date
 
-	Orchestrator(date_param=script_date).run_pipeline(automated=automated)
+	Orchestrator().run_pipeline(automated=automated)
 
 	# Everyday generate Daily Report
 	Report(date_param=script_date).daily_publish()

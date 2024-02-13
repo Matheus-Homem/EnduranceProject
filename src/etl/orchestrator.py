@@ -6,7 +6,7 @@ import time
 
 class Orchestrator:
 	
-	def __init__(self,date_param):
+	def __init__(self):
 		# Instanciate Paths
 		self.paths = Paths()
 
