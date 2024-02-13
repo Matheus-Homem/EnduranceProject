@@ -1,4 +1,5 @@
-from src.report.topics.partlet import Partlet
+from src.report.parlets.partlet import Partlet
+
 
 class Header(Partlet):
 	def __init__(self):
