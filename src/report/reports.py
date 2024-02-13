@@ -7,12 +7,12 @@ from typing import List
 
 class Report:
 
-	def __init__(self, date_param):
+	def __init__(self, exec_date):
 		
 		# Create a sections attribute to list all Partlets inside Report
 		self._sections: List[ptt.Partlet] = []
 
-		self.calendar = Calendar(date_param)
+		self.calendar = Calendar(exec_date)
 
 		self.file_path = self.calendar.get_partitioned_file_path(fmt="pdf")
 

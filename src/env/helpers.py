@@ -2,10 +2,10 @@ import os
 from datetime import datetime, date
 
 class Calendar:
-	def __init__(self, date_param=None):
+	def __init__(self, exec_date=None):
 
 		# Convert the input string to a datetime object
-		self.date = datetime.strptime(date_param, "%Y%m%d") if date_param != None else date.today()
+		self.date = datetime.strptime(exec_date, "%Y%m%d") if exec_date != None else date.today()
 		self.timestamp = datetime.combine(self.date, datetime.min.time())
 
 		# Calculate other variables

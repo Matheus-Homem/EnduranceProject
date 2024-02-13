@@ -5,7 +5,7 @@ from src.env.helpers import PathsConfig
 from src.env.helpers import DatesConfig
 
 class EnvironmentConfig:
-	def __init__(self, date_param=None):
+	def __init__(self, exec_date=None):
 
 		# Loading secrets defined in the .env file
 		load_dotenv()
@@ -17,7 +17,7 @@ class EnvironmentConfig:
 		self.paths = PathsConfig()
 
 		# Group: DATE VARS
-		self.dt = DatesConfig(date_param)
+		self.dt = DatesConfig(exec_date)
 
 	def get_verified_email(self):
 		return self.verified_email

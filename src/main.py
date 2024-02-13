@@ -22,7 +22,7 @@ def main():
 	Orchestrator().run_pipeline(automated=automated)
 
 	# Everyday generate Daily Report
-	Report(date_param=script_date).daily_publish()
+	Report(exec_date=script_date).daily_publish()
 
 if __name__ == "__main__":
 	main()
