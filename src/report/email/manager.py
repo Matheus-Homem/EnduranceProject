@@ -1,4 +1,4 @@
-from src.env.paths import Paths
+from src.env.helpers import Paths
 from src.report.email.credentials import Credentials
 
 import os

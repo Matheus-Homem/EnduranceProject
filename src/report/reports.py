@@ -1,14 +1,13 @@
-from src.env.calendar import Calendar
+from src.env.helpers import Calendar
 from src.report.email.manager import EmailManager
 
 
 
-from src.env.environment import EnvironmentConfig
+#from src.env.environment import EnvironmentConfig
 from src.report.topics.header import Header
 from src.report.topics.weight import WeightDiary
 from src.report.topics import instance
 
-from src.report.email.manager import send_email
 from src.report.topics.partlet import *
 from typing import List
 

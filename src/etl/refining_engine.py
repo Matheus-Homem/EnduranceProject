@@ -1,14 +1,17 @@
-import etl.refining_tools.morning_functions as mrn
+from src.env.helpers import Paths
+import src.etl.refining_tools.morning_functions as mrn
 import polars as pl
 
 class DataRefiner:
 
-	def __init__(self, orchestrator_config):
-		self.config = orchestrator_config
+	def __init__(self):
+
+		# Instanciate Paths
+		self.paths = Paths()
 
 		# Path formation
-		self.clnd_morning_path = self.config.get_file_path("cleaned", "mrn_cleaned.parquet")	
-		self.rfnd_weight_path  = self.config.get_file_path("refined", "WM_WeightMeasurements.parquet")	
+		self.clnd_morning_path = self.paths.get_file_path("cleaned", "mrn_cleaned.parquet")	
+		self.rfnd_weight_path  = self.paths.get_file_path("refined", "WM_WeightMeasurements.parquet")	
 
 		# Define tables_relation list
 		self.tables_relation = [

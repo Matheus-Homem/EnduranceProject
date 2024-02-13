@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 
-from src.env.paths import PathsConfig
-from src.env.calendar import DatesConfig
+from src.env.helpers import PathsConfig
+from src.env.helpers import DatesConfig
 
 class EnvironmentConfig:
 	def __init__(self, date_param=None):
