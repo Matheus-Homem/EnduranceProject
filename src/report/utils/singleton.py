@@ -24,7 +24,7 @@ class Singleton:
 		self.config = config
 
 		# Create file path using get_partition_file function
-		self.file_path = self.config.get_partitioned_file_path(f"{self.config.dt.dt}.pdf")
+		self.file_path = self.config.get_partitioned_file_path(f"{self.config.dt.date}.pdf")
 
 		# Instanciating canvas object
 		self.canvas = Canvas(self.file_path, pagesize=A4)

@@ -14,7 +14,7 @@ class WeightDiary(Partlet):
 
 	def exe_plot(self):
 		# Adicione uma imagem PNG ao PDF
-		plot1_path = self.config.get_partitioned_file_path(f"WM_{self.config.dt.dt}.png")
+		plot1_path = self.config.get_partitioned_file_path(f"WM_{self.config.dt.date}.png")
 		plot = lambda: self.instance.canvas.drawImage(plot1_path, inch, inch/4, width=6*inch, height=9.5*inch)
 		self._elements.append(plot)
 

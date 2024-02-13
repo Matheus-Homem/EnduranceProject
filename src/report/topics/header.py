@@ -13,7 +13,7 @@ class Header(Partlet):
 
 	def exe_subtitle(self):
 		# Subtitle with date, weekday, and week number
-		subtitle_text = f"{self.config.dt.dt_fmtd} | {self.draw.translate_weekday(self.config.dt.week_day)} | Semana: {self.config.dt.week_number}"
+		subtitle_text = f"{self.config.dt.date_fmtd} | {self.draw.translate_weekday(self.config.dt.week_day)} | Semana: {self.config.dt.week_number}"
 		subtitle = lambda: self.draw.centered_text(text=subtitle_text, pattern="SUBTITLE")
 		self._elements.append(subtitle)
 		
