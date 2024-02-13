@@ -6,15 +6,15 @@ class Calendar:
 
 		# Convert the input string to a datetime object
 		self.date = datetime.strptime(date_param, "%Y%m%d") if date_param != None else date.today()
-		self.timestamp = datetime.combine(self.dt, datetime.min.time())
+		self.timestamp = datetime.combine(self.date, datetime.min.time())
 
 		# Calculate other variables
-		self.ingestion = self.dt.strftime("%m-%d-%y") # Get the date as in ingestion layer
-		self.dt_fmtd = self.dt.strftime("%d/%m/%Y") # Get the formatted date
+		self.ingestion = self.date.strftime("%m-%d-%y") # Get the date as in ingestion layer
+		self.dt_fmtd = self.date.strftime("%d/%m/%Y") # Get the formatted date
 		self.week_day = self.timestamp.strftime("%A") # Get the name of the day of the week
 		self.week_number = self.timestamp.isocalendar()[1] # Get the week number of the year
 
-	def get_partitioned_file_path(self, file_name: str) -> str:
+	def get_partitioned_file_path(self, fmt:str, prefix:str=None) -> str:
 		"""
 		Create a partitioned directory structure for storing files based on the current date.
 
@@ -37,11 +37,13 @@ class Calendar:
 
 		"""
 
+		full_name = f"{prefix}_{str(self.date)}.{fmt}"
+
 		# Extract year, month, and day as strings, ensuring month and day have leading zeros.
 		year, month, day = str(self.date.year), str(self.date.month).zfill(2), str(self.date.day).zfill(2)
 
 		# Construct the full path with partitioned directories.
-		dir_file_path = os.path.join(Paths().report, year, month, day, file_name)
+		dir_file_path = os.path.join(Paths().report, year, month, day, full_name)
 
 		# Check if the directory exists, and create it if necessary.
 		if not os.path.exists(os.path.dirname(dir_file_path)):
@@ -54,7 +56,8 @@ class Paths:
 	def __init__(self):
 
 		# Get the current directory of the script
-		self.local = os.path.dirname(os.path.abspath("__file__"))
+		#self.local = os.path.dirname(os.path.abspath("__file__"))
+		self.local = os.path.abspath("__file__")
 
 		# Get the parent directory of the current directory
 		self.parent = os.path.dirname(self.local)
