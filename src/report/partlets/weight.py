@@ -1,4 +1,4 @@
-from src.report.parlets.partlet import Partlet
+from src.report.partlets.partlet import Partlet
 from reportlab.lib.units import inch
 
 class WeightDiary(Partlet):

@@ -1,9 +1,7 @@
+import src.report.partlets as ptt
 from src.env.helpers import Calendar
 from src.report.singletons import CanvasSingleton
 from src.report.email.manager import EmailManager
-from src.report.topics.header import Header
-from src.report.topics.weight import WeightDiary
-from src.report.topics.partlet import Partlet
 
 from typing import List
 
@@ -12,7 +10,7 @@ class Report:
 	def __init__(self, date_param):
 		
 		# Create a sections attribute to list all Partlets inside Report
-		self._sections: List[Partlet] = []
+		self._sections: List[ptt.Partlet] = []
 
 		self.calendar = Calendar(date_param)
 
@@ -20,7 +18,7 @@ class Report:
 
 		self.canvas = CanvasSingleton(filename=self.file_path).get_canvas()
 
-	def add_partlet(self, partlet: Partlet):
+	def add_partlet(self, partlet: ptt.Partlet):
 		self._sections.append(partlet)
 
 	def skip_page(self):
@@ -40,8 +38,8 @@ class Report:
 	def daily_publish(self, send_email:bool=False):
 
 		active_partlets = [
-			Header(), 
-			WeightDiary()
+			ptt.Header(), 
+			ptt.WeightDiary()
 		]
 		[self.add_partlet(partlets) for partlets in active_partlets]
 

@@ -1,4 +1,4 @@
-from src.report.parlets.partlet import Partlet
+from src.report.partlets.partlet import Partlet
 
 
 class Header(Partlet):
