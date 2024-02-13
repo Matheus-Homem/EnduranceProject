@@ -1,10 +1,10 @@
-from env.environment import EnvironmentConfig
-from .topics.header import Header
-from .topics.weight import WeightDiary
-from .topics import instance
+from src.env.environment import EnvironmentConfig
+from src.libs.topics.header import Header
+from src.libs.topics.weight import WeightDiary
+from src.libs.topics import instance
 
-from libs.utils.mailing import send_email
-from libs.topics.partlet import *
+from src.libs.utils.mailing import send_email
+from src.libs.topics.partlet import *
 from typing import List
 
 class Report:

@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-from env.email import MailConfig
-from env.paths import PathsConfig
-from env.calendar import DatesConfig
+from src.env.email import MailConfig
+from src.env.paths import PathsConfig
+from src.env.calendar import DatesConfig
 
 class EnvironmentConfig:
 	def __init__(self, date_param=None):

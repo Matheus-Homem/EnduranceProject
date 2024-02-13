@@ -1,2 +1,2 @@
-from libs.utils.singleton import Singleton
+from src.libs.utils.singleton import Singleton
 instance = Singleton()

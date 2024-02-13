@@ -1,6 +1,6 @@
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.pagesizes import A4
-from libs.utils.scribe import PDFArtist
+from src.libs.utils.scribe import PDFArtist
 
 class Singleton:
 	_instance = None
