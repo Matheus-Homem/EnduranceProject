@@ -1,6 +1,6 @@
 import os
 
-class PathsConfig:
+class Paths:
 	def __init__(self):
 
 		# Get the current directory of the script
@@ -31,3 +31,20 @@ class PathsConfig:
 		self.etl	= os.path.join(self.src, "etl")		# Path to the etl folder inside the src folder (project/src/etl/)
 		self.libs	= os.path.join(self.src, "libs")	# Path to the libs folder inside the src folder (project/src/libs/)
 
+	def get_file_path(self, directory:str, file_name:str) -> str:
+		"""
+		Get the full path of a file in the specified directory.
+
+		Args:
+			directory (str): The name of the directory where the file is located.
+			file_name (str): The name of the file you want to retrieve.
+
+		Returns:
+			str: The full path to the file.
+		"""
+
+		# Get the full directory path using the corresponding attribute.
+		dir_path = getattr(self, directory)
+
+		# Return the full path to the file by combining the directory path and the file name.
+		return os.path.join(dir_path, file_name)
