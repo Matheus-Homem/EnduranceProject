@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-from src.env.email import MailConfig
 from src.env.paths import PathsConfig
 from src.env.calendar import DatesConfig
 
@@ -16,13 +15,6 @@ class EnvironmentConfig:
 
 		# Group: PATHS VARS
 		self.paths = PathsConfig()
-
-		# Group: SMTP VARS (MAILING)
-		self.email = MailConfig(
-			username=os.getenv("SMTP_USERNAME"),
-			password=os.getenv("SMTP_PASSWORD"),
-			recipient=os.getenv("SMTP_RECIPIENT")
-		)
 
 		# Group: DATE VARS
 		self.dt = DatesConfig(date_param)
@@ -72,7 +64,7 @@ class EnvironmentConfig:
 		"""
 
 		# Get the current date
-		date = self.dt.dt
+		date = self.dt.date
 
 		# Extract year, month, and day as strings, ensuring month and day have leading zeros.
 		year, month, day = str(date.year), str(date.month).zfill(2), str(date.day).zfill(2)
