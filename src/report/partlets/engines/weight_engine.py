@@ -1,9 +1,11 @@
-from src.env.helpers import Paths
+from src.env.helpers import Paths, Calendar
 #from datetime import date
+from src.env.globals import exec_date
 import polars as pl
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
 
+calendar = Calendar(exec_date=exec_date)
 path = Paths()
 
 weight_path = path.get_file_path("refined", "WM_WeightMeasurements.parquet")
@@ -147,5 +149,5 @@ for i, (date, value) in enumerate(zip(last_week_data['day_date'], last_week_data
 
 # Ajustando o layout
 plt.tight_layout()
-plt.savefig(config.get_partitioned_file_path(f"WM_{config.dt.date}.png"))
+plt.savefig(calendar.get_partitioned_file_path(prefix="WM", fmt="png"))
 #plt.show()
