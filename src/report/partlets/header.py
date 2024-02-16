@@ -5,13 +5,11 @@ class Header(Partlet):
 		super().__init__()
 
 		self.subtitle_text = f"{self.calendar.dt_fmtd} | {self.draw.translate_weekday(self.calendar.week_day)} | Semana: {self.calendar.week_number}"
-		self.order_elements(section_name="HEADER")
 		
-	def order_elements(self, section_name: str):
-		super().order_elements(section_name)
-		self.add_title("Relatório Diário")
-		self.sub_height(20)
-		self.add_subtitle(self.subtitle_text)
-		self.sub_height(10)
-		self.add_line()
-		self.sub_height(40)
+		Partlet.add_name_section(section_name="HEADER")
+		Partlet.add_title("Relatório Diário")
+		Partlet.sub_height(20)
+		Partlet.add_subtitle(text=self.subtitle_text)
+		Partlet.sub_height(10)
+		Partlet.add_line()
+		Partlet.sub_height(40)
