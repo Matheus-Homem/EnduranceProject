@@ -27,6 +27,9 @@ class PDFArtist:
 	def horizontal_line(self, height):
 		self.canvas.line(100, height, 500, height)
 
+	def blank_page(self):
+		self.canvas.showPage()
+
 	def load_font(self, font_type):
 		font = self.font_patterns[font_type]["font"]
 		font_size = self.font_patterns[font_type]["font_size"]
