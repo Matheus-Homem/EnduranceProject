@@ -1,6 +1,6 @@
 from src.etl.orchestrator import Orchestrator
 from src.report.reports import Report
-from src.env import globals
+from src.env.globals import Global
 
 import argparse
 
@@ -20,13 +20,13 @@ def main():
 	automated = args.automated
 	script_date = args.date
 
-	#Assign the value of `script_date` to the global variable in the file `globals.py`.
-	globals.exec_date = script_date
+	# Criar uma instância única de Global com base na data de execução
+	Global(exec_date=script_date)
 
 	Orchestrator().run_pipeline(automated=automated)
 
 	# Everyday generate Daily Report
-	Report(exec_date=script_date).daily_publish()
+	Report().daily_publish()
 
 if __name__ == "__main__":
 	main()

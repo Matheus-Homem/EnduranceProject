@@ -37,7 +37,7 @@ class Calendar:
 
 		"""
 
-		full_name = f"{prefix}_{str(self.date)}.{fmt}"
+		full_name = f"{prefix}_{str(self.date)}.{fmt}" if prefix else f"{str(self.date)}.{fmt}"
 
 		# Extract year, month, and day as strings, ensuring month and day have leading zeros.
 		year, month, day = str(self.date.year), str(self.date.month).zfill(2), str(self.date.day).zfill(2)

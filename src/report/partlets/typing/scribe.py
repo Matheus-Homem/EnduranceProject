@@ -1,9 +1,11 @@
+from src.env.globals import Global
 from src.env.helpers import Paths
 import json
 
 class PDFArtist:
 	def __init__(self):
 		self.paths = Paths()
+		self.canvas = Global().get_canvas()
 		self.load_json()
 
 	def load_json(self):
@@ -15,18 +17,18 @@ class PDFArtist:
 		with open(font_patterns_file_path, 'r') as f:
 			self.font_patterns = json.load(f)
 
-	def get_instance(self, instance):
-		self.instance = instance
-
-	def centered_text(self, text, pattern):
+	def centered_text(self, text, pattern, height):
 		font, font_size = self.load_font(pattern)
-		text_width = self.instance.canvas.stringWidth(text, font, font_size)
+		text_width = self.canvas.stringWidth(text, font, font_size)
 		left_start = (595.276 - text_width) / 2
-		self.instance.canvas.setFont(font, font_size)
-		self.instance.canvas.drawString(left_start, self.instance.height, text)
+		self.canvas.setFont(font, font_size)
+		self.canvas.drawString(left_start, height, text)
 
-	def horizontal_line(self):
-		self.instance.canvas.line(100, self.instance.height, 500, self.instance.height)
+	def horizontal_line(self, height):
+		self.canvas.line(100, height, 500, height)
+
+	def blank_page(self):
+		self.canvas.showPage()
 
 	def load_font(self, font_type):
 		font = self.font_patterns[font_type]["font"]

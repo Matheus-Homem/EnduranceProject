@@ -1,27 +1,16 @@
 from src.report.partlets.partlet import Partlet
 
-
 class Header(Partlet):
 	def __init__(self):
 		super().__init__()
 
-		self.set_order()
-
-	def exe_title(self):
-		# Title
-		title = lambda: self.draw.centered_text(text="Relatório Diário", pattern="TITLE")
-		self._elements.append(title)
-
-	def exe_subtitle(self):
-		# Subtitle with date, weekday, and week number
-		subtitle_text = f"{self.config.dt.date_fmtd} | {self.draw.translate_weekday(self.config.dt.week_day)} | Semana: {self.config.dt.week_number}"
-		subtitle = lambda: self.draw.centered_text(text=subtitle_text, pattern="SUBTITLE")
-		self._elements.append(subtitle)
+		self.subtitle_text = f"{self.calendar.dt_fmtd} | {self.draw.translate_weekday(self.calendar.week_day)} | Semana: {self.calendar.week_number}"
 		
-	def set_order(self):
-		self.exe_title() # Create a Title for the Header Partlet
-		self.exe_subtraction(20) # Subtract 20 from initial height
-		self.exe_subtitle() # Create a Subitle for the Header Partlet
-		self.exe_subtraction(10) # Subtract 10 from initial height
-		self.exe_line()  # Create a Horizontal Line for the Header Partlet
-		self.exe_subtraction(40) # Subtract 40 from initial 
+		Partlet.add_name_section(section_name="HEADER")
+		Partlet.add_title("Relatório Diário")
+		Partlet.sub_height(20)
+		Partlet.add_subtitle(subtitle_text=self.subtitle_text)
+		Partlet.sub_height(10)
+		Partlet.add_line()
+		Partlet.sub_height(40)
+		

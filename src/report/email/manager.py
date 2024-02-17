@@ -1,5 +1,6 @@
 from src.env.helpers import Paths
 from src.report.email.credentials import Credentials
+from src.env.globals import Global
 
 import os
 import smtplib
@@ -11,6 +12,8 @@ from email import encoders
 class EmailManager:
 	def __init__(self):
 		
+		self.calendar = Global.get_calendar()
+
 		# Instanciate MIMEMultipart as message
 		self.message = MIMEMultipart()
 
@@ -26,9 +29,6 @@ class EmailManager:
 	def set_frequency(self, frequency):
 		self.frequency = frequency
 
-	def set_calendar(self, calendar_instance):
-		self.calendar = calendar_instance
-
 	def get_credentials(self):
 		self.username = self.credentials.get_username()
 		self.recipient = self.credentials.get_recipient()
@@ -41,7 +41,7 @@ class EmailManager:
 			self.subject = f"Daily Report: {self.calendar.date}",
 			self.email_body = f"""
 				Daily Report
-				Date: {self.calendar.date_fmtd}
+				Date: {self.calendar.dt_fmtd}
 				Day of the Week: {self.calendar.week_day}
 				Week Number: {self.calendar.week_number}
 			"""
