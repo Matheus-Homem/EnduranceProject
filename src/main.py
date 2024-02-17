@@ -1,5 +1,6 @@
-from etl.orchestrator import Orchestrator
-from libs.reports import Report
+from src.etl.orchestrator import Orchestrator
+from src.report.reports import Report
+from src.env.globals import Global
 
 import argparse
 
@@ -19,10 +20,13 @@ def main():
 	automated = args.automated
 	script_date = args.date
 
-	Orchestrator(date_param=script_date).run_pipeline(automated=automated)
+	# Criar uma instância única de Global com base na data de execução
+	Global(exec_date=script_date)
+
+	Orchestrator().run_pipeline(automated=automated)
 
 	# Everyday generate Daily Report
-	Report(date_param=script_date).daily_publish()
+	Report().daily_publish()
 
 if __name__ == "__main__":
 	main()

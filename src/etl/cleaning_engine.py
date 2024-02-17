@@ -1,18 +1,26 @@
+from src.env.helpers import Paths
+from src.report.email.credentials import Credentials
+
 from datetime import datetime
 import polars as pl
 import json
 
 class DataCleaner:
 	
-	def __init__(self, orchestrator_config):
-		self.config = orchestrator_config
+	def __init__(self):
+
+		# Instanciate Paths
+		self.paths = Paths()
+
+		# Instanciate Credentials
+		self.credentials = Credentials.from_env()
 
 		# Path formation
-		self.json_path		   = self.config.get_file_path("json",      "rename_columns.json")
-		self.raw_morning_path  = self.config.get_file_path("ingestion", "morning_routine_v2.xlsx")
-		self.clnd_morning_path = self.config.get_file_path("cleaned",   "mrn_cleaned.parquet")
-		self.raw_night_path	   = self.config.get_file_path("ingestion", "night_routine_v2.xlsx")
-		self.clnd_night_path   = self.config.get_file_path("cleaned",   "ngt_cleaned.parquet")
+		self.json_path		   = self.paths.get_file_path("json",      "rename_columns.json")
+		self.raw_morning_path  = self.paths.get_file_path("ingestion", "morning_routine_v2.xlsx")
+		self.clnd_morning_path = self.paths.get_file_path("cleaned",   "mrn_cleaned.parquet")
+		self.raw_night_path	   = self.paths.get_file_path("ingestion", "night_routine_v2.xlsx")
+		self.clnd_night_path   = self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
 
 		# Dict to translate dtype in STRING to dtype in POLARS
 		self.pl_dtype_dict = {
@@ -140,7 +148,7 @@ class DataCleaner:
 	def validating(self, df_cleaned):
 		print("Cleaning Engine: Validating Process Started")
 		# Filter the DataFrame based on the 'email_confirmation' column matching the configured 'verified_email'.
-		df_validated = df_cleaned.filter(pl.col("email_confirmation") == self.config.get_verified_email())
+		df_validated = df_cleaned.filter(pl.col("email_confirmation") == self.credentials.get_verified_email())
 		print("Cleaning Engine: Validating Process Finished")
 		return df_validated
 
