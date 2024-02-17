@@ -1,6 +1,6 @@
 #import src.env.globals as glb
 from src.report.partlets.partlet import Partlet
-from src.report.partlets.engines.weight_engine import exec
+from src.report.partlets.weight.engine import exec
 
 from reportlab.lib.units import inch
 

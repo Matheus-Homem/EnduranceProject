@@ -1,4 +1,6 @@
-import src.report.partlets as ptt
+from src.report.partlets.partlet import Partlet
+from src.report.partlets.header.builder import Header
+from src.report.partlets.weight.builder import WeightPartlet
 from src.env.globals import Global
 from src.report.email.manager import EmailManager
 
@@ -18,9 +20,9 @@ class Report:
 		email_manager.dispatch()
 
 	def daily_publish(self, send_email:bool=False):
-		ptt.Header()
-		ptt.WeightPartlet()
-		ptt.Partlet.exe_daily()
+		Header()
+		WeightPartlet()
+		Partlet.exe_daily()
 
 		## Report Saving
 		self._save_file()
