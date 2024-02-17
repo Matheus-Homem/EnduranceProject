@@ -1,5 +1,5 @@
 from src.env.globals import Global
-from src.report.partlets.typing.scribe import PDFArtist
+from src.report.typing.scribe import PDFArtist
 
 import uuid
 from abc import ABC
