@@ -9,7 +9,8 @@ class Header(Partlet):
 		Partlet.add_name_section(section_name="HEADER")
 		Partlet.add_title("Relatório Diário")
 		Partlet.sub_height(20)
-		Partlet.add_subtitle(text=self.subtitle_text)
+		Partlet.add_subtitle(subtitle_text=self.subtitle_text)
 		Partlet.sub_height(10)
 		Partlet.add_line()
 		Partlet.sub_height(40)
+		
