@@ -3,7 +3,7 @@ from src.report.email.credentials import Credentials
 
 from datetime import datetime
 import polars as pl
-import json
+import yaml
 
 class DataCleaner:
 	
@@ -16,11 +16,20 @@ class DataCleaner:
 		self.credentials = Credentials.from_env()
 
 		# Path formation
-		self.json_path		   = self.paths.get_file_path("json",      "rename_columns.json")
-		self.raw_morning_path  = self.paths.get_file_path("ingestion", "morning_routine_v2.xlsx")
-		self.clnd_morning_path = self.paths.get_file_path("cleaned",   "mrn_cleaned.parquet")
-		self.raw_night_path	   = self.paths.get_file_path("ingestion", "night_routine_v2.xlsx")
-		self.clnd_night_path   = self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
+		## Dict rename columns path
+		self.yaml_path = self.paths.get_file_path("yaml", "data_schema.yaml")
+
+		## Raw Morning Paths
+		self.raw_sun_path_v2	= self.paths.get_file_path("ingestion", "morning_routine_v2.xlsx")
+		self.raw_sun_path_v3	= self.paths.get_file_path("ingestion", "morning_data_02_24.xlsx")
+		
+		## Raw Night Paths
+		self.raw_moon_path_v2	= self.paths.get_file_path("ingestion", "night_routine_v2.xlsx")
+		self.raw_moon_path_v3	= self.paths.get_file_path("ingestion", "night_data_02_24.xlsx")
+
+		## Cleaned Paths
+		self.clnd_morning_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned.parquet")
+		self.clnd_night_path	= self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
 
 		# Dict to translate dtype in STRING to dtype in POLARS
 		self.pl_dtype_dict = {
@@ -33,14 +42,13 @@ class DataCleaner:
 			"timedelta": pl.Duration
 		}
 
-		# Dict loading the rename_columns.json file
-		with open(self.json_path, encoding='utf-8') as f:
-			self.rename_columns_dict = json.load(f)
+		with open(self.yaml_path, 'r', encoding='utf-8') as file:
+			self.data_schema = yaml.safe_load(file)
 
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
-			["morning", self.raw_morning_path, self.clnd_morning_path],
-			#["night",   self.raw_night_path,   self.clnd_night_path]
+			["morning_v2", self.raw_sun_path_v2, self.clnd_morning_path],
+			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
 
 	# Reading function to read data from the excel original file
@@ -53,17 +61,17 @@ class DataCleaner:
 	# Cleaning function to rename and correct data formats
 	def cleaning(self, df_raw, table_id):
 
-		# Define the expressions for renaming and dtype from the "rename_columns.json"
+		# Define the expressions for renaming and dtype from the "data_schema.yaml"
 		def get_expressions():
 			# Defining expression to rename columns when called
 			self.rename_exp = [
 				pl.col(column_name).alias(column_config["name"])
-				for column_name, column_config in self.rename_columns_dict[table_id].items()
+				for column_name, column_config in list(self.data_schema[table_id].items())
 			]
 			# Defining expression to correct columns dtype when called
 			self.dtype_exp = [
 				pl.col(column_config["name"]).cast(self.pl_dtype_dict[column_config["dtype"]])
-				for column_name, column_config in self.rename_columns_dict[table_id].items()
+				for column_name, column_config in list(self.data_schema[table_id].items())
 			]
 
 		# Correction 'day_date' column from "MM-dd-yy" format to "YYYY-MM-dd" format
