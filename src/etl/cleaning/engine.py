@@ -48,6 +48,7 @@ class DataCleaner:
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
 			["morning_v2", self.raw_sun_path_v2, self.clnd_morning_path],
+			#["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
 			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
 
