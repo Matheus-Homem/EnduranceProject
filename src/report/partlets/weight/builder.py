@@ -17,6 +17,7 @@ class WeightPartlet(Partlet):
 		Partlet.add_line()
 		Partlet.sub_height(20)
 		self.add_plot()
+		Partlet.add_page()
 
 	def add_plot(self):
 		# Add a png plot to the PDF
