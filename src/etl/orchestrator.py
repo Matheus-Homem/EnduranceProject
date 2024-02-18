@@ -11,12 +11,15 @@ class Orchestrator:
 		self.paths = Paths()
 
 	def execute_etl(self):
+		print("\n")
 		print("ETL engine started.")
 		# Perform data cleaning from raw to cleaned layer
 		DataCleaner().execute()
 		# Perform data refinement from cleaned to refined layer
 		DataRefiner().execute()
+		print("\n")
 		print("ETL engine finished.")
+		print("\n")
 
 	def validate_last_date(self, file_path):
 		print(f"Validating {file_path}")

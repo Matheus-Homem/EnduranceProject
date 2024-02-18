@@ -48,7 +48,7 @@ class DataCleaner:
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
 			["morning_v2", self.raw_sun_path_v2, self.clnd_morning_path],
-			#["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
+			["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
 			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
 
@@ -62,18 +62,32 @@ class DataCleaner:
 	# Cleaning function to rename and correct data formats
 	def cleaning(self, df_raw, table_id):
 
-		# Define the expressions for renaming and dtype from the "data_schema.yaml"
-		def get_expressions():
-			# Defining expression to rename columns when called
-			self.rename_exp = [
-				pl.col(column_name).alias(column_config["name"])
-				for column_name, column_config in list(self.data_schema[table_id].items())
-			]
-			# Defining expression to correct columns dtype when called
-			self.dtype_exp = [
-				pl.col(column_config["name"]).cast(self.pl_dtype_dict[column_config["dtype"]])
-				for column_name, column_config in list(self.data_schema[table_id].items())
-			]
+		if table_id == "morning_v2":
+			# Define the expressions for renaming and dtype from the "data_schema.yaml"
+			def get_expressions():
+				# Defining expression to rename columns when called
+				self.rename_exp = [
+					pl.col(column_name).alias(column_config["name"])
+					for column_name, column_config in self.data_schema[table_id].items()
+				]
+				# Defining expression to correct columns dtype when called
+				self.dtype_exp = [
+					pl.col(column_config["name"]).cast(self.pl_dtype_dict[column_config["dtype"]])
+					for column_name, column_config in self.data_schema[table_id].items()
+				]
+		elif table_id == "morning_v3":
+			def get_expressions():
+				full_name_dict = {coluna[:3]: coluna for coluna in df_raw.columns}
+				# Defining expression to rename columns when called
+				self.rename_exp = [
+					pl.col(full_name_dict.get(column_id[:3])).alias(column_config["name"])
+					for column_id, column_config in self.data_schema[table_id].items()
+				]
+				# Defining expression to correct columns dtype when called
+				self.dtype_exp = [
+					pl.col(column_config["name"]).cast(self.pl_dtype_dict[column_config["dtype"]])
+					for column_id, column_config in self.data_schema[table_id].items()
+				]
 
 		# Correction 'day_date' column from "MM-dd-yy" format to "YYYY-MM-dd" format
 		def correct_date_fmt(df_raw):
@@ -171,6 +185,8 @@ class DataCleaner:
 	def execute(self):
 		# Gets the correct relation list from the tables_relation list
 		for table_id, raw_path, cleaned_path in self.tables_relation:
+			print("\n")
+			print(f"Starting Cleaning Engine for {table_id}:")
 			# Write the validated dataframe in the cleaned_path
 			self.writing(
 				# Validate the cleaned dataframe to contain only the correct user answers
