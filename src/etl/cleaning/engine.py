@@ -32,26 +32,29 @@ class DataCleaner:
 		self.clnd_morning_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned.parquet")
 		self.clnd_night_path	= self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
 
-		# Dict to translate dtype in STRING to dtype in POLARS
-		self.pl_dtype_dict = {
-			"list": pl.List(pl.Utf8),
-			"string": pl.Utf8,
-			"date": pl.Date,
-			"float": pl.Float64,
-			"int": pl.Int64,
-			"timestamp": pl.Datetime,
-			"timedelta": pl.Duration
-		}
-
 		with open(self.yaml_path, 'r', encoding='utf-8') as file:
 			self.data_schema = yaml.safe_load(file)
+
+		# Instanciate Expressions
+		self.expressions = Expressions(data_schema=self.data_schema)
 
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
 			["morning_v2", self.raw_sun_path_v2, self.clnd_morning_path],
-			["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
+			#["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
 			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
+
+	def _convert_time_to_microseconds(time_str):
+		if time_str:
+			# Convert time string to time64 type
+			time_datetime = datetime.strptime(time_str, "%H:%M")
+			# Calculate difference from midnight
+			difference = time_datetime - datetime.strptime("00:00", "%H:%M")
+			microseconds = int(difference.total_seconds() * 1e6)
+			return microseconds
+		else:
+			return None
 
 	# Reading function to read data from the excel original file
 	def reading(self, raw_path):
@@ -63,86 +66,30 @@ class DataCleaner:
 	# Cleaning function to rename and correct data formats
 	def cleaning(self, df_raw, table_id):
 
-		self.expressions = Expressions(
-			table_id=table_id,
-			dtype_dict=self.pl_dtype_dict,
-			data_schema=self.data_schema,
-			df=df_raw)
-		
-		self.rename_exp, self.dtype_exp = self.expressions.get_expressions()
-
-		# Correction 'day_date' column from "MM-dd-yy" format to "YYYY-MM-dd" format
-		def correct_date_fmt(df_raw):
-			# Correcting the format of the 'day_date' column from "MM-dd-yy" to "YYYY-MM-dd"
-			df1 = df_raw.with_columns(
-				# Using the map function to apply date formatting to each element in the 'day_date' column
-				pl.col("day_date").map_elements(lambda x: datetime.strptime(x, "%m-%d-%y").strftime("%Y-%m-%d")).alias("day_date")
-			)
-			return df1
-
-		def correct_duration_fmt(df1, cols_list):
-			# Converts a time string in the "HH:MM" format to microseconds
-			def convert_time_to_microseconds(time_str):
-				# Check if the input time string is not None
-				if time_str is not None:
-					# Convert the time string to a datetime object
-					time_datetime = datetime.strptime(time_str, "%H:%M")
-					# Calculate the time difference from midnight and convert to microseconds
-					difference = time_datetime - datetime.strptime("00:00", "%H:%M")
-					microseconds = int(difference.total_seconds() * 1e6)
-					return microseconds
-				else:
-					return None
-
-			# Applying 'convert_to_microseconds' function to the selected columns
-			df2 = df1.select([
-				pl.col(col_name).map_elements(convert_time_to_microseconds).alias(col_name)
-				if col_name in cols_list
-				else col_name
-				for col_name in df1.columns
-			])
-
-			# Applying expression to change columns dtype
-			df3 = (df2.select(self.dtype_exp)
-		  			  .sort("day_date"))
-
-			return df3
-
-		def correct_datetime_fmt(df3):
-			# Adaptacao do campo day_form_time para conter a data de day_date + 1, com o horario e os minutos de day_form_time
-			df4 = df3.with_columns(
-				[
-					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("day_form_time").dt.hour(), minutes=pl.col("day_form_time").dt.minute())).alias("day_form_time"),
-					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=0, hours=pl.col("slp_fall").dt.hour(),		 minutes=pl.col("slp_fall").dt.minute())).alias("slp_fall"),
-					(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("slp_raise").dt.hour(),	 minutes=pl.col("slp_raise").dt.minute())).alias("slp_raise")
-				]
-			)
-
-			return df4
-
-		#########################
-		### Starting Cleaning ###
-		#########################
-
 		print("Cleaning Engine: Cleaning Process Started")
-
-		# List of columns that are going to be corrected to microseconds (and further in pl.Duration)
-		time_cols = ['day_form_time', 'slp_fall', 'pho_time', 'slp_raise', 'slp_duration']
-
-
-		# Applying expression to rename columns
-		renamed_df = df_raw.select(self.rename_exp)
-
-		# Apply correction functions
-		df_cleaned = correct_datetime_fmt(
-						correct_duration_fmt(
-							correct_date_fmt(
-								renamed_df
-							),
-							time_cols
-						)
-					)
 		
+		# Generate expressions
+		self.rename_expression = self.expressions.generate_rename_expressions(table_id=table_id, columns_list=df_raw.columns)
+		self.dtype_expression = self.expressions.generate_dtype_expressions(table_id=table_id)
+
+		df_raw2 = df_raw.select(self.rename_expression)
+		df_raw3 = df_raw2.with_columns(
+			pl.col("day_date").map_elements(lambda x: datetime.strptime(x, "%m-%d-%y").strftime("%Y-%m-%d")).alias("day_date")
+		)
+		df_raw4 = df_raw3.with_columns([
+			pl.col('day_form_time').map_elements(self._convert_time_to_microseconds).alias('day_form_time'),
+			pl.col('slp_fall').map_elements(self._convert_time_to_microseconds).alias('slp_fall'),
+			pl.col('pho_time').map_elements(self._convert_time_to_microseconds).alias('pho_time'),
+			pl.col('slp_raise').map_elements(self._convert_time_to_microseconds).alias('slp_raise'),
+			pl.col('slp_duration').map_elements(self._convert_time_to_microseconds).alias('slp_duration')
+		])
+		df_raw5 = df_raw4.select(self.dtype_expression).select(self.data_schema["columns"]).sort("day_date")
+		df_cleaned = df_raw5.with_columns([
+			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("day_form_time").dt.hour(), minutes=pl.col("day_form_time").dt.minute())).alias("day_form_time"),
+			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=0, hours=pl.col("slp_fall").dt.hour(),		 minutes=pl.col("slp_fall").dt.minute())).alias("slp_fall"),
+			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("slp_raise").dt.hour(),	 minutes=pl.col("slp_raise").dt.minute())).alias("slp_raise")
+		])
+
 		print("Cleaning Engine: Cleaning Process Finished")
 
 		return df_cleaned
