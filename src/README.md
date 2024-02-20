@@ -6,23 +6,42 @@ It is structured as follows:
 
 - `src/main.py`: Main execution file used to initiate the process comprehensively;
 
-### env
+## **env**
 
-- `src/env/calendar.py`: Script containing a class with attributes related to date, such as formatted date, name of the day of the week, and week number in the year;
-- `src/env/email.py`: Script containing a class with information like the username, password, and recipient needed for email sending via the SMTP server;
-- `src/env/paths.py`: Script containing the class with directory path information;
-- `src/env/environment.py`: Principal script in the `env` directory. The class created in this script instantiates all other classes created in this directory, allowing for complete usage of centralized date, path, and email information through this configuration class;
+- `src/env/globals.py`: Defines a singleton class `Global` that manages global attributes related to date and calendar manipulation. It initializes a single instance of itself with attributes such as execution date, calendar, filename, and canvas for PDF generation. The class provides methods to access the calendar instance, canvas instance, and execution date.
 
-### etl
+- `src/env/helpers.py`: Script containing a class `Calendar` responsible for managing date-related attributes such as formatted date, name of the day of the week, and week number in the year. It also includes a class `Paths` that manages paths to various directories within the project.
 
-- `src/etl/orchestrator.py`: Script containing the class that orchestrates the entire script automation validation pipeline and also the data handling through the classes created in this same directory;
-- `src/etl/cleaning_engine.py`: Script containing the class responsible for "cleaning" the data from the ingestion layer to the cleaned layer;
-- `src/etl/refining_engine.py`: Script containing the class responsible for "refining" the data from the cleaned layer to the refined layer with the assistance of functions from scripts contained in the `src/etl/refining_tools/` folder;
+## **etl**
+
+- `src/etl/orchestrator.py`: Script containing the class that orchestrates the entire script automation validation pipeline and also the data handling through the classes created in this same directory.
+  
+- `src/etl/cleaning_engine.py`: Script containing the class responsible for "cleaning" the data from the ingestion layer to the cleaned layer.
+
+- `src/etl/refining_engine.py`: Script containing the class responsible for "refining" the data from the cleaned layer to the refined layer with the assistance of functions from scripts contained in the `src/etl/refining_tools/` folder.
+  
+### refining_tools
+
 - `src/etl/refining_tools/morning_functions.py`: Script containing refinement functions to aid in the refinement of each particular topic;
 
-### libs
+## **report**
 
-- `src/libs/utils/scribe.py`: Script containing the class that assists in PDF writing;
-- `src/libs/mailing/`: Script responsible for composing and sending emails through SMTP connection;
-- `src/libs/partlets/`: Script responsible for assembling the individual parts of the PDF report;
-- `src/libs/reports/`: Script responsible for assembling the report itself and organizing its generation and sending using the other libraries in this directory.
+- `src/report/report.py`: Script containing the `Report` class, which orchestrates the generation and dispatching of daily reports. It utilizes components from other modules such as `Paths` from `src.env.helpers`, `Credentials` from `src.report.email.credentials`, `Global` from `src.env.globals`, and `EmailManager` from `src.report.email.manager`. The `Report` class has methods for saving the generated report as a PDF (`_save_file()`) and sending it via email (`_send_file()`). Additionally, it provides a method `daily_publish()` to execute the entire process, including generating the report content, saving the file, and optionally sending it via email.
+
+### email
+
+- `src/report/email/credentials.py`: Script containing a class `Credentials` responsible for managing SMTP credentials. It provides methods to access various credentials like server, port, username, password, recipient, and validated email. Additionally, it offers a class method `from_env()` to load credentials from environment variables using `dotenv`.
+  
+- `src/report/email/manager.py`: Script containing a class `EmailManager` responsible for managing email dispatching. It imports necessary modules like `Paths`, `Credentials`, and `Global`. The class initializes with methods to set email frequency, retrieve credentials, build email content, attach files, send emails, and dispatch emails.
+
+### partlet
+
+- `src/report/partlets/partlet.py`: This script houses an abstract class `Partlet` responsible for orchestrating the construction of various components essential for crafting a PDF report. It furnishes a set of methods facilitating the addition of elements like chapter headers, titles, subtitles, lines, custom functions, and more to the report. Additionally, it features a method to execute the accumulated functions for daily reporting purposes.
+
+- `src/report/partlets/*/builder.py`: Within this script, resides a subclass of `Partlet` dedicated to a specific report section denoted by `*`. It incorporates builder functions tailored to the needs of the corresponding report section. These functions leverage files generated by `engine.py` to create plots and insights, enriching the report content.
+
+- `src/report/partlets/*/engine.py`: This script encompasses a class designed to generate files and transform raw data into informative insights for the utilization by `builder.py`. It facilitates the process of extracting meaningful information from data sources and preparing it for integration into the report.
+
+### typing
+
+- `src/report/typing/scribe.py`: Script containing the class that assists in PDF writing;

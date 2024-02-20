@@ -78,6 +78,7 @@ class Paths:
 
 		# Folders inside resources/ directory
 		self.json	= os.path.join(self.resources, "json")	# Path to the json folder inside the resources folder (project/resources/json/)
+		self.yaml	= os.path.join(self.resources, "yaml")	# Path to the yaml folder inside the resources folder (project/resources/yaml/)
 
 		# Folders inside src/ directory
 		self.env	= os.path.join(self.src, "env")		# Path to the env folder inside the src folder (project/src/env/)

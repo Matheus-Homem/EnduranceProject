@@ -1,5 +1,5 @@
 from src.env.helpers import Paths
-import src.etl.refining_tools.morning_functions as mrn
+import src.etl.refining.tools.morning as mrn
 import polars as pl
 
 class DataRefiner:
@@ -10,12 +10,16 @@ class DataRefiner:
 		self.paths = Paths()
 
 		# Path formation
-		self.clnd_morning_path = self.paths.get_file_path("cleaned", "mrn_cleaned.parquet")	
-		self.rfnd_weight_path  = self.paths.get_file_path("refined", "WM_WeightMeasurements.parquet")	
+		## Cleaned Paths
+		# self.clnd_mrn_cold_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_cold.parquet")
+		self.clnd_mrn_hot_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_hot.parquet")
+		# self.clnd_night_path	= self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
+		# self.clnd_morning_path = self.paths.get_file_path("cleaned", "mrn_cleaned.parquet")
+		self.rfnd_weight_path  = self.paths.get_file_path("refined", "WM_WeightMeasurements.parquet")
 
 		# Define tables_relation list
 		self.tables_relation = [
-			["weight", self.clnd_morning_path, self.rfnd_weight_path]
+			["weight", self.clnd_mrn_hot_path, self.rfnd_weight_path]
 		]
 
         # Create an instance of RefiningFunctions for executing refinements
@@ -38,6 +42,8 @@ class DataRefiner:
 	def execute(self):
 		# Gets the correct relation list from the tables_relation list
 		for refine_id, cleaned_path, refined_path in self.tables_relation:
+			print("\n")
+			print(f"Stated Refining Proccess related to {refine_id}")
 			# Write the refined dataframe in the refined_path
 			self.writing(
 				# Gets what refinement is going to be executed and the cleaned table necessary to its execution
