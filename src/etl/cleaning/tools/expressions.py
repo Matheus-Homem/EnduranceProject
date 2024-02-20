@@ -22,13 +22,19 @@ class Expressions:
 
 	def generate_rename_expressions(self, table_id, columns_list):
 		if table_id == "morning_v2":
-			for column_id, column_config in self.data_schema[table_id].items():
-				return pl.col(column_id).alias(column_config["name"])
+			return [
+				pl.col(column_id).alias(column_config["name"])
+				for column_id, column_config in self.data_schema[table_id].items()	
+			]
 		elif table_id == "morning_v3":
-			full_name_dict = {coluna[:3]+coluna[-4:]: coluna for coluna in columns_list}
-			for column_id, column_config in self.data_schema[table_id].items():
-				return pl.col(full_name_dict.get(column_id[:3])).alias(column_config["name"])
-
+			column_dict = {index: column for index, column in enumerate(columns_list)}
+			return [
+				pl.col(column_dict[int(column_id)]).alias(column_config["name"])
+				for column_id, column_config in self.data_schema[table_id].items()				
+			]
+			
 	def generate_dtype_expressions(self, table_id):
-		for column_id, column_config in self.data_schema[table_id].items():
-			return pl.col(column_config["name"]).cast(self.dtype_dict[column_config["dtype"]])
+		return [
+			pl.col(column_config["name"]).cast(self.dtype_dict[column_config["dtype"]])
+			for column_id, column_config in self.data_schema[table_id].items()
+		]
