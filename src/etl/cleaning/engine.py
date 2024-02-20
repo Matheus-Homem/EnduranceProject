@@ -29,7 +29,8 @@ class DataCleaner:
 		self.raw_moon_path_v3	= self.paths.get_file_path("ingestion", "night_data_02_24.xlsx")
 
 		## Cleaned Paths
-		self.clnd_morning_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned.parquet")
+		self.clnd_mrn_cold_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_cold.parquet")
+		self.clnd_mrn_hot_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_hot.parquet")
 		self.clnd_night_path	= self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
 
 		with open(self.yaml_path, 'r', encoding='utf-8') as file:
@@ -40,12 +41,12 @@ class DataCleaner:
 
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
-			["morning_v2", self.raw_sun_path_v2, self.clnd_morning_path],
-			#["morning_v3", self.raw_sun_path_v3, self.clnd_morning_path],
+			["morning_v2", self.raw_sun_path_v2, self.clnd_mrn_cold_path],
+			["morning_v3", self.raw_sun_path_v3, self.clnd_mrn_hot_path],
 			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
 
-	def _convert_time_to_microseconds(time_str):
+	def _convert_time_to_microseconds(self, time_str):
 		if time_str:
 			# Convert time string to time64 type
 			time_datetime = datetime.strptime(time_str, "%H:%M")
@@ -77,18 +78,19 @@ class DataCleaner:
 			pl.col("day_date").map_elements(lambda x: datetime.strptime(x, "%m-%d-%y").strftime("%Y-%m-%d")).alias("day_date")
 		)
 		df_raw4 = df_raw3.with_columns([
-			pl.col('day_form_time').map_elements(self._convert_time_to_microseconds).alias('day_form_time'),
-			pl.col('slp_fall').map_elements(self._convert_time_to_microseconds).alias('slp_fall'),
-			pl.col('pho_time').map_elements(self._convert_time_to_microseconds).alias('pho_time'),
-			pl.col('slp_raise').map_elements(self._convert_time_to_microseconds).alias('slp_raise'),
-			pl.col('slp_duration').map_elements(self._convert_time_to_microseconds).alias('slp_duration')
+			(pl.col('day_form_time').map_elements(self._convert_time_to_microseconds)).alias('day_form_time'),
+			(pl.col('slp_fall').map_elements(self._convert_time_to_microseconds)).alias('slp_fall'),
+			(pl.col('pho_time').map_elements(self._convert_time_to_microseconds)).alias('pho_time'),
+			(pl.col('slp_raise').map_elements(self._convert_time_to_microseconds)).alias('slp_raise'),
+			(pl.col('slp_duration').map_elements(self._convert_time_to_microseconds)).alias('slp_duration')
 		])
-		df_raw5 = df_raw4.select(self.dtype_expression).select(self.data_schema["columns"]).sort("day_date")
-		df_cleaned = df_raw5.with_columns([
+		df_raw5 = df_raw4.select(self.dtype_expression).sort("day_date")
+		df_raw6 = df_raw5.with_columns([
 			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("day_form_time").dt.hour(), minutes=pl.col("day_form_time").dt.minute())).alias("day_form_time"),
 			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=0, hours=pl.col("slp_fall").dt.hour(),		 minutes=pl.col("slp_fall").dt.minute())).alias("slp_fall"),
 			(pl.col("day_date").cast(pl.Datetime) + pl.duration(days=1, hours=pl.col("slp_raise").dt.hour(),	 minutes=pl.col("slp_raise").dt.minute())).alias("slp_raise")
 		])
+		df_cleaned = df_raw6.select(self.data_schema["columns"])
 
 		print("Cleaning Engine: Cleaning Process Finished")
 
