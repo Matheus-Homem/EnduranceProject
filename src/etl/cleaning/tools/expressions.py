@@ -17,20 +17,21 @@ class Expressions:
 			"float": pl.Float64,
 			"int": pl.Int64,
 			"timestamp": pl.Datetime,
-			"timedelta": pl.Duration
+			"timedelta": pl.Duration,
+			"bool": pl.Boolean
 		}
 
 	def generate_rename_expressions(self, table_id, columns_list):
 		if table_id == "morning_v2":
 			return [
 				pl.col(column_id).alias(column_config["name"])
-				for column_id, column_config in self.data_schema[table_id].items()	
+				for column_id, column_config in self.data_schema[table_id].items()
 			]
-		elif table_id == "morning_v3":
+		else:
 			column_dict = {index: column for index, column in enumerate(columns_list)}
 			return [
 				pl.col(column_dict[int(column_id)]).alias(column_config["name"])
-				for column_id, column_config in self.data_schema[table_id].items()				
+				for column_id, column_config in self.data_schema[table_id].items()
 			]
 			
 	def generate_dtype_expressions(self, table_id):
