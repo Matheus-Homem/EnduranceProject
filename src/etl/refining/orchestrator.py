@@ -1,13 +1,13 @@
-from src.env.helpers import Paths
+from src.etl.patterns import Orchestrator
 import src.etl.refining.tools.morning as mrn
-import polars as pl
 
-class DataRefiner:
+
+class RefinerOrchestrator(Orchestrator):
 
 	def __init__(self):
+		super().__init__()
 
-		# Instanciate Paths
-		self.paths = Paths()
+		self.process = "REFINING"
 
 		# Path formation
 		## Cleaned Paths
@@ -22,21 +22,8 @@ class DataRefiner:
 			["weight", self.clnd_mrn_hot_path, self.rfnd_weight_path]
 		]
 
-        # Create an instance of RefiningFunctions for executing refinements
+		# Create an instance of RefiningFunctions for executing refinements
 		self.refining_functions = mrn.RefiningFunctions()
-
-	# Reading function to read data from the parquet cleaned table
-	def reading(self, cleaned_path):
-		print("Refining Engine: Reading Process Started")
-		df_cleaned = pl.read_parquet(cleaned_path)
-		print("Refining Engine: Reading Process Finished")
-		return df_cleaned
-
-	# Writing function to write the refined_path as a parquet file in the refined_path
-	def writing(self, df_refined, refined_path):
-		print("Refining Engine: Writing Process Started")
-		df_refined.write_parquet(refined_path)
-		print("Refining Engine: Writing Process Finished")
 
 	# Function to execute all the code combined
 	def execute(self):
@@ -50,9 +37,10 @@ class DataRefiner:
 				self.refining_functions.refine(
 					# Read the chosen dataframe from the path given
 					self.reading(
-						cleaned_path
+						file_format="parquet",
+						file_path=cleaned_path
 					),
-					refine_id
+					refine_id=refine_id
 				),
-				refined_path
+				file_path=refined_path
 			)
