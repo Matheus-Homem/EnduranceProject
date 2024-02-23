@@ -1,24 +1,16 @@
-from src.env.helpers import Paths
-from src.report.email.credentials import Credentials
+from src.etl.patterns import Orchestrator
 from src.etl.cleaning.tools.expressions import Expressions
 
-from datetime import datetime
-import polars as pl
 import yaml
+import polars as pl
+from datetime import datetime
 
-class DataCleaner:
+class CleanerOrchestrator(Orchestrator):
 	
 	def __init__(self):
+		super().__init__()
 
-		# Instanciate Paths
-		self.paths = Paths()
-
-		# Instanciate Credentials
-		self.credentials = Credentials.from_env()
-
-		# Path formation
-		## Dict rename columns path
-		self.yaml_path = self.paths.get_file_path("yaml", "data_schema.yaml")
+		self.process = "CLEANING"
 
 		## Raw Morning Paths
 		self.raw_sun_path_v2	= self.paths.get_file_path("ingestion", "morning_routine_v2.xlsx")
@@ -57,13 +49,7 @@ class DataCleaner:
 		else:
 			return None
 
-	# Reading function to read data from the excel original file
-	def reading(self, raw_path):
-		print("Cleaning Engine: Reading Process Started")
-		df_raw = pl.read_excel(raw_path)
-		print("Cleaning Engine: Reading Process Finished")
-		return df_raw
-
+	# Cleaning function to rename and correct data formats
 	# Cleaning function to rename and correct data formats
 	def cleaning(self, df_raw, table_id):
 
@@ -96,19 +82,6 @@ class DataCleaner:
 
 		return df_cleaned
 
-	# Verification function to filter the user email address from the raw file
-	def validating(self, df_cleaned):
-		print("Cleaning Engine: Validating Process Started")
-		# Filter the DataFrame based on the 'email_confirmation' column matching the configured 'verified_email'.
-		df_validated = df_cleaned.filter(pl.col("email_confirmation") == self.credentials.get_verified_email())
-		print("Cleaning Engine: Validating Process Finished")
-		return df_validated
-
-	# Writing function to write the df_cleaned as a parquet file in the cleaned_path
-	def writing(self, df_validated, cleaned_path):
-		print("Cleaning Engine: Writing Process Started")
-		df_validated.write_parquet(cleaned_path)
-		print("Cleaning Engine: Writing Process Finished")
 	
 	# Function to execute all the code combined
 	def execute(self):
@@ -124,11 +97,11 @@ class DataCleaner:
 					self.cleaning(
 						# Read the chosen dataframe from the path given
 						self.reading(
-							raw_path
+							file_format="xlsx",
+							file_path=raw_path
 						),
-						table_id
+						table_id=table_id
 					)
 				),
-				
-				cleaned_path
+				file_path=cleaned_path
 			)
