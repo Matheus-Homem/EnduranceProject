@@ -1,4 +1,4 @@
-from src.etl.orchestrator import Orchestrator
+from src.etl.process.orchestrator import ProcessOrchestrator
 from src.report.reports import Report
 from src.env.globals import Global
 
@@ -23,7 +23,7 @@ def main():
 	# Criar uma instância única de Global com base na data de execução
 	Global(exec_date=script_date)
 
-	Orchestrator().run_pipeline(automated=automated)
+	ProcessOrchestrator().execute(automated=automated)
 
 	# Everyday generate Daily Report
 	Report().daily_publish()
