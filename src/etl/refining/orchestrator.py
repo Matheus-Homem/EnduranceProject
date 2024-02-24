@@ -25,22 +25,15 @@ class RefinerOrchestrator(Orchestrator):
 		# Create an instance of RefiningFunctions for executing refinements
 		self.refining_functions = mrn.RefiningFunctions()
 
-	# Function to execute all the code combined
 	def execute(self):
-		# Gets the correct relation list from the tables_relation list
+		self.logger = Orchestrator.logger
 		for refine_id, cleaned_path, refined_path in self.tables_relation:
-			print("\n")
-			print(f"Stated Refining Proccess related to {refine_id}")
-			# Write the refined dataframe in the refined_path
-			self.writing(
-				# Gets what refinement is going to be executed and the cleaned table necessary to its execution
-				self.refining_functions.refine(
-					# Read the chosen dataframe from the path given
-					self.reading(
-						file_format="parquet",
-						file_path=cleaned_path
-					),
-					refine_id=refine_id
-				),
-				file_path=refined_path
-			)
+			self.logger.info("*********************************************************")
+			self.logger.info(f"///////// STARTING {refine_id} REFINING PROCESS /////////")
+			self.logger.info("*********************************************************")
+			
+			cleaned_data = self.reading(file_format="parquet", file_path=cleaned_path)
+			
+			refined_data = self.refining_functions.refine(df_cleaned=cleaned_data, refine_id=refine_id)
+			
+			self.writing(df_to_write=refined_data, file_path=refined_path)
