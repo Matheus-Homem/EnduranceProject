@@ -6,16 +6,19 @@ import time
 
 class ProcessOrchestrator(Orchestrator):
 
-	def execute_etl(self):
+	def orchestrate_process(self):
 		self.logger.info("")
-		self.logger.info("ETL Process Started")
-		self.logger.info("Performing data cleaning from ingestion layer to cleaned layer")
+		self.logger.info("*********************************************************")
+		self.logger.info(">>>>>>>>>>>>>>>> ETL PROCESS STARTED <<<<<<<<<<<<<<<<<<<<")
+		self.logger.info("*********************************************************")
+		self.logger.info("|--| CLEANING DATA: INGESTION LAYER -> CLEANED LAYER |--|")
 		CleanerOrchestrator().execute()
-		self.logger.info("Performing data refining from cleaned layer to refining layer")
+		self.logger.info("*********************************************************")
+		self.logger.info("|---| REFINING DATA: CLEANED LAYER -> REFINED LAYER |---|")
 		RefinerOrchestrator().execute()
-		self.logger.info("")
-		self.logger.info("ETL Process Finished.")
-		self.logger.info("")
+		self.logger.info("*********************************************************")
+		self.logger.info(">>>>>>>>>>>>>>>> ETL PROCESS FINISHED <<<<<<<<<<<<<<<<<<<<")
+		self.logger.info("*********************************************************")
 
 	def _block_pipeline(self):
 		if self.validate_last_date("morning_routine_v2.xlsx") and self.validate_last_date("night_routine_v2.xlsx"):
@@ -26,13 +29,14 @@ class ProcessOrchestrator(Orchestrator):
 			return True 
 
 	def execute(self, automated: bool = False):
+		self.logger = Orchestrator.logger
 		if automated:
 			self.logger.info("Automation detected. Initializing validation.")
 			while self._block_pipeline():
 				self.logger.info("Databases not updated. Retesting in 1 minute.")
 				time.sleep(60)
 			self.logger.info("Validation finished.")
-			self.execute_etl()
+			self.orchestrate_process()
 		else:
 			self.logger.info("Manual process detected. Skipping validation.")
-			self.execute_etl()
+			self.orchestrate_process()
