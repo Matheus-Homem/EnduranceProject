@@ -6,14 +6,13 @@ from abc import ABC, abstractmethod
 import logging
 
 class Orchestrator(ABC):
+	logger = logging.getLogger(__name__)
+	logger.setLevel(logging.INFO)
+	logger.addHandler(logging.StreamHandler())
 
 	def __init__(self):
-
 		self.paths = Paths()
 		self.credentials = Credentials.from_env()
-		self.logger = logging.getLogger(__name__)
-
-		self.yaml_path = self.paths.get_file_path("yaml", "data_schema.yaml")
 
 	@abstractmethod
 	def execute(self):
