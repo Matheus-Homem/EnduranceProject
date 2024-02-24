@@ -1,5 +1,5 @@
-from src.etl.patterns import Orchestrator
-from src.etl.cleaning.tools.expressions import Expressions
+from src.etl.patterns.orchestrator import Orchestrator
+from src.etl.cleaning.engine import CleanerEngine
 
 import yaml
 import polars as pl
@@ -28,8 +28,7 @@ class CleanerOrchestrator(Orchestrator):
 		with open(self.yaml_path, 'r', encoding='utf-8') as file:
 			self.data_schema = yaml.safe_load(file)
 
-		# Instanciate Expressions
-		self.expressions = Expressions(data_schema=self.data_schema)
+		self.engine = CleanerEngine(self.data_schema)
 
 		# Relation of objects variable to manage the table_id, raw_path and cleaning_path
 		self.tables_relation = [
@@ -38,28 +37,16 @@ class CleanerOrchestrator(Orchestrator):
 			#["night",   self.raw_moon_path_v2,   self.clnd_night_path]
 		]
 
-	def _convert_time_to_microseconds(self, time_str):
-		if time_str:
-			# Convert time string to time64 type
-			time_datetime = datetime.strptime(time_str, "%H:%M")
-			# Calculate difference from midnight
-			difference = time_datetime - datetime.strptime("00:00", "%H:%M")
-			microseconds = int(difference.total_seconds() * 1e6)
-			return microseconds
-		else:
-			return None
 
-	# Cleaning function to rename and correct data formats
-	# Cleaning function to rename and correct data formats
+
 	def cleaning(self, df_raw, table_id):
 
-		print("Cleaning Engine: Cleaning Process Started")
-		
+		self.logger.info(f"{self.process} Engine: EXECUTION Started")
+		df_cleaned = self.engine.execute(df_to_execute=df_raw, table_id=table_id)
+		self.logger.info(f"{self.process} Engine: EXECUTION Finished")
+		return df_cleaned
+	
 		# Generate expressions
-		self.rename_expression = self.expressions.generate_rename_expressions(table_id=table_id, columns_list=df_raw.columns)
-		self.dtype_expression = self.expressions.generate_dtype_expressions(table_id=table_id)
-
-		df_raw2 = df_raw.select(self.rename_expression)
 		df_raw3 = df_raw2.with_columns(
 			pl.col("day_date").map_elements(lambda x: datetime.strptime(x, "%m-%d-%y").strftime("%Y-%m-%d")).alias("day_date")
 		)
