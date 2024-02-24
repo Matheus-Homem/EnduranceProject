@@ -1,8 +1,0 @@
-# Ignore raw data files
-ingestion/*.xlsx
-
-# Ignore cleaned data files
-cleaned/*.parquet
-
-# Ignore refined data files
-refined/*.parquet

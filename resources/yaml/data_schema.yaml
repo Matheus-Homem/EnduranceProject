@@ -1,0 +1,336 @@
+morning_columns:
+  ['timestamp', 'email_confirmation', 'day_date', 'day_form_time', 'day_humor', 'pho_time', 'slp_fall', 'slp_raise', 'slp_duration', 'slp_awake', 'slp_rem', 'slp_light', 'slp_deep', 'ttl_weight', 'mus_weight', 'fat_percentage', 'wgt_rmr', 'wgt_cal', 'grn_priority', 'red_priority', 'blu_priority', 'ylw_priority', 'prp_priority', 'day_priority']
+
+night_columns:
+  ['timestamp', 'email_confirmation', 'day_date', 'day_form_time', 'day_humor', 'day_thanks',
+   'grn_reading', 'grn_summary', 'grn_discomfort', 'grn_detox', 'grn_check', 'grn_flows',
+   'red_work', 'red_results', 'red_study', 'red_expenses', 'red_check', 'red_flows',
+   'blu_str_dur', 'blu_str_cal', 'blu_str_sessions', 'blu_run_dist', 'blu_run_dur', 'blu_run_cal', 'blu_run_sessions', 'blu_breakfast', 'blu_snack_mrn', 'blu_lunch', 'blu_dessert', 'blu_snack_aftn', 'blu_dinner', 'blu_supper', 'blu_water', 'blu_check', 'blu_flows',
+   'ylw_self', 'ylw_home', 'ylw_pets', 'ylw_family', 'ylw_friends', 'ylw_partner', 'ylw_humanity', 'ylw_work', 'ylw_folk', 'ylw_animals', 'ylw_proactivity', 'ylw_check', 'ylw_flows',
+   'prp_meditate', 'prp_pauses', 'prp_classification', 'prp_consciousness', 'prp_excellence', 'prp_memorable', 'prp_check', 'prp_flows']
+
+morning_v2:
+  "0":
+    name: timestamp
+    dtype: string
+  "1":
+    name: email_confirmation
+    dtype: string
+  "2":
+    name: day_date
+    dtype: date
+  "3":
+    name: day_form_time
+    dtype: timestamp
+    day_to_sum: 1
+  "4":
+    name: day_humor
+    dtype: string
+  "5":
+    name: pho_time
+    dtype: timedelta
+  "6":
+    name: slp_fall
+    dtype: timestamp
+    day_to_sum: 0
+  "7":
+    name: slp_raise
+    dtype: timestamp
+    day_to_sum: 1
+  "8":
+    name: slp_duration
+    dtype: timedelta
+  "9":
+    name: slp_awake
+    dtype: float
+  "10":
+    name: slp_rem
+    dtype: float
+  "11":
+    name: slp_light
+    dtype: float
+  "12":
+    name: slp_deep
+    dtype: float
+  "13":
+    name: ttl_weight
+    dtype: float
+  "14":
+    name: mus_weight
+    dtype: float
+  "15":
+    name: fat_percentage
+    dtype: float
+  "16":
+    name: wgt_rmr
+    dtype: int
+  "17":
+    name: wgt_cal
+    dtype: int
+  "18":
+    name: grn_priority
+    dtype: string
+  "19":
+    name: red_priority
+    dtype: string
+  "20":
+    name: blu_priority
+    dtype: string
+  "21":
+    name: ylw_priority
+    dtype: string
+  "22":
+    name: prp_priority
+    dtype: string
+  "23":
+    name: day_priority
+    dtype: list
+
+
+morning_v3:
+  "0":
+    name: timestamp
+    dtype: string
+  "1":
+    name: email_confirmation
+    dtype: string
+  "2":
+    name: day_date 
+    dtype: date
+  "3":
+    name: day_form_time
+    dtype: timestamp
+    day_to_sum: 1
+  "4":
+    name: day_humor
+    dtype: string
+  "5":
+    name: pho_time
+    dtype: timedelta
+  "6":
+    name: slp_fall
+    dtype: timestamp
+    day_to_sum: 0
+  "7":
+    name: slp_raise
+    dtype: timestamp
+    day_to_sum: 1
+  "8":
+    name: slp_duration
+    dtype: timedelta
+  "9":
+    name: slp_awake
+    dtype: float
+  "11":
+    name: slp_rem
+    dtype: float
+  "13":
+    name: slp_light
+    dtype: float
+  "15":
+    name: slp_deep
+    dtype: float
+  "17":
+    name: wgt_cal
+    dtype: int
+  "18":
+    name: ttl_weight
+    dtype: float
+  "22":
+    name: mus_weight
+    dtype: float
+  "26":
+    name: fat_percentage
+    dtype: float
+  "30":
+    name: wgt_rmr
+    dtype: int
+  "31":
+    name: grn_priority
+    dtype: string
+  "32":
+    name: red_priority
+    dtype: string
+  "33":
+    name: blu_priority
+    dtype: string
+  "34":
+    name: ylw_priority
+    dtype: string
+  "35":
+    name: prp_priority
+    dtype: string
+  "36":
+    name: day_priority
+    dtype: list
+
+night_0324:
+  "0":
+    name: timestamp
+    dtype: string
+  "1":
+    name: email_confirmation
+    dtype: string
+  "2":
+    name: day_date
+    dtype: date
+  "3":
+    name: day_form_time
+    dtype: timestamp
+    day_to_sum: 0
+  "4":
+    name: day_humor
+    dtype: string
+  "5":
+    name: day_thanks
+    dtype: string
+  "6":
+    name: grn_reading
+    dtype: string
+  "7":
+    name: grn_summary
+    dtype: string
+  "8":
+    name: grn_discomfort
+    dtype: string
+  "9":
+    name: grn_detox
+    dtype: list
+  "10":
+    name: grn_check
+    dtype: bool
+  "11":
+    name: grn_flows
+    dtype: list
+  "12":
+    name: red_work
+    dtype: string
+  "13":
+    name: red_results
+    dtype: string
+  "14":
+    name: red_study
+    dtype: string
+  "15":
+    name: red_expenses
+    dtype: bool
+  "16":
+    name: red_check
+    dtype: bool
+  "17":
+    name: red_flows
+    dtype: list
+  "18":
+    name: blu_str_dur
+    dtype: timedelta
+  "19":
+    name: blu_str_cal
+    dtype: int
+  "20":
+    name: blu_str_sessions
+    dtype: bool
+  "21":
+    name: blu_run_dist
+    dtype: float
+  "22":
+    name: blu_run_dur
+    dtype: timedelta
+  "23":
+    name: blu_run_cal
+    dtype: int
+  "24":
+    name: blu_run_sessions
+    dtype: bool
+  "25":
+    name: blu_breakfast
+    dtype: string
+  "26":
+    name: blu_snack_mrn
+    dtype: string
+  "27":
+    name: blu_lunch
+    dtype: string
+  "28":
+    name: blu_dessert
+    dtype: string
+  "29":
+    name: blu_snack_aftn
+    dtype: string
+  "30":
+    name: blu_dinner
+    dtype: string
+  "31":
+    name: blu_supper
+    dtype: string
+  "32":
+    name: blu_water
+    dtype: int
+  "33":
+    name: blu_check
+    dtype: bool
+  "34":
+    name: blu_flows
+    dtype: list
+  "35":
+    name: ylw_self
+    dtype: bool
+  "36":
+    name: ylw_home
+    dtype: string
+  "37":
+    name: ylw_pets
+    dtype: string
+  "38":
+    name: ylw_family
+    dtype: string
+  "39":
+    name: ylw_friends
+    dtype: string
+  "40":
+    name: ylw_partner
+    dtype: string
+  "41":
+    name: ylw_humanity
+    dtype: string
+  "42":
+    name: ylw_work
+    dtype: string
+  "43":
+    name: ylw_folk
+    dtype: string
+  "44":
+    name: ylw_animals
+    dtype: string
+  "45":
+    name: ylw_proactivity
+    dtype: string
+  "46":
+    name: ylw_check
+    dtype: bool
+  "47":
+    name: ylw_flows
+    dtype: list
+  "48":
+    name: prp_meditate
+    dtype: string
+  "49":
+    name: prp_pauses
+    dtype: int
+  "50":
+    name: prp_classification
+    dtype: list
+  "51":
+    name: prp_consciousness
+    dtype: list
+  "52":
+    name: prp_excellence
+    dtype: list
+  "53":
+    name: prp_memorable
+    dtype: string
+  "54":
+    name: prp_check
+    dtype: bool
+  "55":
+    name: prp_flows
+    dtype: list
