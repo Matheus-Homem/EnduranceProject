@@ -5,7 +5,11 @@
 - [X] Finish the implementation of the WeightDiary class
 
 ## February
-- [ ] SleepDiary class
-- [ ] Clean night_v2 data
-- [ ] Clean morning_0224 data
-- [ ] Clean night_0224 data
+- [ ] Sleep Partlet
+- [X] Clean night_v2 data
+- [X] Clean morning_0224 data
+- [X] Clean night_0224 data
+
+## March
+- [ ] Feedbacked Objectived Partlet
+- [ ] Structure Cleaned to have 1 morning table and 1 night table
