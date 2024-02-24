@@ -1,4 +1,4 @@
-from src.etl.patterns import Orchestrator
+from src.etl.patterns.orchestrator import Orchestrator
 from src.etl.cleaning.orchestrator import CleanerOrchestrator
 from src.etl.refining.orchestrator import RefinerOrchestrator
 
