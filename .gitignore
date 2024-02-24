@@ -1,6 +1,19 @@
 # Ignore .env secrets file
 .env
 
-
 # Ignore test notebooks
 *.ipynb
+
+# Ignore PDF reports and PDF reports plots
+outputs/reports/**/**/**/*.pdf
+outputs/reports/**/**/**/*.png
+
+# Ignore all data
+### raw data files
+data/ingestion/*.xlsx
+
+### cleaned data files
+data/cleaned/*.parquet
+
+### refined data files
+data/refined/*.parquet
