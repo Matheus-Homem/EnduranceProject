@@ -48,7 +48,7 @@ class ExpressionsGenerator:
 
 		return dtype_expressions
 	
-	def inal_dtype_expressions(self, identifier):
+	def final_dtype_expressions(self, identifier):
 		dtype_expressions = []
 		
 		for column_id, column_config in self.data_schema[identifier].items():
