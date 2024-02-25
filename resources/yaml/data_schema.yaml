@@ -1,13 +1,15 @@
 morning_columns:
   ['timestamp', 'email_confirmation', 'day_date', 'day_form_time', 'day_humor', 'pho_time', 'slp_fall', 'slp_raise', 'slp_duration', 'slp_awake', 'slp_rem', 'slp_light', 'slp_deep', 'ttl_weight', 'mus_weight', 'fat_percentage', 'wgt_rmr', 'wgt_cal', 'grn_priority', 'red_priority', 'blu_priority', 'ylw_priority', 'prp_priority', 'day_priority']
 
+
 night_columns:
-  ['timestamp', 'email_confirmation', 'day_date', 'day_form_time', 'day_humor', 'day_thanks',
-   'grn_reading', 'grn_summary', 'grn_discomfort', 'grn_detox', 'grn_check', 'grn_flows',
-   'red_work', 'red_results', 'red_study', 'red_expenses', 'red_check', 'red_flows',
-   'blu_str_dur', 'blu_str_cal', 'blu_str_sessions', 'blu_run_dist', 'blu_run_dur', 'blu_run_cal', 'blu_run_sessions', 'blu_breakfast', 'blu_snack_mrn', 'blu_lunch', 'blu_dessert', 'blu_snack_aftn', 'blu_dinner', 'blu_supper', 'blu_water', 'blu_check', 'blu_flows',
-   'ylw_self', 'ylw_home', 'ylw_pets', 'ylw_family', 'ylw_friends', 'ylw_partner', 'ylw_humanity', 'ylw_work', 'ylw_folk', 'ylw_animals', 'ylw_proactivity', 'ylw_check', 'ylw_flows',
-   'prp_meditate', 'prp_pauses', 'prp_classification', 'prp_consciousness', 'prp_excellence', 'prp_memorable', 'prp_check', 'prp_flows']
+  [timestamp, email_confirmation, day_date, day_form_time, day_humor, day_thanks, 
+   grn_reading, grn_summary, grn_discomfort, grn_detox, grn_check, grn_flows, 
+   red_work, red_results, red_study, red_expenses, red_check, red_flows,
+   blu_str_dur, blu_str_cal, blu_str_sessions, blu_run_dist, blu_run_dur, blu_run_cal, blu_run_sessions, blu_breakfast, blu_snack_mrn, blu_lunch, blu_dessert, blu_snack_aftn, blu_dinner, blu_supper, blu_water, blu_check, blu_flows,
+   ylw_self, ylw_home, ylw_pets, ylw_family, ylw_friends, ylw_partner, ylw_humanity, ylw_work, ylw_folk, ylw_animals, ylw_proactivity, ylw_check, ylw_flows, 
+   prp_meditate, prp_empytness, prp_classification, prp_morning_excel, prp_afternoon_excel, prp_night_excel, prp_memorable_excel, prp_check, prp_flows]
+
 
 morning_v2:
   "0":
@@ -314,23 +316,26 @@ night_0324:
     name: prp_meditate
     dtype: string
   "49":
-    name: prp_pauses
-    dtype: int
+    name: prp_empytness
+    dtype: bool
   "50":
     name: prp_classification
     dtype: list
   "51":
-    name: prp_consciousness
+    name: prp_morning_excel
     dtype: list
   "52":
-    name: prp_excellence
+    name: prp_afternoon_excel
     dtype: list
   "53":
-    name: prp_memorable
-    dtype: string
+    name: prp_night_excel
+    dtype: list
   "54":
+    name: prp_memorable_excel
+    dtype: string
+  "55":
     name: prp_check
     dtype: bool
-  "55":
+  "56":
     name: prp_flows
     dtype: list
