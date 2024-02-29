@@ -1,0 +1,17 @@
+name: Daily Script Execution
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch: 
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Run Main Script
+        run: python main.py
