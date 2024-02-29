@@ -1,0 +1,19 @@
+name: Run Main Script
+
+on:
+  schedule:
+    - cron: '0 10 * * *' 
+
+jobs:
+  run-main-script:
+    runs-on: ubuntu-latest
+    
+    env:
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Run Main Script
+        run: python main.py
