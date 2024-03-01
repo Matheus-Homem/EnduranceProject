@@ -33,7 +33,7 @@ class EmailManager:
 		self.message["To"] = credentials.RECIPIENT
 		self.message["Subject"] = self.subject
 
-		self.message._attach(MIMEText(self.email_body, "plain"))
+		self.message.attach(MIMEText(self.email_body, "plain"))
 
 	def _attach(self):
 		file_path = self.calendar.get_partitioned_file_path(fmt="pdf")
@@ -45,7 +45,7 @@ class EmailManager:
 				attachment.set_payload(file.read())
 				encoders.encode_base64(attachment)
 				attachment.add_header("Content-Disposition", f"attachment; filename={os.path.split(self.attachment_path)[-1]}")
-				self.message._attach(attachment)
+				self.message.attach(attachment)
 
 	def _send(self):
 		with smtplib.SMTP(credentials.SERVER, credentials.PORT) as server:
