@@ -16,7 +16,7 @@ class Report:
 
 	def _send_file(self):
 		email_manager = EmailManager()
-		email_manager.set_frequency("0 5 * * *")
+		email_manager.set_frequency("0 10 * * *")
 		email_manager.dispatch()
 
 	def daily_publish(self, send_email:bool=False):
