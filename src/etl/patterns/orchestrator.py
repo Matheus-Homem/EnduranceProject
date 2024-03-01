@@ -1,14 +1,27 @@
 from src.env.helpers import Paths
+from src.env.globals import Global
 from src.report.email.credentials import Credentials
 
-import polars as pl
 from abc import ABC, abstractmethod
+import polars as pl
 import logging
+import os
 
 class Orchestrator(ABC):
 	logger = logging.getLogger(__name__)
 	logger.setLevel(logging.INFO)
-	logger.addHandler(logging.StreamHandler())
+	logger_path = Global().get_calendar().get_partitioned_file_path(prefix="LOG", fmt="txt")
+	if os.path.exists(logger_path):
+		os.remove(logger_path)
+	handler = logging.FileHandler(logger_path)
+	handler.setLevel(logging.INFO)
+	formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+	handler.setFormatter(formatter)
+	logger.addHandler(handler)
+	console_handler = logging.StreamHandler()
+	console_handler.setLevel(logging.INFO)
+	logger.addHandler(console_handler)
+
 
 	def __init__(self):
 		self.paths = Paths()
