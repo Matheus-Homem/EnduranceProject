@@ -26,7 +26,7 @@ def main():
 	ProcessOrchestrator().execute(automated=automated)
 
 	# Everyday generate Daily Report
-	Report().daily_publish()
+	Report().daily_publish(send_email=automated)
 
 if __name__ == "__main__":
 	main()
