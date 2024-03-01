@@ -31,11 +31,12 @@ class ProcessOrchestrator(Orchestrator):
 	def execute(self, automated: bool = False):
 		self.logger = Orchestrator.logger
 		if automated:
-			self.logger.info("Automation detected. Initializing validation.")
-			while self._block_pipeline():
-				self.logger.info("Databases not updated. Retesting in 1 minute.")
-				time.sleep(60)
-			self.logger.info("Validation finished.")
+			pass
+			#self.logger.info("Automation detected. Initializing validation.")
+			#while self._block_pipeline():
+			#	self.logger.info("Databases not updated. Retesting in 1 minute.")
+			#	time.sleep(60)
+			#self.logger.info("Validation finished.")
 			self.orchestrate_process()
 		else:
 			self.logger.info("Manual process detected. Skipping validation.")
