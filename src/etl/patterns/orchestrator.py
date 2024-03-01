@@ -1,6 +1,6 @@
 from src.env.helpers import Paths
 from src.env.globals import Global
-from src.report.email.credentials import Credentials
+from src.report.email.credentials import credentials
 
 from abc import ABC, abstractmethod
 import polars as pl
@@ -25,7 +25,6 @@ class Orchestrator(ABC):
 
 	def __init__(self):
 		self.paths = Paths()
-		self.credentials = Credentials.from_env()
 
 	@abstractmethod
 	def execute(self):
@@ -47,7 +46,7 @@ class Orchestrator(ABC):
 
 	def validating(self, df_to_validate):
 		self.logger.info(f"{self.process} Engine: VALIDATING Process Started")
-		df_validated = df_to_validate.filter(pl.col("email_confirmation") == self.credentials.get_verified_email())
+		df_validated = df_to_validate.filter(pl.col("email_confirmation") == credentials.VALIDATED_EMAIL)
 		self.logger.info(f"{self.process} Engine: VALIDATING Process Finished")
 		return df_validated
 	
