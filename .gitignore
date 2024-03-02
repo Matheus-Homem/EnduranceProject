@@ -4,6 +4,9 @@
 # Ignore test notebooks
 *.ipynb
 
+# Ignore deprecated python files
+**/*_deprecated.py
+
 # Ignore Python Cache
 **/*.pyc
 
