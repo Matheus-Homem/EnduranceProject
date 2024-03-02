@@ -18,3 +18,5 @@ data/cleaned/*.parquet
 
 ### refined data files
 data/refined/*.parquet
+
+**/*.pyc
