@@ -4,6 +4,12 @@
 # Ignore test notebooks
 *.ipynb
 
+# Ignore deprecated python files
+**/*_deprecated.py
+
+# Ignore Python Cache
+**/*.pyc
+
 # Ignore PDF reports and PDF reports plots
 outputs/reports/**/**/**/*.pdf
 outputs/reports/**/**/**/*.png
@@ -11,6 +17,7 @@ outputs/reports/**/**/**/*.txt
 
 # Ignore all data
 ### raw data files
+data/ingestion/*.json
 data/ingestion/*.xlsx
 
 ### cleaned data files

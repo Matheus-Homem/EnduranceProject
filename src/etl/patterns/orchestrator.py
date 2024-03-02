@@ -1,6 +1,6 @@
 from src.env.helpers import Paths
 from src.env.globals import Global
-from src.report.email.credentials import credentials
+from src.env.credentials import credentials
 
 from abc import ABC, abstractmethod
 import polars as pl
