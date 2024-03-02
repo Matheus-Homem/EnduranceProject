@@ -20,6 +20,7 @@ class EmailManager:
 		self.frequency = frequency
 	
 	def _build(self):
+		print("Configuring e-mail")
 		if self.frequency == "0 10 * * *":
 			self.subject = f"Daily Report: {self.calendar.date}"
 			self.email_body = f"""
@@ -33,9 +34,10 @@ class EmailManager:
 		self.message["To"] = credentials.RECIPIENT
 		self.message["Subject"] = self.subject
 
-		self.message._attach(MIMEText(self.email_body, "plain"))
+		self.message.attach(MIMEText(self.email_body, "plain"))
 
 	def _attach(self):
+		print("Attaching texts and files to e-mail")
 		file_path = self.calendar.get_partitioned_file_path(fmt="pdf")
 		self.attachment_path = file_path if file_path else None
 		
@@ -45,9 +47,10 @@ class EmailManager:
 				attachment.set_payload(file.read())
 				encoders.encode_base64(attachment)
 				attachment.add_header("Content-Disposition", f"attachment; filename={os.path.split(self.attachment_path)[-1]}")
-				self.message._attach(attachment)
+				self.message.attach(attachment)
 
 	def _send(self):
+		print("Sending e-mail")
 		with smtplib.SMTP(credentials.SERVER, credentials.PORT) as server:
 			server.starttls()
 			server.login(credentials.USERNAME, credentials.PASSWORD)
@@ -56,6 +59,7 @@ class EmailManager:
 				to_addrs=credentials.RECIPIENT, 
 				msg=self.message.as_bytes()
 			)
+		print("E-mail was send sucessfully")
 
 	def dispatch(self):
 		self._build()
