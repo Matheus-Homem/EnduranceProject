@@ -1,5 +1,5 @@
 from src.env.helpers import Paths
-from src.report.email.credentials import credentials
+from src.env.credentials import credentials
 from src.env.globals import Global
 
 import os
