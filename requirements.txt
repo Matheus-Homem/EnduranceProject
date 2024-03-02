@@ -1,4 +1,12 @@
-pandas
+xlsx2csv
 polars
+pandas
 matplotlib
-msgraph-core
+python-dotenv
+pyyaml
+reportlab
+typing
+uuid
+email
+hashlib
+imaplib
