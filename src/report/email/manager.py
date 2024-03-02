@@ -30,8 +30,8 @@ class EmailManager:
 				Week Number: {self.calendar.week_number}
 			"""
 
-		self.message["From"] = credentials.USERNAME
-		self.message["To"] = credentials.RECIPIENT
+		self.message["From"] = credentials.SMTP_USERNAME
+		self.message["To"] = credentials.SMTP_RECIPIENT
 		self.message["Subject"] = self.subject
 
 		self.message.attach(MIMEText(self.email_body, "plain"))
@@ -51,12 +51,12 @@ class EmailManager:
 
 	def _send(self):
 		print("Sending e-mail")
-		with smtplib.SMTP(credentials.SERVER, credentials.PORT) as server:
+		with smtplib.SMTP(credentials.SMTP_SERVER, credentials.SMTP_PORT) as server:
 			server.starttls()
-			server.login(credentials.USERNAME, credentials.PASSWORD)
+			server.login(credentials.SMTP_USERNAME, credentials.SMTP_PASSWORD)
 			server.sendmail(
-				from_addr=credentials.USERNAME, 
-				to_addrs=credentials.RECIPIENT, 
+				from_addr=credentials.SMTP_USERNAME, 
+				to_addrs=credentials.SMTP_RECIPIENT, 
 				msg=self.message.as_bytes()
 			)
 		print("E-mail was send sucessfully")
