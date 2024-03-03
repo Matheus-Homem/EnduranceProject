@@ -32,9 +32,11 @@ class ExtractorEngine(Engine):
 		return email.message_from_bytes(raw_email)
 
 	def _parse_email_body(self, msg):
-		body = msg.get_payload(decode=True).decode().replace("\r", "")
-		ask_dict = {line.split("| ", 1)[0].strip(): line.split("| ", 1)[1].strip() 
-					for line in body.split("\n")[:-1]}
+		body = msg.get_payload(decode=True).decode('utf-8', 'ignore').replace("\r", "").replace("\n", " ")
+		ask_dict = {}
+		for item in body.split("#")[1:]:
+			question, response = item.split("|")
+			ask_dict[question] = response.strip()
 		return ask_dict
 
 	def _get_json_path(self, msg):
