@@ -1,0 +1,91 @@
+morning:
+  INFO1:
+    rename_to: day_date
+    method: alias
+    dtype: date
+  INFO2:
+    rename_to: day_form_time
+    method: alias
+    dtype: timestamp
+    day_to_sum: 0
+  INFO3:
+    rename_to: day_humor
+    method: alias
+    dtype: string
+  INFO4:
+    rename_to: pho_time
+    method: alias
+    dtype: timedelta
+  SLP1:
+    rename_to: slp_fall
+    method: alias
+    dtype: timestamp
+    day_to_sum: -1
+  SLP2:
+    rename_to: slp_raise
+    method: alias
+    dtype: timestamp
+    day_to_sum: 0
+  SLP3:
+    rename_to: slp_awake
+    method: concatenate_two
+    dtype: float
+  SLP4:
+    rename_to: slp_rem
+    method: concatenate_two
+    dtype: float
+  SLP5:
+    rename_to: slp_light
+    method: concatenate_two
+    dtype: float
+  SLP6:
+    rename_to: slp_deep
+    method: concatenate_two
+    dtype: float
+  WGT1:
+    rename_to: wgt_cal
+    method: alias
+    dtype: int
+  WGT2:
+    rename_to: ttl_weight
+    method: concatenate_four
+    dtype: float
+    suffix: kg
+  WGT3:
+    rename_to: mus_weight
+    method: concatenate_four
+    dtype: float
+    suffix: kg
+  WGT4:
+    rename_to: fat_percentage
+    method: concatenate_four
+    dtype: float
+    suffix: "%"
+  WGT5:
+    rename_to: wgt_rmr
+    method: alias
+    dtype: int
+  FOCUS1 [Fluxo Sábio]:
+    rename_to: grn_priority
+    method: alias
+    dtype: string
+  FOCUS1 [Fluxo Estável]:
+    rename_to: red_priority
+    method: alias
+    dtype: string
+  FOCUS1 [Fluxo Forte]:
+    rename_to: blu_priority
+    method: alias
+    dtype: string
+  FOCUS1 [Fluxo Gentil]:
+    rename_to: ylw_priority
+    method: alias
+    dtype: string
+  FOCUS1 [Fluxo Devoto]:
+    rename_to: prp_priority
+    method: alias
+    dtype: string
+  FOCUS2:
+    rename_to: day_priority
+    method: alias
+    dtype: list

@@ -24,7 +24,7 @@ morning_v2:
   "3":
     name: day_form_time
     dtype: timestamp
-    day_to_sum: 1
+    day_to_sum: 0
   "4":
     name: day_humor
     dtype: string
@@ -34,11 +34,11 @@ morning_v2:
   "6":
     name: slp_fall
     dtype: timestamp
-    day_to_sum: 0
+    day_to_sum: -1
   "7":
     name: slp_raise
     dtype: timestamp
-    day_to_sum: 1
+    day_to_sum: 0
   "8":
     name: slp_duration
     dtype: timedelta
@@ -102,7 +102,7 @@ morning_v3:
   "3":
     name: day_form_time
     dtype: timestamp
-    day_to_sum: 1
+    day_to_sum: 0
   "4":
     name: day_humor
     dtype: string
@@ -112,11 +112,11 @@ morning_v3:
   "6":
     name: slp_fall
     dtype: timestamp
-    day_to_sum: 0
+    day_to_sum: -1
   "7":
     name: slp_raise
     dtype: timestamp
-    day_to_sum: 1
+    day_to_sum: 0
   "8":
     name: slp_duration
     dtype: timedelta

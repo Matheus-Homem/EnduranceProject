@@ -10,16 +10,12 @@ class RefinerOrchestrator(Orchestrator):
 		self.process = "REFINING"
 
 		# Path formation
-		## Cleaned Paths
-		# self.clnd_mrn_cold_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_cold.parquet")
-		self.clnd_mrn_hot_path	= self.paths.get_file_path("cleaned",   "mrn_cleaned_hot.parquet")
-		# self.clnd_night_path	= self.paths.get_file_path("cleaned",   "ngt_cleaned.parquet")
-		# self.clnd_morning_path = self.paths.get_file_path("cleaned", "mrn_cleaned.parquet")
-		self.rfnd_weight_path  = self.paths.get_file_path("refined", "WM_WeightMeasurements.parquet")
+		self.cleaned_path	= self.paths.get_file_path("cleaned", "morning.parquet")
+		self.weight_path	= self.paths.get_file_path("refined", "WM_WeightMeasurements.parquet")
 
 		# Define tables_relation list
 		self.tables_relation = [
-			["weight", self.clnd_mrn_hot_path, self.rfnd_weight_path]
+			["weight", self.cleaned_path, self.weight_path]
 		]
 
 		# Create an instance of RefiningFunctions for executing refinements
