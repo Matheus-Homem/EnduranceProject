@@ -12,10 +12,9 @@ class ExtractorOrchestrator(Orchestrator):
 
 		self.engine = ExtractorEngine()
 
-	def execute(self):
-		self.logger = Orchestrator.logger
+	def execute(self, automated:bool):
 		self.logger.info("*********************************************************")
 		self.logger.info(f"///////////// STARTING EXTRACTING PROCESS //////////////")
 		self.logger.info("*********************************************************")
-		self.engine.execute()
+		self.engine.execute(automated=automated)
 
