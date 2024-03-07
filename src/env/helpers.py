@@ -7,7 +7,9 @@ class Calendar:
 		self.date		= datetime.strptime(exec_date, "%Y%m%d") if exec_date != None else date.today()
 		self.timestamp	= datetime.combine(self.date, datetime.min.time())
 
+		self.date_id		= self.date.strftime("%Y-%m-%d")
 		self.ingestion		= self.date.strftime("%m-%d-%y")
+	
 		self.dt_fmtd		= self.date.strftime("%d/%m/%Y")
 		self.week_day		= self.timestamp.strftime("%A")
 		self.week_number	= self.timestamp.isocalendar()[1]
@@ -26,6 +28,7 @@ class Calendar:
 			os.makedirs(os.path.dirname(dir_file_path))
 
 		return dir_file_path
+	
 
 class Paths:
 	def __init__(self):
