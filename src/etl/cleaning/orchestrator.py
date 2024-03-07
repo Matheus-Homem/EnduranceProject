@@ -37,7 +37,6 @@ class CleanerOrchestrator(Orchestrator):
 		return df_cleaned
 	
 	def execute(self):
-		self.logger = Orchestrator.logger
 		self.logger.info("*********************************************************")
 		self.logger.info(f"////////////// STARTING CLEANING PROCESS ///////////////")
 		self.logger.info("*********************************************************")

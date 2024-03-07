@@ -4,53 +4,31 @@ from datetime import datetime, date
 class Calendar:
 	def __init__(self, exec_date=None):
 
-		# Convert the input string to a datetime object
-		self.date = datetime.strptime(exec_date, "%Y%m%d") if exec_date != None else date.today()
-		self.timestamp = datetime.combine(self.date, datetime.min.time())
+		self.date		= datetime.strptime(exec_date, "%Y%m%d") if exec_date != None else date.today()
+		self.timestamp	= datetime.combine(self.date, datetime.min.time())
 
-		# Calculate other variables
-		self.ingestion = self.date.strftime("%m-%d-%y") # Get the date as in ingestion layer
-		self.dt_fmtd = self.date.strftime("%d/%m/%Y") # Get the formatted date
-		self.week_day = self.timestamp.strftime("%A") # Get the name of the day of the week
-		self.week_number = self.timestamp.isocalendar()[1] # Get the week number of the year
+		self.date_id		= self.date.strftime("%Y-%m-%d")
+		self.ingestion		= self.date.strftime("%m-%d-%y")
+	
+		self.dt_fmtd		= self.date.strftime("%d/%m/%Y")
+		self.week_day		= self.timestamp.strftime("%A")
+		self.week_number	= self.timestamp.isocalendar()[1]
 
-	def get_partitioned_file_path(self, fmt:str, prefix:str=None) -> str:
-		"""
-		Create a partitioned directory structure for storing files based on the current date.
+	def get_partitioned_file_path(self, fmt:str, prefix:str=None, dir:str="report") -> str:
 
-		Args:
-			directory (str): The name of the base directory where the partitioned structure will be created.
-			file_name (str): The name of the file to be stored within the partitioned structure.
-
-		Returns:
-			str: The full path to the file within the partitioned directory structure.
-
-		Example:
-			Assuming `directory` is "images" and `file_name` is "example.png", and the current date is
-			2024-01-28, the function will create the directory structure:
-			"{base_directory}/images/2024/01/28/example.png" and return the full path.
-
-		Note:
-			This function uses the current date to create a hierarchical directory structure within the
-			specified base directory. It checks if the necessary directories exist and creates them if
-			they don't.
-
-		"""
+		#TODO: enable partitioned file path in others directories
 
 		full_name = f"{prefix}_{str(self.date)}.{fmt}" if prefix else f"{str(self.date)}.{fmt}"
 
-		# Extract year, month, and day as strings, ensuring month and day have leading zeros.
 		year, month, day = str(self.date.year), str(self.date.month).zfill(2), str(self.date.day).zfill(2)
 
-		# Construct the full path with partitioned directories.
 		dir_file_path = os.path.join(Paths().report, year, month, day, full_name)
 
-		# Check if the directory exists, and create it if necessary.
 		if not os.path.exists(os.path.dirname(dir_file_path)):
 			os.makedirs(os.path.dirname(dir_file_path))
 
-		# Return the full path to the file within the partitioned structure.
 		return dir_file_path
+	
 
 class Paths:
 	def __init__(self):

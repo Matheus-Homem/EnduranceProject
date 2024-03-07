@@ -1,11 +1,8 @@
-from abc import ABC, abstractmethod
-from src.env.helpers import Paths
+from src.env.patterns import Process
 
-class Engine(ABC):
-	
+
+class Engine(Process):
+
+
 	def __init__(self):
-		self.paths = Paths()
-
-	@abstractmethod
-	def execute(self):
-		pass
+		super().__init__()
