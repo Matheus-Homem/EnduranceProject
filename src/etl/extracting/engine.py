@@ -66,7 +66,7 @@ class ExtractorEngine(Engine):
 		date_to_validate = self.calendar.date_id
 
 		if need_validation:
-			self.logger.info(" |--| VALIDATION STATUS: Validation Started |--| ")
+			self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
 			for num in self.data[0].split():
 				raw_email = self._fetch_raw_email(num)
 				msg = self._parse_email(raw_email)
@@ -77,14 +77,15 @@ class ExtractorEngine(Engine):
 				else: 
 					pass
 			if need_validation:
-				self.logger.info(" |--| VALIDATION STATUS: Data Was Not Found |--| ")
+				self.logger.info(" |---| VALIDATION STATUS: Data Was Not Found |---| ")
+				self.logger.info(" |--| VALIDATION STATUS: Waiting Five Minutes |--| ")
 				time.sleep(300)
 
 			else:
-				self.logger.info(" |--| VALIDATION STATUS: Data Was Found |--| ")
+				self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
 			self.execute(automated=need_validation)
 		else:
-			self.logger.info(" |--| VALIDATION STATUS: Validation Skipped |--| ")
+			self.logger.info(" |---| VALIDATION STATUS: Skipping Validation |--| ")
 			for num in self.data[0].split():
 				raw_email = self._fetch_raw_email(num)
 				msg = self._parse_email(raw_email)
