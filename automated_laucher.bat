@@ -1,3 +1,3 @@
 @echo off
 set PYTHONPATH=.\
-python src\main.py
+python src\main.py --automated True
