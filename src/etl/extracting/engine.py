@@ -66,24 +66,22 @@ class ExtractorEngine(Engine):
 		date_to_validate = self.calendar.date_id
 
 		if need_validation:
-			self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
-			for num in self.data[0].split():
-				raw_email = self._fetch_raw_email(num)
-				msg = self._parse_email(raw_email)
-				subject = msg['Subject']
-				form_type, date_id, timestamp = subject.split("_")
-				if date_id == date_to_validate:
-					need_validation = False
-				else: 
-					pass
-			if need_validation:
-				self.logger.info(" |---| VALIDATION STATUS: Data Was Not Found |---| ")
-				self.logger.info(" |--| VALIDATION STATUS: Waiting Five Minutes |--| ")
-				time.sleep(300)
-
-			else:
-				self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
-			self.execute(automated=need_validation)
+			while need_validation:
+				self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
+				for num in self.data[0].split():
+					raw_email = self._fetch_raw_email(num)
+					msg = self._parse_email(raw_email)
+					subject = msg['Subject']
+					form_type, date_id, timestamp = subject.split("_")
+					if date_id == date_to_validate:
+						need_validation = False
+					else: 
+						pass
+				if need_validation:
+					self.logger.info(" |---| VALIDATION STATUS: Data Was Not Found |---| ")
+					time.sleep(60)
+				else:
+					self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
 		else:
 			self.logger.info(" |---| VALIDATION STATUS: Skipping Validation |--| ")
 			for num in self.data[0].split():
