@@ -68,37 +68,39 @@ class ExtractorEngine(Engine):
 		form_id, email_date, email_timestamp = subject.split("_")
 		return email_date
 
-	def _build_json_message(self, num, mail):
-		raw_email = self._fetch_raw_email_content(num, mail)
-		msg = self._parse_email_message(raw_email)
-		email_content_dict = self._parse_email_body_content(msg)
-		json_path = self._get_json_path(msg)
-		self._write_json_file(email_content_dict, json_path)
+	def _run_pipeline(self):
+		mail, email_data = self._build_connection()
+		for num in email_data[0].split():
+			raw_email = self._fetch_raw_email_content(num, mail)
+			msg = self._parse_email_message(raw_email)
+			email_content_dict = self._parse_email_body_content(msg)
+			json_path = self._get_json_path(msg)
+			self._write_json_file(email_content_dict, json_path)
+		self._close_mail_connection(mail)
+
+	def _validate_pipeline(self, date_to_validate):
+		mail, email_data = self._build_connection()
+		for num in email_data[0].split():
+			email_date = self._check_email_dates(num, mail)
+			if email_date == date_to_validate:
+				self.need_validation = False
+			else: 
+				pass
+		self._close_mail_connection(mail)
 
 	def execute(self, automated:bool):
-		need_validation = automated
+		self.need_validation = automated
 		date_to_validate = self.calendar.date_id
 
-		if need_validation:
-			while need_validation:
-				self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
-				mail, email_data = self._build_connection()
-
-				for num in email_data[0].split():
-					email_date = self._check_email_dates(num, mail)
-					if email_date == date_to_validate:
-						need_validation = False
-					else: 
-						pass
-				if need_validation:
-					self.logger.info(" |---| VALIDATION STATUS: Data Was Not Found |---| ")
-					self._close_mail_connection(mail)
+		if self.need_validation:
+			while self.need_validation:
+				self.logger.info(" |-----| VALIDATION STATUS: Validation Started |------| ")
+				self._validate_pipeline(date_to_validate)
+				if self.need_validation:
 					time.sleep(60)					
 				else:
-					self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
+					self.logger.info(" |-----| VALIDATION STATUS: Validation Finished |-----| ")
+					self._run_pipeline()
 		else:
-			self.logger.info(" |---| VALIDATION STATUS: Skipping Validation |--| ")
-			mail, email_data = self._build_connection()
-			for num in email_data[0].split():
-				self._build_json_message(num, mail)
-			self._close_mail_connection(mail)
+			self.logger.info(" |------| VALIDATION STATUS: Validation Skipped |-----| ")
+			self._run_pipeline()
