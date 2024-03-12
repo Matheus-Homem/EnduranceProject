@@ -13,10 +13,6 @@ class ExtractorEngine(Engine):
 	def __init__(self):
 		super().__init__()
 
-		self.connection = IMAPConnection()
-		self.mail = self.connection.get_mail()
-		self.data = self.connection.get_data()
-
 
 	def _generate_unique_filename(self, email_subject):
 		form_id, email_date, email_timestamp = email_subject.split("_")
@@ -55,9 +51,9 @@ class ExtractorEngine(Engine):
 		with open(json_path, "w", encoding="utf-8") as arquivo:
 			json.dump(email_content_dict, arquivo, indent=4, ensure_ascii=False)
 	
-	def _close_mail_connection(self):
-		self.mail.close()
-		self.mail.logout()
+	def _close_mail_connection(self, mail):
+		mail.close()
+		mail.logout()
 
 	def _check_email_dates(self, num):
 		raw_email = self._fetch_raw_email_content(num)
@@ -80,7 +76,11 @@ class ExtractorEngine(Engine):
 		if need_validation:
 			while need_validation:
 				self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
-				for num in self.data[0].split():
+				connection = IMAPConnection()
+				mail = connection.get_mail()
+				email_data = connection.get_data()
+
+				for num in email_data[0].split():
 					email_date = self._check_email_dates(num)
 					if email_date == date_to_validate:
 						need_validation = False
@@ -88,11 +88,12 @@ class ExtractorEngine(Engine):
 						pass
 				if need_validation:
 					self.logger.info(" |---| VALIDATION STATUS: Data Was Not Found |---| ")
-					time.sleep(60)
+					self._close_mail_connection(mail)
+					time.sleep(60)					
 				else:
 					self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
 		else:
 			self.logger.info(" |---| VALIDATION STATUS: Skipping Validation |--| ")
-			for num in self.data[0].split():
+			for num in email_data[0].split():
 				self._build_json_message(num)
-			self._close_mail_connection()
+			self._close_mail_connection(mail)
