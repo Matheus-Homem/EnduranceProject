@@ -84,7 +84,6 @@ class ExtractorEngine(Engine):
 					email_date = self._check_email_dates(num)
 					if email_date == date_to_validate:
 						need_validation = False
-						pass
 					else: 
 						pass
 				if need_validation:
