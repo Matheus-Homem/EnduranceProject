@@ -14,6 +14,12 @@ class ExtractorEngine(Engine):
 		super().__init__()
 
 
+	def _build_connection(self):
+		connection	= IMAPConnection()
+		mail		= connection.get_mail()
+		email_data	= connection.get_data()
+		return mail, email_data
+
 	def _generate_unique_filename(self, email_subject):
 		form_id, email_date, email_timestamp = email_subject.split("_")
 		form_id = form_id.split("-")[0]
@@ -22,8 +28,8 @@ class ExtractorEngine(Engine):
 		unique_id = hash_hex[:8]
 		return f"{form_id}_{email_date}({unique_id})"
 
-	def _fetch_raw_email_content(self, num):
-		result, email_data = self.mail.fetch(num, '(RFC822)')
+	def _fetch_raw_email_content(self, num, mail):
+		result, email_data = mail.fetch(num, '(RFC822)')
 		return email_data[0][1]
 
 	def _parse_email_message(self, raw_email):
@@ -55,15 +61,15 @@ class ExtractorEngine(Engine):
 		mail.close()
 		mail.logout()
 
-	def _check_email_dates(self, num):
-		raw_email = self._fetch_raw_email_content(num)
+	def _check_email_dates(self, num, mail):
+		raw_email = self._fetch_raw_email_content(num, mail)
 		msg = self._parse_email_message(raw_email)
 		subject = msg['Subject']
 		form_id, email_date, email_timestamp = subject.split("_")
 		return email_date
 
-	def _build_json_message(self, num):
-		raw_email = self._fetch_raw_email_content(num)
+	def _build_json_message(self, num, mail):
+		raw_email = self._fetch_raw_email_content(num, mail)
 		msg = self._parse_email_message(raw_email)
 		email_content_dict = self._parse_email_body_content(msg)
 		json_path = self._get_json_path(msg)
@@ -76,12 +82,10 @@ class ExtractorEngine(Engine):
 		if need_validation:
 			while need_validation:
 				self.logger.info(" |---| VALIDATION STATUS: Validation Started |---| ")
-				connection = IMAPConnection()
-				mail = connection.get_mail()
-				email_data = connection.get_data()
+				mail, email_data = self._build_connection()
 
 				for num in email_data[0].split():
-					email_date = self._check_email_dates(num)
+					email_date = self._check_email_dates(num, mail)
 					if email_date == date_to_validate:
 						need_validation = False
 					else: 
@@ -94,6 +98,7 @@ class ExtractorEngine(Engine):
 					self.logger.info(" |-----| VALIDATION STATUS: Data Was Found |-----| ")
 		else:
 			self.logger.info(" |---| VALIDATION STATUS: Skipping Validation |--| ")
+			mail, email_data = self._build_connection()
 			for num in email_data[0].split():
-				self._build_json_message(num)
+				self._build_json_message(num, mail)
 			self._close_mail_connection(mail)
