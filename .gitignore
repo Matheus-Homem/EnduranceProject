@@ -10,6 +10,9 @@
 # Ignore Python Cache
 **/*.pyc
 
+# Ignore Databases
+**/*.db
+
 # Ignore PDF reports and PDF reports plots
 outputs/reports/**/**/**/*.pdf
 outputs/reports/**/**/**/*.png
