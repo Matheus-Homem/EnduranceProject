@@ -13,6 +13,9 @@
 # Ignore Databases
 **/*.db
 
+# Ignore venv Folder
+venv/
+
 # Ignore PDF reports and PDF reports plots
 outputs/reports/**/**/**/*.pdf
 outputs/reports/**/**/**/*.png
