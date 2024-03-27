@@ -1,3 +1,28 @@
+# Makefile
+
+# Nome do ambiente virtual
+VENV_NAME := venv
+
+# Comando para ativar o ambiente virtual
+VENV_ACTIVATE := . $(VENV_NAME)/bin/activate
+
+# Comando para criar a virtual environment
+create-venv:
+	python3 -m venv $(VENV_NAME)
+
+# Comando para ativar a virtual environment
+activate-venv:
+	@echo "Ativando a virtual environment..."
+	@$(VENV_ACTIVATE)
+
+# Exemplo de uma tarefa que usa a virtual environment ativada
+run:
+	$(VENV_ACTIVATE) && python3 seu_script.py
+
+# Definindo a regra padrão (quando você digita apenas `make` no terminal)
+.DEFAULT_GOAL := run
+
+
 help:
 	@echo "Available targets:"
 	@echo "  run                  - Command to run the main.py script"
@@ -23,8 +48,7 @@ docs:
 	# Add commands here to generate project documentation
 
 # Command to run the main.py script
-run: 
-	cmd /c "$(PYTHON) src\main.py"
+/
 
 # Command to create the virtual environment
 setup-venv:
@@ -32,7 +56,11 @@ setup-venv:
 
 # Command to activate the virtual environment
 activate:
-	PS venv/Scripts/activate.bat && exec cmd
+	@echo off
+	call .\venv\Scripts\activate.bat
+	echo Teste
+
+
 
 # Command to install the project dependencies
 install-requirements:
