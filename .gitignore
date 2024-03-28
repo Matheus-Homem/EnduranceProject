@@ -14,7 +14,7 @@
 **/*.db
 
 # Ignore venv Folder
-venv/
+.venv/
 
 # Ignore PDF reports and PDF reports plots
 outputs/reports/**/**/**/*.pdf
