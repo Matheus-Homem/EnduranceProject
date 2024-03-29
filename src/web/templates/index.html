@@ -1,37 +1,121 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport", content="width=device-width, initial-scale=1.0">
+    <title>Bússola Solar</title>
+</head>
+<body>
+    
+    <h1>Bússola Solar</h1>
+    <hr>
 
-{% block head %}
-<title>Task Master</title>
-{% endblock %}
+    <form action="index.php" method="POST" onsubmit="return validatePercentage()">
 
-{% block body %}
-<div class="content">
-	<h1 style="text-align: center;">Task Master</h1>
-	{% if tasks|length < 1 %}
-	<h4 style="text-align: center;">There are no tasks. Create one below!</h4>
-	{% else %}
-	<table>
-		<tr>
-			<th>Task</th>
-			<th>Added</th>
-			<th>Actions</th>
-		</tr>
-		{% for task in tasks %}
-			<tr>
-				<td>{{ task.content }}</td>
-				<td>{{ task.date_created.date() }}</td>
-				<td>
-					<a href="/delete/{{task.id}}">Delete</a>
-					<br>
-					<a href="/update/{{task.id}}">Update</a>
-				</td>
-			</tr>
-		{% endfor %}
-	</table>
-	{% endif %}
-	<form action="/" method="POST">
-		<input type="text" name="content" id="content">
-		<input type="submit" value="Add Task">
-	</form>
-</div>
-{% endblock %}
+        <h2>Informações Gerais</h2>
+
+        <label for="inputDate">Data:</label>
+        <input type="date" id="inputDate">
+        <br><br>
+
+        <label for="inputTime">Horário de Preenchimento:</label>
+        <input type="time" id="inputTime">
+        <br><br>
+
+        <label for="humor">Como o dia está se iniciando?</label>
+        <br>
+        <input type="radio" id="sol" name="humor" value="sol">
+        <label for="sol">Sol</label>
+        <br>
+
+        <input type="radio" id="lua" name="humor" value="lua">
+        <label for="lua">Lua</label>
+        <br><br>
+
+        <label for="cellphoneTime">Tempo de uso do celular:</label>
+        <input type="time" id="cellphoneTime" step="1" max="00:23:59">
+        <br><br>
+
+        <h2>Informações de Sono</h2>
+
+        <label for="bedTime">Horário que foi dormir:</label>
+        <input type="time" id="bedTime">
+        <br><br>
+
+        <label for="wakeupTime">Horário que acordou:</label>
+        <input type="time" id="wakeupTime">
+        <br><br>
+
+        <label for="awakeSleepTime">Tempo <strong>Acordado</strong> durante a noite:</label>
+        <input type="range" id="awakePercentage" name="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value">
+        <output id="awakePercentageOutput">0</output>%
+        <br><br>
+
+        <label for="remSleepTime">Tempo de <strong>Sono REM</strong> durante a noite:</label>
+        <input type="range" id="remPercentage" name="remPercentage" min="0" max="50" value="0" oninput="remPercentageOutput.value = remPercentage.value">
+        <output id="remPercentageOutput">0</output>%
+        <br><br>
+
+        <label for="lightSleepTime">Tempo de <strong>Sono Leve</strong> durante a noite:</label>
+        <input type="range" id="lightPercentage" name="lightPercentage" min="0" max="100" value="0" oninput="lightPercentageOutput.value = lightPercentage.value">
+        <output id="lightPercentageOutput">0</output>%
+        <br><br>
+
+        <label for="deepSleepTime">Tempo de <strong>Sono Pesado</strong> durante a noite:</label>
+        <input type="range" id="deepPercentage" name="deepPercentage" min="0" max="50" value="0" oninput="deepPercentageOutput.value = deepPercentage.value">
+        <output id="deepPercentageOutput">0</output>%
+        <br><br>
+
+        <h2>Informações de Peso</h2>
+
+        <label for="burnedCalories">Calorias queimadas no dia anterior:</label>
+        <input type="number" id="burnedCalories" value="0" min="0">
+        <br><br>
+
+        <label for="totalWeight">Peso Total:</label>
+        <input type="number" id="totalWeight" name="totalWeight" step="0.01" min="0" max="100">
+        <br><br>
+
+        <label for="muscleWeight">Massa Magra:</label>
+        <input type="number" id="muscleWeight" name="muscleWeight" step="0.01" min="0" max="100">
+        <br><br>
+
+        <label for="fatWeightPercentage">Percentual de Gordura:</label>
+        <input type="range" id="fatWeightPercentage" name="fatWeightPercentage" step="0.01" min="0" max="30" value="0" oninput="fatWeightPercentageOutput.value = fatWeightPercentage.value">
+        <output id="fatWeightPercentageOutput">0</output>%
+        <br><br>
+
+        <label for="basalMetabolism">Metabolismo basal aproximado:</label>
+        <input type="number" id="basalMetabolism" value="1500" min="0">
+        <br><br>
+        
+        <label for="gratitude">Ao que você é grato?</label>
+        <input type="text" id="gratitude" placeholder="Sou grato por..." minlength="13" required>
+
+        <br><br>
+        <input type="reset"><br>
+        <input type="submit">
+        
+    </form>
+
+    <script>
+        function validatePercentage() {
+            var awakePercentage = parseInt(document.getElementById("awakePercentage").value);
+            var remPercentage = parseInt(document.getElementById("remPercentage").value);
+            var lightPercentage = parseInt(document.getElementById("lightPercentage").value);
+            var deepPercentage = parseInt(document.getElementById("deepPercentage").value);
+
+            var totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
+
+            if (totalPercentage !== 100) {
+                alert("A soma das porcentagens deve ser igual a 100%");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
