@@ -107,15 +107,3 @@ function addEventListeners() {
 }
 
 check.addEventListener('click', checkOrder);
-
-export {
-    createList,
-    dragStart,
-    dragEnter,
-    dragLeave,
-    dragOver,
-    dragDrop,
-    swapItems,
-    checkOrder,
-    addEventListeners
-};
