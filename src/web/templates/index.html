@@ -70,41 +70,106 @@
         <h2>Informações de Peso</h2>
 
         <label for="burnedCalories">Calorias queimadas no dia anterior:</label>
-        <input type="number" id="burnedCalories" value="0" min="0">
+        <input type="number" id="burnedCalories" value="0" min="0" oninput="burnedCaloriesOutput.value = burnedCalories.value">
+        <output id="burnedCaloriesOutput">0</output> cal
         <br><br>
 
         <label for="totalWeight">Peso Total:</label>
-        <input type="number" id="totalWeight" name="totalWeight" step="0.01" min="0" max="100">
+        <input type="number" id="totalWeight" value="0" name="totalWeight" step="0.01" min="0" max="100" oninput="totalWeightOutput.value = totalWeight.value">
+        <output id="totalWeightOutput">0</output> kg
         <br><br>
 
         <label for="muscleWeight">Massa Magra:</label>
-        <input type="number" id="muscleWeight" name="muscleWeight" step="0.01" min="0" max="100">
+        <input type="number" id="muscleWeight" value="0" name="muscleWeight" step="0.01" min="0" max="100" oninput="muscleWeightOutput.value = muscleWeight.value">
+        <output id="muscleWeightOutput">0</output> kg
         <br><br>
 
         <label for="fatWeightPercentage">Percentual de Gordura:</label>
-        <input type="range" id="fatWeightPercentage" name="fatWeightPercentage" step="0.01" min="0" max="30" value="0" oninput="fatWeightPercentageOutput.value = fatWeightPercentage.value">
+        <input type="text" id="fatWeightPercentage" value="0" name="fatWeightPercentage" pattern="[0-9]{2}\.[0-9]{2}" title="Por favor, insira a porcentagem de gordura corporal no formato __.__" oninput="fatWeightPercentageOutput.value = fatWeightPercentage.value">
         <output id="fatWeightPercentageOutput">0</output>%
         <br><br>
 
         <label for="basalMetabolism">Metabolismo basal aproximado:</label>
-        <input type="number" id="basalMetabolism" value="1500" min="0">
+        <input type="number" id="basalMetabolism" value="1500" min="0" oninput="basalMetabolismOutput.value = basalMetabolism.value">
+        <output id="basalMetabolismOutput">1500</output> cal
         <br><br>
+
+        <h2>Definições de Prioridades</h2>
+
+        <table>
+            <tr>
+                <td><span class="priority-label">Priorizar:</span></td>
+                <td><span class="priority-value" id="firstItemStringDisplay"></span></td>
+            </tr>
+            <tr>
+                <td><span class="priority-label">Investir:</span></td>
+                <td><span class="priority-value" id="secondItemStringDisplay"></span></td>
+            </tr>
+            <tr>
+                <td><span class="priority-label">Manter:</span></td>
+                <td><span class="priority-value" id="forcaIndexDisplay"></span></td>
+            </tr>
+            <tr>
+                <td><span class="priority-label">Despriorizar:</span></td>
+                <td><span class="priority-value" id="gentilezaIndexDisplay"></span></td>
+            </tr>
+            <tr>
+                <td><span class="priority-label">Sacrificar:</span></td>
+                <td><span class="priority-value" id="devocaoIndexDisplay"></span></td>
+            </tr>
+        </table>
         
-        <label for="gratitude">Ao que você é grato?</label>
-        <input type="text" id="gratitude" placeholder="Sou grato por..." minlength="13" required>
 
         <br><br>
+
+        <div id="priorityList" class="sortable-list">
+            <div class="sortable-item">
+                <span class="item-number" id="sabedoria">Sabedoria</span>
+            </div>
+            <div class="sortable-item">
+                <span class="item-number" id="estabilidade">Estabilidade</span>
+            </div>
+            <div class="sortable-item">
+                <span class="item-number" id="forca">Forca</span>
+            </div>
+            <div class="sortable-item">
+                <span class="item-number" id="gentileza">Gentileza</span>
+            </div>
+            <div class="sortable-item">
+                <span class="item-number" id="devocao">Devocao</span>
+            </div>
+        </div>
+        <input type="hidden" id="sabedoria" name="sabedoria">
+        <input type="hidden" id="estabilidade" name="estabilidade">
+        <input type="hidden" id="forca" name="forca">
+        <input type="hidden" id="gentileza" name="gentileza">
+        <input type="hidden" id="devocao" name="devocao">
+        <br>
+
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js"></script>
+
+        <script>
+            var sortableList = document.getElementById("priorityList");
+            new Sortable(sortableList, {
+                animation: 150
+            });
+        </script>
+
+        <input type="text" id="gratitude" placeholder="Sou grato por..." minlength="13" required>
+        <br><br>
+
         <input type="reset"><br>
         <input type="submit">
-        
+            
     </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js"></script>
     <script>
         function validatePercentage() {
             var awakePercentage = parseInt(document.getElementById("awakePercentage").value);
-            var remPercentage = parseInt(document.getElementById("remPercentage").value);
+            var remPercentage   = parseInt(document.getElementById("remPercentage").value);
             var lightPercentage = parseInt(document.getElementById("lightPercentage").value);
-            var deepPercentage = parseInt(document.getElementById("deepPercentage").value);
+            var deepPercentage  = parseInt(document.getElementById("deepPercentage").value);
 
             var totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
 
@@ -113,8 +178,73 @@
                 return false;
             }
 
-            return true;
+        return true;
         }
+
+        
+        
+        var priorityList = document.getElementById("priorityList");
+        var items = priorityList.getElementsByClassName("sortable-item");
+
+        var firstItemStringDisplay    = document.getElementById("firstItemStringDisplay");
+        var firstItemString = items[0].getElementsByTagName("span")[0].innerText.trim();
+        firstItemStringDisplay.textContent = firstItemString;
+
+        var secondItemStringDisplay    = document.getElementById("secondItemStringDisplay");
+        var secondItemString = items[1].getElementsByTagName("span")[0].innerText.trim();
+        secondItemStringDisplay.textContent = secondItemString;
+
+        var sabedoriaIndexDisplay    = document.getElementById("sabedoriaIndexDisplay");
+        var estabilidadeIndexDisplay = document.getElementById("estabilidadeIndexDisplay");
+        var forcaIndexDisplay        = document.getElementById("forcaIndexDisplay");
+        var gentilezaIndexDisplay    = document.getElementById("gentilezaIndexDisplay");
+        var devocaoIndexDisplay      = document.getElementById("devocaoIndexDisplay");
+
+        var sabedoriaIndex    = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Sabedoria");
+        var estabilidadeIndex = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Estabilidade");
+        var forcaIndex        = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Forca");
+        var gentilezaIndex    = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Gentileza");
+        var devocaoIndex      = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Devocao");
+
+        sabedoriaIndexDisplay.textContent    = sabedoriaIndex  + 1;
+        estabilidadeIndexDisplay.textContent = estabilidadeIndex  + 1;
+        forcaIndexDisplay.textContent        = forcaIndex  + 1;
+        gentilezaIndexDisplay.textContent    = gentilezaIndex  + 1;
+        devocaoIndexDisplay.textContent      = devocaoIndex  + 1;
+
+
+        new Sortable(priorityList, {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            onUpdate: function (evt) {
+                var items = priorityList.getElementsByClassName("sortable-item");
+
+                var sabedoriaIndexDisplay    = document.getElementById("sabedoriaIndexDisplay");
+                var estabilidadeIndexDisplay = document.getElementById("estabilidadeIndexDisplay");
+                var forcaIndexDisplay        = document.getElementById("forcaIndexDisplay");
+                var gentilezaIndexDisplay    = document.getElementById("gentilezaIndexDisplay");
+                var devocaoIndexDisplay      = document.getElementById("devocaoIndexDisplay");
+
+                var firstItemString = items[0].innerText.trim();
+                var firstItemStringDisplay = document.getElementById("firstItemStringDisplay");
+                firstItemStringDisplay.textContent = firstItemString;
+
+                var sabedoriaIndex    = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Sabedoria");
+                var estabilidadeIndex = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Estabilidade");
+                var forcaIndex        = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Forca");
+                var gentilezaIndex    = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Gentileza");
+                var devocaoIndex      = Array.from(items).findIndex(item => item.getElementsByTagName("span")[0].innerText.trim() === "Devocao");
+
+                sabedoriaIndexDisplay.textContent    = sabedoriaIndex  + 1;
+                estabilidadeIndexDisplay.textContent = estabilidadeIndex  + 1;
+                forcaIndexDisplay.textContent        = forcaIndex  + 1;
+                gentilezaIndexDisplay.textContent    = gentilezaIndex  + 1;
+                devocaoIndexDisplay.textContent      = devocaoIndex  + 1;  
+            }
+        });
+        
     </script>
 
 </body>
