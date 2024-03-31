@@ -18,62 +18,116 @@
 
     <form action="index.php" method="POST" onsubmit="return validatePercentage() && checkPrioritize()">
 
-        <h2>Informações Gerais</h2>
+        <section id="generalData">
+            <h2>Informações Gerais</h2>
+            <fieldset id="header">
+                <legend>Cabeçalho</legend>
+                <div>
+                    <label for="inputDate">Data do Registro:</label>
+                    <input type="date" name="inputDate" id="inputDate" >
+                </div>
+                <br>
+                <div>
+                    <label for="inputTime">Horário de Preenchimento:</label>
+                    <input type="time" name="inputTime" id="inputTime" >
+                </div>
+                <br>
+                <div>
+                    <label for="dayHumor">Como o dia está se iniciando?</label>
+                    <div>
+                        <input type="radio" name="dayHumor" id="sun"  value="sol">
+                        <i class="fas fa-sun" style="margin-right: 15px;"></i>
+                        <input type="radio" name="dayHumor" id="moon"  value="lua">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <label for="cellphoneTime">Tempo de uso do celular:</label>
+                    <input type="time" name="cellphoneTime" id="cellphoneTime" step="1" max="00:23:59">
+                </div>
+            </fieldset>
+        </section>
+        
+        <br><hr>
 
-        <label for="inputDate">Data:</label>
-        <input type="date" id="inputDate">
-        <br><br>
+        <section id="sleepData">
+            <h2>Informações de Sono</h2>
+            <fieldset id="sleepTime">
+                <legend>Horários</legend>
+                <div>
+                    <div style="display: inline-block; margin-right: 90px;">
+                        <label for="bedDateTime">Início do Sono</label>
+                        <br>
+                        <input type="datetime-local" name="bedDateTime" id="bedDateTime">
+                    </div>
+                    <div style="display: inline-block;">
+                        <label for="wakeupDateTime">Fim do Sono</label>
+                        <br>
+                        <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime">
+                    </div>
+                </div>
+                <div>
+                    <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
+                </div>
+            </fieldset>
+            <br>
+            <fieldset id="">
+                <legend></legend>
+                <div>
+                    <label for="awakeSleepTime" style="margin-right: 80px;">
+                        Tempo <strong>Acordado</strong> durante a noite:
+                    </label>
+                    <output name="awakePercentageOutput" id="awakePercentageOutput">
+                        <strong>0</strong>
+                    </output>%
+                    <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                </div><br>
+                
+                <div>
+                    <label for="remSleepTime" style="margin-right: 56px;">
+                        Tempo de <strong>Sono REM</strong> durante a noite:
+                    </label>
+                    <output name="remPercentageOutput" id="remPercentageOutput">
+                        <strong>0</strong>
+                    </output>%
+                    <input type="range" name="remPercentage" id="remPercentage" min="0" max="50" value="0" oninput="remPercentageOutput.value = remPercentage.value; remPercentageOutput.style.fontWeight = 'bold'">
+                </div>
+        
+                <br>
+                
+                <div>
+                    <label for="lightSleepTime" style="margin-right: 59px;">
+                        Tempo de <strong>Sono Leve</strong> durante a noite:
+                    </label>
+                    <output name="lightPercentageOutput" id="lightPercentageOutput">
+                        <strong>0</strong>
+                    </output>%
+                    <input type="range" name="lightPercentage" id="lightPercentage" min="0" max="100" value="0" oninput="lightPercentageOutput.value = lightPercentage.value; lightPercentageOutput.style.fontWeight = 'bold'">
+                </div><br>
+                
+                <div>
+                    <label for="deepSleepTime" style="margin-right: 40px;">
+                        Tempo de <strong>Sono Pesado</strong> durante a noite:
+                    </label>
+                    <output name="deepPercentageOutput" id="deepPercentageOutput">
+                        <strong>0</strong>
+                    </output>%
+                    <input type="range" name="deepPercentage" id="deepPercentage" min="0" max="50" value="0" oninput="deepPercentageOutput.value = deepPercentage.value; deepPercentageOutput.style.fontWeight = 'bold'">
+                </div>
+            </fieldset>
+        </section>
 
-        <label for="inputTime">Horário de Preenchimento:</label>
-        <input type="time" id="inputTime">
-        <br><br>
+        
 
-        <label for="humor">Como o dia está se iniciando?</label>
+
+        
         <br>
-        <input type="radio" id="sol" name="humor" value="sol">
-        <label for="sol">Sol</label>
-        <br>
+        
 
-        <input type="radio" id="lua" name="humor" value="lua">
-        <label for="lua">Lua</label>
-        <br><br>
+        
+        <br><hr>
 
-        <label for="cellphoneTime">Tempo de uso do celular:</label>
-        <input type="time" id="cellphoneTime" step="1" max="00:23:59">
-        <br><br>
-
-        <hr>
-        <h2>Informações de Sono</h2>
-
-        <label for="bedTime">Horário que foi dormir:</label>
-        <input type="time" id="bedTime">
-        <br><br>
-
-        <label for="wakeupTime">Horário que acordou:</label>
-        <input type="time" id="wakeupTime">
-        <br><br>
-
-        <label for="awakeSleepTime">Tempo <strong>Acordado</strong> durante a noite:</label>
-        <input type="range" id="awakePercentage" name="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value">
-        <output id="awakePercentageOutput">0</output>%
-        <br><br>
-
-        <label for="remSleepTime">Tempo de <strong>Sono REM</strong> durante a noite:</label>
-        <input type="range" id="remPercentage" name="remPercentage" min="0" max="50" value="0" oninput="remPercentageOutput.value = remPercentage.value">
-        <output id="remPercentageOutput">0</output>%
-        <br><br>
-
-        <label for="lightSleepTime">Tempo de <strong>Sono Leve</strong> durante a noite:</label>
-        <input type="range" id="lightPercentage" name="lightPercentage" min="0" max="100" value="0" oninput="lightPercentageOutput.value = lightPercentage.value">
-        <output id="lightPercentageOutput">0</output>%
-        <br><br>
-
-        <label for="deepSleepTime">Tempo de <strong>Sono Pesado</strong> durante a noite:</label>
-        <input type="range" id="deepPercentage" name="deepPercentage" min="0" max="50" value="0" oninput="deepPercentageOutput.value = deepPercentage.value">
-        <output id="deepPercentageOutput">0</output>%
-        <br><br>
-
-        <hr>
         <h2>Informações de Peso</h2>
 
         <label for="burnedCalories">Calorias queimadas no dia anterior:</label>
@@ -256,18 +310,20 @@
             </tr>
         </table>
 
-
-            
-        <div style="display: flex;">
-            <div style="margin-right: 20px;">
-                <h4>Selected Vertical Categories:</h4>
-                <ul id="selected-categories-v" class="selected-list"></ul>
-            </div>
-            <div>
-                <h4>Selected Horizontal Categories:</h4>
-                <ul id="selected-categories-h" class="selected-list"></ul>
-            </div>
-        </div>
+        <table class="selectedList">
+            <tr>
+                <th>Vertical</th>
+                <th>Horizontal</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul id="selected-categories-v" class="selected-list"></ul>
+                </td>
+                <td>
+                    <ul id="selected-categories-h" class="selected-list"></ul>
+                </td>
+            </tr>
+        </table>
 
         <hr>
         <div class="buttonContainer">
@@ -286,30 +342,68 @@
             
     </form>
 
-
     <script>
+
+        // Function to calculate the time difference between bed and wakeup time
+        const bedDateTimeInput = document.getElementById('bedDateTime');
+        const wakeupDateTimeInput = document.getElementById('wakeupDateTime');
+        const timeDifferenceOutput = document.getElementById('timeDifference');
+        timeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+
+        bedDateTimeInput.addEventListener('change', calculateTimeDifference);
+        wakeupDateTimeInput.addEventListener('change', calculateTimeDifference);
+
+        function calculateTimeDifference() {
+            const bedDateTime = bedDateTimeInput.value;
+            const wakeupDateTime = wakeupDateTimeInput.value;
+
+            if (bedDateTime && wakeupDateTime) {
+                const bedDateTimeObj = new Date(bedDateTime);
+                const wakeupDateTimeObj = new Date(wakeupDateTime);
+
+                const timeDifference = wakeupDateTimeObj - bedDateTimeObj;
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+                timeDifferenceOutput.textContent = `Duração do Sono: ${hours}h e ${minutes}min`;
+            } else {
+                timeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+            }
+        }
+
 
         // Function to update the selected categories
         function updateSelectedCategories() {
-            const selectedCategoriesV = document.querySelectorAll('input[type="checkbox"][data-type="v"]:checked');
-            const selectedCategoriesH = document.querySelectorAll('input[type="checkbox"][data-type="h"]:checked');
-            const selectedListV = document.getElementById('selected-categories-v');
-            const selectedListH = document.getElementById('selected-categories-h');
-            selectedListV.innerHTML = '';
-            selectedListH.innerHTML = '';
+            const selectedVertical   = document.querySelectorAll('input[type="checkbox"][data-type="v"]:checked');
+            const selectedHorizontal = document.querySelectorAll('input[type="checkbox"][data-type="h"]:checked');
+            const selectedCross      = document.querySelectorAll('input[type="checkbox"][data-type="c"]:checked');
+            const listVertical   = document.getElementById('selected-categories-v');
+            const listHorizontal = document.getElementById('selected-categories-h');
+            listVertical.innerHTML   = '';
+            listHorizontal.innerHTML = '';
 
-            selectedCategoriesV.forEach(category => {
+            selectedVertical.forEach(category => {
                 const label = document.querySelector(`label[for="${category.id}"]`).innerText;
                 const listItem = document.createElement('li');
                 listItem.textContent = label;
-                selectedListV.appendChild(listItem);
+                listVertical.appendChild(listItem);
             });
 
-            selectedCategoriesH.forEach(category => {
+            selectedHorizontal.forEach(category => {
                 const label = document.querySelector(`label[for="${category.id}"]`).innerText;
                 const listItem = document.createElement('li');
                 listItem.textContent = label;
-                selectedListH.appendChild(listItem);
+                listHorizontal.appendChild(listItem);
+            });
+
+            selectedCross.forEach(category => {
+                const label = document.querySelector(`label[for="${category.id}"]`).innerText;
+                const listItemVertical   = document.createElement('li');
+                const listItemHorizontal = document.createElement('li');
+                listItemVertical.textContent   = label;
+                listItemHorizontal.textContent = label;
+                listVertical.appendChild(listItemVertical);
+                listHorizontal.appendChild(listItemHorizontal);
             });
         }
 
