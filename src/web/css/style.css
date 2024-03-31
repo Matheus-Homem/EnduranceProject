@@ -54,3 +54,7 @@ body {
 .submitButton:focus {
     outline: none;
 }
+
+#awakePercentage, #remPercentage, #lightPercentage, #deepPercentage {
+    width: 90%;
+}
