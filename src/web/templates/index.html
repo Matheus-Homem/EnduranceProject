@@ -11,7 +11,8 @@
     <script src="https://kit.fontawesome.com/3da1a747b2.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+
+    <br>
     <h1>Bússola Solar</h1>
     <hr>
 
@@ -20,35 +21,177 @@
         <section id="generalData">
             <h2>Informações Gerais</h2>
             <fieldset id="header">
-                <legend>Cabeçalho</legend>
+                <legend class=centralized>Hoje</legend>
                 <div>
-                    <label for="inputDate">Data do Registro:</label>
-                    <input type="date" name="inputDate" id="inputDate" >
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="inputDate">Data do Registro</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="date" name="inputDate" id="inputDate" style="width: 125px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="inputTime">Horário de Preenchimento</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="time" name="inputTime" id="inputTime" style="width: 110px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="dayHumor">Humor da Manhã</label>
+                            </td>
+                            <td class=centralized>
+                                <div class=centralized>
+                                    <input type="radio" name="dayHumor" id="sun"  value="sol">
+                                    <i class="fas fa-sun" style="margin-right: 25px;"></i>
+                                    <input type="radio" name="dayHumor" id="moon"  value="lua">
+                                    <i class="fas fa-moon"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <br>
+            </fieldset>
+            <br>
+            <fieldset id="yesterdayData">
+                <legend class=centralized>Ontem</legend>
                 <div>
-                    <label for="inputTime">Horário de Preenchimento:</label>
-                    <input type="time" name="inputTime" id="inputTime" >
-                </div>
-                <br>
-                <div>
-                    <label for="dayHumor">Como o dia está se iniciando?</label>
-                    <div>
-                        <input type="radio" name="dayHumor" id="sun"  value="sol">
-                        <i class="fas fa-sun" style="margin-right: 15px;"></i>
-                        <input type="radio" name="dayHumor" id="moon"  value="lua">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                </div>
-                <br>
-                <div>
-                    <label for="cellphoneTime">Tempo de uso do celular:</label>
-                    <input type="time" name="cellphoneTime" id="cellphoneTime" step="1" max="00:23:59">
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="cellphoneTime">Tempo de Tela</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="time" name="cellphoneTime" id="cellphoneTime" step="1" max="00:23:59" style="width: 110px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="blackBox">Caixinha Preta</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="text" name="blackBox" id="blackBox" pattern="\d+(\.\d{2})?" style="width: 110px;" placeholder="R$ ___.__">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="greenBox">Caixinha Verde</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="text" name="greenBox" id="greenBox" pattern="\d+(\.\d{2})?" style="width: 110px;" placeholder="R$ ___.__">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </fieldset>
         </section>
         
-        <br><hr>
+        <br><hr><br>
+
+        <section id="sleepData">
+            <h2>Informações De Sono</h2>
+            <fieldset id="sleepTime">
+                <legend class=centralized>Horários</legend>
+                <div>                    
+                    <div class=centralized>
+                        <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
+                    </div>
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="bedDateTime">Início do Sono</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="datetime-local" name="bedDateTime" id="bedDateTime" style="width: 150px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="wakeupDateTime">Fim do Sono</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime" style="width: 150px;">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            <br>
+            <fieldset id="sleepPercentages">
+                <legend class=centralized>Porcentagens</legend>
+                <div>
+                    <div>
+                        <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
+                    </div>
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class="centralized">
+                                <label for="awakeSleepTime">Tempo <strong>Acordado</strong></label>
+                            </td>
+                            <td class="centralized">
+                                <output name="awakePercentageOutput" id="awakePercentageOutput">
+                                    <strong>0</strong>
+                                </output>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized" colspan="2">
+                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized">
+                                <label for="awakeSleepTime">Sono <strong>REM</strong></label>
+                            </td>
+                            <td class="centralized">
+                                <output name="awakePercentageOutput" id="awakePercentageOutput">
+                                    <strong>0</strong>
+                                </output>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized" colspan="2">
+                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized">
+                                <label for="awakeSleepTime">Sono <strong>Leve</strong></label>
+                            </td>
+                            <td class="centralized">
+                                <output name="awakePercentageOutput" id="awakePercentageOutput">
+                                    <strong>0</strong>
+                                </output>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized" colspan="2">
+                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized">
+                                <label for="awakeSleepTime">Sono <strong>Pesado</strong></label>
+                            </td>
+                            <td class="centralized">
+                                <output name="awakePercentageOutput" id="awakePercentageOutput">
+                                    <strong>0</strong>
+                                </output>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="centralized" colspan="2">
+                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </section>
 
         <section id="sleepData">
             <h2>Informações de Sono</h2>
@@ -431,6 +574,7 @@
             return true;
         }
 
+
         // Function to validate the percentage of total sleep
         function validatePercentage() {
             var awakePercentage = parseInt(document.getElementById("awakePercentage").value);
@@ -439,7 +583,9 @@
             var deepPercentage  = parseInt(document.getElementById("deepPercentage").value);
 
             var totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
-
+            document.getElementById('totalPercentageDisplay').innerText = "Total Percentage: " + totalPercentage + "%";
+            document.getElementById('totalPercentage').innerText = "Total Percentage: " + totalPercentage + "%";
+            
             if (totalPercentage !== 100) {
                 alert("A soma das porcentagens deve ser igual a 100%");
                 return false;
