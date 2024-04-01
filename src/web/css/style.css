@@ -58,3 +58,12 @@ body {
 #awakePercentage, #remPercentage, #lightPercentage, #deepPercentage {
     width: 90%;
 }
+
+.centralized {
+    text-align: center;
+}
+
+.tableWithSpacing {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
