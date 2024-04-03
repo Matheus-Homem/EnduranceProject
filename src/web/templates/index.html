@@ -66,7 +66,17 @@
                                 <label for="cellphoneTime">Tempo de Tela</label>
                             </td>
                             <td class=centralized>
-                                <input type="time" name="cellphoneTime" id="cellphoneTime" step="1" max="00:23:59" style="width: 110px;">
+                                <input type="number"
+                                       name="cellphoneTime"
+                                       id="cellphoneTime"
+                                       minlength="4"
+                                       maxlength="4"
+                                       title="Insert four digits for the Cellphone Screen Time"
+                                       oninput="cellphoneTimeOutput.value = formatTime(cellphoneTime.value)"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="cellphoneTimeOutput">__h __min</output></div>
                             </td>
                         </tr>
                         <tr>
@@ -74,7 +84,16 @@
                                 <label for="blackBox">Caixinha Preta</label>
                             </td>
                             <td class=centralized>
-                                <input type="text" name="blackBox" id="blackBox" pattern="\d+(\.\d{2})?" style="width: 110px;" placeholder="R$ ___.__">
+                                <input type="number"
+                                       name="blackBox"
+                                       id="blackBox"
+                                       minlength="3"
+                                       title="Insert four digits for the Black Box current value"
+                                       oninput="blackBoxOutput.value = formatMoney(blackBox.value)"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="blackBoxOutput">R$ __.__</output></div>
                             </td>
                         </tr>
                         <tr>
@@ -82,8 +101,18 @@
                                 <label for="greenBox">Caixinha Verde</label>
                             </td>
                             <td class=centralized>
-                                <input type="text" name="greenBox" id="greenBox" pattern="\d+(\.\d{2})?" style="width: 110px;" placeholder="R$ ___.__">
+                                <input type="number"
+                                       name="greenBox"
+                                       id="greenBox"
+                                       minlength="3"
+                                       title="Insert four digits for the Black Box current value"
+                                       oninput="greenBoxOutput.value = formatMoney(greenBox.value)"
+                                       style="width: 110px;">
                             </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="greenBoxOutput">R$ __.__</output></div>
+                            </td>
+                        
                         </tr>
                     </table>
                 </div>
@@ -127,135 +156,68 @@
                     <div>
                         <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
                     </div>
-                    <table style="width: 100%;" class=tableWithSpacing>
+                    <table style="width: 100%;" class="tableWithSpacing">
                         <tr>
                             <td class="centralized">
-                                <label for="awakeSleepTime">Tempo <strong>Acordado</strong></label>
+                                <label for="awakePercentage">Tempo <strong>Acordado</strong></label>
                             </td>
                             <td class="centralized">
                                 <output name="awakePercentageOutput" id="awakePercentageOutput">
-                                    <strong>0</strong>
+                                    <strong>10</strong>
                                 </output>%
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized" colspan="2">
-                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="30" value="10" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
-                                <label for="awakeSleepTime">Sono <strong>REM</strong></label>
+                                <label for="remPercentage">Sono <strong>REM</strong></label>
                             </td>
                             <td class="centralized">
-                                <output name="awakePercentageOutput" id="awakePercentageOutput">
-                                    <strong>0</strong>
+                                <output name="remPercentageOutput" id="remPercentageOutput">
+                                    <strong>15</strong>
                                 </output>%
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized" colspan="2">
-                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                                <input type="range" name="remPercentage" id="remPercentage" min="0" max="45" value="15" oninput="remPercentageOutput.value = remPercentage.value; remPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
-                                <label for="awakeSleepTime">Sono <strong>Leve</strong></label>
+                                <label for="lightPercentage">Tempo <strong>Leve</strong></label>
                             </td>
                             <td class="centralized">
-                                <output name="awakePercentageOutput" id="awakePercentageOutput">
-                                    <strong>0</strong>
+                                <output name="lightPercentageOutput" id="lightPercentageOutput">
+                                    <strong>20</strong>
                                 </output>%
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized" colspan="2">
-                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                                <input type="range" name="lightPercentage" id="lightPercentage" min="0" max="60" value="20" oninput="lightPercentageOutput.value = lightPercentage.value; lightPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
-                                <label for="awakeSleepTime">Sono <strong>Pesado</strong></label>
+                                <label for="deepPercentage">Tempo <strong>Profundo</strong></label>
                             </td>
                             <td class="centralized">
-                                <output name="awakePercentageOutput" id="awakePercentageOutput">
-                                    <strong>0</strong>
+                                <output name="deepPercentageOutput" id="deepPercentageOutput">
+                                    <strong>10</strong>
                                 </output>%
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized" colspan="2">
-                                <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
+                                <input type="range" name="deepPercentage" id="deepPercentage" min="0" max="30" value="10" oninput="deepPercentageOutput.value = deepPercentage.value; deepPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                     </table>
-                </div>
-            </fieldset>
-        </section>
-
-        <section id="sleepData">
-            <h2>Informações de Sono</h2>
-            <fieldset id="sleepTime">
-                <legend>Horários</legend>
-                <div>
-                    <div style="display: inline-block; margin-right: 90px;">
-                        <label for="bedDateTime">Início do Sono</label>
-                        <br>
-                        <input type="datetime-local" name="bedDateTime" id="bedDateTime">
-                    </div>
-                    <div style="display: inline-block;">
-                        <label for="wakeupDateTime">Fim do Sono</label>
-                        <br>
-                        <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime">
-                    </div>
-                </div>
-                <div>
-                    <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
-                </div>
-            </fieldset>
-            <br>
-            <fieldset id="">
-                <legend></legend>
-                <div>
-                    <label for="awakeSleepTime" style="margin-right: 80px;">
-                        Tempo <strong>Acordado</strong> durante a noite:
-                    </label>
-                    <output name="awakePercentageOutput" id="awakePercentageOutput">
-                        <strong>0</strong>
-                    </output>%
-                    <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="50" value="0" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
-                </div><br>
-                
-                <div>
-                    <label for="remSleepTime" style="margin-right: 56px;">
-                        Tempo de <strong>Sono REM</strong> durante a noite:
-                    </label>
-                    <output name="remPercentageOutput" id="remPercentageOutput">
-                        <strong>0</strong>
-                    </output>%
-                    <input type="range" name="remPercentage" id="remPercentage" min="0" max="50" value="0" oninput="remPercentageOutput.value = remPercentage.value; remPercentageOutput.style.fontWeight = 'bold'">
-                </div>
-        
-                <br>
-                
-                <div>
-                    <label for="lightSleepTime" style="margin-right: 59px;">
-                        Tempo de <strong>Sono Leve</strong> durante a noite:
-                    </label>
-                    <output name="lightPercentageOutput" id="lightPercentageOutput">
-                        <strong>0</strong>
-                    </output>%
-                    <input type="range" name="lightPercentage" id="lightPercentage" min="0" max="100" value="0" oninput="lightPercentageOutput.value = lightPercentage.value; lightPercentageOutput.style.fontWeight = 'bold'">
-                </div><br>
-                
-                <div>
-                    <label for="deepSleepTime" style="margin-right: 40px;">
-                        Tempo de <strong>Sono Pesado</strong> durante a noite:
-                    </label>
-                    <output name="deepPercentageOutput" id="deepPercentageOutput">
-                        <strong>0</strong>
-                    </output>%
-                    <input type="range" name="deepPercentage" id="deepPercentage" min="0" max="50" value="0" oninput="deepPercentageOutput.value = deepPercentage.value; deepPercentageOutput.style.fontWeight = 'bold'">
                 </div>
             </fieldset>
         </section>
@@ -284,8 +246,8 @@
                min="0"
                max="20000"
                title="Insert four digits for the Total Weight"
-               oninput="totalWeightOutput.value = formatNumber(totalWeight.value, 'kg')">
-        <div class="weight-output"><output id="totalWeightOutput">__.__ kg</output></div>
+               oninput="totalWeightOutput.value = formatWeight(totalWeight.value, 'kg')">
+        <div class="formatedOutput"><output id="totalWeightOutput">__.__ kg</output></div>
         <br>
 
         <label for="muscleWeight">Muscle Weight:</label>
@@ -295,8 +257,8 @@
                min="0"
                max="20000"
                title="Insert four digits for the Muscle Weight"
-               oninput="muscleWeightOutput.value = formatNumber(muscleWeight.value, 'kg')">
-        <div class="weight-output"><output id="muscleWeightOutput">__.__ kg</output></div>
+               oninput="muscleWeightOutput.value = formatWeight(muscleWeight.value, 'kg')">
+        <div class="formatedOutput"><output id="muscleWeightOutput">__.__ kg</output></div>
         <br>
 
         <label for="fatWeightPercentage">Fat Percentage:</label>
@@ -306,8 +268,8 @@
                min="0"
                max="9999"
                title="Insert four digits for the Fat Percentage"
-               oninput="fatWeightPercentageOutput.value = formatNumber(fatWeightPercentage.value, '%')">
-        <div class="weight-output"><output id="fatWeightPercentageOutput">__.__ %</output></div>
+               oninput="fatWeightPercentageOutput.value = formatWeight(fatWeightPercentage.value, '%')">
+        <div class="formatedOutput"><output id="fatWeightPercentageOutput">__.__ %</output></div>
         <br>
 
         <label for="basalMetabolism">Metabolismo basal aproximado:</label>
@@ -593,9 +555,30 @@
 
         return true;
         }
-       
+
+        // Function to format the time input
+        function formatTime(value) {
+            if (value.length < 4 || value.length > 4) {
+                var formatedValue = "__h __min";
+            }
+            else {
+                var formatedValue = value.toString().slice(0, -2) + "h " + value.toString().slice(-2)  + "min";
+            }
+            return formatedValue;
+        }
+
+        function formatMoney(value) {
+            if (value.length < 4) {
+                var formatedValue = "R$ __.__";
+            }
+            else {
+                var formatedValue = "R$ " + value.toString().slice(0, -2) + "." + value.toString().slice(-2);
+            }
+            return formatedValue;
+        }
+
         // Function to format the number input for weight and percentage
-        function formatNumber(value, type) {
+        function formatWeight(value, type) {
             var formatedValue = value / 100;
             if (value.length < 4) {
                 var suffix = " (Incomplete Format)";
