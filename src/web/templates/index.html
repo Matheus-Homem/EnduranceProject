@@ -18,7 +18,7 @@
 
     <form action="index.php" method="POST" onsubmit="return validatePercentage() && checkPrioritize()">
 
-        <section id="generalData">
+        <section id="opening">
             <h2>Informações Gerais</h2>
             <fieldset id="header">
                 <legend class=centralized>Hoje</legend>
@@ -56,29 +56,17 @@
                     </table>
                 </div>
             </fieldset>
+        </section>
+        
+        <br><hr><br>
+
+        <section id="stability">
+            <h2>Estabilidade</h2>
             <br>
-            <fieldset id="yesterdayData">
-                <legend class=centralized>Ontem</legend>
+            <fieldset id="treasurer">
+                <legend class=centralized>Tesoureiro</legend>
                 <div>
                     <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="cellphoneTime">Tempo de Tela</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number"
-                                       name="cellphoneTime"
-                                       id="cellphoneTime"
-                                       minlength="4"
-                                       maxlength="4"
-                                       title="Insert four digits for the Cellphone Screen Time"
-                                       oninput="cellphoneTimeOutput.value = formatTime(cellphoneTime.value)"
-                                       style="width: 110px;">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="cellphoneTimeOutput">__h __min</output></div>
-                            </td>
-                        </tr>
                         <tr>
                             <td class=centralized>
                                 <label for="blackBox">Caixinha Preta</label>
@@ -112,7 +100,6 @@
                             <td class=centralized>
                                 <div class="formatedOutput"><output id="greenBoxOutput">R$ __.__</output></div>
                             </td>
-                        
                         </tr>
                     </table>
                 </div>
@@ -121,14 +108,136 @@
         
         <br><hr><br>
 
-        <section id="sleepData">
-            <h2>Informações De Sono</h2>
-            <fieldset id="sleepTime">
-                <legend class=centralized>Horários</legend>
-                <div>                    
-                    <div class=centralized>
-                        <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
-                    </div>
+        <section id="strength">
+            <h2>Força</h2>
+            <br>
+            <fieldset id="cook">
+                <legend class=centralized>Cozinheiro</legend>
+                <div>
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="calories">Calorias de Ontem</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="calories"
+                                       id="calories"
+                                       title="Insert four digits for the yesterday Calories total value"
+                                       oninput="caloriesOutput.value = formatCalories(calories.value)"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="caloriesOutput">_ cal</output></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="totalWeight">Peso Total</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="totalWeight"
+                                       id="totalWeight"
+                                       minlength="4"
+                                       minlength="5"
+                                       title="Insert four digits for the Total Weight"
+                                       oninput="totalWeightOutput.value = formatWeight(totalWeight.value, 'kg')"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="totalWeightOutput">__.__ kg</output></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="muscleWeight">Massa Magra</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="muscleWeight"
+                                       id="muscleWeight"
+                                       minlength="4"
+                                       minlength="5"
+                                       title="Insert four digits for the Muscle Weight"
+                                       oninput="muscleWeightOutput.value = formatWeight(muscleWeight.value, 'kg')"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="muscleWeightOutput">__.__ kg</output></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="fatPercentage">Percentual de Gordura</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="fatPercentage"
+                                       id="fatPercentage"
+                                       minlength="4"
+                                       minlength="4"
+                                       title="Insert four digits for the Fat Percentage"
+                                       oninput="fatPercentageOutput.value = formatWeight(fatPercentage.value, '%')"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="fatPercentageOutput">__.__ %</output></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="basalMetabolism">Percentual de Gordura</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="basalMetabolism"
+                                       id="basalMetabolism"
+                                       minlength="4"
+                                       minlength="4"
+                                       title="Insert four digits for the Basal Metabolism"
+                                       oninput="basalMetabolismOutput.value = formatCalories(basalMetabolism.value)"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="basalMetabolismOutput">_ cal</output></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </section>
+        <br><hr><br>
+
+        <section id="devotion">
+            <h2>Devoção</h2>
+            <br>
+            <fieldset id="sentinel">
+                <legend class=centralized>Sentinela</legend>
+                <div>
+                    <table style="width: 100%;" class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="cellphoneTime">Tempo de Tela</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number"
+                                       name="cellphoneTime"
+                                       id="cellphoneTime"
+                                       minlength="4"
+                                       maxlength="4"
+                                       title="Insert four digits for the Cellphone Screen Time"
+                                       oninput="cellphoneTimeOutput.value = formatTime(cellphoneTime.value)"
+                                       style="width: 110px;">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="cellphoneTimeOutput">__h __min</output></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <div>
                     <table style="width: 100%;" class=tableWithSpacing>
                         <tr>
                             <td class=centralized>
@@ -148,14 +257,11 @@
                         </tr>
                     </table>
                 </div>
-            </fieldset>
-            <br>
-            <fieldset id="sleepPercentages">
-                <legend class=centralized>Porcentagens</legend>
+                <div class=centralized>
+                    <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
+                </div>
+                <br>
                 <div>
-                    <div>
-                        <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
-                    </div>
                     <table style="width: 100%;" class="tableWithSpacing">
                         <tr>
                             <td class="centralized">
@@ -220,226 +326,180 @@
                     </table>
                 </div>
             </fieldset>
+            <br><br>
+            <fieldset id="leader">
+                <legend class=centralized>Líder</legend>
+                    <table class="priority">
+                        <tr>
+                            <th>Sabedoria</th>
+                            <th>Estabilidade</th>
+                            <th>Força</th>
+                            <th>Gentileza</th>
+                            <th>Devoção</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select id="sabedoria" name="sabedoria">
+                                    <option value="default" selected></option>
+                                    <option value="sacrificar">Sacrificar</option>
+                                    <option value="manter">Manter</option>
+                                    <option value="priorizar">Priorizar</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="estabilidade" name="estabilidade">
+                                    <option value="default" selected></option>
+                                    <option value="sacrificar">Sacrificar</option>
+                                    <option value="manter">Manter</option>
+                                    <option value="priorizar">Priorizar</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="forca" name="forca">
+                                    <option value="default" selected></option>
+                                    <option value="sacrificar">Sacrificar</option>
+                                    <option value="manter">Manter</option>
+                                    <option value="priorizar">Priorizar</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="gentileza" name="gentileza">
+                                    <option value="default" selected></option>
+                                    <option value="sacrificar">Sacrificar</option>
+                                    <option value="manter">Manter</option>
+                                    <option value="priorizar">Priorizar</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="devocao" name="devocao">
+                                    <option value="default" selected></option>
+                                    <option value="sacrificar">Sacrificar</option>
+                                    <option value="manter">Manter</option>
+                                    <option value="priorizar">Priorizar</option>
+                                </select>
+                            </td>
+                        </tr>    
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="navegador" name="navegador" value="navegador" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="navegador">Navegador</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="patrocinador" name="patrocinador" value="patrocinador" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="patrocinador">Patrocinador</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="vanguarda" name="vanguarda" value="vanguarda" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="vanguarda">Vanguarda</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="zelador" name="zelador" value="zelador" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="zelador">Zelador</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="especialista" name="especialista" value="especialista" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="especialista">Especialista</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="heroi" name="heroi" value="heroi" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="heroi">Herói</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="mecenas" name="mecenas" value="mecenas" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="mecenas">Mecenas</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="batedor" name="batedor" value="batedor" data-type="h">
+                                <!-- <i class="fas fa-ellipsis-h"></i> -->
+                                <label for="batedor">Batedor</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="coordenador" name="coordenador" value="coordenador" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="coordenador">Coordenador</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="sentinela" name="sentinela" value="sentinela" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="sentinela">Sentinela</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="alquimista" name="alquimista" value="alquimista" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="alquimista">Alquimista</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="tesoureiro" name="tesoureiro" value="tesoureiro" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="tesoureiro">Tesoureiro</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="cozinheiro" name="cozinheiro" value="cozinheiro" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="cozinheiro">Cozinheiro</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="diplomata" name="diplomata" value="diplomata" data-type="v">
+                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
+                                <label for="diplomata">Diplomata</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="lider" name="lider" value="lider" data-type="c">
+                                <!-- <i class="fas fa-th"></i> -->
+                                <label for="lider">Líder</label>
+                            </td>
+                        </tr>
+                    </table>
+            
+                    <table class="selectedList">
+                        <tr>
+                            <th>Vertical</th>
+                            <th>Horizontal</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ul id="selected-categories-v" class="selected-list"></ul>
+                            </td>
+                            <td>
+                                <ul id="selected-categories-h" class="selected-list"></ul>
+                            </td>
+                        </tr>
+                    </table>
+            </fieldset>
         </section>
 
-        
+        <br><hr><br>
 
-
-        
-        <br>
-        
-
-        
-        <br><hr>
-
-        <h2>Informações de Peso</h2>
-
-        <label for="burnedCalories">Calorias queimadas no dia anterior:</label>
-        <input type="number" id="burnedCalories" value="0" min="0" oninput="burnedCaloriesOutput.value = burnedCalories.value">
-        <output id="burnedCaloriesOutput">0</output> cal
-        <br><br>
-
-        <label for="totalWeight">Total Weight:</label>
-        <input type="number"
-               id="totalWeight"
-               name="totalWeight"
-               min="0"
-               max="20000"
-               title="Insert four digits for the Total Weight"
-               oninput="totalWeightOutput.value = formatWeight(totalWeight.value, 'kg')">
-        <div class="formatedOutput"><output id="totalWeightOutput">__.__ kg</output></div>
-        <br>
-
-        <label for="muscleWeight">Muscle Weight:</label>
-        <input type="number"
-               id="muscleWeight"
-               name="muscleWeight"
-               min="0"
-               max="20000"
-               title="Insert four digits for the Muscle Weight"
-               oninput="muscleWeightOutput.value = formatWeight(muscleWeight.value, 'kg')">
-        <div class="formatedOutput"><output id="muscleWeightOutput">__.__ kg</output></div>
-        <br>
-
-        <label for="fatWeightPercentage">Fat Percentage:</label>
-        <input type="number"
-               id="fatWeightPercentage"
-               name="fatWeightPercentage"
-               min="0"
-               max="9999"
-               title="Insert four digits for the Fat Percentage"
-               oninput="fatWeightPercentageOutput.value = formatWeight(fatWeightPercentage.value, '%')">
-        <div class="formatedOutput"><output id="fatWeightPercentageOutput">__.__ %</output></div>
-        <br>
-
-        <label for="basalMetabolism">Metabolismo basal aproximado:</label>
-        <input type="number" id="basalMetabolism" value="1500" min="0" oninput="basalMetabolismOutput.value = basalMetabolism.value">
-        <output id="basalMetabolismOutput">1500</output> cal
-        <br><br>
-
-        <hr>
-        <h2>Definições de Prioridades</h2>
-
-
-        <table class="priority">
-            <tr>
-                <th>Sabedoria</th>
-                <th>Estabilidade</th>
-                <th>Força</th>
-                <th>Gentileza</th>
-                <th>Devoção</th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="sabedoria" name="sabedoria">
-                        <option value="default" selected></option>
-                        <option value="sacrificar">Sacrificar</option>
-                        <option value="manter">Manter</option>
-                        <option value="priorizar">Priorizar</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="estabilidade" name="estabilidade">
-                        <option value="default" selected></option>
-                        <option value="sacrificar">Sacrificar</option>
-                        <option value="manter">Manter</option>
-                        <option value="priorizar">Priorizar</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="forca" name="forca">
-                        <option value="default" selected></option>
-                        <option value="sacrificar">Sacrificar</option>
-                        <option value="manter">Manter</option>
-                        <option value="priorizar">Priorizar</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="gentileza" name="gentileza">
-                        <option value="default" selected></option>
-                        <option value="sacrificar">Sacrificar</option>
-                        <option value="manter">Manter</option>
-                        <option value="priorizar">Priorizar</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="devocao" name="devocao">
-                        <option value="default" selected></option>
-                        <option value="sacrificar">Sacrificar</option>
-                        <option value="manter">Manter</option>
-                        <option value="priorizar">Priorizar</option>
-                    </select>
-                </td>
-            </tr>    
-            <tr>
-                <td>
-                    <input type="checkbox" id="navegador" name="navegador" value="navegador" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="navegador">Navegador</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="patrocinador" name="patrocinador" value="patrocinador" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="patrocinador">Patrocinador</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="vanguarda" name="vanguarda" value="vanguarda" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="vanguarda">Vanguarda</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="zelador" name="zelador" value="zelador" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="zelador">Zelador</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="especialista" name="especialista" value="especialista" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="especialista">Especialista</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="heroi" name="heroi" value="heroi" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="heroi">Herói</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="mecenas" name="mecenas" value="mecenas" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="mecenas">Mecenas</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="batedor" name="batedor" value="batedor" data-type="h">
-                    <!-- <i class="fas fa-ellipsis-h"></i> -->
-                    <label for="batedor">Batedor</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="coordenador" name="coordenador" value="coordenador" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="coordenador">Coordenador</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="sentinela" name="sentinela" value="sentinela" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="sentinela">Sentinela</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" id="alquimista" name="alquimista" value="alquimista" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="alquimista">Alquimista</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="tesoureiro" name="tesoureiro" value="tesoureiro" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="tesoureiro">Tesoureiro</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="cozinheiro" name="cozinheiro" value="cozinheiro" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="cozinheiro">Cozinheiro</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="diplomata" name="diplomata" value="diplomata" data-type="v">
-                    <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
-                    <label for="diplomata">Diplomata</label>
-                </td>
-                <td>
-                    <input type="checkbox" id="lider" name="lider" value="lider" data-type="c">
-                    <!-- <i class="fas fa-th"></i> -->
-                    <label for="lider">Líder</label>
-                </td>
-            </tr>
-        </table>
-
-        <table class="selectedList">
-            <tr>
-                <th>Vertical</th>
-                <th>Horizontal</th>
-            </tr>
-            <tr>
-                <td>
-                    <ul id="selected-categories-v" class="selected-list"></ul>
-                </td>
-                <td>
-                    <ul id="selected-categories-h" class="selected-list"></ul>
-                </td>
-            </tr>
-        </table>
-
-        <hr>
-        <div class="buttonContainer">
-            <button class="resetButton" id="reset" style="margin-right: 20px;" type="reset">
-                <i class="fas fa-undo"></i>
-                Reset
-            </button>
-            <button class="submitButton" id="submit" type="submit">
-                <i class="fas fa-paper-plane"></i>
-                Submit
-            </button>
-        </div>
+        <section id="ending">
+            <div class="buttonContainer">
+                <table style="width: 100%;" class=tableWithSpacing>
+                    <tr>
+                        <td class=centralized>
+                            <button class="resetButton" id="reset" style="margin-right: 20px;" type="reset">
+                                <i class="fas fa-undo"></i>
+                                Reset
+                            </button>
+                        </td>
+                        <td class=centralized>
+                            <button class="submitButton" id="submit" type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit
+                            </button>
+                        </td>
+                </table>
+            </div>
+        </section>
 
         <br><br>
         <br><br>
@@ -567,32 +627,41 @@
             return formatedValue;
         }
 
+        function formatCalories(value) {
+            if (value.length < 1) {
+                var formatedValue = "_ cal (Incomplete Format)";
+            }
+            else {
+                var formatedValue = value + " cal";
+            }
+            return formatedValue;
+        }
+
         function formatMoney(value) {
-            if (value.length < 4) {
+            if (value.length < 3) {
                 var formatedValue = "R$ __.__";
             }
             else {
-                var formatedValue = "R$ " + value.toString().slice(0, -2) + "." + value.toString().slice(-2);
+                var formatedValue = "R$ " + value/100;
             }
             return formatedValue;
         }
 
         // Function to format the number input for weight and percentage
         function formatWeight(value, type) {
-            var formatedValue = value / 100;
-            if (value.length < 4) {
-                var suffix = " (Incomplete Format)";
+            if (value.length < 3) {
+                var formatedValue = "__.__ " + type;
             }
-            else if (type === "kg" && (value.length === 4 || value.length === 5)) {
-                var suffix = "";
+            else if (value.length > 5 && type === 'kg') {
+                var formatedValue = "__.__ kg";
             }
-            else if (type === "%" && value.length === 4) {
-                var suffix = "";
+            else if (value.length > 4 && type === '%') {
+                var formatedValue = "__.__ %";
             }
             else {
-                return "Check the input value and format it correctly.";
+                var formatedValue = value/100 + type;
             }
-            return formatedValue + type + suffix;
+            return formatedValue;
         }
 
     </script>
