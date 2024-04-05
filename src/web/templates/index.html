@@ -16,7 +16,7 @@
     <h1>Bússola Solar</h1>
     <hr>
 
-    <form action="index.php" method="POST" onsubmit="return validatePercentage() && checkPrioritize()">
+    <form action="index.php" method="POST" onsubmit="return validatePercentage();">
 
         <section id="opening">
             <h2>Informações Gerais</h2>
@@ -187,7 +187,7 @@
                         </tr>
                         <tr>
                             <td class=centralized>
-                                <label for="basalMetabolism">Percentual de Gordura</label>
+                                <label for="basalMetabolism">Metabolismo Basal</label>
                             </td>
                             <td class=centralized>
                                 <input type="number"
@@ -238,7 +238,7 @@
                             <label for="bedDateTime">Início do Sono</label>
                         </td>
                         <td class="centralized" colspan="2">
-                            <input type="datetime-local" name="bedDateTime" id="bedDateTime" style="width: 150px;">
+                            <input type="datetime-local" name="bedDateTime" id="bedDateTime" style="width: 165px;">
                         </td>
                     </tr>
                     <tr>
@@ -246,215 +246,54 @@
                             <label for="wakeupDateTime">Fim do Sono</label>
                         </td>
                         <td class="centralized" colspan="2">
-                            <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime" style="width: 150px;">
+                            <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime" style="width: 165px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centralized" colspan="3">
+                            <span id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></span>
                         </td>
                     </tr>
                 </table>
-                <div class=centralized>
-                    <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
-                </div>
                 <br>
                 <div>
                     <table style="width: 100%;" class="tableWithSpacing">
                         <tr>
                             <td class="centralized">
                                 <label for="awakePercentage">Tempo <strong>Acordado</strong></label>
-                            </td>
-                            <td class="centralized">
-                                <output name="awakePercentageOutput" id="awakePercentageOutput">
-                                    <strong>10</strong>
-                                </output>%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="centralized" colspan="2">
+                                <output name="awakePercentageOutput" id="awakePercentageOutput"><strong>10</strong></output>%
                                 <input type="range" name="awakePercentage" id="awakePercentage" min="0" max="30" value="10" oninput="awakePercentageOutput.value = awakePercentage.value; awakePercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
                                 <label for="remPercentage">Sono <strong>REM</strong></label>
-                            </td>
-                            <td class="centralized">
-                                <output name="remPercentageOutput" id="remPercentageOutput">
-                                    <strong>15</strong>
-                                </output>%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="centralized" colspan="2">
+                                <output name="remPercentageOutput" id="remPercentageOutput"><strong>15</strong></output>%
                                 <input type="range" name="remPercentage" id="remPercentage" min="0" max="45" value="15" oninput="remPercentageOutput.value = remPercentage.value; remPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
                                 <label for="lightPercentage">Tempo <strong>Leve</strong></label>
-                            </td>
-                            <td class="centralized">
-                                <output name="lightPercentageOutput" id="lightPercentageOutput">
-                                    <strong>20</strong>
-                                </output>%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="centralized" colspan="2">
+                                <output name="lightPercentageOutput" id="lightPercentageOutput"><strong>20</strong></output>%
                                 <input type="range" name="lightPercentage" id="lightPercentage" min="0" max="60" value="20" oninput="lightPercentageOutput.value = lightPercentage.value; lightPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
                             <td class="centralized">
                                 <label for="deepPercentage">Tempo <strong>Profundo</strong></label>
-                            </td>
-                            <td class="centralized">
-                                <output name="deepPercentageOutput" id="deepPercentageOutput">
-                                    <strong>10</strong>
-                                </output>%
+                                <output name="deepPercentageOutput" id="deepPercentageOutput"><strong>10</strong></output>%
+                                <input type="range" name="deepPercentage" id="deepPercentage" min="0" max="30" value="10" oninput="deepPercentageOutput.value = deepPercentage.value; deepPercentageOutput.style.fontWeight = 'bold'">
                             </td>
                         </tr>
                         <tr>
-                            <td class="centralized" colspan="2">
-                                <input type="range" name="deepPercentage" id="deepPercentage" min="0" max="30" value="10" oninput="deepPercentageOutput.value = deepPercentage.value; deepPercentageOutput.style.fontWeight = 'bold'">
+                            <td class="centralized">
+                                <span id="totalPercentage" placeholder="Porcentagem Total: 55%"></span>
                             </td>
                         </tr>
                     </table>
                 </div>
             </fieldset>
-            <!-- <br><br> -->
-            <!-- <fieldset id="leader">
-                <legend class=centralized>Líder</legend>
-                    <table class="priority">
-                        <tr>
-                            <th>Sabedoria</th>
-                            <th>Estabilidade</th>
-                            <th>Força</th>
-                            <th>Gentileza</th>
-                            <th>Devoção</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select id="sabedoria" name="sabedoria">
-                                    <option value="default" selected></option>
-                                    <option value="sacrificar">Sacrificar</option>
-                                    <option value="manter">Manter</option>
-                                    <option value="priorizar">Priorizar</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="estabilidade" name="estabilidade">
-                                    <option value="default" selected></option>
-                                    <option value="sacrificar">Sacrificar</option>
-                                    <option value="manter">Manter</option>
-                                    <option value="priorizar">Priorizar</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="forca" name="forca">
-                                    <option value="default" selected></option>
-                                    <option value="sacrificar">Sacrificar</option>
-                                    <option value="manter">Manter</option>
-                                    <option value="priorizar">Priorizar</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="gentileza" name="gentileza">
-                                    <option value="default" selected></option>
-                                    <option value="sacrificar">Sacrificar</option>
-                                    <option value="manter">Manter</option>
-                                    <option value="priorizar">Priorizar</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="devocao" name="devocao">
-                                    <option value="default" selected></option>
-                                    <option value="sacrificar">Sacrificar</option>
-                                    <option value="manter">Manter</option>
-                                    <option value="priorizar">Priorizar</option>
-                                </select>
-                            </td>
-                        </tr>    
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="navegador" name="navegador" value="navegador" data-type="h">
-                                <label for="navegador">Navegador</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="patrocinador" name="patrocinador" value="patrocinador" data-type="h">
-                                <label for="patrocinador">Patrocinador</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="vanguarda" name="vanguarda" value="vanguarda" data-type="h">
-                                <label for="vanguarda">Vanguarda</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="zelador" name="zelador" value="zelador" data-type="h">
-                                <label for="zelador">Zelador</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="especialista" name="especialista" value="especialista" data-type="h">
-                                <label for="especialista">Especialista</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="heroi" name="heroi" value="heroi" data-type="v">
-                                <label for="heroi">Herói</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="mecenas" name="mecenas" value="mecenas" data-type="h">
-                                <label for="mecenas">Mecenas</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="batedor" name="batedor" value="batedor" data-type="h">
-                                <label for="batedor">Batedor</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="coordenador" name="coordenador" value="coordenador" data-type="v">
-                                <label for="coordenador">Coordenador</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="sentinela" name="sentinela" value="sentinela" data-type="v">
-                                <label for="sentinela">Sentinela</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="alquimista" name="alquimista" value="alquimista" data-type="v">
-                                <label for="alquimista">Alquimista</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="tesoureiro" name="tesoureiro" value="tesoureiro" data-type="v">
-                                <label for="tesoureiro">Tesoureiro</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="cozinheiro" name="cozinheiro" value="cozinheiro" data-type="v">
-                                <label for="cozinheiro">Cozinheiro</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="diplomata" name="diplomata" value="diplomata" data-type="v">
-                                <label for="diplomata">Diplomata</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="lider" name="lider" value="lider" data-type="c">
-                                <label for="lider">Líder</label>
-                            </td>
-                        </tr>
-                    </table>
-            
-                    <table class="selectedList">
-                        <tr>
-                            <th>Vertical</th>
-                            <th>Horizontal</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ul id="selected-categories-v" class="selected-list"></ul>
-                            </td>
-                            <td>
-                                <ul id="selected-categories-h" class="selected-list"></ul>
-                            </td>
-                        </tr>
-                    </table>
-            </fieldset> -->
         </section>
 
         <br><hr><br>
@@ -470,7 +309,7 @@
                             </button>
                         </td>
                         <td class=centralized>
-                            <button class="submitButton" id="submit" type="submit">
+                            <button class="submitButton" id="submit" type="submit" value="Submit">
                                 <i class="fas fa-paper-plane"></i>
                                 Submit
                             </button>
@@ -487,8 +326,8 @@
     <script>
 
         // Function to calculate the time difference between bed and wakeup time
-        const bedDateTimeInput = document.getElementById('bedDateTime');
-        const wakeupDateTimeInput = document.getElementById('wakeupDateTime');
+        const bedDateTimeInput     = document.getElementById('bedDateTime');
+        const wakeupDateTimeInput  = document.getElementById('wakeupDateTime');
         const timeDifferenceOutput = document.getElementById('timeDifference');
         timeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
 
@@ -513,85 +352,40 @@
             }
         }
 
+        // Function to calculate the total percentage of sleep
+        const awakePercentageInput = document.getElementById('awakePercentage');
+        const remPercentageInput   = document.getElementById('remPercentage');
+        const lightPercentageInput = document.getElementById('lightPercentage');
+        const deepPercentageInput  = document.getElementById('deepPercentage');
+        const totalPercentageOutput = document.getElementById('totalPercentage');
+        totalPercentageOutput.textContent = "Porcentagem Total: 55%";
 
-        // Function to update the selected categories
-        function updateSelectedCategories() {
-            const selectedVertical   = document.querySelectorAll('input[type="checkbox"][data-type="v"]:checked');
-            const selectedHorizontal = document.querySelectorAll('input[type="checkbox"][data-type="h"]:checked');
-            const selectedCross      = document.querySelectorAll('input[type="checkbox"][data-type="c"]:checked');
-            const listVertical   = document.getElementById('selected-categories-v');
-            const listHorizontal = document.getElementById('selected-categories-h');
-            listVertical.innerHTML   = '';
-            listHorizontal.innerHTML = '';
+        awakePercentageInput.addEventListener('change', calculateTotalPercentage);
+        remPercentageInput.addEventListener('change', calculateTotalPercentage);
+        lightPercentageInput.addEventListener('change', calculateTotalPercentage);
+        deepPercentageInput.addEventListener('change', calculateTotalPercentage);
 
-            selectedVertical.forEach(category => {
-                const label = document.querySelector(`label[for="${category.id}"]`).innerText;
-                const listItem = document.createElement('li');
-                listItem.textContent = label;
-                listVertical.appendChild(listItem);
-            });
+        function calculateTotalPercentage() {
+            const awakePercentage = parseInt(awakePercentageInput.value);
+            const remPercentage = parseInt(remPercentageInput.value);
+            const lightPercentage = parseInt(lightPercentageInput.value);
+            const deepPercentage = parseInt(deepPercentageInput.value);
 
-            selectedHorizontal.forEach(category => {
-                const label = document.querySelector(`label[for="${category.id}"]`).innerText;
-                const listItem = document.createElement('li');
-                listItem.textContent = label;
-                listHorizontal.appendChild(listItem);
-            });
+            const totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
+            totalPercentageOutput.textContent = `Porcentagem Total: ${totalPercentage}%`;
 
-            selectedCross.forEach(category => {
-                const label = document.querySelector(`label[for="${category.id}"]`).innerText;
-                const listItemVertical   = document.createElement('li');
-                const listItemHorizontal = document.createElement('li');
-                listItemVertical.textContent   = label;
-                listItemHorizontal.textContent = label;
-                listVertical.appendChild(listItemVertical);
-                listHorizontal.appendChild(listItemHorizontal);
-            });
+            return totalPercentage;
         }
 
-        // Add event listener to checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateSelectedCategories);
-        });
-
-        // Function to check if the user has selected exactly one "Priorizar" option
-        function checkPrioritize() {
-            var dropdowns = document.querySelectorAll('.priority select');
-            var prioritizeCount = 0;
-
-            dropdowns.forEach(function(dropdown) {
-                if (dropdown.value === "priorizar") {
-                    prioritizeCount++;
-                }
-            });
-
-            if (prioritizeCount !== 1) {
-                alert("You must select 'Priorizar' for exactly one attribute");
-                return false;
-            }
-
-            return true;
-        }
-
-
-        // Function to validate the percentage of total sleep
+        // Function to validate the total percentage of sleep
         function validatePercentage() {
-            var awakePercentage = parseInt(document.getElementById("awakePercentage").value);
-            var remPercentage   = parseInt(document.getElementById("remPercentage").value);
-            var lightPercentage = parseInt(document.getElementById("lightPercentage").value);
-            var deepPercentage  = parseInt(document.getElementById("deepPercentage").value);
-
-            var totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
-            document.getElementById('totalPercentageDisplay').innerText = "Total Percentage: " + totalPercentage + "%";
-            document.getElementById('totalPercentage').innerText = "Total Percentage: " + totalPercentage + "%";
-            
+            totalPercentage = calculateTotalPercentage();
             if (totalPercentage !== 100) {
                 alert("A soma das porcentagens deve ser igual a 100%");
                 return false;
             }
 
-        return true;
+            return true;
         }
 
         function formatValue(value, type) {
