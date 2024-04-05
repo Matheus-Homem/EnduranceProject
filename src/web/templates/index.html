@@ -77,7 +77,7 @@
                                        id="blackBox"
                                        minlength="3"
                                        title="Insert four digits for the Black Box current value"
-                                       oninput="blackBoxOutput.value = formatMoney(blackBox.value)"
+                                       oninput="blackBoxOutput.value = formatValue(blackBox.value, 'money')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -94,7 +94,7 @@
                                        id="greenBox"
                                        minlength="3"
                                        title="Insert four digits for the Black Box current value"
-                                       oninput="greenBoxOutput.value = formatMoney(greenBox.value)"
+                                       oninput="greenBoxOutput.value = formatValue(greenBox.value, 'money')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -124,7 +124,7 @@
                                        name="calories"
                                        id="calories"
                                        title="Insert four digits for the yesterday Calories total value"
-                                       oninput="caloriesOutput.value = formatCalories(calories.value)"
+                                       oninput="caloriesOutput.value = formatValue(calories.value, 'calories')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -142,7 +142,7 @@
                                        minlength="4"
                                        minlength="5"
                                        title="Insert four digits for the Total Weight"
-                                       oninput="totalWeightOutput.value = formatWeight(totalWeight.value, 'kg')"
+                                       oninput="totalWeightOutput.value = formatValue(totalWeight.value, 'weight')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -160,7 +160,7 @@
                                        minlength="4"
                                        minlength="5"
                                        title="Insert four digits for the Muscle Weight"
-                                       oninput="muscleWeightOutput.value = formatWeight(muscleWeight.value, 'kg')"
+                                       oninput="muscleWeightOutput.value = formatValue(muscleWeight.value, 'weight')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -178,7 +178,7 @@
                                        minlength="4"
                                        minlength="4"
                                        title="Insert four digits for the Fat Percentage"
-                                       oninput="fatPercentageOutput.value = formatWeight(fatPercentage.value, '%')"
+                                       oninput="fatPercentageOutput.value = formatValue(fatPercentage.value, 'percentage')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -196,7 +196,7 @@
                                        minlength="4"
                                        minlength="4"
                                        title="Insert four digits for the Basal Metabolism"
-                                       oninput="basalMetabolismOutput.value = formatCalories(basalMetabolism.value)"
+                                       oninput="basalMetabolismOutput.value = formatValue(basalMetabolism.value, 'calories')"
                                        style="width: 110px;">
                             </td>
                             <td class=centralized>
@@ -214,49 +214,42 @@
             <br>
             <fieldset id="sentinel">
                 <legend class=centralized>Sentinela</legend>
-                <div>
-                    <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="cellphoneTime">Tempo de Tela</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number"
-                                       name="cellphoneTime"
-                                       id="cellphoneTime"
-                                       minlength="4"
-                                       maxlength="4"
-                                       title="Insert four digits for the Cellphone Screen Time"
-                                       oninput="cellphoneTimeOutput.value = formatTime(cellphoneTime.value)"
-                                       style="width: 110px;">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="cellphoneTimeOutput">__h __min</output></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <br>
-                <div>
-                    <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="bedDateTime">Início do Sono</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="datetime-local" name="bedDateTime" id="bedDateTime" style="width: 150px;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="wakeupDateTime">Fim do Sono</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime" style="width: 150px;">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <table style="width: 100%;" class="tableWithSpacing">
+                    <tr>
+                        <td class="centralized">
+                            <label for="cellphoneTime">Tempo de Tela</label>
+                        </td>
+                        <td class="centralized">
+                            <input type="number"
+                                   name="cellphoneTime"
+                                   id="cellphoneTime"
+                                   minlength="4"
+                                   maxlength="4"
+                                   title="Insert four digits for the Cellphone Screen Time"
+                                   oninput="cellphoneTimeOutput.value = formatValue(cellphoneTime.value, 'time')"
+                                   style="width: 110px;">
+                        </td>
+                        <td class="centralized">
+                            <div class="formatedOutput"><output id="cellphoneTimeOutput">__h __min</output></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centralized">
+                            <label for="bedDateTime">Início do Sono</label>
+                        </td>
+                        <td class="centralized" colspan="2">
+                            <input type="datetime-local" name="bedDateTime" id="bedDateTime" style="width: 150px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centralized">
+                            <label for="wakeupDateTime">Fim do Sono</label>
+                        </td>
+                        <td class="centralized" colspan="2">
+                            <input type="datetime-local" name="wakeupDateTime" id="wakeupDateTime" style="width: 150px;">
+                        </td>
+                    </tr>
+                </table>
                 <div class=centralized>
                     <p id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></p>
                 </div>
@@ -326,8 +319,8 @@
                     </table>
                 </div>
             </fieldset>
-            <br><br>
-            <fieldset id="leader">
+            <!-- <br><br> -->
+            <!-- <fieldset id="leader">
                 <legend class=centralized>Líder</legend>
                     <table class="priority">
                         <tr>
@@ -382,81 +375,66 @@
                         <tr>
                             <td>
                                 <input type="checkbox" id="navegador" name="navegador" value="navegador" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="navegador">Navegador</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="patrocinador" name="patrocinador" value="patrocinador" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="patrocinador">Patrocinador</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="vanguarda" name="vanguarda" value="vanguarda" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="vanguarda">Vanguarda</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="zelador" name="zelador" value="zelador" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="zelador">Zelador</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="especialista" name="especialista" value="especialista" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="especialista">Especialista</label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <input type="checkbox" id="heroi" name="heroi" value="heroi" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="heroi">Herói</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="mecenas" name="mecenas" value="mecenas" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="mecenas">Mecenas</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="batedor" name="batedor" value="batedor" data-type="h">
-                                <!-- <i class="fas fa-ellipsis-h"></i> -->
                                 <label for="batedor">Batedor</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="coordenador" name="coordenador" value="coordenador" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="coordenador">Coordenador</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="sentinela" name="sentinela" value="sentinela" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="sentinela">Sentinela</label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <input type="checkbox" id="alquimista" name="alquimista" value="alquimista" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="alquimista">Alquimista</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="tesoureiro" name="tesoureiro" value="tesoureiro" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="tesoureiro">Tesoureiro</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="cozinheiro" name="cozinheiro" value="cozinheiro" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="cozinheiro">Cozinheiro</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="diplomata" name="diplomata" value="diplomata" data-type="v">
-                                <!-- <i class="fas fa-ellipsis-v" style="margin: 5px;"></i> -->
                                 <label for="diplomata">Diplomata</label>
                             </td>
                             <td>
                                 <input type="checkbox" id="lider" name="lider" value="lider" data-type="c">
-                                <!-- <i class="fas fa-th"></i> -->
                                 <label for="lider">Líder</label>
                             </td>
                         </tr>
@@ -476,7 +454,7 @@
                             </td>
                         </tr>
                     </table>
-            </fieldset>
+            </fieldset> -->
         </section>
 
         <br><hr><br>
@@ -616,52 +594,38 @@
         return true;
         }
 
-        // Function to format the time input
-        function formatTime(value) {
-            if (value.length < 4 || value.length > 4) {
-                var formatedValue = "__h __min";
+        function formatValue(value, type) {
+            if (type === 'time') {
+                if (value.length < 3 || value.length > 4) {
+                    return "__h __min";
+                } else {
+                    return value.toString().slice(0, -2) + "h " + value.toString().slice(-2) + "min";
+                }
+            } else if (type === 'calories') {
+                if (value.length < 1) {
+                    return "_ cal";
+                } else {
+                    return value + " cal";
+                }
+            } else if (type === 'money') {
+                if (value.length < 3) {
+                    return "R$ __.__";
+                } else {
+                    return "R$ " + value / 100;
+                }
+            } else if (type === 'weight') {
+                if (value.length !== 4) {
+                    return "__.__ kg";
+                } else {
+                    return value / 100 + " kg";
+                }
+            } else if (type === 'percentage') {
+                if (value.length < 3 || value.length > 4) {
+                    return "__.__ %";
+                } else {
+                    return value / 100 + " %";
+                }
             }
-            else {
-                var formatedValue = value.toString().slice(0, -2) + "h " + value.toString().slice(-2)  + "min";
-            }
-            return formatedValue;
-        }
-
-        function formatCalories(value) {
-            if (value.length < 1) {
-                var formatedValue = "_ cal (Incomplete Format)";
-            }
-            else {
-                var formatedValue = value + " cal";
-            }
-            return formatedValue;
-        }
-
-        function formatMoney(value) {
-            if (value.length < 3) {
-                var formatedValue = "R$ __.__";
-            }
-            else {
-                var formatedValue = "R$ " + value/100;
-            }
-            return formatedValue;
-        }
-
-        // Function to format the number input for weight and percentage
-        function formatWeight(value, type) {
-            if (value.length < 3) {
-                var formatedValue = "__.__ " + type;
-            }
-            else if (value.length > 5 && type === 'kg') {
-                var formatedValue = "__.__ kg";
-            }
-            else if (value.length > 4 && type === '%') {
-                var formatedValue = "__.__ %";
-            }
-            else {
-                var formatedValue = value/100 + type;
-            }
-            return formatedValue;
         }
 
     </script>
