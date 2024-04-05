@@ -10,6 +10,16 @@
   box-sizing: border-box;
 }
 
+section {
+    width: 500px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+}
+
 body {
   background-color: #fff;
   display: flex;
