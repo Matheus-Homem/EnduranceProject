@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Bússola Lunar
+{% endblock %}
+
+{% block header %}
+    Bússola Lunar
+{% endblock %}
+
+{% block content %}
+
+<section id="ending">
+    <div class="buttonContainer">
+        <table style="width: 100%;" class=tableWithSpacing>
+            <tr>
+                <td class=centralized>
+                    <button type="button" class="returnButton" id="return" style="margin-right: 20px;" onclick="window.location.href='/'">
+                        <i class="fas fa-arrow-left"></i>
+                        Return
+                    </button>
+                </td>
+                <td class=centralized>
+                    <button class="resetButton" id="reset" style="margin-right: 20px;" type="reset">
+                        <i class="fas fa-undo"></i>
+                        Reset
+                    </button>
+                </td>
+                <td class=centralized>
+                    <button class="submitButton" id="submit" type="submit" value="Submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit
+                    </button>
+                </td>
+        </table>
+    </div>
+</section>
+
+{% endblock %}
