@@ -95,7 +95,7 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 4px;
 }
 
-.resetButton, .submitButton {
+.resetButton, .submitButton, .createButton, .editButton, .returnButton {
   background-color: var(--background-color);
   border: none;
   color: var(--text-color);
