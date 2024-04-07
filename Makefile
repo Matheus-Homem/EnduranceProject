@@ -3,6 +3,8 @@
 # Define the name of the virtual environment
 VENV_NAME := .venv
 
+# Defines the commands that are not files
+.PHONY: create-venv activate-venv build configure run full-run web clean test help
 
 create-venv: # Command to create the virtual environment
 	@echo Creating virtual environment...
@@ -40,10 +42,15 @@ full-run: # Command to run the project in automated mode
 	python src\main.py --automated True
 
 
+server: # Command to run the web application
+	python src\web\app.py
+
+
 clean: # Command to clean the virtual environment and compilation files
 	rmdir /Q /S $(VENV_NAME)
 	del /Q /S *.pyc
 	del /Q /S __pycache__
+
 
 test: # Run tests with code coverage
 	@echo Running tests with code coverage...
@@ -62,7 +69,3 @@ help: # Help target to display available commands
 	@echo "  full-run      : Run the project in automated mode"
 	@echo "  clean         : Clean the project"
 	@echo "  test          : Run tests with code coverage"
-
-
-# Defines the commands that are not files
-.PHONY: create-venv activate-venv install-dependencies run clean
