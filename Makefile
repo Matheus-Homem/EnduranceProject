@@ -18,6 +18,7 @@ activate-venv: # Command to activate the virtual environment and modify the comm
 
 build: # Command to create the virtual environment and activate it
 	@echo Building project...
+	@make clean
 	@make create-venv
 	@make activate-venv
 
@@ -40,10 +41,9 @@ full-run: # Command to run the project in automated mode
 
 
 clean: # Command to clean the virtual environment and compilation files
-	del /Q $(VENV_NAME)
-    del /Q /S *.pyc
+	rmdir /Q /S $(VENV_NAME)
+	del /Q /S *.pyc
 	del /Q /S __pycache__
-
 
 test: # Run tests with code coverage
 	@echo Running tests with code coverage...
