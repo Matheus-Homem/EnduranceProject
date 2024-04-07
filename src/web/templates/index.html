@@ -1,37 +1,65 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block head %}
-<title>Task Master</title>
+{% block title %}
+    Menu
 {% endblock %}
 
-{% block body %}
-<div class="content">
-	<h1 style="text-align: center;">Task Master</h1>
-	{% if tasks|length < 1 %}
-	<h4 style="text-align: center;">There are no tasks. Create one below!</h4>
-	{% else %}
-	<table>
-		<tr>
-			<th>Task</th>
-			<th>Added</th>
-			<th>Actions</th>
-		</tr>
-		{% for task in tasks %}
-			<tr>
-				<td>{{ task.content }}</td>
-				<td>{{ task.date_created.date() }}</td>
-				<td>
-					<a href="/delete/{{task.id}}">Delete</a>
-					<br>
-					<a href="/update/{{task.id}}">Update</a>
-				</td>
-			</tr>
-		{% endfor %}
-	</table>
-	{% endif %}
-	<form action="/" method="POST">
-		<input type="text" name="content" id="content">
-		<input type="submit" value="Add Task">
-	</form>
-</div>
+{% block header %}
+    Compass Project
+{% endblock %}
+
+{% block content %}
+    <section id="menu">
+        <fieldset id="forms">
+            <legend class=centralized>Forms</legend>
+            <div>
+                <table style="width: 100%;" class=tableWithSpacing>
+                    <tr>
+                        <td class=centralized>
+                            <span>Morning</span>
+                        </td>
+                        <td class=centralized>
+                            <a href="/form/morning/" class="createButton">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </td>
+                        <td class=centralized>
+                            <button class="editButton">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=centralized>
+                            <span>Night</span>
+                        </td>
+                        <td class=centralized>
+                            <a href="/form/night/" class="createButton">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </td>
+                        <td class=centralized>
+                            <button class="editButton">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <br>
+        
+        <fieldset id="forms">
+            <legend class=centralized>Reports</legend>
+            <div>
+                <table style="width: 100%;" class=tableWithSpacing>
+                    <tr>
+                        <td class=centralized>
+                            <span>To be implemented.</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </section>
 {% endblock %}
