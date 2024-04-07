@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
-from forms import MorningForm, NightForm
 import os
 
 app = Flask(__name__)
@@ -18,7 +17,6 @@ def form_night():
 
 @app.route('/form/morning/', methods=['GET', 'POST'])
 def form_morning():
-    form = MorningForm()
     if request.method == 'POST':
         result = request.form
         mongo.db.test_collection.insert_one(result.to_dict())
