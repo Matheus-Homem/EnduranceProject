@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <form id="morning" action="/form/morning/" method="POST" onsubmit="return validatePercentage();">
+    <form action="/form/morning/" method="POST" onsubmit="return validatePercentage();">
 
         <section id="opening">
             <h2>Informações Gerais</h2>
@@ -279,6 +279,7 @@
     </form>
 
     <script>
+        
         const bedDateTimeInput     = document.getElementById('bedDateTime');
         const wakeupDateTimeInput  = document.getElementById('wakeupDateTime');
         const timeDifferenceOutput = document.getElementById('timeDifference');
@@ -297,29 +298,6 @@
         lightPercentageInput.addEventListener('change', calculateTotalPercentage);
         deepPercentageInput.addEventListener('change', calculateTotalPercentage);
 
-
-
-        document.getElementById('morning').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            document.getElementById('blackBox').value = document.getElementById('blackBox').value / 100;
-            document.getElementById('greenBox').value = document.getElementById('greenBox').value / 100;
-            document.getElementById('totalWeight').value = document.getElementById('totalWeight').value / 100;
-            document.getElementById('fatPercentage').value = document.getElementById('fatPercentage').value / 100;
-            document.getElementById('muscleWeight').value = document.getElementById('muscleWeight').value / 100;
-            document.getElementById('awakePercentage').value = document.getElementById('awakePercentage').value / 100;
-            document.getElementById('remPercentage').value = document.getElementById('remPercentage').value / 100;
-            document.getElementById('lightPercentage').value = document.getElementById('lightPercentage').value / 100;
-            document.getElementById('deepPercentage').value = document.getElementById('deepPercentage').value / 100;
-
-            var cellphoneTime = document.getElementById('cellphoneTime').value;
-            var hours = Math.floor(cellphoneTime / 100);
-            var minutes = cellphoneTime % 100;
-            var formattedTime = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
-            document.getElementById('cellphoneTime').value = formattedTime;
-
-            this.submit();
-        });
     </script>
       
 {% endblock %}
