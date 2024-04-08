@@ -5,11 +5,13 @@
 
 - [Table of Contents](#table-of-contents)
 - [Environment Configuration](#environment-configuration)
-	- [Step 01: Build the Project](#step-01-build-the-project)
-	- [Step 02: Configure the Environment](#step-02-configure-the-environment)
-	- [Step 03: Run the Project](#step-03-run-the-project)
-	- [Step 04: Run Full Pipeline](#step-04-run-full-pipeline)
-	- [Step 05: Clean Up](#step-05-clean-up)
+  - [Step 01: Build the Project](#step-01-build-the-project)
+  - [Step 02: Configure the Environment](#step-02-configure-the-environment)
+- [Available Commands](#available-commands)
+  - [How To: Run the Project](#how-to-run-the-project)
+  - [How To: Run Full Pipeline](#how-to-run-full-pipeline)
+  - [How To: Host Server](#how-to-host-server)
+  - [How To: Clean Up](#how-to-clean-up)
 
 ## Environment Configuration
 
@@ -33,7 +35,9 @@ make configure
 
 This command upgrades pip and installs the required dependencies specified in the `requirements.txt` file.
 
-### Step 03: Run the Project
+## Available Commands
+
+### How To: Run the Project
 
 To execute the project, simply use:
 
@@ -43,7 +47,7 @@ make run
 
 This command runs the project using the main script `main.py`.
 
-### Step 04: Run Full Pipeline
+### How To: Run Full Pipeline
 
 For a complete automated pipeline execution, use:
 
@@ -53,7 +57,17 @@ make full-run
 
 This command runs the project in automated mode, which may include additional tasks or tests specified in the pipeline.
 
-### Step 05: Clean Up
+### How To: Host Server
+
+To host a local server, user:
+
+```plaintext
+make server
+```
+
+This command executes an `app.py` file enabling a local host for the web page from the project.
+
+### How To: Clean Up
 
 Finally, deactivate the virtual environment and clean up any generated files.
 
