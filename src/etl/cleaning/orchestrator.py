@@ -12,8 +12,8 @@ class CleanerOrchestrator(Orchestrator):
 		self.process = "CLEANING"
 
 		## Ingestion Path
-		self.ingestion_paths_morning	= glob.glob(f'{self.paths.ingestion}/morning*.json')
-		self.ingestion_paths_night		= glob.glob(f'{self.paths.ingestion}/night*.json')
+		self.ingestion_paths_morning	= glob.glob(f"{self.paths.ingestion}/morning*.json")
+		self.ingestion_paths_night		= glob.glob(f"{self.paths.ingestion}/night*.json")
 
 		## Cleaned Paths
 		self.cleaned_path_morning	= self.paths.get_file_path("cleaned", "morning.parquet")
@@ -21,7 +21,7 @@ class CleanerOrchestrator(Orchestrator):
 
 		self.yaml_path = self.paths.get_file_path("yaml", "cleaning_config.yaml")
 
-		with open(self.yaml_path, 'r', encoding='utf-8') as file:
+		with open(self.yaml_path, "r", encoding="utf-8") as file:
 			self.cleaning_config = yaml.safe_load(file)
 
 		self.engine = CleanerEngine(cleaning_schema=self.cleaning_config)
