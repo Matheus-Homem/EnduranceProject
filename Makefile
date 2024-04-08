@@ -42,8 +42,11 @@ configure: # Command to install project dependencies
 
 run: # Command to run the project
 	@echo Running the project...
-	@set PYTHONPATH=./ && \
-	python src\main.py
+	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
+		python src\main.py, \
+		export PYTHONPATH=./ && \
+		python3 src/main.py)
 
 full-run: # Command to run the project in automated mode 
 	@echo Running the project in automated mode...
@@ -56,7 +59,9 @@ full-run: # Command to run the project in automated mode
 server: # Command to run the web application
 	@echo Running the web application...
 	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
 		python src\web\app.py, \
+		export PYTHONPATH=./ && \
 		python3 src/web/app.py)
 
 test: # Run tests with code coverage
