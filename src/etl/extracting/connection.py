@@ -1,4 +1,4 @@
-from src.env.credentials import credentials
+from src.env.credentials import Credentials
 import imaplib
 
 class IMAPConnection:
@@ -6,9 +6,9 @@ class IMAPConnection:
 	def __init__(self):
 		
 		self.server = "imap.gmail.com"
-		self.email = credentials.IMAP_RECIPIENT
-		self.password = credentials.IMAP_PASSWORD
-		self.sender = credentials.IMAP_SENDER
+		self.email = Credentials.IMAP_RECIPIENT
+		self.password = Credentials.IMAP_PASSWORD
+		self.sender = Credentials.IMAP_SENDER
 		self._configure()
 		self._search_inbox(sender_address=self.sender)
 
