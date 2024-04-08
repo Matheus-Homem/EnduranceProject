@@ -30,6 +30,7 @@ class Calendar:
 		return dir_file_path
 	
 
+
 class Paths:
 	def __init__(self):
 
@@ -80,3 +81,10 @@ class Paths:
 
 		# Return the full path to the file by combining the directory path and the file name.
 		return os.path.join(dir_path, file_name)
+	
+
+class PathsA(Paths):
+	pass
+
+class PathsB(Paths):
+	pass

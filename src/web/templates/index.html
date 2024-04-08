@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block header %}
+    Compass Project
+{% endblock %}
+
+{% block content %}
+    <section id="menu">
+        <fieldset id="forms">
+            <legend class=centralized>Forms</legend>
+            <div>
+                <table style="width: 100%;" class=tableWithSpacing>
+                    <tr>
+                        <td class=centralized>
+                            <span>Morning</span>
+                        </td>
+                        <td class=centralized>
+                            <a href="/form/morning/" class="createButton">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </td>
+                        <td class=centralized>
+                            <button class="editButton">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=centralized>
+                            <span>Night</span>
+                        </td>
+                        <td class=centralized>
+                            <a href="/form/night/" class="createButton">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </td>
+                        <td class=centralized>
+                            <button class="editButton">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <br>
+        
+        <fieldset id="forms">
+            <legend class=centralized>Reports</legend>
+            <div>
+                <table style="width: 100%;" class=tableWithSpacing>
+                    <tr>
+                        <td class=centralized>
+                            <span>To be implemented.</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </section>
+{% endblock %}

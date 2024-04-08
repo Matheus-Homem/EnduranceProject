@@ -1,0 +1,47 @@
+body, html {
+    margin: 0;
+    font-family: sans-serif;
+	/* background-color: lightblue; */
+}
+
+.content {
+    /* text-align: center; */
+    /* margin-top: 50px; */
+	margin: 0 auto;
+    width: 400px;
+}
+
+table, td, th {
+    border: 1px solid #aaa;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+	/* width: auto;
+    display: inline-table;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px; */
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    width: max-content;
+}
+
+th {
+	height: 30px;
+    background-color: #f2f2f2;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+
+#content {
+    width: 70%;
+}

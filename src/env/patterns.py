@@ -1,4 +1,4 @@
-from src.env.helpers import Paths
+from src.env.helpers import Paths, PathsA
 from src.env.globals import Global
 
 from abc import ABC, abstractmethod
@@ -21,8 +21,8 @@ class Process(ABC):
 	console_handler.setLevel(logging.INFO)
 	logger.addHandler(console_handler)
 
-	def __init__(self):
-		self.paths = Paths()
+	def __init__(self, paths:Paths):
+		self.paths = paths
 		self.globals = Global()
 		self.calendar = self.globals.get_calendar()
 		self.logger = self.get_logger()
@@ -33,3 +33,5 @@ class Process(ABC):
 
 	def get_logger(self):
 		return Process.logger
+	
+Process(paths=PathsA())

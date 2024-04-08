@@ -1,13 +1,22 @@
-xlsx2csv
-polars
-pandas
-matplotlib
-python-dotenv
-pyyaml
-reportlab
-typing
-uuid
-email
-hashlib
-imaplib
-glob
+# Data Manipulation Tools
+polars==0.20.4
+pandas==2.1.4
+matplotlib==3.8.2
+xlsx2csv==0.8.2
+
+# Web Development Tools
+Flask==3.0.2
+Flask-SQLAlchemy==3.1.1
+Flask-PyMongo==2.3.0
+
+# Document Generation Tools
+reportlab==4.0.8
+
+# Testing Tools
+pytest==8.1.1
+coverage==7.4.4
+
+# Other Dependencies
+python-dotenv==1.0.0
+PyYAML==6.0.1
+typing==3.7.4.3

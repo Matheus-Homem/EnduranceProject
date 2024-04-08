@@ -1,16 +1,23 @@
-## Pull Request Description :page_facing_up:
+# 📑 Pull Request Description 📑
 
-#### Write below **what** and **why** you made this change *(at least 50 characters)*: :arrow_heading_down:
-- 
+## Describe below the purpose of this change
 
-#### Write below if there is any **related issue** to this PR: :arrow_heading_down:
+### **Why** have you done it? 🧐
 
-- 
+- *The objetive of this Pull Request is to* ...
 
-#### **Checklist** :white_check_mark:
+### **What** have you done? 🤔
 
-- [ ] Were new features or functionalities added?
-- [ ] Was there maintenance or refactoring of existing code?
-- [ ] Were any bugs fixed?
-- [ ] Was any documentation added or modified (in code or documentation files)?
-- [ ] Were tests added or modified?
+- *In this Pull Request I propose* ...
+
+### What **Issue** is this PR related? 🚩
+
+- *This Pull Request is related to the* Issue #__
+
+## *Checklist* :white_check_mark:
+
+- [ ] 🚀 This PR implements a **new feature** or functionality;
+- [ ] 🛠️ This PR **refactors** the **code** to enhance quality/maintainability;
+- [ ] 🐛 This PR **fixes** one or more **Bug(s)**;
+- [ ] 🧪 This PR adjusts or creates **Unit Tests**;
+- [ ] 📝 This PR adds or updates **Documentations** to reflect changes made;
