@@ -22,12 +22,8 @@ create-venv: # Command to create the virtual environment
 
 activate-venv: # Command to activate the virtual environment and modify the command prompt
 	@echo Activating virtual environment...
-	@$(if $(filter $(OS),Windows_NT), \
-		call .\$(VENV_NAME)\Scripts\activate && \
-		cmd /k, \
-		source $(VENV_NAME)/bin/activate && \
-		bash)
-
+	@call .\$(VENV_NAME)\Scripts\activate && cmd /k
+		
 build: # Command to create the virtual environment and activate it
 	@echo Building project...
 	@make clean
@@ -46,18 +42,26 @@ configure: # Command to install project dependencies
 
 run: # Command to run the project
 	@echo Running the project...
-	@set PYTHONPATH=./ && \
-	python src\main.py
+	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
+		python src\main.py, \
+		export PYTHONPATH=./ && \
+		python3 src/main.py)
 
 full-run: # Command to run the project in automated mode 
 	@echo Running the project in automated mode...
-	@set PYTHONPATH=./ && \
-	python src\main.py --automated True
+	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
+		python src\main.py --automated True, \
+		export PYTHONPATH=./ && \
+		python3 src/main.py --automated True)
 
 server: # Command to run the web application
 	@echo Running the web application...
 	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
 		python src\web\app.py, \
+		export PYTHONPATH=./ && \
 		python3 src/web/app.py)
 
 test: # Run tests with code coverage

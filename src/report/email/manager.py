@@ -1,5 +1,5 @@
 from src.env.helpers import Paths
-from src.env.credentials import credentials
+from src.env.credentials import Credentials
 from src.env.globals import Global
 
 import os
@@ -30,8 +30,8 @@ class EmailManager:
 				Week Number: {self.calendar.week_number}
 			"""
 
-		self.message["From"] = credentials.SMTP_USERNAME
-		self.message["To"] = credentials.SMTP_RECIPIENT
+		self.message["From"] = Credentials.SMTP_USERNAME
+		self.message["To"] = Credentials.SMTP_RECIPIENT
 		self.message["Subject"] = self.subject
 
 		self.message.attach(MIMEText(self.email_body, "plain"))
@@ -51,12 +51,12 @@ class EmailManager:
 
 	def _send(self):
 		print("Sending e-mail")
-		with smtplib.SMTP(credentials.SMTP_SERVER, credentials.SMTP_PORT) as server:
+		with smtplib.SMTP(Credentials.SMTP_SERVER, Credentials.SMTP_PORT) as server:
 			server.starttls()
-			server.login(credentials.SMTP_USERNAME, credentials.SMTP_PASSWORD)
+			server.login(Credentials.SMTP_USERNAME, Credentials.SMTP_PASSWORD)
 			server.sendmail(
-				from_addr=credentials.SMTP_USERNAME, 
-				to_addrs=credentials.SMTP_RECIPIENT, 
+				from_addr=Credentials.SMTP_USERNAME, 
+				to_addrs=Credentials.SMTP_RECIPIENT, 
 				msg=self.message.as_bytes()
 			)
 		print("E-mail was send sucessfully")

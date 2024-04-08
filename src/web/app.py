@@ -1,3 +1,4 @@
+from src.env.credentials import Credentials
 from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 import os
@@ -6,7 +7,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 
 # Use environment variable for MONGO_URI if it"s set, otherwise use the local URI
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb://localhost:27017/test_db")
+app.config["MONGO_URI"] = Credentials.MONGO_URI
 
 mongo = PyMongo(app)
 
