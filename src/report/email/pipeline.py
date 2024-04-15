@@ -3,6 +3,7 @@ from src.report.email.message import MessageBuilder
 
 import smtplib
 
+
 class EmailManager:
     def __init__(self, calendar):
         # TODO: Implement logger over print
