@@ -6,7 +6,7 @@ class IMAPConnection:
 	def __init__(self):
 		
 		self.server = "imap.gmail.com"
-		self.email = Credentials.IMAP_RECIPIENT
+		self.email = Credentials.IMAP_RECIEVER
 		self.password = Credentials.IMAP_PASSWORD
 		self.sender = Credentials.IMAP_SENDER
 		self._configure()
