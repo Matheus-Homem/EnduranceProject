@@ -1,26 +1,19 @@
-from src.shared.connections.builder import build_connection
+from src.shared.connections.builder import Connector, build_connection
 from src.shared.definition.statements import DataManipulationLanguage
 from src.shared.definition.tables import MorningRawTable, NightRawTable
 
 from flask import Flask, render_template, request
-import mysql.connector
-import sshtunnel
 import os
-
-sshtunnel.SSH_TIMEOUT = 5.0
-sshtunnel.TUNNEL_TIMEOUT = 5.0
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 
 
 ssh_connection = build_connection(
-    connection_type="ssh",
-    instance=sshtunnel.SSHTunnelForwarder,
+    connection_type=Connector.SSH,
 )
 mysql_connection = build_connection(
-    connection_type="mysql",
-    instance=mysql.connector.connect,
+    connection_type=Connector.MYSQL,
     tunnel=ssh_connection,
 )
 
