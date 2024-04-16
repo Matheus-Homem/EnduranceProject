@@ -1,62 +1,35 @@
-from src.shared.connections.credentials import MySqlCredential, SshCredential
-from src.shared.connections.connectors import MySqlConnector, SshConnector
-from src.shared.connections.builder import Connector, build_connection
+from src.shared.connections.credentials import SshCredential
+from src.shared.connections.connectors import SshConnector
+from src.shared.connections.builder import Connector, ConnectionType, CONNECTION_CLASSES, build_connection
 
 import unittest
-from unittest.mock import patch, MagicMock
+import sshtunnel
 
+class TestSshConnection(unittest.TestCase):
+    # TODO: implement Mock/patch
 
-class TestFullMySqlConnection(unittest.TestCase):
+    def setUp(self) -> None:
+        self.connection = build_connection(Connector.SSH)
 
-    @patch('src.shared.connections.builder.mysql.connector.connect')
-    @patch('src.shared.connections.builder.sshtunnel.SSHTunnelForwarder')
-    def test_build_connection(self, mock_tunnel, mock_mysql_connector):
+    def test_connector_enum(self):
+        assert Connector.SSH.value == ConnectionType("ssh")
 
-        ssh_credential = SshCredential()
-        
-        ssh_connection = SshConnector(ssh_credential).build_connection(mock_tunnel)
-
-        print("ssh_connection: ",ssh_connection)
-        print(type(ssh_connection))
-        
-        print(type(Connector.SSH))
-        print(type(build_connection(Connector.SSH)))
-        assert ssh_connection == build_connection(Connector.SSH)
-
-        ssh_connection.start_tunnel()
-        ssh_connection.close_tunnel()
-        
-        mysql_credential = MySqlCredential()
-
-        mysql_connection = MySqlConnector(mysql_credential).build_connection(mock_mysql_connector)
-
-        assert mysql_connection == build_connection(Connector.MYSQL)
-
-
-        ssh_connection.start_tunnel.assert_called_once()
-        ssh_connection.close_tunnel.assert_called_once()
-        
-        #self.assertEqual(build_connection(Connector.SSH), SshConnector(SshCredential()).build_connection(sshtunnel.SSHTunnelForwarder)) 
-        
-        # # Arrange
-        # mock_credential = MagicMock(spec=Credential)
-        # mock_instance = MagicMock()
-        # mock_tunnel = MagicMock()
-        # mock_tunnel.start_tunnel = MagicMock()
-        # mock_connector = MySqlConnector(mock_credential)
-
-        # # Act
-        # mock_connector.build_connection(mock_instance, mock_tunnel)
-
-        # # Assert
-        # mock_tunnel.start_tunnel.assert_called_once()
-        # mock_instance.assert_called_once_with(
-        #     user=mock_credential.get_host(),
-        #     password=mock_credential.get_password(),
-        #     host=mock_credential.get_username(),
-        #     port=mock_tunnel.local_bind_port,
-        #     db=mock_credential.get_database()
-        # )
+    def test_CONNECTION_CLASSES_dict(self):
+        ssh_connector_class, ssh_credential_class, ssh_lib_class = CONNECTION_CLASSES.get(Connector.SSH.value)
+        assert ssh_connector_class == SshConnector
+        assert ssh_credential_class == SshCredential
+        assert ssh_lib_class == sshtunnel.SSHTunnelForwarder
+    
+    def test_ssh_build_connection(self):
+        assert isinstance(self.connection, SshConnector)
+        assert isinstance(self.connection.credential, SshCredential)
+        assert isinstance(self.connection.tunnel, sshtunnel.SSHTunnelForwarder)
+    
+    def test_ssh_tunnel(self):
+        self.connection.tunnel.start()
+        assert self.connection.tunnel.is_active == True
+        self.connection.tunnel.close()
+        assert self.connection.tunnel.is_active == False
 
 if __name__ == '__main__':
     unittest.main()
