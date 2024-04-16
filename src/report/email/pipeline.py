@@ -1,7 +1,5 @@
-from src.shared.connections.builder import build_connection
+from src.shared.connections.builder import Connector, build_connection
 from src.report.email.message import MessageBuilder
-
-import smtplib
 
 
 class EmailManager:
@@ -32,16 +30,19 @@ class EmailManager:
                 message=message,
                 attachment_path=self.paths.get_partitioned_file_path(fmt="pdf")
             )
-            
-    def _build_message(self, connection: smtplib.SMTP):
-        message = MessageBuilder.create_multipart_message()
-        message = connection.address_message(message)
-        message = self._configure_body(message=message)
-        message = self._configure_subject(message=message)
-        return message
 
     def dispatch(self):
-        smtp_connection = build_connection(connection_type="smtp", instance=smtplib.SMTP)
+        
+        # Build connection and login
+        smtp_connection = build_connection(connection_type=Connector.SMTP)
         smtp_connection.account_login()
-        message = self._build_message(smtp_connection)
+
+        # Create and configure message
+        message = MessageBuilder.create_multipart_message()
+        message = smtp_connection.address_message(message)
+        message = self._configure_body(message=message)
+        message = self._configure_subject(message=message)
+        message = self._attach_files(message=message)
+
+        # Send email
         smtp_connection.send_email(message=message)
