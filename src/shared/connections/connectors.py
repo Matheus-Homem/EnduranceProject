@@ -21,7 +21,7 @@ class SmtpConnector(Connector):
     def get_credential(self):
         return self.credential
 
-    def build_connection(self, lib):
+    def build_connection(self, lib, **kwargs):
         self.connection = lib(
             host=self.credential.get_server(),
             port=self.credential.get_port()
@@ -53,7 +53,7 @@ class SshConnector(Connector):
     def __init__(self, credential: Credential):
         self.credential = credential
 
-    def build_connection(self, lib):
+    def build_connection(self, lib, **kwargs):
         self.tunnel = lib(
             ssh_address_or_host=self.credential.get_host(),
             ssh_username=self.credential.get_username(),
@@ -63,7 +63,7 @@ class SshConnector(Connector):
                 self.credential.get_port()
             )
         )
-        return self.tunnel
+        return self
 
     def start_tunnel(self):
         self.tunnel.start()
@@ -79,7 +79,8 @@ class MySqlConnector(Connector):
         self.connection = None
         self.cursor = None
 
-    def build_connection(self, lib, tunnel):
+    def build_connection(self, lib, **kwargs):
+        tunnel = kwargs.get('tunnel')
         tunnel.start_tunnel()
         self.connection = lib(
             user=self.credential.get_host(),
