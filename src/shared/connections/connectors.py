@@ -26,7 +26,7 @@ class SmtpConnector(Connector):
             host=self.credential.get_server(),
             port=self.credential.get_port()
         )
-        return self.connection
+        return self
 
     def account_login(self):
         self.connection.starttls()
@@ -89,7 +89,7 @@ class MySqlConnector(Connector):
             port=tunnel.local_bind_port,
             db=self.credential.get_database()
         )
-        return self.connection
+        return self
 
     def get_cursor(self):
         try:
