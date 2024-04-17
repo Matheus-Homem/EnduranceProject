@@ -7,13 +7,15 @@ class Credential(Protocol):
     def get_password(self) -> str:
         ...
 
-@dataclass
+
 class SmtpCredential(Credential):
-    _PORT: int = 587
-    _SERVER: str = "smtp.gmail.com"
-    _SENDER_EMAIL: str = os.getenv("SMTP_SENDER_EMAIL")
-    _SENDER_PASSWORD: str = os.getenv("SMTP_SENDER_PASSWORD")
-    _RECIEVER_EMAIL: str = os.getenv("SMTP_RECIEVER_EMAIL")
+
+    def __init__(self, getenv=os.getenv):
+        self._PORT: int = 587
+        self._SERVER: str = "smtp.gmail.com"
+        self._SENDER: str = getenv("SMTP_SENDER_EMAIL")
+        self._PASSWORD: str = getenv("SMTP_SENDER_PASSWORD")
+        self._RECEIVER: str = getenv("SMTP_RECEIVER_EMAIL")
 
     def get_port(self) -> int:
         return self._PORT
@@ -22,21 +24,23 @@ class SmtpCredential(Credential):
         return self._SERVER
     
     def get_sender(self) -> str:
-        return self._SENDER_EMAIL
+        return self._SENDER
     
     def get_password(self) -> str:
-        return self._SENDER_PASSWORD
+        return self._PASSWORD
     
-    def get_reciever(self) -> str:
-        return self._RECIEVER_EMAIL
+    def get_receiver(self) -> str:
+        return self._RECEIVER
+
+
+class MySqlCredential(Credential):
     
 
-@dataclass
-class MySqlCredential(Credential):
-    _HOST: str = "127.0.0.1"
-    _USERNAME: str = os.getenv("MYSQL_USERNAME")
-    _PASSWORD: str = os.getenv("MYSQL_PASSWORD")
-    _DATABASE: str = os.getenv("MYSQL_DATABASE")
+    def __init__(self, getenv=os.getenv):
+        self._HOST: str = "127.0.0.1"
+        self._USERNAME: str = getenv("MYSQL_USERNAME")
+        self._PASSWORD: str = getenv("MYSQL_PASSWORD")
+        self._DATABASE: str = getenv("MYSQL_DATABASE")
 
     def get_host(self) -> str:
         return self._HOST
@@ -48,15 +52,18 @@ class MySqlCredential(Credential):
         return self._PASSWORD
 
     def get_database(self) -> str:
+        
         return f"{self._USERNAME}${self._DATABASE}"
 
 
 @dataclass
 class SshCredential(Credential):
-    _HOST: str = "ssh.pythonanywhere.com"
-    _PORT: int = 3306
-    _USERNAME: str = os.getenv("SSH_USERNAME")
-    _PASSWORD: str = os.getenv("SSH_PASSWORD")
+
+    def __init__(self, getenv=os.getenv):
+        self._HOST: str = "ssh.pythonanywhere.com"
+        self._PORT: int = 3306
+        self._USERNAME: str = getenv("SSH_USERNAME")
+        self._PASSWORD: str = getenv("SSH_PASSWORD")
 
     def get_host(self) -> str:
         return self._HOST
