@@ -1,16 +1,37 @@
 from src.shared.definition.exceptions import ConnectionNotEstablished
 from src.shared.connections.credentials import Credential
 
-from typing import Protocol
+from typing import Protocol, NewType
+from enum import Enum
+
+
+ConnectionType = NewType('ConnectionType', str)
+
+class ConnectorType(Enum):
+    SMTP = ConnectionType("smtp")
+    SSH = ConnectionType("ssh")
+    MYSQL = ConnectionType("mysql")
 
 
 class Connector(Protocol):
+    """
+    Represents a connector for establishing a connection to a data source.
+    """
 
     def __init__(self, credential: Credential):
-        ...
+        """
+        Initializes a new instance of the Connector class.
+        """
 
-    def build_connection(self, lib, **kwargs):
-        ...
+    def build_connection(self, **kwargs) -> 'Connector':
+        """
+        Builds and return a connection to the data source.
+        """
+
+    def get_library(self):
+        """
+        Imports the necessary library for the connector and return the correct method.
+        """
 
 
 class SmtpConnector(Connector):
@@ -18,15 +39,20 @@ class SmtpConnector(Connector):
     def __init__(self, credential: Credential):
         self.credential = credential
 
-    def get_credential(self):
-        return self.credential
-
-    def build_connection(self, lib, **kwargs):
+    def build_connection(self, **kwargs):
+        lib = self.get_library()
         self.connection = lib(
             host=self.credential.get_server(),
             port=self.credential.get_port()
         )
         return self
+    
+    def get_library(self):
+        import smtplib
+        return smtplib.SMTP
+
+    def get_credential(self):
+        return self.credential
 
     def account_login(self):
         self.connection.starttls()
@@ -53,7 +79,8 @@ class SshConnector(Connector):
     def __init__(self, credential: Credential):
         self.credential = credential
 
-    def build_connection(self, lib, **kwargs):
+    def build_connection(self, **kwargs):
+        lib = self.get_library()
         self.tunnel = lib(
             ssh_address_or_host=self.credential.get_host(),
             ssh_username=self.credential.get_username(),
@@ -64,6 +91,12 @@ class SshConnector(Connector):
             )
         )
         return self
+    
+    def get_library(self):
+        import sshtunnel
+        sshtunnel.SSH_TIMEOUT = 5.0
+        sshtunnel.TUNNEL_TIMEOUT = 5.0
+        return sshtunnel.SSHTunnelForwarder
 
     def start_tunnel(self):
         self.tunnel.start()
@@ -79,7 +112,8 @@ class MySqlConnector(Connector):
         self.connection = None
         self.cursor = None
 
-    def build_connection(self, lib, **kwargs):
+    def build_connection(self, **kwargs):
+        lib = self.get_library()
         tunnel = kwargs.get('tunnel')
         tunnel.start_tunnel()
         self.connection = lib(
@@ -90,6 +124,10 @@ class MySqlConnector(Connector):
             db=self.credential.get_database()
         )
         return self
+    
+    def get_library(self):
+        import mysql.connector
+        return mysql.connector.connect
 
     def get_cursor(self):
         try:
