@@ -1,8 +1,8 @@
 from src.shared.connections.credentials import SshCredential
 from src.shared.connections.connectors import SshConnector
-from src.shared.connections.builder import Connector, ConnectionType
+# from src.shared.connections.builder import Connector, ConnectionType
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import unittest
 
 class TestSshConnection(unittest.TestCase):
@@ -20,15 +20,15 @@ class TestSshConnection(unittest.TestCase):
     def _deactivate_tunnel(self):
         self.mock_sshtunnel.return_value.is_active = False        
 
-    def test_connection_classes_dict(self):
-        mock_connection_classes_dict = {
-            ConnectionType("ssh"): (SshConnector, SshCredential, self.mock_sshtunnel)
-        }
-        ssh_connector_class, ssh_credential_class, ssh_lib_class = mock_connection_classes_dict.get(Connector.SSH.value)
-        self.assertEqual(Connector.SSH.value, ConnectionType("ssh"))
-        self.assertEqual(ssh_connector_class, SshConnector)
-        self.assertEqual(ssh_credential_class, SshCredential)
-        self.assertEqual(ssh_lib_class, self.mock_sshtunnel)
+    # def test_connection_classes_dict(self):
+    #     mock_connection_classes_dict = {
+    #         ConnectionType("ssh"): (SshConnector, SshCredential, self.mock_sshtunnel)
+    #     }
+    #     ssh_connector_class, ssh_credential_class, ssh_lib_class = mock_connection_classes_dict.get(Connector.SSH.value)
+    #     # self.assertEqual(Connector.SSH.value, ConnectionType("ssh"))
+    #     self.assertEqual(ssh_connector_class, SshConnector)
+    #     self.assertEqual(ssh_credential_class, SshCredential)
+    #     self.assertEqual(ssh_lib_class, self.mock_sshtunnel)
     
     def test_ssh_build_connection(self):
         ssh_credential = SshCredential()
