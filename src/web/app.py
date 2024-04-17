@@ -1,4 +1,5 @@
-from src.shared.connections.builder import Connector, build_connection
+from src.shared.connections.connectors import ConnectorType
+from src.shared.connections.builder import build_connection
 from src.shared.definition.statements import DataManipulationLanguage
 from src.shared.definition.tables import MorningRawTable, NightRawTable
 
@@ -10,11 +11,11 @@ app.config["SECRET_KEY"] = os.urandom(24)
 
 
 ssh_connection = build_connection(
-    connection_type=Connector.SSH,
+    connection_type=ConnectorType.SSH,
 )
 mysql_connection = build_connection(
-    connection_type=Connector.MYSQL,
-    tunnel=ssh_connection,
+    connection_type=ConnectorType.MYSQL,
+    ssh_connection=ssh_connection,
 )
 
 DML = DataManipulationLanguage(connection=mysql_connection)
