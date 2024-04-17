@@ -24,7 +24,10 @@ class Connector(Enum):
     MYSQL = ConnectionType("mysql")
 
 
-def build_connection(connection_type: ConnectionType, **kwargs):
+def build_connection(
+        connection_type: ConnectionType,
+        **kwargs
+    ) -> Connector:
     """
     Builds a connection using the specified connection type.
 
