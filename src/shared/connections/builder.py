@@ -36,12 +36,12 @@ def build_connection(connection_type: ConnectionType, **kwargs):
         The built connection object.
 
     Raises:
-        ValueError: If the connection_type is not recognized.
+        AttributeError: If the connection_type is not recognized.
     """
     classes = CONNECTION_CLASSES.get(connection_type.value)
 
     if classes is None:
-        raise ValueError(f"Unrecognized connection_type '{connection_type}'")
+        raise AttributeError(f"Unrecognized connection_type '{connection_type}'")
 
     connector_class, credential_class, lib_class = classes
     credential = credential_class()
