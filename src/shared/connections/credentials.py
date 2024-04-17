@@ -52,7 +52,6 @@ class MySqlCredential(Credential):
         return self._PASSWORD
 
     def get_database(self) -> str:
-        
         return f"{self._USERNAME}${self._DATABASE}"
 
 
