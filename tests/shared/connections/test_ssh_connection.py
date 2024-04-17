@@ -1,56 +1,62 @@
-from src.shared.connections.credentials import SshCredential
 from src.shared.connections.connectors import SshConnector
-# from src.shared.connections.builder import Connector, ConnectionType
 
-from unittest.mock import patch
+import sshtunnel
 import unittest
+from unittest.mock import patch, MagicMock
 
 class TestSshConnection(unittest.TestCase):
 
+    
     @patch('sshtunnel.SSHTunnelForwarder')
-    def setUp(self, mock_sshtunnel):
-        self.mock_sshtunnel = mock_sshtunnel
-        self.mock_sshtunnel.return_value.start.side_effect = self._activate_tunnel
-        self.mock_sshtunnel.return_value.close.side_effect = self._deactivate_tunnel
-        self.ssh_connection = SshConnector(SshCredential()).build_connection(lib=self.mock_sshtunnel)
+    def setUp(self, mock_get_library):
+        self.tunnel = MagicMock()
+        mock_credential = MagicMock()
+        self.mock_get_library = mock_get_library
+        self.mock_get_library.return_value = self.tunnel
+        mock_credential.get_host.return_value = 'mock_host'
+        mock_credential.get_username.return_value = 'mock_username'
+        mock_credential.get_password.return_value = 'mock_password'
+        mock_credential.get_hostname.return_value = 'mock_hostname'
+        mock_credential.get_port.return_value = 666
+        self.connector = SshConnector(mock_credential)
+        self.connector.build_connection()
 
-    def _activate_tunnel(self):
-        self.mock_sshtunnel.return_value.is_active = True
+    @patch('src.shared.connections.credentials.SshCredential')
+    def test_get_library(self, mock_ssh_credential):
+        self.mock_ssh_credential = mock_ssh_credential
+        ssh_connector = SshConnector(self.mock_ssh_credential.return_value)
+        ssh_library = ssh_connector.get_library()
+        self.assertEqual(ssh_library, sshtunnel.SSHTunnelForwarder)
+        self.assertEqual(sshtunnel.SSH_TIMEOUT, 5.0)
+        self.assertEqual(sshtunnel.TUNNEL_TIMEOUT, 5.0)
 
-    def _deactivate_tunnel(self):
-        self.mock_sshtunnel.return_value.is_active = False        
+    def test_build_connection(self):
+        result = self.connector.build_connection()
+        self.mock_get_library.assert_called_once()
+        self.assertIsInstance(result, SshConnector)
+        self.assertEqual(result, self.connector)
+        self.assertEqual(vars(self.connector.tunnel).get('ssh_host'), 'mock_host')
+        self.assertEqual(vars(self.connector.tunnel).get('ssh_username'), 'mock_username')
+        self.assertEqual(vars(self.connector.tunnel).get('ssh_password'), 'mock_password')
+        self.assertEqual(vars(self.connector.tunnel).get('_remote_binds'), [('mock_hostname', 666)])
 
-    # def test_connection_classes_dict(self):
-    #     mock_connection_classes_dict = {
-    #         ConnectionType("ssh"): (SshConnector, SshCredential, self.mock_sshtunnel)
-    #     }
-    #     ssh_connector_class, ssh_credential_class, ssh_lib_class = mock_connection_classes_dict.get(Connector.SSH.value)
-    #     # self.assertEqual(Connector.SSH.value, ConnectionType("ssh"))
-    #     self.assertEqual(ssh_connector_class, SshConnector)
-    #     self.assertEqual(ssh_credential_class, SshCredential)
-    #     self.assertEqual(ssh_lib_class, self.mock_sshtunnel)
-    
-    def test_ssh_build_connection(self):
-        ssh_credential = SshCredential()
-        ssh_connector = SshConnector(ssh_credential)
-        connection = ssh_connector.build_connection(lib=self.mock_sshtunnel)
-        
-        self.assertIsInstance(connection, SshConnector)
-        self.assertIsInstance(connection.credential, SshCredential)
-        self.assertEqual(connection.credential, self.ssh_connection.credential)
-        self.assertEqual(connection.tunnel, self.mock_sshtunnel.return_value)
+    def test_start_tunnel(self):
+        def start_side_effect():
+            self.tunnel.is_active = True
+        self.tunnel.is_active = False
+        self.tunnel.start.side_effect = start_side_effect
+        self.connector.start_tunnel()
+        self.tunnel.start.assert_called_once()
+        self.assertTrue(self.tunnel.is_active)
 
-    def test_tunnel_activation(self):
-        self.mock_sshtunnel.return_value.is_active = False
-        self.ssh_connection.start_tunnel()
-        self.ssh_connection.tunnel.start.assert_called_once()
-        self.assertTrue(self.mock_sshtunnel.return_value.is_active)
-    
-    def test_tunnel_deactivation(self):
-        self.mock_sshtunnel.return_value.is_active = True
-        self.ssh_connection.close_tunnel()
-        self.ssh_connection.tunnel.close.assert_called_once()
-        self.assertFalse(self.mock_sshtunnel.return_value.is_active)
+    def test_close_tunnel(self):
+        def close_side_effect():
+            self.tunnel.is_active = False
+        self.tunnel.is_active = True
+        self.tunnel.close.side_effect = close_side_effect
+        self.connector.close_tunnel()
+        self.tunnel.close.assert_called_once()
+        self.assertFalse(self.tunnel.is_active)
 
 if __name__ == '__main__':
     unittest.main()
