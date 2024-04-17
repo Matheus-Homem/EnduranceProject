@@ -1,7 +1,7 @@
 from src.shared.definition.exceptions import ConnectionNotEstablished
 from src.shared.connections.credentials import Credential
 
-from typing import Protocol, NewType
+from typing import Protocol, NewType, Tuple
 from enum import Enum
 
 
@@ -98,6 +98,9 @@ class SshConnector(Connector):
         sshtunnel.TUNNEL_TIMEOUT = 5.0
         return sshtunnel.SSHTunnelForwarder
 
+    def get_local_bind_port(self) -> Tuple:
+        return self.tunnel.local_bind_port
+
     def start_tunnel(self):
         self.tunnel.start()
 
@@ -114,14 +117,14 @@ class MySqlConnector(Connector):
 
     def build_connection(self, **kwargs):
         lib = self.get_library()
-        tunnel = kwargs.get('tunnel')
-        tunnel.start_tunnel()
+        ssh_connection = kwargs.get('ssh_connection')
+        ssh_connection.start_tunnel()
         self.connection = lib(
-            user=self.credential.get_host(),
+            user=self.credential.get_username(),
             password=self.credential.get_password(),
-            host=self.credential.get_username(),
-            port=tunnel.local_bind_port,
-            db=self.credential.get_database()
+            host=self.credential.get_host(),
+            port=ssh_connection.get_local_bind_port(),
+            database=self.credential.get_database()
         )
         return self
     
