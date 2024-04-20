@@ -20,5 +20,5 @@ def build_connection(connection_type: ConnectionType, **kwargs) -> Connector:
         classes = CONNECTION_CLASSES.get(connection_type.value)
         connector_class, credential_class = classes
         credential = credential_class()
-        connector = connector_class(credential)
-        return connector.build_connection(**kwargs)
+        conn_instance = connector_class(credential, **kwargs)
+        return conn_instance
