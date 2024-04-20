@@ -1,4 +1,3 @@
-from src.shared.definition.exceptions import ConnectionNotEstablished
 from src.shared.connections.credentials import Credential
 
 from typing import Protocol, NewType, Tuple
@@ -18,36 +17,45 @@ class Connector(Protocol):
     Represents a connector for establishing a connection to a data source.
     """
 
-    def __init__(self, credential: Credential):
+    def __init__(self, credential: Credential, **kwargs):
         """
-        Initializes a new instance of the Connector class.
-        """
-
-    def build_connection(self, **kwargs) -> 'Connector':
-        """
-        Builds and return a connection to the data source.
+        Initializes the connector with the given credential.
         """
 
-    def get_library(self):
+    def __enter__(self):
         """
-        Imports the necessary library for the connector and return the correct method.
+        Enters the context manager.
+        """
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Exits the context manager.
+        """
+
+    @property
+    def library(self):
+        """
+        Returns the library used by the connector.
         """
 
 
 class SmtpConnector(Connector):
 
-    def __init__(self, credential: Credential):
+    def __init__(self, credential: Credential, **kwargs):
         self.credential = credential
 
-    def build_connection(self, **kwargs):
-        lib = self.get_library()
-        self.connection = lib(
+    def __enter__(self):
+        self.connection = self.library(
             host=self.credential.get_server(),
             port=self.credential.get_port()
         )
         return self
-    
-    def get_library(self):
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.connection.quit()
+
+    @property
+    def library(self):
         import smtplib
         return smtplib.SMTP
 
@@ -79,9 +87,8 @@ class SshConnector(Connector):
     def __init__(self, credential: Credential):
         self.credential = credential
 
-    def build_connection(self, **kwargs):
-        lib = self.get_library()
-        self.tunnel = lib(
+    def __enter__(self):
+        self.tunnel = self.library(
             ssh_address_or_host=self.credential.get_host(),
             ssh_username=self.credential.get_username(),
             ssh_password=self.credential.get_password(),
@@ -92,7 +99,11 @@ class SshConnector(Connector):
         )
         return self
     
-    def get_library(self):
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.tunnel.close()
+    
+    @property
+    def library(self):
         import sshtunnel
         sshtunnel.SSH_TIMEOUT = 5.0
         sshtunnel.TUNNEL_TIMEOUT = 5.0
@@ -104,52 +115,41 @@ class SshConnector(Connector):
     def start_tunnel(self):
         self.tunnel.start()
 
-    def close_tunnel(self):
-        self.tunnel.close()
+    def is_active(self) -> bool:
+        return self.tunnel.is_active
 
 
 class MySqlConnector(Connector):
 
-    def __init__(self, credential: Credential):
+    def __init__(self, credential: Credential, **kwargs):
         self.credential = credential
+        self.ssh_connection = kwargs.get('ssh_connection')
         self.connection = None
         self.cursor = None
 
-    def build_connection(self, **kwargs):
+    def __enter__(self):
         lib = self.get_library()
-        ssh_connection = kwargs.get('ssh_connection')
-        ssh_connection.start_tunnel()
+        if not self.ssh_connection.is_active():
+            self.ssh_connection.start_tunnel()
         self.connection = lib(
             user=self.credential.get_username(),
             password=self.credential.get_password(),
             host=self.credential.get_host(),
-            port=ssh_connection.get_local_bind_port(),
-            database=self.credential.get_database()
+            port=self.ssh_connection.get_local_bind_port(),
+            db=self.credential.get_database()
         )
         return self
     
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self.cursor:
+            self.cursor.close()
+        self.connection.close()
+    
     def get_library(self):
-        import mysql.connector
-        return mysql.connector.connect
+        import pymysql
+        return pymysql.connect
 
     def get_cursor(self):
-        try:
+        if not self.cursor:
             self.cursor = self.connection.cursor()
-        except AttributeError:
-            raise ConnectionNotEstablished("Call build_connection first.")
         return self.cursor
-
-    def commit(self):
-        try:
-            self.connection.commit()
-        except AttributeError:
-            raise ConnectionNotEstablished("Call build_connection first.")
-
-    def close(self, tunnel):
-        try:
-            if self.cursor is not None:
-                self.cursor.close()
-            self.connection.close()
-            tunnel.close_tunnel()
-        except AttributeError:
-            raise ConnectionNotEstablished("Call build_connection first.")
