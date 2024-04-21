@@ -43,9 +43,16 @@ class RefinedTable(Table):
     STORED_AS: str = "mysql"
 
 @dataclass
-class MorningRawTable(RawTable):
-    NAME = "morning"
+class MorningRawTable(Table):
+    NAME: str = "morning"
+    COLUMNS_SPECS = {
+        "id": "INT",
+        "data": "JSON",
+    }
+    PRIMARY_KEY = "id"
+    STORED_AS = "mysql"
 
 @dataclass
-class NightRawTable(RawTable):
-    NAME = "night"
+class NightRawTable:
+    NAME: str = "night"
+    COLUMNS: 
