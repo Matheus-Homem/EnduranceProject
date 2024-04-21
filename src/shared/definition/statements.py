@@ -73,11 +73,13 @@ class DataManipulationLanguage:
     def insert(
         self,
         table: Table,
-        values: List[str]
+        values: dict
     ):
         try:
-            sql_insert_query = f"INSERT INTO {table} ({Table.COLUMNS}) VALUES ({', '.join(['%s' for _ in values])})"
-            self.cursor.execute(sql_insert_query, values)
+            columns = ', '.join(values.keys())
+            placeholders = ', '.join(['%s' for _ in values])
+            sql_insert_query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+            self.cursor.execute(sql_insert_query, list(values.values()))
             self.cursor.commit()
         except Exception as e:
             print(f"An error occurred when inserting into {table}: {e}")
@@ -122,3 +124,80 @@ class DataManipulationLanguage:
             self.cursor.commit()
         except Exception as e:
             print(f"An error occurred when merging {table}: {e}")
+
+
+class DataDefinitionLanguage:
+
+    def __init__(
+        self,
+        cursor
+    ):
+        self.cursor = cursor
+
+    def create_table(
+            self,
+            table: Table
+        ):
+        try:
+            sql_create_table_query = f"CREATE TABLE {table} ({table.COLUMNS})"
+            self.cursor.execute(sql_create_table_query)
+            self.cursor.commit()
+        except Exception as e:
+            print(f"An error occurred when creating {table}: {e}")
+
+    def drop_table(
+            self,
+            table: Table
+        ):
+        try:
+            sql_drop_table_query = f"DROP TABLE {table}"
+            self.cursor.execute(sql_drop_table_query)
+            self.cursor.commit()
+        except Exception as e:
+            print(f"An error occurred when dropping {table}: {e}")
+
+    def alter_table(
+            self,
+            table: Table,
+            column: str,
+            new_type: str
+        ):
+        try:
+            if not table.validate_existence(column):
+                raise ValueError(f"Column {column} does not exist in table {table}")
+            sql_alter_table_query = f"ALTER TABLE {table} MODIFY COLUMN {column} {new_type}"
+            self.cursor.execute(sql_alter_table_query)
+            self.cursor.commit()
+        except Exception as e:
+            print(f"An error occurred when altering {table}: {e}")
+
+
+class MetadataQueryCommands:
+
+    def __init__(
+        self,
+        cursor
+    ):
+        self.cursor = cursor
+
+    def show_databases(self):
+        try:
+            self.cursor.execute("SHOW DATABASES")
+            databases = self.cursor.fetchall()
+            for database in databases:
+                n = databases.index(database) + 1
+                k = len(databases)
+                print(f"Database {n}/{k}: {database[0]};")
+        except Exception as e:
+            print(f"An error occurred when showing databases: {e}")
+
+    def show_tables(self):
+        try:
+            self.cursor.execute("SHOW TABLES")
+            tables = self.cursor.fetchall()
+            for table in tables:
+                n = tables.index(table) + 1
+                k = len(tables)
+                print(f"Table {n}/{k}: {table[0]};")
+        except Exception as e:
+            print(f"An error occurred when showing tables: {e}")
