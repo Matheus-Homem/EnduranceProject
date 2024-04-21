@@ -1,8 +1,10 @@
-from src.shared.definition.tables import MorningRawTable, NightRawTable
 from src.web.utils import establish_mysql_connection
 
 from flask import Flask, render_template, request
+from datetime import datetime
+import json
 import os
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
@@ -13,13 +15,12 @@ def index():
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 @establish_mysql_connection
-def form_morning(DML=0):
+def form_morning(cursor):
     if request.method == "POST":
-        result = request.form
-        DML.insert(
-            table=MorningRawTable,
-            values=result.to_dict()
-        )
+        date_id = datetime.now().strftime("%Y%m%d")
+        data = request.form.to_dict()
+        data_json = json.dumps(data)
+        cursor.execute(f"INSERT INTO RawMorning (id, data) VALUES ('{date_id}', '{data_json}')")
         return render_template("index.html")
     else:
         return render_template("form_morning_new.html")
@@ -29,4 +30,4 @@ if __name__ == "__main__":
 
 # @app.route("/form/night/", methods=["GET", "POST"])
 # def form_night():
-#     return render_template("form_night_new.html")
+#     return render_template("form_night_new.html") 
