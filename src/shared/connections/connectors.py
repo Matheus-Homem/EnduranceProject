@@ -41,7 +41,7 @@ class Connector(Protocol):
 
 class SmtpConnector(Connector):
 
-    def __init__(self, credential: Credential, **kwargs):
+    def __init__(self, credential: Credential):
         self.credential = credential
 
     def __enter__(self):
@@ -124,32 +124,29 @@ class MySqlConnector(Connector):
     def __init__(self, credential: Credential, **kwargs):
         self.credential = credential
         self.ssh_connection = kwargs.get('ssh_connection')
-        self.connection = None
-        self.cursor = None
 
     def __enter__(self):
-        lib = self.get_library()
         if not self.ssh_connection.is_active():
             self.ssh_connection.start_tunnel()
-        self.connection = lib(
+        self.connection = self.library(
             user=self.credential.get_username(),
             password=self.credential.get_password(),
             host=self.credential.get_host(),
             port=self.ssh_connection.get_local_bind_port(),
             db=self.credential.get_database()
         )
+        self.cursor = self.connection.cursor()
         return self
     
     def __exit__(self, exc_type, exc_value, traceback):
-        if self.cursor:
-            self.cursor.close()
+        self.connection.commit()
+        self.cursor.close()
         self.connection.close()
     
-    def get_library(self):
+    @property
+    def library(self):
         import pymysql
         return pymysql.connect
 
     def get_cursor(self):
-        if not self.cursor:
-            self.cursor = self.connection.cursor()
         return self.cursor
