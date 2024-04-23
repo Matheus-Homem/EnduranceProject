@@ -1,6 +1,9 @@
 # Ignore .env secrets file
 .env
 
+# Ignore .coverage
+.coverage
+
 # Ignore test notebooks
 *.ipynb
 

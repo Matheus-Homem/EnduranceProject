@@ -30,7 +30,7 @@ It is structured as follows:
 
 ### email
 
-- `src/report/email/credentials.py`: Script containing a class `Credentials` responsible for managing SMTP credentials. It provides methods to access various credentials like server, port, username, password, recipient, and validated email. Additionally, it offers a class method `from_env()` to load credentials from environment variables using `dotenv`.
+- `src/report/email/credentials.py`: Script containing a class `Credentials` responsible for managing SMTP credentials. It provides methods to access various credentials like server, port, username, password, reciever, and validated email. Additionally, it offers a class method `from_env()` to load credentials from environment variables using `dotenv`.
   
 - `src/report/email/manager.py`: Script containing a class `EmailManager` responsible for managing email dispatching. It imports necessary modules like `Paths`, `Credentials`, and `Global`. The class initializes with methods to set email frequency, retrieve credentials, build email content, attach files, send emails, and dispatch emails.
 
