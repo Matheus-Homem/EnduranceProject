@@ -55,4 +55,3 @@ class MorningRawTable(Table):
 @dataclass
 class NightRawTable:
     NAME: str = "night"
-    COLUMNS: 
