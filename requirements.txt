@@ -7,7 +7,10 @@ xlsx2csv==0.8.2
 # Web Development Tools
 Flask==3.0.2
 Flask-SQLAlchemy==3.1.1
-Flask-PyMongo==2.3.0
+
+# Database Tools
+sshtunnel==0.4.0
+mysql-connector-python==8.3.0
 
 # Document Generation Tools
 reportlab==4.0.8

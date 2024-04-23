@@ -2,7 +2,7 @@ from src.report.partlets.partlet import Partlet
 from src.report.partlets.header.builder import Header
 from src.report.partlets.weight.builder import WeightPartlet
 from src.env.globals import Global
-from src.report.email.manager import EmailManager
+from src.report.email.pipeline import EmailManager
 
 class Report:
 
