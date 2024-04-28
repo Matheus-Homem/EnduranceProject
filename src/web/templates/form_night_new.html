@@ -14,32 +14,200 @@
         <section id="opening">
             <h2>Informações Gerais</h2>
             <fieldset id="header">
-                <legend class="centralized">Hoje</legend>
-                <div class="input-group">
-                    <label class="label-style" for="inputDate">Data do Registro</label>
-                    <input class="input-style" name="inputDate" id="inputDate" type="date" required>
-                </div>
-                <div class="input-group">
-                    <label class="label-style" for="inputTime">Horário de Preenchimento</label>
-                    <input class="input-style" name="inputTime" id="inputTime" type="time" required>
-                </div>
-                <div class="input-group">
-                    <label class="label-style" for="nightHumor">Humor da Noite</label>
-                    <div class="radio-icon-pair">
-                        <input class="input-style" type="radio" name="nightHumor" id="sun" value="sol" required>
-                        <i class="fas fa-sun" style="margin-right: 25px;"></i>
-                    </div>
-                    <div class="radio-icon-pair">
-                        <input class="input-style" type="radio" name="nightHumor" id="moon" value="lua" required>
-                        <i class="fas fa-moon" style="margin-right: 100px;"></i>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label class="label-style" for="dailyGratitude">Gratidão Diária</label>
-                    <textarea class="input-style textarea-dark-mode" name="dailyGratitude" id="dailyGratitude" required></textarea>
+                <legend class=centralized>Hoje</legend>
+                <div>
+                    <table class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized>
+                                <label for="inputDate">Data do Registro</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="date" name="inputDate" id="inputDate" style="width: 125px;" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="inputTime">Horário de Preenchimento</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="time" name="inputTime" id="inputTime" style="width: 110px;" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="dayHumor">Humor da Noite</label>
+                            </td>
+                            <td class=centralized>
+                                <div class=centralized>
+                                    <input type="radio" name="dayHumor" id="sun"  value="sol" required>
+                                    <i class="fa-solid fa-sun" style="margin-right: 25px;"></i>
+                                    <input type="radio" name="dayHumor" id="moon"  value="lua" required>
+                                    <i class="fa-regular fa-moon"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="dailyGratitude">Gratidão Diária</label>
+                            </td>
+                            <td class=centralized>
+                                <textarea class="input-style textarea-dark-mode" name="dailyGratitude" id="dailyGratitude" style="width: 250px;" required>Sou grato por </textarea>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </fieldset>
         </section>
+        
+        <br><hr><br>
+
+        <section id="wisdom">
+            <h2>Sabedoria</h2>
+
+            <fieldset id="navigator">
+                <legend class=centralized>Navegador</legend>
+                <div>
+                    <table class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized colspan="3">
+                                <label for="reading">Sobre o hábito da <strong>Ler</strong></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="False">Sem Ato
+                            </td>
+                            <td class=centralized>
+                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="pill">Pílula
+                            </td>
+                            <td class=centralized>
+                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="session">Sessão
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized colspan="3">
+                                <div class=centralized>
+                                    <input type="checkbox" name="wisdomNavigatorExcelence" id="wisdomNavigatorExcelence"  value="True">
+                                    <i class="fa-solid fa-sun" style="margin-right: 150px;"></i>
+                                    <input type="checkbox" name="wisdomNavigatorNotes" id="wisdomNavigatorNotes"  value="True">
+                                    <i class="fa-solid fa-sticky-note"></i>                          
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            
+            <br>
+
+            <fieldset id="alchemist">
+                <legend class=centralized>Alquimista</legend>
+                <div>
+                    <table class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized colspan="3">
+                                <span>Sobre o hábito da <strong>Abdicar</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex-container">
+                                    <span>Ahimsa</span>
+                                    <span id="wisdomAlchemistAhimsaOutput">Aguardando Input</span>
+                                </div>
+                                <input type="range" id="wisdomAlchemistAhimsa" name="wisdomAlchemistAhimsa" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAhimsa, wisdomAlchemistAhimsaOutput)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex-container">
+                                    <span>Satya</span>
+                                    <span id="wisdomAlchemistSatyaOutput">Aguardando Input</span>
+                                </div>
+                                <input type="range" id="wisdomAlchemistSatya" name="wisdomAlchemistSatya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistSatya, wisdomAlchemistSatyaOutput)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex-container">
+                                    <span>Asteya</span>
+                                    <span id="wisdomAlchemistAsteyaOutput">Aguardando Input</span>
+                                </div>
+                                <input type="range" id="wisdomAlchemistAsteya" name="wisdomAlchemistAsteya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAsteya, wisdomAlchemistAsteyaOutput)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex-container">
+                                    <span>Brahmacharya</span>
+                                    <span id="wisdomAlchemistBrahmacharyaOutput">Aguardando Input</span>
+                                </div>
+                                <input type="range" id="wisdomAlchemistBrahmacharya" name="wisdomAlchemistBrahmacharya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistBrahmacharya, wisdomAlchemistBrahmacharyaOutput)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="flex-container">
+                                    <span>Aparigraha</span>
+                                    <span id="wisdomAlchemistAparigrahaOutput">Aguardando Input</span>
+                                </div>
+                                <input type="range" id="wisdomAlchemistAparigraha" name="wisdomAlchemistAparigraha" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAparigraha, wisdomAlchemistAparigrahaOutput)">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+
+            <br>
+
+            <fieldset id="satisfactionWisdom">
+                <legend class=centralized>Trilha da Sabedoria</legend>
+                <div>
+                    <table class=tableWithSpacing>
+                        <tr>
+                            <td class=centralized colspan="2">
+                                <label for="wisdomSatisfaction">Está satisfeito com a Trilha de hoje?</label>
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td class=centralized>
+                                <input type="radio" name="wisdomSatisfaction" id="wisdomSatisfaction" value="False">Não
+                            </td>
+                            <td class=centralized>
+                                <input type="radio" name="wisdomSatisfaction" id="wisdomSatisfaction" value="True">Sim
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table>
+                        <tr>
+                            <td class=centralized colspan="4">
+                                <label for="wisdomGrowth">O que tornaria a Trilha mais Sábia amanhã?</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="navigator">Navegador
+                            </td>
+                            <td class=centralized>
+                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="X">X
+                            </td>
+                            <td class=centralized>
+                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="alchimist">Alquimista
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized colspan="4">
+                                <textarea name="wisdomGrowthTextArea" id="wisdomGrowthTextArea" style="width: 80%;" ></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+
+        </section>
+        
+        <br><hr><br>
 
         <section id="ending">
             <div class="buttonContainer">
@@ -70,7 +238,22 @@
     </form>
 
     <script>
-
+        function updateOutput(inputElement, outputElement) {
+            var value = inputElement.value;
+            var classification = "";
+            
+            if (value == 0) {
+                classification = "Falha";
+            } else if (value >= 1 && value <= 13) {
+                classification = "Derrota";
+            } else if (value == 14 || value == 15) {
+                classification = "Vitória";
+            } else if (value == 16) {
+                classification = "Sucesso";
+            }
+            
+            outputElement.innerText = classification;
+        }
     </script>   
 
 {% endblock %}
