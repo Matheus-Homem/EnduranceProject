@@ -10,7 +10,7 @@ Flask-SQLAlchemy==3.1.1
 
 # Database Tools
 sshtunnel==0.4.0
-mysql-connector-python==8.3.0
+PyMySQL==1.1.0
 
 # Document Generation Tools
 reportlab==4.0.8
@@ -20,6 +20,6 @@ pytest==8.1.1
 coverage==7.4.4
 
 # Other Dependencies
-python-dotenv==1.0.0
+python-dotenv==1.0.1
 PyYAML==6.0.1
 typing==3.7.4.3
