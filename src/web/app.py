@@ -39,8 +39,9 @@ def form_morning(cursor):
         return render_template("form_morning_new.html")
 
 @app.route("/form/night/", methods=["GET", "POST"])
-@establish_mysql_connection
-def form_night(cursor):
+#@establish_mysql_connection
+def form_night(cursor=None):
+    # TODO: FIX THIS TO WORK PROPERLY
     if request.method == "POST":
         data = request.form.to_dict()
         data_json = json.dumps(data)
