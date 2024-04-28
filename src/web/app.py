@@ -1,15 +1,16 @@
 from src.web.utils import establish_mysql_connection
 
 from flask import Flask, render_template, request
+from dotenv import load_dotenv
 import json
 import os
 import time
 
-
+MAX_RETRIES = 2
+load_dotenv( )
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 
-MAX_RETRIES = 2
 
 @app.route("/", methods=["GET"])
 def index():
