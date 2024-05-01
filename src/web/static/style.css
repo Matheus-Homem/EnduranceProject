@@ -257,14 +257,42 @@ input[type=range]::-ms-fill-upper {
     border-radius: 15px;
 }
 
-.item-option {
-    border-bottom: 2px solid var(--border-color);
-}
-
-.item-label {
-    border-right: 2px solid var(--border-color);
-}
-
 .item-input:hover {
     background-color: #555;
+}
+
+.box {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--table-background-color);
+}
+
+.box-title {
+    margin-bottom: 10px;
+}
+
+.box-role {
+    margin-bottom: 10px;
+}
+
+.box-input {
+    margin-bottom: 10px;
+}
+
+.checkbox-list {
+    margin-bottom: 10px;
+}
+
+.checkbox-list label {
+    display: block;
+}
+
+.textarea textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
 }
