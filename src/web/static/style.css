@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
 :root {
-    --border-color: #888;
-    --background-color: #333;
     --text-color: #eee;
+    --background-color: #333;
+    --box-background-color: #444;
+    --box-border-color: #5b5b5b;
+    --box-title-background-color: #5b5b5b;
+    --inner-box-backgroud-color: #5b5b5b;
+    --inner-box-border-color: #eee;
+
+    --border-color: #888;
     --table-background-color: #444;
     --range-thumb-color: #888;
     --range-track-color: #555;
@@ -14,8 +20,8 @@
 }
 
 * {
-  box-sizing: border-box;
-}
+    box-sizing: border-box;
+  }
 
 @media screen and (max-width: 600px) {
     .flex-container {
@@ -41,14 +47,7 @@
     }
 }
 
-textarea {
-    padding: 2px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 1px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Lato', sans-serif;
-}
+
 
 section {
     width: 550px;
@@ -261,38 +260,99 @@ input[type=range]::-ms-fill-upper {
     background-color: #555;
 }
 
-.box {
-    border: 2px solid #ccc;
-    border-radius: 10px;
+.box-wisdom {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    border: 5px solid var(--box-border-color);
+    border-radius: 25px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: var(--table-background-color);
+    background-color: var(--box-background-color);
+}
+
+.box-wisdom strong {
+    color: #4caf50;
 }
 
 .box-title {
-    margin-bottom: 10px;
+    background-color: var(--box-title-background-color);
+    margin-top: -38px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .box-role {
-    margin-bottom: 10px;
+    background-color: var(--inner-box-backgroud-color);
+    text-align: center;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
 }
 
 .box-input {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--inner-box-backgroud-color);
     margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    gap: 10px;
 }
 
-.checkbox-list {
+.box-habit {
+    border: 1px solid var(--inner-box-border-color);
+    text-align: center;
     margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
 }
 
-.checkbox-list label {
-    display: block;
+.box-list {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.box-option {
+    flex: 1;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.box-option:hover {
+    background-color: var(--background-color);
 }
 
 .textarea textarea {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
+    border: 1px solid var(--inner-box-border-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    width: 420px;
+    height: 100px;
+    resize: none;
+    overflow: auto;
+    border-radius: 10px;
 }
+
