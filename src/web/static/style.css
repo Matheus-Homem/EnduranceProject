@@ -19,10 +19,10 @@
     --container-title-background-color: #555;
 
     --green-color: #4caf50;
-    --blue-color: #2196F3;
-    --red-color: #ff5252;
+    --blue-color: #5e97f6;
+    --red-color: #ff7e7e;
     --yellow-color: #FFD700;
-    --purple-color: #9C27B0;
+    --purple-color: #ab47bc;
 }
 
 * {
@@ -53,6 +53,13 @@
     }
 }
 
+input[type="text"] {
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+
 textarea {
     border: 1px solid var(--inner-box-border-color);
     background-color: var(--background-color);
@@ -63,10 +70,12 @@ textarea {
     resize: none;
     overflow: auto;
     border-radius: 10px;
+    width: 500px;
+    height: 75px;
 }
 
 section {
-    width: 550px;
+    width: 700px;
     margin: 0 auto;
 }
 
@@ -336,7 +345,7 @@ input[type=range]::-ms-fill-upper {
     padding-bottom: 5px;
     border-radius: 20px;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
 }
 
 .box-input {
@@ -378,11 +387,6 @@ input[type=range]::-ms-fill-upper {
     justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.box-column input[type="text"] {
-    width: 125%;
-    border-radius: 5px;
 }
 
 .box-yama {
@@ -437,6 +441,14 @@ input[type=range]::-ms-fill-upper {
     justify-content: center;
 }
 
+.darker-background {
+    background-color: var(--box-background-color);
+    border-radius: 50px;
+}
+
+.add-padding-20 {
+    padding: 20px;
+}
 
 .cell-50 {
     flex: 1 1 50%;
@@ -444,4 +456,24 @@ input[type=range]::-ms-fill-upper {
 
 .cell-25 {
     flex: 1 1 25%;
+}
+
+.cell-100 {
+    flex: 1 1 100%;
+}
+
+.cell-33 {
+    flex: 1 1 33%;
+}
+
+.cell-20 {
+    flex: 1 1 20%;
+}
+
+.cell-40 {
+    flex: 1 1 40%;
+}
+
+.cell-15 {
+    flex: 1 1 15%;
 }
