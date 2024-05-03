@@ -17,6 +17,12 @@
     --input-focus-border-color: #fff;
     --container-background-color: #444;
     --container-title-background-color: #555;
+
+    --green-color: #4caf50;
+    --blue-color: #2196F3;
+    --red-color: #ff5252;
+    --yellow-color: #FFD700;
+    --purple-color: #9C27B0;
 }
 
 * {
@@ -47,11 +53,45 @@
     }
 }
 
-
+textarea {
+    border: 1px solid var(--inner-box-border-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Lato', sans-serif;
+    font-weight: 350;
+    line-height: 1.6;
+    resize: none;
+    overflow: auto;
+    border-radius: 10px;
+}
 
 section {
     width: 550px;
     margin: 0 auto;
+}
+
+section.wisdom strong {
+    color: var(--green-color);
+}
+
+section.stability strong {
+    color: var(--red-color);
+}
+
+section.strength strong {
+    color: var(--blue-color);
+}
+
+section.kindness strong {
+    color: var(--yellow-color);
+}
+
+section.devotion strong {
+    color: var(--purple-color);
+}
+
+section .box:last-child {
+    margin-bottom: 25px;
 }
 
 table {
@@ -260,26 +300,24 @@ input[type=range]::-ms-fill-upper {
     background-color: #555;
 }
 
-.box-wisdom {
+.box {
+    background-color: var(--box-background-color);
+    border: 5px solid var(--box-border-color);
     display: flex;
     justify-content: center;
     flex-flow: column;
     align-items: center;
-    border: 5px solid var(--box-border-color);
-    border-radius: 25px;
-    margin-bottom: 20px;
+    margin-top: 75px;
     padding: 20px;
-    background-color: var(--box-background-color);
+    border-radius: 25px;
+    gap: 25px;
 }
 
-.box-wisdom strong {
-    color: #4caf50;
-}
+
 
 .box-title {
     background-color: var(--box-title-background-color);
     margin-top: -38px;
-    margin-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 2px;
@@ -292,7 +330,6 @@ input[type=range]::-ms-fill-upper {
 .box-role {
     background-color: var(--inner-box-backgroud-color);
     text-align: center;
-    margin-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
@@ -309,7 +346,6 @@ input[type=range]::-ms-fill-upper {
     align-items: center;
     width: 100%;
     background-color: var(--inner-box-backgroud-color);
-    margin-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 15px;
@@ -319,7 +355,7 @@ input[type=range]::-ms-fill-upper {
 }
 
 .box-habit {
-    border: 1px solid var(--inner-box-border-color);
+    border: 1px inset var(--inner-box-border-color);
     text-align: center;
     margin-bottom: 10px;
     padding-left: 20px;
@@ -327,32 +363,85 @@ input[type=range]::-ms-fill-upper {
     border-radius: 20px;
 }
 
-.box-list {
+.box-table {
+    border: 1px inset var(--inner-box-border-color);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.box-row {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.box-column input[type="text"] {
+    width: 125%;
+    border-radius: 5px;
+}
+
+.box-yama {
+    border: 5px solid var(--box-border-color);
+    background-color: var(--box-background-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    padding: 20px;
+    width: 100%;
+}
+
+.box-yama .span-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.box-yama .span-container span {
+    flex: 1;
     text-align: center;
 }
 
-.box-option {
-    flex: 1;
+.box-yama span {
+    margin: 0 10px;
+}
+
+.box-yama input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.flex-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px inset var(--inner-box-border-color);
     border-radius: 20px;
-    margin: 10px;
 }
 
-.box-option:hover {
-    background-color: var(--background-color);
+.flex-row {
+    display: flex;
+    width: 100%;
 }
 
-.textarea textarea {
-    border: 1px solid var(--inner-box-border-color);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    width: 420px;
-    height: 100px;
-    resize: none;
-    overflow: auto;
-    border-radius: 10px;
+.flex-cell {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+
+.cell-50 {
+    flex: 1 1 50%;
+}
+
+.cell-25 {
+    flex: 1 1 25%;
+}
