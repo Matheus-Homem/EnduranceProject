@@ -1,19 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
 :root {
-    --border-color: #888;
-    --background-color: #333;
     --text-color: #eee;
+    --background-color: #333;
+    --box-background-color: #444;
+    --box-border-color: #5b5b5b;
+    --box-title-background-color: #5b5b5b;
+    --inner-box-backgroud-color: #5b5b5b;
+    --inner-box-border-color: #eee;
+
+    --border-color: #888;
     --table-background-color: #444;
     --range-thumb-color: #888;
     --range-track-color: #555;
     --input-border-color: #aaa;
     --input-focus-border-color: #fff;
+    --container-background-color: #444;
+    --container-title-background-color: #555;
+
+    --green-color: #4caf50;
+    --blue-color: #5e97f6;
+    --red-color: #ff7e7e;
+    --yellow-color: #FFD700;
+    --purple-color: #ab47bc;
 }
 
 * {
-  box-sizing: border-box;
-}
+    box-sizing: border-box;
+  }
 
 @media screen and (max-width: 600px) {
     .flex-container {
@@ -39,18 +53,54 @@
     }
 }
 
+input[type="text"] {
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+
 textarea {
-    padding: 2px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 1px;
+    border: 1px solid var(--inner-box-border-color);
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: 'Lato', sans-serif;
+    font-weight: 350;
+    line-height: 1.6;
+    resize: none;
+    overflow: auto;
+    border-radius: 10px;
+    width: 500px;
+    height: 75px;
 }
 
 section {
-    width: 550px;
+    width: 700px;
     margin: 0 auto;
+}
+
+section.wisdom strong {
+    color: var(--green-color);
+}
+
+section.stability strong {
+    color: var(--red-color);
+}
+
+section.strength strong {
+    color: var(--blue-color);
+}
+
+section.kindness strong {
+    color: var(--yellow-color);
+}
+
+section.devotion strong {
+    color: var(--purple-color);
+}
+
+section .box:last-child {
+    margin-bottom: 25px;
 }
 
 table {
@@ -225,4 +275,205 @@ input[type=range]::-ms-fill-upper {
 .flex-container span {
     width: 50%;
     text-align: center;
+}
+
+.container, .container-title {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.container-title, .fieldset-div {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.container-title {
+    background-color: var(--container-title-background-color);
+}
+
+.fieldset-div {
+    background-color: var(--container-background-color);
+}
+  
+.item, .item-input, .item-option, .item-label {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.item-input:hover {
+    background-color: #555;
+}
+
+.box {
+    background-color: var(--box-background-color);
+    border: 5px solid var(--box-border-color);
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    margin-top: 75px;
+    padding: 20px;
+    border-radius: 25px;
+    gap: 25px;
+}
+
+
+
+.box-title {
+    background-color: var(--box-title-background-color);
+    margin-top: -38px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.box-role {
+    background-color: var(--inner-box-backgroud-color);
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.box-input {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--inner-box-backgroud-color);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+.box-habit {
+    border: 1px inset var(--inner-box-border-color);
+    text-align: center;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+}
+
+.box-table {
+    border: 1px inset var(--inner-box-border-color);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.box-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.box-yama {
+    border: 5px solid var(--box-border-color);
+    background-color: var(--box-background-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    padding: 20px;
+    width: 100%;
+}
+
+.box-yama .span-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.box-yama .span-container span {
+    flex: 1;
+    text-align: center;
+}
+
+.box-yama span {
+    margin: 0 10px;
+}
+
+.box-yama input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.flex-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px inset var(--inner-box-border-color);
+    border-radius: 20px;
+}
+
+.flex-row {
+    display: flex;
+    width: 100%;
+}
+
+.flex-cell {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.darker-background {
+    background-color: var(--box-background-color);
+    border-radius: 50px;
+}
+
+.add-padding-20 {
+    padding: 20px;
+}
+
+.cell-50 {
+    flex: 1 1 50%;
+}
+
+.cell-25 {
+    flex: 1 1 25%;
+}
+
+.cell-100 {
+    flex: 1 1 100%;
+}
+
+.cell-33 {
+    flex: 1 1 33%;
+}
+
+.cell-20 {
+    flex: 1 1 20%;
+}
+
+.cell-40 {
+    flex: 1 1 40%;
+}
+
+.cell-15 {
+    flex: 1 1 15%;
 }
