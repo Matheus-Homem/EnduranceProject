@@ -11,200 +11,477 @@
 {% block content %}
     <form action="/form/night/" method="POST">
 
-        <section id="opening">
+        <section class="opening">
             <h2>Informações Gerais</h2>
-            <fieldset id="header">
-                <legend class=centralized>Hoje</legend>
-                <div>
-                    <table class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="inputDate">Data do Registro</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="date" name="inputDate" id="inputDate" style="width: 125px;" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="inputTime">Horário de Preenchimento</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="time" name="inputTime" id="inputTime" style="width: 110px;" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="dayHumor">Humor da Noite</label>
-                            </td>
-                            <td class=centralized>
-                                <div class=centralized>
-                                    <input type="radio" name="dayHumor" id="sun"  value="sol" required>
-                                    <i class="fa-solid fa-sun" style="margin-right: 25px;"></i>
-                                    <input type="radio" name="dayHumor" id="moon"  value="lua" required>
-                                    <i class="fa-regular fa-moon"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="dailyGratitude">Gratidão Diária</label>
-                            </td>
-                            <td class=centralized>
-                                <textarea class="input-style textarea-dark-mode" name="dailyGratitude" id="dailyGratitude" style="width: 250px;" required>Sou grato por </textarea>
-                            </td>
-                        </tr>
-                    </table>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>Hoje</span>
                 </div>
-            </fieldset>
+                <div class="box-input">
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="inputDate">Data do Registro</label></div>
+                            <div class="flex-cell cell-50"><input type="date" name="inputDate" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="inputDate">Horário de Preenchimento</label></div>
+                            <div class="flex-cell cell-50"><input type="time" name="inputTime" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="dayHumor">Humor da Noite</label></div>
+                            <div class="flex-cell cell-25">
+                                <input type="radio" name="dayHumor" value="sol" required>
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div class="flex-cell cell-25">
+                                <input type="radio" name="dayHumor" value="lua" required>
+                                <i class="fa-regular fa-moon"></i>
+                            </div>
+                        </div>
+                        <div class="flex-cell cell-100">
+                            <textarea name="dailyGratitude" required>Sou grato por </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <hr>
+
+        <section class="wisdom">
+            <h2>Sabedoria</h2>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>navegador</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Navegador</strong> é aquele que busca experiência de outras vidas para trazer mais <strong>Sabedoria</strong> à <strong>Expedição</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito da <strong>Leitura</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <!-- TODO: criar funcao para caso haja ato o Livro ser obrigatorio -->
+                            <div class="flex-cell cell-50"><input type="text" name="wisdomNavigatorBook" placeholder="Livro" ></div>
+                            <div class="flex-cell cell-25">
+                                <input type="checkbox" name="wisdomNavigatorExcelence" value="True">
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div class="flex-cell cell-25">
+                                <input type="checkbox" name="wisdomNavigatorNotes" value="True">
+                                <i class="fa-solid fa-sticky-note"></i>
+                            </div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="False"><span>Sem Ato</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="pill"><span>Pílula</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="session"><span>Sessão</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>alquimista</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Alquimista</strong> é aquele que permite que elementos indesejados deixem de fazer parte da <strong>Expedição</strong> dando lugar à <strong>Sabedoria</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Abdicar</strong>
+                        </span>
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Ahimsa</span>
+                            <span id="wisdomAlchemistAhimsaOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="wisdomAlchemistAhimsa" name="wisdomAlchemistAhimsa" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAhimsa, wisdomAlchemistAhimsaOutput)">
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Satya</span>
+                            <span id="wisdomAlchemistSatyaOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="wisdomAlchemistSatya" name="wisdomAlchemistSatya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistSatya, wisdomAlchemistSatyaOutput)">
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Asteya</span>
+                            <span id="wisdomAlchemistAsteyaOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="wisdomAlchemistAsteya" name="wisdomAlchemistAsteya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAsteya, wisdomAlchemistAsteyaOutput)">
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Brahmacharya</span>
+                            <span id="wisdomAlchemistBrahmacharyaOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="wisdomAlchemistBrahmacharya" name="wisdomAlchemistBrahmacharya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistBrahmacharya, wisdomAlchemistBrahmacharyaOutput)">
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Aparigraha</span>
+                            <span id="wisdomAlchemistAparigrahaOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="wisdomAlchemistAparigraha" name="wisdomAlchemistAparigraha" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAparigraha, wisdomAlchemistAparigrahaOutput)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>aprendiz</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Aprendiz</strong> é aquele que permite que quaisquer experiências vividas durante a <strong>Expedição</strong> sejam transformadas em <strong>Sabedoria</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Crescer</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="anger"><span>Raiva</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="sadness"><span>Tristeza</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="frustration"><span>Frustração</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="fear"><span>Medo</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="disheartenment"><span>Desânimo</span></div>
+                            <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="resentment"><span>Ressentimento</span></div>
+                        </div>
+                        <div class="box-row">
+                            <div class="flex-cell cell-100"><textarea name="wisdomApprenticeText">Hoje senti </textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>bússola da sabedoria</span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Hoje</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><input type="radio" name="wisdomSatisfaction" value="False"><span>Insatisfeito</span></div>
+                            <div class="flex-cell cell-50"><input type="radio" name="wisdomSatisfaction" value="True"><span>Satisfeito</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Amanhã</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="navigator"><span>Navegador</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="alchimist"><span>Alquimista</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="apprentice"><span>Aprendiz</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+
         </section>
         
         <br><hr><br>
+        
+        <section class="stability">
+            <h2>Estabilidade</h2>
 
-        <section id="wisdom">
-            <h2>Sabedoria</h2>
-
-            <fieldset id="navigator">
-                <legend class=centralized>Navegador</legend>
-                <div>
-                    <table class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized colspan="3">
-                                <label for="reading">Sobre o hábito da <strong>Ler</strong></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="False">Sem Ato
-                            </td>
-                            <td class=centralized>
-                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="pill">Pílula
-                            </td>
-                            <td class=centralized>
-                                <input type="radio" name="wisdomNavigatorReading" id="wisdomNavigatorReading" value="session">Sessão
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized colspan="3">
-                                <div class=centralized>
-                                    <input type="checkbox" name="wisdomNavigatorExcelence" id="wisdomNavigatorExcelence"  value="True">
-                                    <i class="fa-solid fa-sun" style="margin-right: 150px;"></i>
-                                    <input type="checkbox" name="wisdomNavigatorNotes" id="wisdomNavigatorNotes"  value="True">
-                                    <i class="fa-solid fa-sticky-note"></i>                          
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="box">
+                <div class="box-title">
+                    <span>patrocinador</span>
                 </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Patrocinador</strong> é aquele que busca ser útil para a sociedade, trazendo <strong>Estabilidade</strong> para a <strong>Expedição</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito da <strong>Trabalhar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"></div>
+                            <div class="flex-cell cell-25">Não</div>
+                            <div class="flex-cell cell-25">Sim</div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Dia Ativo</div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="True" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Satisfação</div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="True" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Resultado</div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="True" required></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>mecenas</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Mecenas</strong> é aquele que enxerga que a <strong>Estabilidade</strong> trazida para a <strong>Expedição</strong> também pode ser compatilhada com a sociedade
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito da <strong>Estudar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"></div>
+                            <div class="flex-cell cell-25">Não</div>
+                            <div class="flex-cell cell-25">Sim</div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Dia Ativo</div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="True" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Satisfação</div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="True" required></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title">
+                    <span>bússola da estabilidade</span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Hoje</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><input type="radio" name="stabilitySatisfaction" value="False"><span>Insatisfeito</span></div>
+                            <div class="flex-cell cell-50"><input type="radio" name="stabilitySatisfaction" value="True"><span>Satisfeito</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Amanhã</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="navigator"><span>Patrocinador</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="alchimist"><span>Mecenas</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="apprentice"><span>Tesoureiro</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><input type="text" name="stabilityGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+        <br><hr><br>
+        
+        <section class="strength">
+            <h2>Força</h2>
+
+            <fieldset id="vanguard">
+                <legend class=centralized>Vanguarda</legend>
             </fieldset>
-            
+
             <br>
 
-            <fieldset id="alchemist">
-                <legend class=centralized>Alquimista</legend>
-                <div>
-                    <table class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized colspan="3">
-                                <span>Sobre o hábito da <strong>Abdicar</strong></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex-container">
-                                    <span>Ahimsa</span>
-                                    <span id="wisdomAlchemistAhimsaOutput">Aguardando Input</span>
-                                </div>
-                                <input type="range" id="wisdomAlchemistAhimsa" name="wisdomAlchemistAhimsa" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAhimsa, wisdomAlchemistAhimsaOutput)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex-container">
-                                    <span>Satya</span>
-                                    <span id="wisdomAlchemistSatyaOutput">Aguardando Input</span>
-                                </div>
-                                <input type="range" id="wisdomAlchemistSatya" name="wisdomAlchemistSatya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistSatya, wisdomAlchemistSatyaOutput)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex-container">
-                                    <span>Asteya</span>
-                                    <span id="wisdomAlchemistAsteyaOutput">Aguardando Input</span>
-                                </div>
-                                <input type="range" id="wisdomAlchemistAsteya" name="wisdomAlchemistAsteya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAsteya, wisdomAlchemistAsteyaOutput)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex-container">
-                                    <span>Brahmacharya</span>
-                                    <span id="wisdomAlchemistBrahmacharyaOutput">Aguardando Input</span>
-                                </div>
-                                <input type="range" id="wisdomAlchemistBrahmacharya" name="wisdomAlchemistBrahmacharya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistBrahmacharya, wisdomAlchemistBrahmacharyaOutput)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex-container">
-                                    <span>Aparigraha</span>
-                                    <span id="wisdomAlchemistAparigrahaOutput">Aguardando Input</span>
-                                </div>
-                                <input type="range" id="wisdomAlchemistAparigraha" name="wisdomAlchemistAparigraha" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAparigraha, wisdomAlchemistAparigrahaOutput)">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <fieldset id="scout">
+                <legend class=centralized>Batedor</legend>
             </fieldset>
 
             <br>
 
-            <fieldset id="satisfactionWisdom">
-                <legend class=centralized>Trilha da Sabedoria</legend>
-                <div>
-                    <table class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized colspan="2">
-                                <label for="wisdomSatisfaction">Está satisfeito com a Trilha de hoje?</label>
-                            </td>
-                        </tr>
-                        <tr>    
-                            <td class=centralized>
-                                <input type="radio" name="wisdomSatisfaction" id="wisdomSatisfaction" value="False">Não
-                            </td>
-                            <td class=centralized>
-                                <input type="radio" name="wisdomSatisfaction" id="wisdomSatisfaction" value="True">Sim
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <table>
-                        <tr>
-                            <td class=centralized colspan="4">
-                                <label for="wisdomGrowth">O que tornaria a Trilha mais Sábia amanhã?</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="navigator">Navegador
-                            </td>
-                            <td class=centralized>
-                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="X">X
-                            </td>
-                            <td class=centralized>
-                                <input type="checkbox" name="wisdomGrowth" id="wisdomGrowth" value="alchimist">Alquimista
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized colspan="4">
-                                <textarea name="wisdomGrowthTextArea" id="wisdomGrowthTextArea" style="width: 80%;" ></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+            <fieldset id="cook">
+                <legend class=centralized>Cozinheiro</legend>
             </fieldset>
 
+            <div class="box">
+                <div class="box-title">
+                    <span>cozinheiro</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Cozinheiro</strong> é aquele que enxerga que a <strong>Estabilidade</strong> trazida para a <strong>Expedição</strong> também pode ser compatilhada com a sociedade
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Alimentar-se</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table add-padding-20">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-40"></div>
+                            <div class="flex-cell cell-15">Inexistente</div>
+                            <div class="flex-cell cell-15">Ruim</div>
+                            <div class="flex-cell cell-15">Razoável</div>
+                            <div class="flex-cell cell-15">Excelente</div>
+                        </div>
+                        <div class="flex-row darker-background">
+                            <div class="flex-cell cell-40"><span>Café da Manhã</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="3"></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-40"><span>Lanche Matutino</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="3"></div>
+                        </div>
+                        <div class="flex-row darker-background">
+                            <div class="flex-cell cell-40"><span>Almoço</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="3"></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-40"><span>Sobremesa</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="3"></div>
+                        </div>
+                        <div class="flex-row darker-background">
+                            <div class="flex-cell cell-40"><span>Lanche Vespertino</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="3"></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-40"><span>Janta</span></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="3"></div>
+                        </div>
+                        <div class="flex-row darker-background">
+                            <div class="flex-cell cell-40">Ceia</div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="0"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="1"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="2"></div>
+                            <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Hidratar-se</strong>
+                        </span>
+                    </div>
+                    <div class="box-yama">
+                        <div class="span-container">
+                            <span>Litros de Água</span>
+                            <span id="strengthCookWaterOutput">Aguardando Input</span>
+                        </div>
+                        <input type="range" id="strengthCookWater" name="strengthCookWater" min="0" max="5" value="0" oninput="strengthCookWaterOutput.innerText = this.value">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+        <br><hr><br>
+        
+        <section id="kindness">
+            <h2>Gentileza</h2>
+
+            <fieldset id="caretaker">
+                <legend class=centralized>Zelador</legend>
+            </fieldset>
+
+            <br>
+
+            <fieldset id="diplomat">
+                <legend class=centralized>Diplomata</legend>
+            </fieldset>
+
+            <br>
+
+            <fieldset id="hero">
+                <legend class=centralized>Herói</legend>
+            </fieldset>
+
+        </section>
+        
+        <br><hr><br>
+        
+        <section id="devotion">
+            <h2>Devoção</h2>
+
+            <fieldset id="ascetic">
+                <legend class=centralized>Asceta</legend>
+            </fieldset>
+
+            <br>
+
+            <fieldset id="leader">
+                <legend class=centralized>Líder</legend>
+            </fieldset>
         </section>
         
         <br><hr><br>
@@ -238,6 +515,7 @@
     </form>
 
     <script>
+
         function updateOutput(inputElement, outputElement) {
             var value = inputElement.value;
             var classification = "";
@@ -254,6 +532,20 @@
             
             outputElement.innerText = classification;
         }
+
+        var stabilitySponsorActive = document.getElementById('stabilitySponsorActive');
+        var stabilitySponsorSatisfaction = document.getElementById('stabilitySponsorSatisfaction');
+        var stabilitySponsorOutcome = document.getElementById('stabilitySponsorOutcome');
+
+        stabilitySponsorActive.addEventListener('change', function() {
+            if (stabilitySponsorActive.value === 'True') {
+                stabilitySponsorSatisfaction.required = true;
+                stabilitySponsorOutcome.required = true;
+            } else {
+                stabilitySponsorSatisfaction.required = false;
+                stabilitySponsorOutcome.required = false;
+            }
+        });
     </script>   
 
 {% endblock %}

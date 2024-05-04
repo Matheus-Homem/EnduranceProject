@@ -61,26 +61,38 @@
                     <table style="width: 100%;" class=tableWithSpacing>
                         <tr>
                             <td class=centralized>
-                                <label for="blackBox">Caixinha Preta</label>
+                                <label for="credit">Crédito</label>
                             </td>
                             <td class=centralized>
-                                <input type="number" name="blackBox" id="blackBox" minlength="3" title="Insert four digits for the Black Box current value" style="width: 110px;" required
-                                       oninput="blackBoxOutput.value = formatValue(blackBox.value, 'money')">
+                                <input type="number" name="credit" minlength="3" title="Insert four digits for the credit current value" style="width: 110px;" required
+                                       oninput="creditOutput.value = formatValue(credit.value, 'money')">
                             </td>
                             <td class=centralized>
-                                <div class="formatedOutput"><output id="blackBoxOutput">R$ __.__</output></div>
+                                <div class="formatedOutput"><output id="creditOutput">R$ __.__</output></div>
                             </td>
                         </tr>
                         <tr>
                             <td class=centralized>
-                                <label for="greenBox">Caixinha Verde</label>
+                                <label for="debit">débito</label>
                             </td>
                             <td class=centralized>
-                                <input type="number" name="greenBox" id="greenBox" minlength="3" title="Insert four digits for the Black Box current value" style="width: 110px;" required
-                                       oninput="greenBoxOutput.value = formatValue(greenBox.value, 'money')">
+                                <input type="number" name="debit" minlength="3" title="Insert four digits for the debit current value" style="width: 110px;" required
+                                       oninput="debitOutput.value = formatValue(debit.value, 'money')">
                             </td>
                             <td class=centralized>
-                                <div class="formatedOutput"><output id="greenBoxOutput">R$ __.__</output></div>
+                                <div class="formatedOutput"><output id="debitOutput">R$ __.__</output></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=centralized>
+                                <label for="vr">Benefício</label>
+                            </td>
+                            <td class=centralized>
+                                <input type="number" name="vr" minlength="3" title="Insert four digits for the benfit current value" style="width: 110px;" required
+                                       oninput="vrOutput.value = formatValue(vr.value, 'money')">
+                            </td>
+                            <td class=centralized>
+                                <div class="formatedOutput"><output id="vrOutput">R$ __.__</output></div>
                             </td>
                         </tr>
                     </table>
@@ -160,6 +172,7 @@
                 </div>
             </fieldset>
         </section>
+        
         <br><hr><br>
 
         <section id="devotion">
