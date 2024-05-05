@@ -1,0 +1,54 @@
+@import url('colors.css');
+
+.flex-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px inset var(--inner-box-border-color);
+    background-color: var(--gray-color-4);
+    border-radius: 20px;
+}
+
+.flex-row {
+    display: flex;
+    width: 100%;
+}
+
+.flex-cell {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell-10 {
+    flex: 1 1 10%;
+}
+
+.cell-15 {
+    flex: 1 1 15%;
+}
+
+.cell-20 {
+    flex: 1 1 20%;
+}
+
+.cell-25 {
+    flex: 1 1 25%;
+}
+
+.cell-33 {
+    flex: 1 1 33%;
+}
+
+.cell-40 {
+    flex: 1 1 40%;
+}
+
+.cell-50 {
+    flex: 1 1 50%;
+}
+
+.cell-100 {
+    flex: 1 1 100%;
+}
