@@ -1,0 +1,84 @@
+@import url("colors.css");
+
+section {
+    width: 700px;
+    margin: 0 auto;
+}
+
+section.wisdom strong {
+    color: var(--green-color-light);
+}
+
+section.stability strong {
+    color: var(--red-color);
+}
+
+section.strength strong {
+    color: var(--blue-color);
+}
+
+section.kindness strong {
+    color: var(--yellow-color);
+}
+
+section.devotion strong {
+    color: var(--purple-color);
+}
+
+section .box:last-child {
+    margin-bottom: 1em;
+}
+
+section .box:first-child {
+    margin-top: none;
+}
+
+.info-section, .wisdom-section, .stability-section, .strength-section, .kindness-section, .devotion-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 800;
+    text-transform: capitalize;
+    font-family: 'Montserrat-Alt1', sans-serif;
+    border-radius: 100px;
+    margin-top: 4em;
+    margin-bottom: -1em;
+    border: 3px solid;
+}
+
+.info-section {
+    color: var(--white-color);
+    background-color: var(--gray-color-4);
+    border-color: var(--gray-color-8);
+}
+
+.wisdom-section {
+    color: var(--white-color);
+    background-color: var(--green-color-darkest);
+    border-color: var(--green-color-dark);
+}
+
+.stability-section {
+    color: var(--white-color);
+    background-color: var(--red-color-darker);
+    border-color: var(--red-color-dark);
+}
+
+.strength-section {
+    color: var(--white-color);
+    background-color: var(--blue-color-darkest);
+    border-color: var(--blue-color-dark);
+}
+
+.kindness-section {
+    color: var(--white-color);
+    background-color: var(--yellow-color-darker);
+    border-color: var(--yellow-color-dark);
+}
+
+.devotion-section {
+    color: var(--white-color);
+    background-color: var(--purple-color-darker);
+    border-color: var(--purple-color-dark);
+}
