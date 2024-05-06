@@ -79,6 +79,6 @@ section .box:first-child {
 
 .devotion-section {
     color: var(--white-color);
-    background-color: var(--purple-color-darker);
+    background-color: var(--purple-color-darkest);
     border-color: var(--purple-color-dark);
 }
