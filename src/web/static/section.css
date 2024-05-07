@@ -22,7 +22,7 @@ section.kindness strong {
 }
 
 section.devotion strong {
-    color: var(--purple-color);
+    color: var(--purple-color-light);
 }
 
 section .box:last-child {
