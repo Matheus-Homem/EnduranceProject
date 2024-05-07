@@ -4,6 +4,8 @@
 @import url('box.css');
 @import url('inner-box.css');
 @import url('flex-table.css');
+@import url('input/datetime.css');
+@import url('input/number.css');
 @import url('input/range.css');
 @import url('input/text.css');
 @import url('input/button.css');
