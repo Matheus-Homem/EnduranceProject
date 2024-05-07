@@ -1,5 +1,5 @@
 // Function to calculate the time difference between bed and wakeup time
-function calculateTimeDifference() {
+function calculateDatetimeDifference() {
     const bedDateTime = bedDateTimeInput.value;
     const wakeupDateTime = wakeupDateTimeInput.value;
 
@@ -7,13 +7,13 @@ function calculateTimeDifference() {
         const bedDateTimeObj = new Date(bedDateTime);
         const wakeupDateTimeObj = new Date(wakeupDateTime);
 
-        const timeDifference = wakeupDateTimeObj - bedDateTimeObj;
-        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const datetimeDifference = wakeupDateTimeObj - bedDateTimeObj;
+        const hours = Math.floor(datetimeDifference / (1000 * 60 * 60));
+        const minutes = Math.floor((datetimeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-        timeDifferenceOutput.textContent = `Duração do Sono: ${hours}h e ${minutes}min`;
+        datetimeDifferenceOutput.textContent = `Duração do Sono: ${hours}h e ${minutes}min`;
     } else {
-        timeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+        datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
     }
 }
 
