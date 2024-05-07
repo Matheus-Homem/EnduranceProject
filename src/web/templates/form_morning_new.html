@@ -11,169 +11,195 @@
 {% block content %}
     <form action="/form/morning/" method="POST" onsubmit="return validatePercentage();">
 
-        <section id="opening">
-            <h2>Informações Gerais</h2>
-            <fieldset id="header">
-                <legend class=centralized>Hoje</legend>
-                <div>
-                    <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="inputDate">Data do Registro</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="date" name="inputDate" id="inputDate" style="width: 125px;" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="inputTime">Horário de Preenchimento</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="time" name="inputTime" id="inputTime" style="width: 110px;" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="dayHumor">Humor da Manhã</label>
-                            </td>
-                            <td class=centralized>
-                                <div class=centralized>
-                                    <input type="radio" name="dayHumor" id="sun"  value="sol" required>
-                                    <i class="fas fa-sun" style="margin-right: 25px;"></i>
-                                    <input type="radio" name="dayHumor" id="moon"  value="lua" required>
-                                    <i class="fas fa-moon"></i>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
-        </section>
-        
-        <br><hr><br>
+        <section class="opening">
+            
+            <div class="info-section"><span>Informações Gerais</span></div>
 
-        <section id="stability">
-            <h2>Estabilidade</h2>
-            <fieldset id="treasurer">
-                <legend class=centralized>Tesoureiro</legend>
-                <div>
-                    <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="credit">Crédito</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="credit" minlength="3" title="Insert four digits for the credit current value" style="width: 110px;" required
-                                       oninput="creditOutput.value = formatValue(credit.value, 'money')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="creditOutput">R$ __.__</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="debit">Débito</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="debit" minlength="3" title="Insert four digits for the debit current value" style="width: 110px;" required
-                                       oninput="debitOutput.value = formatValue(debit.value, 'money')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="debitOutput">R$ __.__</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="vr">Benefício</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="vr" minlength="3" title="Insert four digits for the benfit current value" style="width: 110px;" required
-                                       oninput="vrOutput.value = formatValue(vr.value, 'money')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="vrOutput">R$ __.__</output></div>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="info-box box">
+                <div class="box-title">
+                    <span>Hoje</span>
                 </div>
-            </fieldset>
-        </section>
-        
-        <br><hr><br>
+                <div class="box-input">
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="inputDate">Data do Registro</label></div>
+                            <div class="flex-cell cell-50"><input type="date" name="inputDate" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="inputDate">Horário de Preenchimento</label></div>
+                            <div class="flex-cell cell-50"><input type="time" name="inputTime" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><label for="dayHumor">Humor da Manhã</label></div>
+                            <div class="flex-cell cell-25">
+                                <input type="radio" name="dayHumor" value="sol" required>
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div class="flex-cell cell-25">
+                                <input type="radio" name="dayHumor" value="lua" required>
+                                <i class="fa-regular fa-moon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <section id="strength">
-            <h2>Força</h2>
-            <fieldset id="cook">
-                <legend class=centralized>Cozinheiro</legend>
-                <div>
-                    <table style="width: 100%;" class=tableWithSpacing>
-                        <tr>
-                            <td class=centralized>
-                                <label for="calories">Calorias de Ontem</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="calories" id="calories" title="Insert four digits for the yesterday Calories total value" style="width: 110px;" required
-                                       oninput="caloriesOutput.value = formatValue(calories.value, 'calories')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="caloriesOutput">_ cal</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="totalWeight">Peso Total</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="totalWeight" id="totalWeight" minlength="4" minlength="5" title="Insert four digits for the Total Weight" style="width: 110px;" required
-                                       oninput="totalWeightOutput.value = formatValue(totalWeight.value, 'weight')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="totalWeightOutput">__.__ kg</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="fatPercentage">Percentual de Gordura</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="fatPercentage" id="fatPercentage" minlength="4" minlength="4" title="Insert four digits for the Fat Percentage" style="width: 110px;" required
-                                       oninput="fatPercentageOutput.value = formatValue(fatPercentage.value, 'percentage')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="fatPercentageOutput">__.__ %</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="muscleWeight">Massa Magra</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="muscleWeight" id="muscleWeight" minlength="4" minlength="5" title="Insert four digits for the Muscle Weight" style="width: 110px;" required
-                                       oninput="muscleWeightOutput.value = formatValue(muscleWeight.value, 'weight')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="muscleWeightOutput">__.__ kg</output></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=centralized>
-                                <label for="basalMetabolism">Metabolismo Basal</label>
-                            </td>
-                            <td class=centralized>
-                                <input type="number" name="basalMetabolism" id="basalMetabolism" minlength="4" minlength="4" title="Insert four digits for the Basal Metabolism" style="width: 110px;" required
-                                       oninput="basalMetabolismOutput.value = formatValue(basalMetabolism.value, 'calories')">
-                            </td>
-                            <td class=centralized>
-                                <div class="formatedOutput"><output id="basalMetabolismOutput">_ cal</output></div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
         </section>
-        
-        <br><hr><br>
+
+        <section class="stability">
+            
+            <div class="stability-section"><span>Estabilidade</span></div>
+
+            <div class="stability-box box">
+                <div class="box-title">
+                    <span>tesoureiro</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Tesoureiro</strong> é aquele que zela pelos recursos da <strong>Expedição</strong>, buscando manter a <strong>Estabilidade</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito da <strong>Contabilizar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Crédito</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="stabilityTreasurerCredit" minlength="3" oninput="creditOutput.value = formatValue(stabilityTreasurerCredit.value, 'money')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="creditOutput">R$ __.__</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Débito</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="stabilityTreasurerDebit" minlength="3" oninput="debitOutput.value = formatValue(stabilityTreasurerDebit.value, 'money')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="debitOutput">R$ __.__</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Benefício</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="stabilityTreasurerBenefit" minlength="3" oninput="benefitOutput.value = formatValue(stabilityTreasurerBenefit.value, 'money')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="benefitOutput">R$ __.__</output></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="strength">
+            
+            <div class="strength-section"><span>Força</span></div>
+
+            <div class="strength-box box">
+                <div class="box-title">
+                    <span>cozinheiro</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Cozinheiro</strong> é aquele que melhora a <strong>Força</strong> através de funções básicas da <strong>Expedição</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o resultado da <strong>Alimentação</strong> e <strong>Hidratação</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Peso Total</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="strength_cook_TotalWeight" minlength="4" maxlength="5"
+                                    oninput="TotalWeightOutput.value = formatValue(strength_cook_TotalWeight.value, 'weight')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="TotalWeightOutput">__.__ kg</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Percentual de Gordura</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="strength_cook_FatPercentage" minlength="4" maxlength="4"
+                                    oninput="FatPercentageOutput.value = formatValue(strength_cook_FatPercentage.value, 'percentage')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="FatPercentageOutput">__.__ %</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Massa Magra</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="strength_cook_MuscleWeight" minlength="4" maxlength="5"
+                                    oninput="MuscleWeightOutput.value = formatValue(strength_cook_MuscleWeight.value, 'weight')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="MuscleWeightOutput">__.__ kg</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Metabolismo Basal</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="strength_cook_BasalMetabolism" 
+                                    oninput="BasalMetabolismOutput.value = formatValue(strength_cook_BasalMetabolism.value, 'calories')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="BasalMetabolismOutput">_ cal</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Calorias de Ontem</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="strength_cook_Calories" 
+                                    oninput="CaloriesOutput.value = formatValue(strength_cook_Calories.value, 'calories')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="CaloriesOutput">_ cal</output></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="devotion">
+            
+            <div class="devotion-section"><span>Devoção</span></div>
+
+            <div class="devotion-box box">
+                <div class="box-title">
+                    <span>sentinela</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Sentinela</strong> é aquele capaz de pregar a <strong>Devoção</strong> através de um dos atos mais básicos da <strong>Expedição</strong>
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Dormir</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Tempo de Tela</div>
+                            <div class="flex-cell cell-25">
+                                <input type="number" name="devotion_sentinel_ScreenTime" minlength="3" maxlength="4"
+                                    oninput="ScreenTimeOutput.value = formatValue(devotion_sentinel_ScreenTime.value, 'time')" required>
+                            </div>
+                            <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__h __min</output></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Início do Sono</div>
+                            <div class="flex-cell cell-50"><input type="datetime-local" name="devotion_sentinel_BedDatetime" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50">Fim do Sono</div>
+                            <div class="flex-cell cell-50"><input type="datetime-local" name="devotion_sentinel_WakeupDatetime" required></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><span id="DatetimeDifferenceOutput" placeholder="Aguardando inserção de ambos os dados."></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="devotion">
             <h2>Devoção</h2>
@@ -210,7 +236,7 @@
                     </tr>
                     <tr>
                         <td class="centralized" colspan="3">
-                            <span id="timeDifference" placeholder="Aguardando inserção de ambos os dados."></span>
+                            
                         </td>
                     </tr>
                 </table>
@@ -290,12 +316,12 @@
 
     <script>
         
-        const bedDateTimeInput     = document.getElementById('bedDateTime');
-        const wakeupDateTimeInput  = document.getElementById('wakeupDateTime');
-        const timeDifferenceOutput = document.getElementById('timeDifference');
-        timeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
-        bedDateTimeInput.addEventListener('change', calculateTimeDifference);
-        wakeupDateTimeInput.addEventListener('change', calculateTimeDifference);
+        const bedDateTimeInput = document.querySelector('input[name="devotion_sentinel_BedDatetime"]');
+        const wakeupDateTimeInput = document.querySelector('input[name="devotion_sentinel_WakeupDatetime"]');
+        const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
+        datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+        bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);
+        wakeupDateTimeInput.addEventListener('change', calculateDatetimeDifference);
 
         const awakePercentageInput = document.getElementById('awakePercentage');
         const remPercentageInput   = document.getElementById('remPercentage');
