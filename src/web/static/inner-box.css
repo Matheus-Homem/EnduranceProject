@@ -22,6 +22,13 @@
     max-width: 700px;
 }
 
+.box-role span {
+    display: inline-block;
+    width: 80%;
+    hyphens: auto;
+    margin: 0 auto;
+}
+
 .box-input {
     display: flex;
     justify-content: center;
