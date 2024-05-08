@@ -2,12 +2,15 @@
 @import url('fonts.css');
 @import url('section.css');
 @import url('box.css');
-@import url('inner-box.css');
+@import url('inner-boxes.css');
 @import url('flex-table.css');
+@import url('input/date.css');
 @import url('input/datetime.css');
 @import url('input/number.css');
+@import url('input/radio.css');
 @import url('input/range.css');
 @import url('input/text.css');
+@import url('input/time.css');
 @import url('input/button.css');
 @import url('responsive/media.css');
 
@@ -42,103 +45,6 @@ textarea {
     border-radius: 10px;
     width: 500px;
     height: 75px;
-}
-
-/* table {
-    width: 100%;
-    margin: 0 auto;
-    background-color: var(--table-background-color);
-    border-radius: 5px;
-    color: var(--text-color);
-}
-
-table th, table td {
-    padding: 10px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-table tr:last-child td {
-    border-bottom: none;
-}
- 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 550;
-} */
-/* 
-input {
-    padding: 2px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 1px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Lato', sans-serif;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: var(--input-focus-border-color);
-    outline: none;
-} */
-
-
-#awakePercentage, #remPercentage, #lightPercentage, #deepPercentage {
-    width: 90%;
-}
-
-.centralized {
-    text-align: center;
-}
-
-.tableWithSpacing {
-    border-collapse: separate;
-    border-spacing: 0 5px;
-}
-
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.flex-container i {
-    text-align: center;
-    width: 50%;
-}
-
-.flex-container span {
-    width: 50%;
-    text-align: center;
-}
-
-.container, .container-title {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.container-title, .fieldset-div {
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 15px;
-}
-
-.container-title {
-    background-color: var(--container-title-background-color);
-}
-
-.fieldset-div {
-    background-color: var(--container-background-color);
-}
-  
-.item, .item-input, .item-option, .item-label {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    padding: 10px;
-    border-radius: 15px;
-}
-
-.item-input:hover {
-    background-color: #555;
 }
 
 .box-yama {
