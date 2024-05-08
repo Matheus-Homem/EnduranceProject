@@ -5,24 +5,8 @@ section {
     margin: 0 auto;
 }
 
-section.wisdom strong {
-    color: var(--green-color-light);
-}
-
-section.stability strong {
-    color: var(--red-color);
-}
-
-section.strength strong {
-    color: var(--blue-color);
-}
-
-section.kindness strong {
-    color: var(--yellow-color);
-}
-
-section.devotion strong {
-    color: var(--purple-color-light);
+section strong {
+    color: var(--section-color);
 }
 
 section .box:last-child {
@@ -31,6 +15,30 @@ section .box:last-child {
 
 section .box:first-child {
     margin-top: none;
+}
+
+.basic {
+    --section-color: orange;
+}
+
+.wisdom {
+    --section-color: var(--green-color-light);
+}
+
+.stability {
+    --section-color: var(--red-color);
+}
+
+.strength {
+    --section-color: var(--blue-color);
+}
+
+.kindness {
+    --section-color: var(--yellow-color);
+}
+
+.devotion {
+    --section-color: var(--purple-color-light);
 }
 
 .info-section, .wisdom-section, .stability-section, .strength-section, .kindness-section, .devotion-section {
