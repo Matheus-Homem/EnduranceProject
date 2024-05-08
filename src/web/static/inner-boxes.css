@@ -56,3 +56,10 @@
     border-radius: 20px;
     background-color: var(--gray-color-4);
 }
+
+.box-range {
+        background: var(--gray-color-6);
+        margin: 20px;
+        padding: 5px;
+        border-radius: 25px;
+}
