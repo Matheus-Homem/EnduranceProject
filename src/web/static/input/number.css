@@ -14,7 +14,7 @@ input[type="number"] {
 }
 
 input[type="number"]:focus {
-    border-color: orange;
+    border-color: var(--section-color);
     outline: none;
 }
 
