@@ -1,0 +1,13 @@
+textarea {
+    color: var(--white-color);
+    background-color: var(--gray-color-2);
+    border: 1px solid var(--gray-color-4);
+    font-family: 'Lato', sans-serif;
+    font-weight: 350;
+    line-height: 1.6;
+    resize: none;
+    overflow: auto;
+    border-radius: 10px;
+    width: 500px;
+    height: 75px;
+}
