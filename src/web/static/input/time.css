@@ -8,6 +8,11 @@ input[type="time"] {
     font-size: 14px;
 }
 
+input[type="time"]:hover {
+    border-color: var(--section-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
 input[type="time"]:focus {
     border-color: var(--section-color);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
