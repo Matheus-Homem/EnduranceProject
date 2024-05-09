@@ -1,0 +1,31 @@
+.toggle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 25px;
+    background: #000;   
+    border-radius: 30px;
+    transition: background 0.3s;
+    margin-right: 10px;
+}
+
+.toggle.toggle-true {
+    background: var(--section-color);
+}
+
+.toggle-button {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: left 0.3s;
+}
+
+.toggle.toggle-true .toggle-button {
+    left: 29px;
+}
