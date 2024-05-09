@@ -10,6 +10,7 @@
 @import url('input/radio.css');
 @import url('input/range.css');
 @import url('input/text.css');
+@import url('input/textarea.css');
 @import url('input/time.css');
 @import url('input/button.css');
 @import url('responsive/media.css');
@@ -31,59 +32,4 @@ body {
     font-family: 'Lato', sans-serif;
     font-weight: 350;
     line-height: 1.6;
-}
-
-textarea {
-    color: var(--white-color);
-    background-color: var(--gray-color-2);
-    border: 1px solid var(--gray-color-4);
-    font-family: 'Lato', sans-serif;
-    font-weight: 350;
-    line-height: 1.6;
-    resize: none;
-    overflow: auto;
-    border-radius: 10px;
-    width: 500px;
-    height: 75px;
-}
-
-.box-yama {
-    border: 5px solid var(--box-border-color);
-    background-color: var(--box-background-color);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 25px;
-    padding: 20px;
-    width: 100%;
-}
-
-.box-yama .span-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.box-yama .span-container span {
-    flex: 1;
-    text-align: center;
-}
-
-.box-yama span {
-    margin: 0 10px;
-}
-
-.box-yama input[type="range"] {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.darker-background {
-    background-color: var(--box-background-color);
-    border-radius: 50px;
-}
-
-.add-padding-20 {
-    padding: 20px;
 }
