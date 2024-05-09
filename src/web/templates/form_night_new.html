@@ -11,7 +11,7 @@
 {% block content %}
     <form action="/form/night/" method="POST">
 
-        <section class="opening">
+        <section class="basic">
             
             <div class="info-section"><span>Informações Gerais</span></div>
 
@@ -108,40 +108,67 @@
                             Sobre o hábito de <strong>Abdicar</strong>
                         </span>
                     </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Ahimsa</span>
-                            <span id="wisdomAlchemistAhimsaOutput">Aguardando Input</span>
+                    <div class="flex-table">
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Ahimsa"><strong>Ahimsa</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AhimsaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Ahimsa" id="wisdom_range_Ahimsa" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Ahimsa, wisdom_range_AhimsaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAhimsa" name="wisdomAlchemistAhimsa" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAhimsa, wisdomAlchemistAhimsaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Satya</span>
-                            <span id="wisdomAlchemistSatyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Satya"><strong>Satya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_SatyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Satya" id="wisdom_range_Satya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Satya, wisdom_range_SatyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistSatya" name="wisdomAlchemistSatya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistSatya, wisdomAlchemistSatyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Asteya</span>
-                            <span id="wisdomAlchemistAsteyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Asteya"><strong>Asteya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AsteyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Asteya" id="wisdom_range_Asteya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Asteya, wisdom_range_AsteyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAsteya" name="wisdomAlchemistAsteya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAsteya, wisdomAlchemistAsteyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Brahmacharya</span>
-                            <span id="wisdomAlchemistBrahmacharyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Brahmacharya"><strong>Brahmacharya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_BrahmacharyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Brahmacharya" id="wisdom_range_Brahmacharya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Brahmacharya, wisdom_range_BrahmacharyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistBrahmacharya" name="wisdomAlchemistBrahmacharya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistBrahmacharya, wisdomAlchemistBrahmacharyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Aparigraha</span>
-                            <span id="wisdomAlchemistAparigrahaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Aparigraha"><strong>Aparigraha</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AparigrahaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Aparigraha" id="wisdom_range_Aparigraha" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Aparigraha, wisdom_range_AparigrahaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAparigraha" name="wisdomAlchemistAparigraha" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAparigraha, wisdomAlchemistAparigrahaOutput)">
                     </div>
                 </div>
             </div>
@@ -216,8 +243,7 @@
             </div>            
 
         </section>
-        
-        
+                
         <section class="stability">
             
             <div class="stability-section"><span>Estabilidade</span></div>
@@ -245,8 +271,15 @@
                         </div>
                         <div class="flex-row">
                             <div class="flex-cell cell-50">Dia Ativo</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="True" required></div>
+                            <div class="flex-cell cell-50">
+                                <div id="toggle1" class="toggle" onclick="toggleButton('toggle1', 'toggle-text1', 'hiddenInput1')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <div id="toggle-text1"><span>Não</span></div>
+                                <input type="hidden" id="hiddenInput1" name="toggle1" value="False">
+                            </div>
+                            <!-- <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="False" required></div>
+                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="True" required></div> -->
                         </div>
                         <div class="flex-row">
                             <div class="flex-cell cell-50">Satisfação</div>
@@ -334,8 +367,7 @@
             </div>
 
         </section>
-        
-        
+                
         <section class="strength">
             
             <div class="strength-section"><span>Força</span></div>
@@ -513,8 +545,7 @@
             </div> 
 
         </section>
-        
-        
+                
         <section id="kindness">
             
             <div class="kindness-section"><span>Gentileza</span></div>
@@ -625,8 +656,7 @@
             </div> 
 
         </section>
-        
-        
+                
         <section id="devotion">
             
             <div class="devotion-section"><span>Devoção</span></div>
@@ -715,30 +745,20 @@
             
         </section>
         
-
-        <section id="ending">
+        <section class="basic">
             <div class="buttonContainer">
-                <table style="width: 100%;" class=tableWithSpacing>
-                    <tr>
-                        <td class=centralized>
-                            <button type="button" class="returnButton" id="return" style="margin-right: 20px;" onclick="window.location.href='/'">
-                                <i class="fas fa-arrow-left"></i>
-                                Return
-                            </button>
-                        </td>
-                        <td class=centralized>
-                            <button class="resetButton" id="reset" style="margin-right: 20px;" type="reset">
-                                <i class="fas fa-undo"></i>
-                                Resetz
-                            </button>
-                        </td>
-                        <td class=centralized>
-                            <button class="submitButton" id="submit" type="submit" value="Submit">
-                                <i class="fas fa-paper-plane"></i>
-                                Submit
-                            </button>
-                        </td>
-                </table>
+                <button type="button" class="returnButton" id="return" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    Return
+                </button>
+                <button class="resetButton" id="reset" type="reset">
+                    <i class="fas fa-undo"></i>
+                    Reset
+                </button>
+                <button class="submitButton" id="submit" type="submit" value="Submit">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit
+                </button>
             </div>
         </section>
 
@@ -791,6 +811,23 @@
         // loadPartlet('parte2.html', 'parte2');
         // loadPartlet('parte3.html', 'parte3');
         });
+
+        function toggleButton(toggleId, textId, inputId) {
+            var element = document.getElementById(toggleId);
+            element.classList.toggle('toggle-true');
+        
+            var textElement = document.getElementById(textId);
+            var spanElement = textElement.querySelector('span');
+            var inputElement = document.getElementById(inputId);
+            if (spanElement.innerText === 'Não') {
+                spanElement.innerText = 'Sim';
+                inputElement.value = 'True';
+            } else {
+                spanElement.innerText = 'Não';
+                inputElement.value = 'False';
+            }
+        }
+
 
     </script>   
 
