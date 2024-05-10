@@ -4,7 +4,9 @@
 @import url('box.css');
 @import url('inner-boxes.css');
 @import url('flex-table.css');
-@import url('input/button.css');
+@import url('input/custom/button.css');
+@import url('input/custom/check.css');
+@import url('input/custom/toggle.css');
 @import url('input/date.css');
 @import url('input/datetime.css');
 @import url('input/number.css');
@@ -13,7 +15,6 @@
 @import url('input/text.css');
 @import url('input/textarea.css');
 @import url('input/time.css');
-@import url('input/toggle.css');
 @import url('responsive/media.css');
 
 * {
