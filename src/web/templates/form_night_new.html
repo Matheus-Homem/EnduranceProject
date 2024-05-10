@@ -76,19 +76,52 @@
                             <!-- TODO: criar funcao para caso haja ato o Livro ser obrigatorio -->
                             <div class="flex-cell cell-50"><input type="text" name="wisdomNavigatorBook" placeholder="Livro" ></div>
                             <div class="flex-cell cell-25">
-                                <input type="checkbox" name="wisdomNavigatorExcelence" value="True">
-                                <i class="fa-solid fa-sun"></i>
+                                <div id="id_navigator_Sun" class="check" onclick="checkButton('id_navigator_Sun', 'input_navigator_Sun', 'moon', 'sun')">
+                                    <i class="fa-solid fa-sun"></i>
+                                </div>
+                                <input type="hidden" id="input_navigator_Sun" name="check_navigator_Sun" value="moon">
                             </div>
                             <div class="flex-cell cell-25">
-                                <input type="checkbox" name="wisdomNavigatorNotes" value="True">
-                                <i class="fa-solid fa-sticky-note"></i>
+                                <div id="id_navigator_Notes" class="check" onclick="checkButton('id_navigator_Notes', 'input_navigator_Notes', 'False', 'True')">
+                                    <i class="fa-solid fa-sticky-note"></i>
+                                </div>
+                                <input type="hidden" id="input_navigator_Notes" name="check_navigator_Notes" value="False">
                             </div>
                         </div>
                         <div class="flex-row">
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="False"><span>Sem Ato</span></div>
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="pill"><span>Pílula</span></div>
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="session"><span>Sessão</span></div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Inactive" class="toggle" onclick="toggleButton('toggle_navigator_Inactive', 'text_navigator_Inactive', 'input_navigator_Inactive')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Inativo</span>
+                                <input type="hidden" id="input_navigator_Inactive" name="toggle_navigator_Inactive" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Pill" class="toggle" onclick="toggleButton('toggle_navigator_Pill', 'text_navigator_Pill', 'input_navigator_Pill')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Pílula</span>
+                                <input type="hidden" id="input_navigator_Pill" name="toggle_navigator_Pill" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Session" class="toggle" onclick="toggleButton('toggle_navigator_Session', 'text_navigator_Session', 'input_navigator_Session')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Sessão</span>
+                                <input type="hidden" id="input_navigator_Session" name="toggle_navigator_Session" value="False">
+                            </div>
                         </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Inactive"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Pill"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Session"><span>Não</span></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -231,9 +264,24 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="navigator"><span>Navegador</span></div>
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="alchimist"><span>Alquimista</span></div>
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="apprentice"><span>Aprendiz</span></div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Navigator" class="check" onclick="checkButton('id_compass_Navigator', 'input_coma_Navigator', 'False', 'True')">
+                                    <span>Navegador</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Navigator" name="check_compass_Navigator" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Alchimist" class="check" onclick="checkButton('id_compass_Alchimist', 'input_coma_Alchimist', 'False', 'True')">
+                                    <span>Alquimista</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Alchimist" name="check_compass_Alchimist" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Apprentice" class="check" onclick="checkButton('id_compass_Apprentice', 'input_coma_Apprentice', 'False', 'True')">
+                                    <span>Aprendiz</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Apprentice" name="check_compass_Apprentice" value="False">
+                            </div>
                         </div>
                         <div class="flex-row">
                             <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
@@ -265,32 +313,39 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-50"></div>
-                            <div class="flex-cell cell-25">Não</div>
-                            <div class="flex-cell cell-25">Sim</div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Dia Ativo</div>
-                            <div class="flex-cell cell-50">
-                                <div id="toggle1" class="toggle" onclick="toggleButton('toggle1', 'toggle-text1', 'hiddenInput1')">
-                                    <div class="toggle-button"></div>
-                                </div>
-                                <div id="toggle-text1"><span>Não</span></div>
-                                <input type="hidden" id="hiddenInput1" name="toggle1" value="False">
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle1" class="toggle" onclick="toggleButton('toggle1', 'toggle-text1', 'hiddenInput1')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Ação</span>
+                                    <input type="hidden" id="hiddenInput1" name="toggle1" value="False">
                             </div>
-                            <!-- <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="True" required></div> -->
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle2" class="toggle" onclick="toggleButton('toggle2', 'toggle-text2', 'hiddenInput2')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Satisfação</span>
+                                    <input type="hidden" id="hiddenInput2" name="toggle2" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle3" class="toggle" onclick="toggleButton('toggle3', 'toggle-text3', 'hiddenInput3')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Resultado</span>
+                                    <input type="hidden" id="hiddenInput3" name="toggle3" value="False">
+                            </div>
                         </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Satisfação</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="True" required></div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Resultado</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="True" required></div>
-                        </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text1"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text2"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text3"><span>Não</span></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -312,21 +367,30 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-50"></div>
-                            <div class="flex-cell cell-25">Não</div>
-                            <div class="flex-cell cell-25">Sim</div>
+                            <div class="flex-cell cell-50">
+                                <div id="toggle_patron_Action" class="toggle" onclick="toggleButton('toggle_patron_Action', 'text_patron_Action', 'input_patron_Action')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Ação</span>
+                                <input type="hidden" id="input_patron_Action" name="toggle_patron_Action" value="False">
+                            </div>
+                            <div class="flex-cell cell-50">
+                                <div id="toggle_patron_Satisfaction" class="toggle" onclick="toggleButton('toggle_patron_Satisfaction', 'text_patron_Satisfaction', 'input_patron_Satisfaction')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Satisfação</span>
+                                <input type="hidden" id="input_patron_Satisfaction" name="toggle_patron_Satisfaction" value="False">
+                            </div>
                         </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Dia Ativo</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="True" required></div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Satisfação</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="True" required></div>
-                        </div>
-                    </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-50">
+                                <div id="text_patron_Action"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-50">
+                                <div id="text_patron_Satisfaction"><span>Não</span></div>
+                            </div>
+                        </div> -->
+                    </div>   
                 </div>
             </div>
 
@@ -828,6 +892,20 @@
             }
         }
 
+        function checkButton(checkId, inputId, normalValue, checkedValue) {
+            var element = document.getElementById(checkId);
+            var inputElement = document.getElementById(inputId);
+            // var spanElement = element.querySelector('.check-button');
+            if (element.classList.contains('check-true')) {
+                element.classList.remove('check-true');
+                // spanElement.innerText = normalValue;
+                inputElement.value = normalValue;
+            } else {
+                element.classList.add('check-true');
+                // spanElement.innerText = checkedValue;
+                inputElement.value = checkedValue;
+            }
+        }
 
     </script>   
 
