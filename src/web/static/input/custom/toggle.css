@@ -8,10 +8,15 @@
     border-radius: 30px;
     transition: background 0.3s;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .toggle.toggle-true {
     background: var(--section-color);
+}
+
+.toggle.toggle-true:hover, .toggle.toggle-true:focus {
+    background: var(--section-color-dark);
 }
 
 .toggle-button {
@@ -24,6 +29,10 @@
     border-radius: 50%;
     cursor: pointer;
     transition: left 0.3s;
+}
+
+.toggle-button:hover, .toggle-button:focus {
+    background: #ddd;
 }
 
 .toggle.toggle-true .toggle-button {
