@@ -30,7 +30,7 @@
                     <input type="hidden" id="input_navigator_Notes" name="check_navigator_Notes" value="False">
                 </div>
             </div>
-            <div class="flex-row">
+            <!-- <div class="flex-row">
                 <div class="flex-cell cell-33">
                     <div id="toggle_navigator_Inactive" class="toggle" onclick="toggleButton('toggle_navigator_Inactive', 'text_navigator_Inactive', 'input_navigator_Inactive')">
                         <div class="toggle-button"></div>
@@ -52,7 +52,28 @@
                     <span>Sessão</span>
                     <input type="hidden" id="input_navigator_Session" name="toggle_navigator_Session" value="False">
                 </div>
+            </div> -->
+            <div class="flex-row">
+                <div class="flex-cell cell-33">
+                    <div class="alternative" id="option1" onclick="selectAlternative(1, 'radio_navigator_Reading', 'inactive')">
+                        <div class="dot"></div>
+                        <span>Inerte</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="alternative" id="option2" onclick="selectAlternative(2, 'radio_navigator_Reading', 'pill')">
+                        <div class="dot"></div>
+                        <span>Pílula</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="alternative" id="option3" onclick="selectAlternative(3, 'radio_navigator_Reading', 'session')">
+                        <div class="dot"></div>
+                        <span>Sessão</span>
+                    </div>
+                </div>
             </div>
+            <input type="hidden" id="radio_navigator_Reading" name="radio_navigator_Reading" required>
             <!-- <div class="flex-row">
                 <div class="flex-cell cell-33">
                     <div id="text_navigator_Inactive"><span>Não</span></div>
