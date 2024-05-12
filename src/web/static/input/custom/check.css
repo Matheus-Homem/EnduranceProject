@@ -20,8 +20,8 @@
     background-color: var(--gray-color-7);
 }
 
-.check-button {
-    color: #000;
+.check.check-true span {
+    font-weight: bold;
 }
 
 .check.check-true {
@@ -30,8 +30,4 @@
 
 .check.check-true:hover, .check.check-true:focus {
     background-color: var(--section-color-dark);
-}
-
-.check.check-true .check-button {
-    font-weight: 600;
 }
