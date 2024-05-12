@@ -125,3 +125,19 @@ function updateOutput(inputElement, outputElement) {
     
     outputElement.innerText = classification;
 }
+
+let selectedOption = null;
+
+// Function to select an alternative option
+function selectAlternative(id, inputId, value) {
+    // let selectedOption = null;
+
+    if (selectedOption !== null) {
+        document.getElementById(`option${selectedOption}`).classList.remove('selected');
+    }
+
+    selectedOption = id;
+    document.getElementById(`option${id}`).classList.add('selected');
+
+    document.getElementById(inputId).value = value;
+}
