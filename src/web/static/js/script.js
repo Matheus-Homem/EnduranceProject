@@ -41,6 +41,7 @@ function validatePercentage() {
     return true;
 }
 
+// Function to format the input value
 function formatValue(value, type) {
     if (type === 'time') {
         if (value.length < 3 || value.length > 4) {
@@ -76,4 +77,51 @@ function formatValue(value, type) {
             return formatedValue + " %";
         }
     }
+}
+
+//  Function to check the button status
+function checkButton(checkId, inputId, normalValue, checkedValue) {
+    var element = document.getElementById(checkId);
+    var inputElement = document.getElementById(inputId);
+    if (element.classList.contains('check-true')) {
+        element.classList.remove('check-true');
+        inputElement.value = normalValue;
+    } else {
+        element.classList.add('check-true');
+        inputElement.value = checkedValue;
+    }
+}
+
+// Function to toggle the button status
+function toggleButton(toggleId, textId, inputId) {
+    var element = document.getElementById(toggleId);
+    element.classList.toggle('toggle-true');
+
+    var textElement = document.getElementById(textId);
+    var spanElement = textElement.querySelector('span');
+    var inputElement = document.getElementById(inputId);
+    if (spanElement.innerText === 'Não') {
+        spanElement.innerText = 'Sim';
+        inputElement.value = 'True';
+    } else {
+        spanElement.innerText = 'Não';
+        inputElement.value = 'False';
+    }
+}
+// Function to update the output value
+function updateOutput(inputElement, outputElement) {
+    var value = inputElement.value;
+    var classification = "";
+    
+    if (value == 0) {
+        classification = "Falha";
+    } else if (value >= 1 && value <= 13) {
+        classification = "Derrota";
+    } else if (value == 14 || value == 15) {
+        classification = "Vitória";
+    } else if (value == 16) {
+        classification = "Sucesso";
+    }
+    
+    outputElement.innerText = classification;
 }
