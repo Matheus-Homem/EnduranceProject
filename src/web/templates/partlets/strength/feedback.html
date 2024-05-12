@@ -1,0 +1,59 @@
+<div class="strength-box box">
+    <div class="box-title">
+        <span>cozinheiro</span>
+    </div>
+    <div class="box-role">
+        <span>
+            O <strong>Cozinheiro</strong> é aquele que melhora a <strong>Força</strong> através de funções básicas da <strong>Expedição</strong>
+        </span>
+    </div>
+    <div class="box-input">
+        <div class="box-habit">
+            <span>
+                Sobre o resultado da <strong>Alimentação</strong> e <strong>Hidratação</strong>
+            </span>
+        </div>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Peso Total</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_TotalWeight" minlength="4" maxlength="5"
+                        oninput="TotalWeightOutput.value = formatValue(strength_cook_TotalWeight.value, 'weight')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="TotalWeightOutput">__.__ kg</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Percentual de Gordura</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_FatPercentage" minlength="4" maxlength="4"
+                        oninput="FatPercentageOutput.value = formatValue(strength_cook_FatPercentage.value, 'percentage')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="FatPercentageOutput">__.__ %</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Massa Magra</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_MuscleWeight" minlength="4" maxlength="5"
+                        oninput="MuscleWeightOutput.value = formatValue(strength_cook_MuscleWeight.value, 'weight')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="MuscleWeightOutput">__.__ kg</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Metabolismo Basal</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_BasalMetabolism" 
+                        oninput="BasalMetabolismOutput.value = formatValue(strength_cook_BasalMetabolism.value, 'calories')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="BasalMetabolismOutput">_ cal</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Calorias de Ontem</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_Calories" 
+                        oninput="CaloriesOutput.value = formatValue(strength_cook_Calories.value, 'calories')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="CaloriesOutput">_ cal</output></div>
+            </div>
+        </div>
+    </div>
+</div>
