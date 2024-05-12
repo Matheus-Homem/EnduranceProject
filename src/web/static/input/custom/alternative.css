@@ -1,0 +1,27 @@
+.alternative {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: background-color 0.5s ease;
+  }
+  
+.dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--gray-color-8);
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    transition: background-color 0.5s ease;
+}
+  
+.selected .dot {
+    background-color: var(--section-color-darkest);
+    border-color: var(--section-color);
+}
+
+.alternative.selected span {
+    color: var(--strong-section-color);
+    font-weight: 800;
+}
