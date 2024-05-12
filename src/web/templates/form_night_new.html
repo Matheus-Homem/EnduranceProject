@@ -53,8 +53,6 @@
         <section class="wisdom">
 
             <div class="wisdom-section"><span>Sabedoria</span></div>
-            
-            <div id="navigator"></div>
 
             <div class="wisdom-box box">
                 <div class="box-title">
@@ -830,23 +828,6 @@
 
     <script>
 
-        function updateOutput(inputElement, outputElement) {
-            var value = inputElement.value;
-            var classification = "";
-            
-            if (value == 0) {
-                classification = "Falha";
-            } else if (value >= 1 && value <= 13) {
-                classification = "Derrota";
-            } else if (value == 14 || value == 15) {
-                classification = "Vitória";
-            } else if (value == 16) {
-                classification = "Sucesso";
-            }
-            
-            outputElement.innerText = classification;
-        }
-
         var stabilitySponsorActive = document.getElementById('stabilitySponsorActive');
         var stabilitySponsorSatisfaction = document.getElementById('stabilitySponsorSatisfaction');
         var stabilitySponsorOutcome = document.getElementById('stabilitySponsorOutcome');
@@ -860,52 +841,6 @@
                 stabilitySponsorOutcome.required = false;
             }
         });
-
-        document.addEventListener("DOMContentLoaded", function() {
-        function loadPartlet(url, elementId) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error when loading:', error));
-        }
-
-        loadPartlet('partlets/navigator.html', 'navigator');
-        // loadPartlet('parte2.html', 'parte2');
-        // loadPartlet('parte3.html', 'parte3');
-        });
-
-        function toggleButton(toggleId, textId, inputId) {
-            var element = document.getElementById(toggleId);
-            element.classList.toggle('toggle-true');
-        
-            var textElement = document.getElementById(textId);
-            var spanElement = textElement.querySelector('span');
-            var inputElement = document.getElementById(inputId);
-            if (spanElement.innerText === 'Não') {
-                spanElement.innerText = 'Sim';
-                inputElement.value = 'True';
-            } else {
-                spanElement.innerText = 'Não';
-                inputElement.value = 'False';
-            }
-        }
-
-        function checkButton(checkId, inputId, normalValue, checkedValue) {
-            var element = document.getElementById(checkId);
-            var inputElement = document.getElementById(inputId);
-            // var spanElement = element.querySelector('.check-button');
-            if (element.classList.contains('check-true')) {
-                element.classList.remove('check-true');
-                // spanElement.innerText = normalValue;
-                inputElement.value = normalValue;
-            } else {
-                element.classList.add('check-true');
-                // spanElement.innerText = checkedValue;
-                inputElement.value = checkedValue;
-            }
-        }
 
     </script>   
 
