@@ -4,6 +4,7 @@
 @import url('box.css');
 @import url('inner-boxes.css');
 @import url('flex-table.css');
+@import url('input/custom/alternative.css');
 @import url('input/custom/button.css');
 @import url('input/custom/check.css');
 @import url('input/custom/toggle.css');
@@ -34,4 +35,9 @@ body {
     font-family: 'Lato', sans-serif;
     font-weight: 350;
     line-height: 1.6;
+}
+  
+span {
+    vertical-align: middle;
+    user-select: none;
 }
