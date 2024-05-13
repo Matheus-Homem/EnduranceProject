@@ -9,57 +9,62 @@
 {% endblock %}
 
 {% block content %}
-    <section id="menu">
-        <fieldset id="forms">
-            <legend class=centralized>Forms</legend>
-            <div>
-                <table style="width: 100%;" class=tableWithSpacing>
-                    <tr>
-                        <td class=centralized>
-                            <span>Morning</span>
-                        </td>
-                        <td class=centralized>
+
+    <section class="basic">
+
+        <div class="info-box box">
+            <div class="box-title">
+                <span>Formulários</span>
+            </div>
+            <div class="box-input">
+                <div class="flex-table">
+                    <div class="flex-row">
+                        <div class="flex-cell cell-50">Bússola Solar</div>
+                        <div class="flex-cell cell-25">
                             <a href="/form/morning/" class="createButton">
                                 <i class="fas fa-plus"></i> New
                             </a>
-                        </td>
-                        <td class=centralized>
+                        </div>
+                        <div class="flex-cell cell-25">
                             <button class="editButton">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class=centralized>
-                            <span>Night</span>
-                        </td>
-                        <td class=centralized>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="flex-cell cell-50">Bússola Lunar</div>
+                        <div class="flex-cell cell-25">
                             <a href="/form/night/" class="createButton">
                                 <i class="fas fa-plus"></i> New
                             </a>
-                        </td>
-                        <td class=centralized>
+                        </div>
+                        <div class="flex-cell cell-25">
                             <button class="editButton">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </fieldset>
-        <br>
-        
-        <fieldset id="forms">
-            <legend class=centralized>Reports</legend>
-            <div>
-                <table style="width: 100%;" class=tableWithSpacing>
-                    <tr>
-                        <td class=centralized>
-                            <span>To be implemented.</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </fieldset>
+        </div>
+
     </section>
+
+    <section class="basic">
+
+        <div class="info-box box">
+            <div class="box-title">
+                <span>Relatórios</span>
+            </div>
+            <div class="box-input">
+                <div class="flex-table">
+                    <div class="flex-row">
+                        <div class="flex-cell cell-100">A ser implementado</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
 {% endblock %}

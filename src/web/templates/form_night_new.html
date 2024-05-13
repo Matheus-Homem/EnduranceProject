@@ -11,10 +11,11 @@
 {% block content %}
     <form action="/form/night/" method="POST">
 
-        <section class="opening">
-            <h2>Informações Gerais</h2>
+        <section class="basic">
+            
+            <div class="info-section"><span>Informações Gerais</span></div>
 
-            <div class="box">
+            <div class="info-box box">
                 <div class="box-title">
                     <span>Hoje</span>
                 </div>
@@ -29,17 +30,18 @@
                             <div class="flex-cell cell-50"><input type="time" name="inputTime" required></div>
                         </div>
                         <div class="flex-row">
-                            <div class="flex-cell cell-50"><label for="dayHumor">Humor da Noite</label></div>
+                            <div class="flex-cell cell-50"><label for="nightHumor">Humor da Noite</label></div>
                             <div class="flex-cell cell-25">
-                                <input type="radio" name="dayHumor" value="sol" required>
+                                <input type="radio" name="nightHumor" value="sol" required>
                                 <i class="fa-solid fa-sun"></i>
                             </div>
                             <div class="flex-cell cell-25">
-                                <input type="radio" name="dayHumor" value="lua" required>
+                                <input type="radio" name="nightHumor" value="lua" required>
                                 <i class="fa-regular fa-moon"></i>
                             </div>
                         </div>
                         <div class="flex-cell cell-100">
+                            <!-- TODO: Add more (+) gratitudes -->
                             <textarea name="dailyGratitude" required>Sou grato por </textarea>
                         </div>
                     </div>
@@ -48,12 +50,11 @@
 
         </section>
 
-        <hr>
-
         <section class="wisdom">
-            <h2>Sabedoria</h2>
 
-            <div class="box">
+            <div class="wisdom-section"><span>Sabedoria</span></div>
+
+            <div class="wisdom-box box">
                 <div class="box-title">
                     <span>navegador</span>
                 </div>
@@ -73,24 +74,57 @@
                             <!-- TODO: criar funcao para caso haja ato o Livro ser obrigatorio -->
                             <div class="flex-cell cell-50"><input type="text" name="wisdomNavigatorBook" placeholder="Livro" ></div>
                             <div class="flex-cell cell-25">
-                                <input type="checkbox" name="wisdomNavigatorExcelence" value="True">
-                                <i class="fa-solid fa-sun"></i>
+                                <div id="id_navigator_Sun" class="check" onclick="checkButton('id_navigator_Sun', 'input_navigator_Sun', 'moon', 'sun')">
+                                    <i class="fa-solid fa-sun"></i>
+                                </div>
+                                <input type="hidden" id="input_navigator_Sun" name="check_navigator_Sun" value="moon">
                             </div>
                             <div class="flex-cell cell-25">
-                                <input type="checkbox" name="wisdomNavigatorNotes" value="True">
-                                <i class="fa-solid fa-sticky-note"></i>
+                                <div id="id_navigator_Notes" class="check" onclick="checkButton('id_navigator_Notes', 'input_navigator_Notes', 'False', 'True')">
+                                    <i class="fa-solid fa-sticky-note"></i>
+                                </div>
+                                <input type="hidden" id="input_navigator_Notes" name="check_navigator_Notes" value="False">
                             </div>
                         </div>
                         <div class="flex-row">
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="False"><span>Sem Ato</span></div>
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="pill"><span>Pílula</span></div>
-                            <div class="flex-cell cell-33"><input type="radio" name="wisdomNavigatorReading" value="session"><span>Sessão</span></div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Inactive" class="toggle" onclick="toggleButton('toggle_navigator_Inactive', 'text_navigator_Inactive', 'input_navigator_Inactive')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Inativo</span>
+                                <input type="hidden" id="input_navigator_Inactive" name="toggle_navigator_Inactive" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Pill" class="toggle" onclick="toggleButton('toggle_navigator_Pill', 'text_navigator_Pill', 'input_navigator_Pill')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Pílula</span>
+                                <input type="hidden" id="input_navigator_Pill" name="toggle_navigator_Pill" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle_navigator_Session" class="toggle" onclick="toggleButton('toggle_navigator_Session', 'text_navigator_Session', 'input_navigator_Session')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Sessão</span>
+                                <input type="hidden" id="input_navigator_Session" name="toggle_navigator_Session" value="False">
+                            </div>
                         </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Inactive"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Pill"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="text_navigator_Session"><span>Não</span></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
-            <div class="box">
+            <div class="wisdom-box box">
                 <div class="box-title">
                     <span>alquimista</span>
                 </div>
@@ -105,45 +139,72 @@
                             Sobre o hábito de <strong>Abdicar</strong>
                         </span>
                     </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Ahimsa</span>
-                            <span id="wisdomAlchemistAhimsaOutput">Aguardando Input</span>
+                    <div class="flex-table">
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Ahimsa"><strong>Ahimsa</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AhimsaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Ahimsa" id="wisdom_range_Ahimsa" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Ahimsa, wisdom_range_AhimsaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAhimsa" name="wisdomAlchemistAhimsa" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAhimsa, wisdomAlchemistAhimsaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Satya</span>
-                            <span id="wisdomAlchemistSatyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Satya"><strong>Satya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_SatyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Satya" id="wisdom_range_Satya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Satya, wisdom_range_SatyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistSatya" name="wisdomAlchemistSatya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistSatya, wisdomAlchemistSatyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Asteya</span>
-                            <span id="wisdomAlchemistAsteyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Asteya"><strong>Asteya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AsteyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Asteya" id="wisdom_range_Asteya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Asteya, wisdom_range_AsteyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAsteya" name="wisdomAlchemistAsteya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAsteya, wisdomAlchemistAsteyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Brahmacharya</span>
-                            <span id="wisdomAlchemistBrahmacharyaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Brahmacharya"><strong>Brahmacharya</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_BrahmacharyaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Brahmacharya" id="wisdom_range_Brahmacharya" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Brahmacharya, wisdom_range_BrahmacharyaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistBrahmacharya" name="wisdomAlchemistBrahmacharya" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistBrahmacharya, wisdomAlchemistBrahmacharyaOutput)">
-                    </div>
-                    <div class="box-yama">
-                        <div class="span-container">
-                            <span>Aparigraha</span>
-                            <span id="wisdomAlchemistAparigrahaOutput">Aguardando Input</span>
+                        <div class="box-range">
+                            <div class="flex-row">
+                                <div class="flex-cell cell-50"><label for="wisdom_range_Aparigraha"><strong>Aparigraha</strong></label></div>
+                                <div class="flex-cell cell-50"><strong><output id="wisdom_range_AparigrahaOutput">Aguardando Input</output></strong></div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-cell cell-100">
+                                    <input type="range" name="wisdom_range_Aparigraha" id="wisdom_range_Aparigraha" min="0" max="16" value="16" required
+                                    oninput="updateOutput(wisdom_range_Aparigraha, wisdom_range_AparigrahaOutput)">
+                                </div>
+                            </div>
                         </div>
-                        <input type="range" id="wisdomAlchemistAparigraha" name="wisdomAlchemistAparigraha" min="0" max="16" value="16" oninput="updateOutput(wisdomAlchemistAparigraha, wisdomAlchemistAparigrahaOutput)">
                     </div>
                 </div>
             </div>
 
-            <div class="box">
+            <div class="wisdom-box box">
                 <div class="box-title">
                     <span>aprendiz</span>
                 </div>
@@ -169,14 +230,14 @@
                             <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="disheartenment"><span>Desânimo</span></div>
                             <div class="flex-cell cell-33"><input type="radio" name="wisdomApprenticeType" value="resentment"><span>Ressentimento</span></div>
                         </div>
-                        <div class="box-row">
+                        <div class="flex-row">
                             <div class="flex-cell cell-100"><textarea name="wisdomApprenticeText">Hoje senti </textarea></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="box">
+            <div class="wisdom-box box">
                 <div class="box-title">
                     <span>bússola da sabedoria</span>
                 </div>
@@ -201,9 +262,24 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="navigator"><span>Navegador</span></div>
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="alchimist"><span>Alquimista</span></div>
-                            <div class="flex-cell cell-33"><input type="checkbox" name="wisdomDiscontent" value="apprentice"><span>Aprendiz</span></div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Navigator" class="check" onclick="checkButton('id_compass_Navigator', 'input_coma_Navigator', 'False', 'True')">
+                                    <span>Navegador</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Navigator" name="check_compass_Navigator" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Alchimist" class="check" onclick="checkButton('id_compass_Alchimist', 'input_coma_Alchimist', 'False', 'True')">
+                                    <span>Alquimista</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Alchimist" name="check_compass_Alchimist" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="id_compass_Apprentice" class="check" onclick="checkButton('id_compass_Apprentice', 'input_coma_Apprentice', 'False', 'True')">
+                                    <span>Aprendiz</span>
+                                </div>
+                                <input type="hidden" id="input_coma_Apprentice" name="check_compass_Apprentice" value="False">
+                            </div>
                         </div>
                         <div class="flex-row">
                             <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
@@ -213,13 +289,12 @@
             </div>            
 
         </section>
-        
-        <br><hr><br>
-        
+                
         <section class="stability">
-            <h2>Estabilidade</h2>
+            
+            <div class="stability-section"><span>Estabilidade</span></div>
 
-            <div class="box">
+            <div class="stability-box box">
                 <div class="box-title">
                     <span>patrocinador</span>
                 </div>
@@ -236,30 +311,44 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-50"></div>
-                            <div class="flex-cell cell-25">Não</div>
-                            <div class="flex-cell cell-25">Sim</div>
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle1" class="toggle" onclick="toggleButton('toggle1', 'toggle-text1', 'hiddenInput1')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Ação</span>
+                                    <input type="hidden" id="hiddenInput1" name="toggle1" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle2" class="toggle" onclick="toggleButton('toggle2', 'toggle-text2', 'hiddenInput2')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Satisfação</span>
+                                    <input type="hidden" id="hiddenInput2" name="toggle2" value="False">
+                            </div>
+                            <div class="flex-cell cell-33">
+                                    <div id="toggle3" class="toggle" onclick="toggleButton('toggle3', 'toggle-text3', 'hiddenInput3')">
+                                        <div class="toggle-button"></div>
+                                    </div>
+                                    <span>Resultado</span>
+                                    <input type="hidden" id="hiddenInput3" name="toggle3" value="False">
+                            </div>
                         </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Dia Ativo</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorActive" value="True" required></div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Satisfação</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorSatisfaction" value="True" required></div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Resultado</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilitySponsorOutcome" value="True" required></div>
-                        </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text1"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text2"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-33">
+                                <div id="toggle-text3"><span>Não</span></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
-            <div class="box">
+            <div class="stability-box box">
                 <div class="box-title">
                     <span>mecenas</span>
                 </div>
@@ -276,25 +365,34 @@
                     </div>
                     <div class="flex-table">
                         <div class="flex-row">
-                            <div class="flex-cell cell-50"></div>
-                            <div class="flex-cell cell-25">Não</div>
-                            <div class="flex-cell cell-25">Sim</div>
+                            <div class="flex-cell cell-50">
+                                <div id="toggle_patron_Action" class="toggle" onclick="toggleButton('toggle_patron_Action', 'text_patron_Action', 'input_patron_Action')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Ação</span>
+                                <input type="hidden" id="input_patron_Action" name="toggle_patron_Action" value="False">
+                            </div>
+                            <div class="flex-cell cell-50">
+                                <div id="toggle_patron_Satisfaction" class="toggle" onclick="toggleButton('toggle_patron_Satisfaction', 'text_patron_Satisfaction', 'input_patron_Satisfaction')">
+                                    <div class="toggle-button"></div>
+                                </div>
+                                <span>Satisfação</span>
+                                <input type="hidden" id="input_patron_Satisfaction" name="toggle_patron_Satisfaction" value="False">
+                            </div>
                         </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Dia Ativo</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronActive" value="True" required></div>
-                        </div>
-                        <div class="flex-row">
-                            <div class="flex-cell cell-50">Satisfação</div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="False" required></div>
-                            <div class="flex-cell cell-25"><input type="radio" name="stabilityPatronSatisfaction" value="True" required></div>
-                        </div>
-                    </div>
+                        <!-- <div class="flex-row">
+                            <div class="flex-cell cell-50">
+                                <div id="text_patron_Action"><span>Não</span></div>
+                            </div>
+                            <div class="flex-cell cell-50">
+                                <div id="text_patron_Satisfaction"><span>Não</span></div>
+                            </div>
+                        </div> -->
+                    </div>   
                 </div>
             </div>
 
-            <div class="box">
+            <div class="stability-box box">
                 <div class="box-title">
                     <span>bússola da estabilidade</span>
                 </div>
@@ -324,36 +422,65 @@
                             <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="apprentice"><span>Tesoureiro</span></div>
                         </div>
                         <div class="flex-row">
-                            <div class="flex-cell cell-100"><input type="text" name="stabilityGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
+                            <div class="flex-cell cell-100"><input type="text" name="stabilityGrowthTextArea" placeholder="Amanhã posso ser estável se..."></div>
                         </div>
                     </div>
                 </div>
             </div>
 
         </section>
-        
-        <br><hr><br>
-        
+                
         <section class="strength">
-            <h2>Força</h2>
+            
+            <div class="strength-section"><span>Força</span></div>
 
-            <fieldset id="vanguard">
-                <legend class=centralized>Vanguarda</legend>
-            </fieldset>
+            <div class="strength-box box">
+                <div class="box-title">
+                    <span>vanguarda</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Vanguarda</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Exercitar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <br>
+            <div class="strength-box box">
+                <div class="box-title">
+                    <span>batedor</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>Batedor</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>Ativar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <fieldset id="scout">
-                <legend class=centralized>Batedor</legend>
-            </fieldset>
-
-            <br>
-
-            <fieldset id="cook">
-                <legend class=centralized>Cozinheiro</legend>
-            </fieldset>
-
-            <div class="box">
+            <div class="strength-box box">
                 <div class="box-title">
                     <span>cozinheiro</span>
                 </div>
@@ -443,95 +570,263 @@
                 </div>
             </div>
 
+            <div class="strength-box box">
+                <div class="box-title">
+                    <span>bússola da força</span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Hoje</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><input type="radio" name="strengthSatisfaction" value="False"><span>Insatisfeito</span></div>
+                            <div class="flex-cell cell-50"><input type="radio" name="strengthSatisfaction" value="True"><span>Satisfeito</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Amanhã</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="vanguard"><span>Vanguarda</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="scout"><span>Batedor</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="cook"><span>Cozinheiro</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><input type="text" name="strengthGrowthTextArea" placeholder="Amanhã posso ser forte se..."></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
         </section>
-        
-        <br><hr><br>
-        
+                
         <section id="kindness">
-            <h2>Gentileza</h2>
+            
+            <div class="kindness-section"><span>Gentileza</span></div>
 
-            <fieldset id="caretaker">
-                <legend class=centralized>Zelador</legend>
-            </fieldset>
+            <div class="kindness-box box">
+                <div class="box-title">
+                    <span>zelador</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>zelador</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>zelar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <br>
+            <div class="kindness-box box">
+                <div class="box-title">
+                    <span>diplomata</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>diplomata</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>interagir</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <fieldset id="diplomat">
-                <legend class=centralized>Diplomata</legend>
-            </fieldset>
+            <div class="kindness-box box">
+                <div class="box-title">
+                    <span>herói</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>herói</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>apoiar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <br>
-
-            <fieldset id="hero">
-                <legend class=centralized>Herói</legend>
-            </fieldset>
+            <div class="kindness-box box">
+                <div class="box-title">
+                    <span>bússola da gentileza</span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Hoje</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><input type="radio" name="kindnessSatisfaction" value="False"><span>Insatisfeito</span></div>
+                            <div class="flex-cell cell-50"><input type="radio" name="kindnessSatisfaction" value="True"><span>Satisfeito</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Amanhã</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="caretaker"><span>Zelador</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="diplomat"><span>Diplomata</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="hero"><span>Herói</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><input type="text" name="kindnessGrowthTextArea" placeholder="Amanhã posso ser gentil se..."></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
 
         </section>
-        
-        <br><hr><br>
-        
+                
         <section id="devotion">
-            <h2>Devoção</h2>
+            
+            <div class="devotion-section"><span>Devoção</span></div>
 
-            <fieldset id="ascetic">
-                <legend class=centralized>Asceta</legend>
-            </fieldset>
+            <div class="devotion-box box">
+                <div class="box-title">
+                    <span>asceta</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>asceta</strong> é aquele 
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>elevar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <br>
+            <div class="devotion-box box">
+                <div class="box-title">
+                    <span>líder</span>
+                </div>
+                <div class="box-role">
+                    <span>
+                        O <strong>líder</strong> é aquele
+                    </span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o hábito de <strong>liderar</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <fieldset id="leader">
-                <legend class=centralized>Líder</legend>
-            </fieldset>
+            <div class="devotion-box box">
+                <div class="box-title">
+                    <span>bússola da devoção</span>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Hoje</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-50"><input type="radio" name="devotionSatisfaction" value="False"><span>Insatisfeito</span></div>
+                            <div class="flex-cell cell-50"><input type="radio" name="devotionSatisfaction" value="True"><span>Satisfeito</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-input">
+                    <div class="box-habit">
+                        <span>
+                            Sobre o direcionamento de <strong>Amanhã</strong>
+                        </span>
+                    </div>
+                    <div class="flex-table">
+                        <div class="flex-row">
+                            <div class="flex-cell cell-33"><input type="checkbox" name="devotionDiscontent" value="ascetic"><span>Asceta</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="devotionDiscontent" value="sentinel"><span>Sentinela</span></div>
+                            <div class="flex-cell cell-33"><input type="checkbox" name="devotionDiscontent" value="leader"><span>Líder</span></div>
+                        </div>
+                        <div class="flex-row">
+                            <div class="flex-cell cell-100"><input type="text" name="devotionGrowthTextArea" placeholder="Amanhã posso ser gentil se..."></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
         </section>
         
-        <br><hr><br>
-
-        <section id="ending">
+        <section class="basic">
             <div class="buttonContainer">
-                <table style="width: 100%;" class=tableWithSpacing>
-                    <tr>
-                        <td class=centralized>
-                            <button type="button" class="returnButton" id="return" style="margin-right: 20px;" onclick="window.location.href='/'">
-                                <i class="fas fa-arrow-left"></i>
-                                Return
-                            </button>
-                        </td>
-                        <td class=centralized>
-                            <button class="resetButton" id="reset" style="margin-right: 20px;" type="reset">
-                                <i class="fas fa-undo"></i>
-                                Resetz
-                            </button>
-                        </td>
-                        <td class=centralized>
-                            <button class="submitButton" id="submit" type="submit" value="Submit">
-                                <i class="fas fa-paper-plane"></i>
-                                Submit
-                            </button>
-                        </td>
-                </table>
+                <button type="button" class="returnButton" id="return" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    Return
+                </button>
+                <button class="resetButton" id="reset" type="reset">
+                    <i class="fas fa-undo"></i>
+                    Reset
+                </button>
+                <button class="submitButton" id="submit" type="submit" value="Submit">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit
+                </button>
             </div>
         </section>
 
     </form>
 
     <script>
-
-        function updateOutput(inputElement, outputElement) {
-            var value = inputElement.value;
-            var classification = "";
-            
-            if (value == 0) {
-                classification = "Falha";
-            } else if (value >= 1 && value <= 13) {
-                classification = "Derrota";
-            } else if (value == 14 || value == 15) {
-                classification = "Vitória";
-            } else if (value == 16) {
-                classification = "Sucesso";
-            }
-            
-            outputElement.innerText = classification;
-        }
 
         var stabilitySponsorActive = document.getElementById('stabilitySponsorActive');
         var stabilitySponsorSatisfaction = document.getElementById('stabilitySponsorSatisfaction');
@@ -546,6 +841,7 @@
                 stabilitySponsorOutcome.required = false;
             }
         });
+
     </script>   
 
 {% endblock %}
