@@ -93,21 +93,25 @@ function checkButton(checkId, inputId, normalValue, checkedValue) {
 }
 
 // Function to toggle the button status
-function toggleButton(toggleId, textId, inputId) {
-    var element = document.getElementById(toggleId);
-    element.classList.toggle('toggle-true');
+function toggleButton(suffixId) {
+    var toggleId = `toggle_${suffixId}`;
+    var inputId = `input_${suffixId}`;
+    var labelId = `label_${suffixId}`;
 
-    var textElement = document.getElementById(textId);
-    var spanElement = textElement.querySelector('span');
+    var toggleElement = document.getElementById(toggleId);
+    var labelElement = document.getElementById(labelId);
     var inputElement = document.getElementById(inputId);
-    if (spanElement.innerText === 'Não') {
-        spanElement.innerText = 'Sim';
-        inputElement.value = 'True';
-    } else {
-        spanElement.innerText = 'Não';
+
+    toggleElement.classList.toggle('toggle-true');    
+    labelElement.classList.toggle('toggle-true');
+    
+    if (inputElement.value === 'True') {
         inputElement.value = 'False';
+    } else {
+        inputElement.value = 'True';
     }
 }
+
 // Function to update the output value
 function updateOutput(inputElement, outputElement) {
     var value = inputElement.value;
@@ -122,7 +126,6 @@ function updateOutput(inputElement, outputElement) {
     } else if (value == 16) {
         classification = "Sucesso";
     }
-    
     outputElement.innerText = classification;
 }
 
@@ -130,8 +133,6 @@ let selectedOption = null;
 
 // Function to select an alternative option
 function selectAlternative(id, inputId, value) {
-    // let selectedOption = null;
-
     if (selectedOption !== null) {
         document.getElementById(`option${selectedOption}`).classList.remove('selected');
     }
