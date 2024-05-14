@@ -7,23 +7,22 @@
     <div class="box-input">
         <div class="flex-table">
             <div class="flex-row">
-                <div id="content"></div>
-                <div class="flex-cell cell-50"><label for="inputDate">Data do Registro</label></div>
-                <div class="flex-cell cell-50"><input type="date" name="inputDate" required></div>
+                <div class="flex-cell cell-50"><label for="date_opening_NightDate">Data do Registro</label></div>
+                <div class="flex-cell cell-50"><input type="date" name="date_opening_NightDate" required></div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-50"><label for="inputDate">Horário de Preenchimento</label></div>
-                <div class="flex-cell cell-50"><input type="time" name="inputTime" required></div>
+                <div class="flex-cell cell-50"><label for="time_opening_NightTime">Horário de Preenchimento</label></div>
+                <div class="flex-cell cell-50"><input type="time" name="time_opening_NightTime" required></div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-50"><label for="nightHumor">Humor da Noite</label></div>
-                <div class="flex-cell cell-25">
-                    <input type="radio" name="nightHumor" value="sol" required>
-                    <i class="fa-solid fa-sun"></i>
-                </div>
-                <div class="flex-cell cell-25">
-                    <input type="radio" name="nightHumor" value="lua" required>
-                    <i class="fa-regular fa-moon"></i>
+                <div class="flex-cell cell-50"><label for="toggle_opening_NightHumor">Humor da Noite</label></div>
+                <div class="flex-cell cell-50">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_opening_NightHumor" class="toggle" onclick="toggleButton('opening_NightHumor')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_opening_NightHumor" name="toggle_opening_NightHumor" value="False">
                 </div>
             </div>
             <div class="flex-cell cell-100">
