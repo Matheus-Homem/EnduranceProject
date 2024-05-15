@@ -133,6 +133,7 @@ let selectedOption = null;
 
 // Function to select an alternative option
 function selectAlternative(id, inputId, value) {
+    
     if (selectedOption !== null) {
         document.getElementById(`option${selectedOption}`).classList.remove('selected');
     }
@@ -141,4 +142,25 @@ function selectAlternative(id, inputId, value) {
     document.getElementById(`option${id}`).classList.add('selected');
 
     document.getElementById(inputId).value = value;
+}
+
+// Function to toggle the check status
+function toggleCheck(divId, inputId, valueId) {
+    var checkElement = document.getElementById(divId);
+    var inputElement = document.getElementById(inputId);
+    checkElement.classList.toggle('check-true');
+
+    // if checkElement has 'check-true' class, add the divId to the input value has a list
+    if (checkElement.classList.contains('check-true')) {
+        inputElement.value += valueId + ',';
+    } else {
+        // if checkElement does not have 'check-true' class, remove the divId from the input value
+        var values = inputElement.value.split(',');
+        var index = values.indexOf(valueId);
+        if (index > -1) {
+            values.splice(index, 1);
+        }
+        inputElement.value = values.join(',');
+    }
+
 }
