@@ -18,41 +18,22 @@
                 <!-- TODO: criar funcao para caso haja ato o Livro ser obrigatorio -->
                 <div class="flex-cell cell-50"><input type="text" name="wisdomNavigatorBook" placeholder="Livro" ></div>
                 <div class="flex-cell cell-25">
-                    <div id="id_navigator_Sun" class="check" onclick="checkButton('id_navigator_Sun', 'input_navigator_Sun', 'moon', 'sun')">
-                        <i class="fa-solid fa-sun"></i>
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_navigator_Sun" class="toggle" onclick="toggleButton('navigator_Sun')">
+                        <div class="toggle-button"></div>
                     </div>
-                    <input type="hidden" id="input_navigator_Sun" name="check_navigator_Sun" value="moon">
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_navigator_Sun" name="toggle_navigator_Sun" value="False">
                 </div>
                 <div class="flex-cell cell-25">
-                    <div id="id_navigator_Notes" class="check" onclick="checkButton('id_navigator_Notes', 'input_navigator_Notes', 'False', 'True')">
-                        <i class="fa-solid fa-sticky-note"></i>
+                    <span><i class="fa-solid fa-power-off"></i></span>
+                    <div id="toggle_navigator_Notes" class="toggle" onclick="toggleButton('navigator_Notes')">
+                        <div class="toggle-button"></div>
                     </div>
-                    <input type="hidden" id="input_navigator_Notes" name="check_navigator_Notes" value="False">
+                    <span><i class="fa-solid fa-sticky-note"></i></span>                    
+                    <input type="hidden" id="input_navigator_Notes" name="toggle_navigator_Notes" value="False">
                 </div>
             </div>
-            <!-- <div class="flex-row">
-                <div class="flex-cell cell-33">
-                    <div id="toggle_navigator_Inactive" class="toggle" onclick="toggleButton('toggle_navigator_Inactive', 'text_navigator_Inactive', 'input_navigator_Inactive')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span>Inativo</span>
-                    <input type="hidden" id="input_navigator_Inactive" name="toggle_navigator_Inactive" value="False">
-                </div>
-                <div class="flex-cell cell-33">
-                    <div id="toggle_navigator_Pill" class="toggle" onclick="toggleButton('toggle_navigator_Pill', 'text_navigator_Pill', 'input_navigator_Pill')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span>Pílula</span>
-                    <input type="hidden" id="input_navigator_Pill" name="toggle_navigator_Pill" value="False">
-                </div>
-                <div class="flex-cell cell-33">
-                    <div id="toggle_navigator_Session" class="toggle" onclick="toggleButton('toggle_navigator_Session', 'text_navigator_Session', 'input_navigator_Session')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span>Sessão</span>
-                    <input type="hidden" id="input_navigator_Session" name="toggle_navigator_Session" value="False">
-                </div>
-            </div> -->
             <div class="flex-row">
                 <div class="flex-cell cell-33">
                     <div class="alternative" id="option1" onclick="selectAlternative(1, 'radio_navigator_Reading', 'inactive')">
@@ -74,17 +55,6 @@
                 </div>
             </div>
             <input type="hidden" id="radio_navigator_Reading" name="radio_navigator_Reading" required>
-            <!-- <div class="flex-row">
-                <div class="flex-cell cell-33">
-                    <div id="text_navigator_Inactive"><span>Não</span></div>
-                </div>
-                <div class="flex-cell cell-33">
-                    <div id="text_navigator_Pill"><span>Não</span></div>
-                </div>
-                <div class="flex-cell cell-33">
-                    <div id="text_navigator_Session"><span>Não</span></div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

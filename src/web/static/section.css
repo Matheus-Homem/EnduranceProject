@@ -19,6 +19,7 @@ section .box:first-child {
 
 .basic {
     --section-color: orange;
+    --section-color-dark: darkorange;
 }
 
 .wisdom {

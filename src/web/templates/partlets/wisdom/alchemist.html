@@ -14,64 +14,69 @@
             </span>
         </div>
         <div class="flex-table">
-            <div class="box-range">
-                <div class="flex-row">
-                    <div class="flex-cell cell-50"><label for="wisdom_range_Ahimsa"><strong>Ahimsa</strong></label></div>
-                    <div class="flex-cell cell-50"><strong><output id="wisdom_range_AhimsaOutput">Aguardando Input</output></strong></div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <div id="label_alchemist_Ahimsa" class="toggle-label"><span>Ahimsa</span></div>
                 </div>
-                <div class="flex-row">
-                    <div class="flex-cell cell-100">
-                        <input type="range" name="wisdom_range_Ahimsa" id="wisdom_range_Ahimsa" min="0" max="16" value="16" required
-                        oninput="updateOutput(wisdom_range_Ahimsa, wisdom_range_AhimsaOutput)">
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_alchemist_Ahimsa" class="toggle" onclick="toggleButton('alchemist_Ahimsa')">
+                        <div class="toggle-button"></div>
                     </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_alchemist_Ahimsa" name="toggle_alchemist_Ahimsa" value="False">
                 </div>
             </div>
-            <div class="box-range">
-                <div class="flex-row">
-                    <div class="flex-cell cell-50"><label for="wisdom_range_Satya"><strong>Satya</strong></label></div>
-                    <div class="flex-cell cell-50"><strong><output id="wisdom_range_SatyaOutput">Aguardando Input</output></strong></div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <div id="label_alchemist_Satya" class="toggle-label"><span>Satya</span></div>
                 </div>
-                <div class="flex-row">
-                    <div class="flex-cell cell-100">
-                        <input type="range" name="wisdom_range_Satya" id="wisdom_range_Satya" min="0" max="16" value="16" required
-                        oninput="updateOutput(wisdom_range_Satya, wisdom_range_SatyaOutput)">
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_alchemist_Satya" class="toggle" onclick="toggleButton('alchemist_Satya')">
+                        <div class="toggle-button"></div>
                     </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_alchemist_Satya" name="toggle_alchemist_Satya" value="False">
                 </div>
             </div>
-            <div class="box-range">
-                <div class="flex-row">
-                    <div class="flex-cell cell-50"><label for="wisdom_range_Asteya"><strong>Asteya</strong></label></div>
-                    <div class="flex-cell cell-50"><strong><output id="wisdom_range_AsteyaOutput">Aguardando Input</output></strong></div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <div id="label_alchemist_Asteya" class="toggle-label"><span>Asteya</span></div>
                 </div>
-                <div class="flex-row">
-                    <div class="flex-cell cell-100">
-                        <input type="range" name="wisdom_range_Asteya" id="wisdom_range_Asteya" min="0" max="16" value="16" required
-                        oninput="updateOutput(wisdom_range_Asteya, wisdom_range_AsteyaOutput)">
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_alchemist_Asteya" class="toggle" onclick="toggleButton('alchemist_Asteya')">
+                        <div class="toggle-button"></div>
                     </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_alchemist_Asteya" name="toggle_alchemist_Asteya" value="False">
                 </div>
             </div>
-            <div class="box-range">
-                <div class="flex-row">
-                    <div class="flex-cell cell-50"><label for="wisdom_range_Brahmacharya"><strong>Brahmacharya</strong></label></div>
-                    <div class="flex-cell cell-50"><strong><output id="wisdom_range_BrahmacharyaOutput">Aguardando Input</output></strong></div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <div id="label_alchemist_Brahmacharya" class="toggle-label"><span>Brahmacharya</span></div>
                 </div>
-                <div class="flex-row">
-                    <div class="flex-cell cell-100">
-                        <input type="range" name="wisdom_range_Brahmacharya" id="wisdom_range_Brahmacharya" min="0" max="16" value="16" required
-                        oninput="updateOutput(wisdom_range_Brahmacharya, wisdom_range_BrahmacharyaOutput)">
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_alchemist_Brahmacharya" class="toggle" onclick="toggleButton('alchemist_Brahmacharya')">
+                        <div class="toggle-button"></div>
                     </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_alchemist_Brahmacharya" name="toggle_alchemist_Brahmacharya" value="False">
                 </div>
             </div>
-            <div class="box-range">
-                <div class="flex-row">
-                    <div class="flex-cell cell-50"><label for="wisdom_range_Aparigraha"><strong>Aparigraha</strong></label></div>
-                    <div class="flex-cell cell-50"><strong><output id="wisdom_range_AparigrahaOutput">Aguardando Input</output></strong></div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <div id="label_alchemist_Aparigraha" class="toggle-label"><span>Aparigraha</span></div>
                 </div>
-                <div class="flex-row">
-                    <div class="flex-cell cell-100">
-                        <input type="range" name="wisdom_range_Aparigraha" id="wisdom_range_Aparigraha" min="0" max="16" value="16" required
-                        oninput="updateOutput(wisdom_range_Aparigraha, wisdom_range_AparigrahaOutput)">
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_alchemist_Aparigraha" class="toggle" onclick="toggleButton('alchemist_Aparigraha')">
+                        <div class="toggle-button"></div>
                     </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_alchemist_Aparigraha" name="toggle_alchemist_Aparigraha" value="False">
                 </div>
             </div>
         </div>
