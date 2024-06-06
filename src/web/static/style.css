@@ -1,9 +1,9 @@
-@import url('colors.css');
-@import url('fonts.css');
-@import url('section.css');
-@import url('box.css');
-@import url('inner-boxes.css');
-@import url('flex-table.css');
+@import url('core/colors.css');
+@import url('core/fonts.css');
+@import url('core/section.css');
+@import url('core/box.css');
+@import url('core/inner-boxes.css');
+@import url('core/flex-table.css');
 @import url('input/custom/alternative.css');
 @import url('input/custom/button.css');
 @import url('input/custom/check.css');
