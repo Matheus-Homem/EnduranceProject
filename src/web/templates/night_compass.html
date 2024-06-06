@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <form action="/form/night/" method="POST">
+    <form action="/form/night/" id="reading-form" method="POST" onsubmit="handleSubmit(event, this)">
 
         <section class="basic">
             {% include "partlets/header_night.html" %}
