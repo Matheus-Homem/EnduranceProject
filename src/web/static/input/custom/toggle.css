@@ -1,0 +1,49 @@
+.toggle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 25px;
+    background: #000;   
+    border-radius: 30px;
+    transition: background 0.5s;
+    cursor: pointer;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.toggle.toggle-true {
+    background: var(--section-color);
+}
+
+.toggle:hover, .toggle:focus {
+    background: var(--section-color-dark);
+}
+
+.toggle-button {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+}
+
+.toggle-button:hover, .toggle-button:focus {
+    background: #ddd;
+}
+
+.toggle.toggle-true .toggle-button {
+    left: 29px;
+}
+
+.toggle-label {
+    transition: 0.5s;
+}
+
+.toggle-label.toggle-true {
+    font-weight: bold;
+    color: var(--section-color);
+}

@@ -1,0 +1,64 @@
+<div class="wisdom-box box">
+    <div class="box-title">
+        <span>bússola da sabedoria</span>
+    </div>
+    <div class="box-input">
+        <div class="box-habit">
+            <span>
+                Sobre o direcionamento de <strong>Hoje</strong>
+            </span>
+        </div>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-33">
+                    <div class="alternative" id="option1" onclick="selectAlternative(1, 'radio_wisdomCompass_satisfaction', 'disappointed')">
+                        <div class="dot"></div>
+                        <span>Insatisfeito</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="alternative" id="option2" onclick="selectAlternative(2, 'radio_wisdomCompass_satisfaction', 'satisfied')">
+                        <div class="dot"></div>
+                        <span>Satisfeito</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="flex-row">
+                <div class="flex-cell cell-50"><input type="radio" name="wisdomSatisfaction" value="False"><span>Insatisfeito</span></div>
+                <div class="flex-cell cell-50"><input type="radio" name="wisdomSatisfaction" value="True"><span>Satisfeito</span></div>
+            </div> -->
+        </div>
+    </div>
+    <div class="box-input">
+        <div class="box-habit">
+            <span>
+                Sobre o direcionamento de <strong>Amanhã</strong>
+            </span>
+        </div>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_Navigator" class="check" onclick="checkButton('id_compass_Navigator', 'input_coma_Navigator', 'False', 'True')">
+                        <span>Navegador</span>
+                    </div>
+                    <input type="hidden" id="input_coma_Navigator" name="check_compass_Navigator" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_Alchimist" class="check" onclick="checkButton('id_compass_Alchimist', 'input_coma_Alchimist', 'False', 'True')">
+                        <span>Alquimista</span>
+                    </div>
+                    <input type="hidden" id="input_coma_Alchimist" name="check_compass_Alchimist" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_Apprentice" class="check" onclick="checkButton('id_compass_Apprentice', 'input_coma_Apprentice', 'False', 'True')">
+                        <span>Aprendiz</span>
+                    </div>
+                    <input type="hidden" id="input_coma_Apprentice" name="check_compass_Apprentice" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser sábio se..."></div>
+            </div>
+        </div>
+    </div>
+</div> 

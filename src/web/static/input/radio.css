@@ -1,0 +1,20 @@
+input[type="radio"], input[type="checkbox"] {
+    width: 17.5px;
+    height: 17.5px;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="radio"]:checked, input[type="checkbox"]:checked {
+    background-color: #ccc;
+}
+
+input[type="radio"]:hover input, input[type="checkbox"]:hover input {
+    border-color: var(--section-color);
+}
+
+input[type="radio"]:focus input, input[type="checkbox"]:focus input {
+    border-color: var(--section-color);
+}

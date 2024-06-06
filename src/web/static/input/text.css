@@ -1,0 +1,15 @@
+input[type="text"] {
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+input[type="text"]:hover {
+    border-color: var(--section-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+input[type="text"]:focus {
+    border-color: var(--section-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
