@@ -19,6 +19,10 @@ reportlab==4.0.8
 pytest==8.1.1
 coverage==7.4.4
 
+# Formatting
+isort==5.13.2
+black==24.4.2
+
 # Other Dependencies
 python-dotenv==1.0.1
 PyYAML==6.0.1
