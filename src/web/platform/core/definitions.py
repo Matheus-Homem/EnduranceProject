@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, asdict, field
 from typing import List, Dict, Optional, Union, Callable
 from src.web.platform.core.types import FormattingType, InputType
 
@@ -27,6 +27,9 @@ class ModuleDefinition:
     habit_description: str
     inputs: Union[InputCluster, List[InputDefinition]]
     outputs: Optional[Callable] = None
+
+    def asdict(self):
+        return asdict(self)
 
 @dataclass
 class SegmentDefinition:
