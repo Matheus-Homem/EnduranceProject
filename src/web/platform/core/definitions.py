@@ -1,37 +1,17 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Union
-
-class InputType:
-    TEXT = "text"
-    DATE = "date"
-    RANGE = "range"
-    NUMBER = "number"
-    TOGGLE = "toggle"
-    MULTI = "multi-choice"
-    SINGLE = "single-choice"
-    TEXTA_AREA = "text-area"
-    DATETIME = "datetime-local"
-
-class FormattingType:
-    RAW = "raw"
-    TIME = "time"
-    WEIGHT = "weight"
-    CALORIES = "calories"
-    MONETARY = "monetary"
-    PERCENTAGE = "percentage"
-
-class CalculationFunctions:
-    SLEEP_TIME_DIFFERENCE = "calculateSleepTimeDifference"
+from typing import List, Dict, Optional, Union, Callable
+from src.web.platform.core.types import FormattingType, InputType
 
 @dataclass
 class InputDefinition:
-    name: str
+    private_name: str
     type: InputType
     placeholder: Optional[str] = None
     options: Optional[List[Dict]] = None
     min_length: Optional[int] = None
     max_length: Optional[int] = None
     label: Optional[str] = None
+    public_name: Optional[str] = None
     output_formatting: Optional[FormattingType] = None
 
 @dataclass
@@ -46,7 +26,7 @@ class ModuleDefinition:
     role: str
     habit_description: str
     inputs: Union[InputCluster, List[InputDefinition]]
-    outputs: Optional[List[CalculationFunctions]] = None
+    outputs: Optional[Callable] = None
 
 @dataclass
 class SegmentDefinition:
