@@ -1,9 +1,8 @@
+from src.web.platform.core.types import FormattingType, InputType
+from src.web.platform.core.functions import datetime_difference
 from src.web.platform.core.definitions import (
-    CalculationFunctions,
-    FormattingType,
     InputCluster,
     InputDefinition,
-    InputType,
     ModuleDefinition,
     SegmentDefinition,
 )
@@ -17,10 +16,10 @@ navigator_module = ModuleDefinition(
         is_recursive=True,
         inputs_list=[
             InputDefinition(
-                name="book", type=InputType.TEXT, placeholder="Nome do Livro"
+                private_name="book", type=InputType.TEXT, placeholder="Nome do Livro"
             ),
             InputDefinition(
-                name="mode",
+                private_name="mode",
                 type=InputType.SINGLE,
                 options=[
                     {"pill": "fa-solid fa-pills"},
@@ -28,7 +27,7 @@ navigator_module = ModuleDefinition(
                 ],
             ),
             InputDefinition(
-                name="notes",
+                private_name="notes",
                 type=InputType.TOGGLE,
                 options=[
                     {False: "fa-solid fa-power-off"},
@@ -39,7 +38,6 @@ navigator_module = ModuleDefinition(
     ),
 )
 
-
 alchemist_module = ModuleDefinition(
     public_name="Alquimista",
     private_name="alchemist",
@@ -47,7 +45,7 @@ alchemist_module = ModuleDefinition(
     habit_description="Sobre o hábito de Mudar",
     inputs=[
         InputDefinition(
-            name="emotion",
+            private_name="emotion",
             type=InputType.MULTI,
             options=[
                 {"Raiva", "anger"},
@@ -59,7 +57,7 @@ alchemist_module = ModuleDefinition(
             ],
         ),
         InputDefinition(
-            name="feeling",
+            private_name="feeling",
             type=InputType.TEXTA_AREA,
             placeholder="Hoje senti [] na situação []\nE graças a isso, []",
         ),
@@ -73,7 +71,7 @@ sentinel_module = ModuleDefinition(
     habit_description="Sobre o hábito de Dormir",
     inputs=[
         InputDefinition(
-            name="screen_time",
+            private_name="screen_time",
             label="Tempo de Tela",
             type=InputType.NUMBER,
             min_length=3,
@@ -81,14 +79,15 @@ sentinel_module = ModuleDefinition(
             output_formatting=FormattingType.TIME,
         ),
         InputDefinition(
-            name="bed_time", label="Início do Sono", type=InputType.DATETIME
+            private_name="bed_time", label="Início do Sono", type=InputType.DATETIME
         ),
         InputDefinition(
-            name="wakeup_time", label="Fim do Sono", type=InputType.DATETIME
+            private_name="wakeup_time", label="Fim do Sono", type=InputType.DATETIME
         ),
     ],
-    outputs=CalculationFunctions.SLEEP_TIME_DIFFERENCE,
+    outputs=datetime_difference(),
 )
+
 
 wisdom_segment = SegmentDefinition(
     public_name="Sabedoria",
