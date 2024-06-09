@@ -1,13 +1,10 @@
 from src.web.platform.core.types import FormattingType, InputType
-from src.web.platform.core.functions import datetime_difference
 from src.web.platform.core.definitions import (
-    InputCluster,
     InputDefinition,
-    ModuleDefinition,
-    SegmentDefinition,
+    PersonaDefinition,
 )
 
-sponsor_module = ModuleDefinition(
+sponsor_persona = PersonaDefinition(
     public_name="Patrocinador",
     private_name="sponsor",
     role="O Patrocinador é aquele que busca ser útil para a sociedade, trazendo Estabilidade para a Expedição",
@@ -31,7 +28,7 @@ sponsor_module = ModuleDefinition(
     ],
 )
 
-patron_module = ModuleDefinition(
+patron_persona = PersonaDefinition(
     public_name="Mecenas",
     private_name="patron",
     role="O Mecenas é aquele que se dedica à algo que traga mais Estabilidade para a Expedição",
@@ -52,3 +49,38 @@ patron_module = ModuleDefinition(
         ),
     ],
 )
+
+treasurer_persona = PersonaDefinition(
+    public_name="Tesoureiro",
+    private_name="treasurer",
+    role="O Tesoureiro é aquele que zela pelos recursos da Expedição, aumentando a Estabilidade",
+    habit_description="Sobre o hábito de Contabilizar",
+    inputs=[
+        InputDefinition(
+            private_name="credit",
+            label="Crédito",
+            type=InputType.NUMBER,
+            min_length=3,
+            output_formatting=FormattingType.MONETARY,
+        ),
+        InputDefinition(
+            private_name="debit",
+            label="Débito",
+            type=InputType.NUMBER,
+            min_length=3,
+            output_formatting=FormattingType.MONETARY,
+        ),
+        InputDefinition(
+            private_name="benefit",
+            label="Benefício",
+            type=InputType.NUMBER,
+            min_length=3,
+            output_formatting=FormattingType.MONETARY,
+        ),
+    ]
+)
+
+class StabilityPersonas:
+    SPONSOR = sponsor_persona
+    PATRON = patron_persona
+    TREASURER = treasurer_persona

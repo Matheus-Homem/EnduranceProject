@@ -1,13 +1,11 @@
-from src.web.platform.core.types import FormattingType, InputType
-from src.web.platform.core.functions import datetime_difference
 from src.web.platform.core.definitions import (
     InputCluster,
     InputDefinition,
-    ModuleDefinition,
-    SegmentDefinition,
+    PersonaDefinition,
 )
+from src.web.platform.core.types import FormattingType, Icon, InputType
 
-navigator_module = ModuleDefinition(
+navigator_persona = PersonaDefinition(
     public_name="Navegador",
     private_name="navigator",
     role="O Navegador é aquele que busca experiência de outras vidas para trazer a Sabedoria à Expedição",
@@ -22,23 +20,23 @@ navigator_module = ModuleDefinition(
                 private_name="mode",
                 type=InputType.SINGLE,
                 options=[
-                    {"pill": "fa-solid fa-pills"},
-                    {"session": "fa-regular fa-calendar-check"},
+                    {"pill": Icon.PILLS},
+                    {"session": Icon.CALENDAR_CHECK},
                 ],
             ),
             InputDefinition(
                 private_name="notes",
                 type=InputType.TOGGLE,
                 options=[
-                    {False: "fa-solid fa-power-off"},
-                    {True: "fa-solid fa-notes"},
+                    {False: Icon.POWER_OFF},
+                    {True: Icon.NOTES},
                 ],
             ),
         ],
     ),
 )
 
-alchemist_module = ModuleDefinition(
+alchemist_persona = PersonaDefinition(
     public_name="Alquimista",
     private_name="alchemist",
     role="O Alquimista é aquele que transforma as inpurezas adquiridas durante a Expedição em Sabedoria",
@@ -64,7 +62,7 @@ alchemist_module = ModuleDefinition(
     ],
 )
 
-sentinel_module = ModuleDefinition(
+sentinel_persona = PersonaDefinition(
     public_name="Sentinela",
     private_name="sentinel",
     role="O Sentinela é aquele que através do descanso é capaz de proteger a Sabedoria durante toda a Expedição",
@@ -85,17 +83,9 @@ sentinel_module = ModuleDefinition(
             private_name="wakeup_time", label="Fim do Sono", type=InputType.DATETIME
         ),
     ],
-    outputs=datetime_difference(),
 )
 
-
-wisdom_segment = SegmentDefinition(
-    public_name="Sabedoria",
-    private_name="wisdom",
-    description="A Sabedoria é...",
-    modules=[
-        navigator_module,
-        alchemist_module,
-        sentinel_module,
-    ],
-)
+class WisdomPersonas:
+    NAVIGATOR = navigator_persona
+    ALCHEMIST = alchemist_persona
+    SENTINEL = sentinel_persona
