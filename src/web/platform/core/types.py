@@ -9,6 +9,7 @@ class InputType:
     TEXTA_AREA = "text-area"
     DATETIME = "datetime-local"
 
+
 class FormattingType:
     RAW = "raw"
     TIME = "time"
@@ -16,3 +17,10 @@ class FormattingType:
     CALORIES = "calories"
     MONETARY = "monetary"
     PERCENTAGE = "percentage"
+
+
+class Icon:
+    PILLS = "fa-solid fa-pills"
+    NOTES = "fa-solid fa-notes"
+    POWER_OFF = "fa-solid fa-power-off"
+    CALENDAR_CHECK = "fa-regular fa-calendar-check"
