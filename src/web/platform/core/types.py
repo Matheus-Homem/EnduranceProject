@@ -14,6 +14,7 @@ class FormattingType:
     RAW = "raw"
     TIME = "time"
     WEIGHT = "weight"
+    DISTANCE = "distance"
     CALORIES = "calories"
     MONETARY = "monetary"
     PERCENTAGE = "percentage"
@@ -22,5 +23,6 @@ class FormattingType:
 class Icon:
     PILLS = "fa-solid fa-pills"
     NOTES = "fa-solid fa-notes"
+    EXCELENCE = "fa-solid fa-star"
     POWER_OFF = "fa-solid fa-power-off"
     CALENDAR_CHECK = "fa-regular fa-calendar-check"
