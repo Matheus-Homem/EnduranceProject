@@ -17,20 +17,9 @@ navigator_persona = PersonaDefinition(
                 private_name="book", type=InputType.TEXT, placeholder="Nome do Livro"
             ),
             InputDefinition(
-                private_name="mode",
-                type=InputType.SINGLE,
-                options=[
-                    {"pill": Icon.PILLS},
-                    {"session": Icon.CALENDAR_CHECK},
-                ],
-            ),
-            InputDefinition(
                 private_name="notes",
                 type=InputType.TOGGLE,
-                options=[
-                    {False: Icon.POWER_OFF},
-                    {True: Icon.NOTES},
-                ],
+                options={"False": Icon.POWER_OFF, "True": Icon.NOTES},
             ),
         ],
     ),
@@ -45,14 +34,14 @@ alchemist_persona = PersonaDefinition(
         InputDefinition(
             private_name="emotion",
             type=InputType.MULTI,
-            options=[
-                {"Raiva", "anger"},
-                {"Frustação", "frustration"},
-                {"Anedonia", "anhedonia"},
-                {"Tristeza", "sadness"},
-                {"Medo", "fear"},
-                {"Ressentimento", "resentment"},
-            ],
+            options={
+                "anger": "Raiva",
+                "frustration": "Frustação",
+                "anhedonia": "Anedonia",
+                "sadness": "Tristeza",
+                "fear": "Medo",
+                "resentment": "Ressentimento",
+            },
         ),
         InputDefinition(
             private_name="feeling",
@@ -84,6 +73,7 @@ sentinel_persona = PersonaDefinition(
         ),
     ],
 )
+
 
 class WisdomPersonas:
     NAVIGATOR = navigator_persona
