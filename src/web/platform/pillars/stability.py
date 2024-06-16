@@ -37,10 +37,7 @@ patron_persona = PersonaDefinition(
         InputDefinition(
             private_name="subject",
             type=InputType.MULTI,
-            options=[
-                {"Ofício", "profession"},
-                {"Neurociências", "neurocience"},
-            ],
+            options={"profession": "Ofício", "neurocience": "Neurociências"},
         ),
         InputDefinition(
             private_name="other_subject",
@@ -77,8 +74,9 @@ treasurer_persona = PersonaDefinition(
             min_length=3,
             output_formatting=FormattingType.MONETARY,
         ),
-    ]
+    ],
 )
+
 
 class StabilityPersonas:
     SPONSOR = sponsor_persona
