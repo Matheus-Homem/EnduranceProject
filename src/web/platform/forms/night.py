@@ -46,5 +46,5 @@ night_form = FormDefinition(
                 KindnessPersonas.CITIZEN,
             ],
         ),
-    ]
+    ],
 )
