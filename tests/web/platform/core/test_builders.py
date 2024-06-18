@@ -9,16 +9,17 @@ from src.web.platform.core.definitions import (
 from src.web.platform.core.enums import InputType
 from src.web.platform.core.builders import InputBuilder, PersonaBuilder, PillarBuilder
 
+
 class TestInputBuilder:
 
     def test_text_input_builder(self):
-        
+
         input_builder = InputBuilder()
 
         text_input_definition = InputDefinition(
             private_name="text_input_test",
             type=InputType.TEXT,
-            )
+        )
 
         input_builder.get_definition(definition=text_input_definition)
 
@@ -34,55 +35,55 @@ class TestInputBuilder:
 #         self.text_input = InputDefinition(
 #             private_name="text_input_test",
 #             type=InputType.TEXT,
-            
+
 #             )
 
 #         self.date_input = InputDefinition(
 #             private_name="date_input_test",
 #             type=InputType.DATE,
-            
+
 #             )
 
 #         self.range_input = InputDefinition(
 #             private_name="range_input_test",
 #             type=InputType.RANGE,
-            
+
 #             )
 
 #         self.number_input = InputDefinition(
 #             private_name="number_input_test",
 #             type=InputType.NUMBER,
-            
+
 #             )
 
 #         self.toggle_input = InputDefinition(
 #             private_name="toggle_input_test",
 #             type=InputType.TOGGLE,
-            
+
 #             )
 
 #         self.multiple_alternative_input = InputDefinition(
 #             private_name="multiple_alternative_input_test",
 #             type=InputType.MULTI,
-            
+
 #             )
 
 #         self.single_alternative_input = InputDefinition(
 #             private_name="single_alternative_input_test",
 #             type=InputType.SINGLE,
-            
+
 #             )
 
 #         self.text_area_input = InputDefinition(
 #             private_name="text_area_input_test",
 #             type=InputType.TEXTA_AREA,
-            
+
 #             )
 
 #         self.datetime_input = InputDefinition(
 #             private_name="datetime_input_test",
 #             type=InputType.DATETIME,
-            
+
 #             )
 
 
