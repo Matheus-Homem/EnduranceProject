@@ -32,5 +32,5 @@ morning_form = FormDefinition(
                 StrengthPersonas.MORNING_COOK,
             ],
         ),
-    ]
+    ],
 )
