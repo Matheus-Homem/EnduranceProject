@@ -4,8 +4,8 @@ class InputType:
     RANGE = "range"
     NUMBER = "number"
     TOGGLE = "toggle"
-    MULTI = "multi-choice"
-    SINGLE = "single-choice"
+    MULTI = "multiple-alternative"
+    SINGLE = "single-alternative"
     TEXTA_AREA = "text-area"
     DATETIME = "datetime-local"
 
