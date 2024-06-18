@@ -7,6 +7,7 @@ from src.web.platform.core.builders import *
 
 # TODO: fazer a personalist gerar os objetos de Input e fazer com que cada objeto de input possa construir seu proprio HTML
 
+
 @dataclass
 class InputDefinition:
     """
@@ -49,7 +50,7 @@ class InputDefinition:
         - dict: The InputDefinition object as a dictionary.
         """
         return asdict(self)
-    
+
     def get_pillar(self, pillar_name):
         self.pillar = pillar_name
 
@@ -85,7 +86,7 @@ class PersonaDefinition:
 
     def asdict(self):
         return asdict(self)
-    
+
     def get_pillar(self, pillar_name):
         self.pillar = pillar_name
 
