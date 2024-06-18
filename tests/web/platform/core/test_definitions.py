@@ -155,6 +155,9 @@ class TestPersonaDefinition(TestDefinition):
             for input in self.test_persona2.inputs_list
         )
 
+    def test_persona_definition_map_input_definitions(self):
+        print(self.test_persona1.map_input_definitions())
+
 
 class TestPillarDefinition(TestDefinition):
 
