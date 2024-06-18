@@ -1,8 +1,11 @@
-from dataclasses import asdict, dataclass, field, default_factory
+from dataclasses import asdict, dataclass, field
 from typing import Callable, Dict, List, Optional, Union
 
-from src.web.platform.core.types import FormattingType, InputType
+from src.web.platform.core.enums import FormattingType, InputType
+from src.web.platform.core.builders import *
 
+
+# TODO: fazer a personalist gerar os objetos de Input e fazer com que cada objeto de input possa construir seu proprio HTML
 
 @dataclass
 class InputDefinition:
@@ -46,6 +49,15 @@ class InputDefinition:
         - dict: The InputDefinition object as a dictionary.
         """
         return asdict(self)
+    
+    def get_pillar(self, pillar_name):
+        self.pillar = pillar_name
+
+    def get_persona(self, persona_name):
+        self.persona = persona_name
+
+    def get_fullname(self, full_name):
+        self.input_fullname = full_name
 
 
 @dataclass
@@ -73,6 +85,12 @@ class PersonaDefinition:
 
     def asdict(self):
         return asdict(self)
+    
+    def get_pillar(self, pillar_name):
+        self.pillar = pillar_name
+
+    def get_fullname(self, full_name):
+        self.persona_fullname = full_name
 
 
 @dataclass
@@ -93,19 +111,19 @@ class PillarDefinition:
     def _set_persona(self):
         for persona in self.personas:
             for input in persona.inputs_list:
-                input.persona = persona.private_name
+                input.get_persona(persona.private_name)
 
     def _set_pillar(self):
         for persona in self.personas:
-            persona.pillar = self.private_name
+            persona.get_pillar(self.private_name)
             for input in persona.inputs_list:
-                input.pillar = self.private_name
+                input.get_pillar(self.private_name)
 
     def _set_fullname(self):
         for persona in self.personas:
-            persona.persona_fullname = f"{self.private_name}_{persona.private_name}"
+            persona.get_fullname(f"{self.private_name}_{persona.private_name}")
             for input in persona.inputs_list:
-                input.input_fullname = (
+                input.get_fullname(
                     f"{self.private_name}_{persona.private_name}_{input.private_name}"
                 )
 
