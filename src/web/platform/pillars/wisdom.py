@@ -3,7 +3,7 @@ from src.web.platform.core.definitions import (
     InputDefinition,
     PersonaDefinition,
 )
-from src.web.platform.core.types import FormattingType, Icon, InputType
+from src.web.platform.core.enums import FormattingType, Icon, InputType
 
 navigator_persona = PersonaDefinition(
     public_name="Navegador",

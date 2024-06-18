@@ -1,4 +1,4 @@
-from src.web.platform.core.types import FormattingType, InputType
+from src.web.platform.core.enums import FormattingType, InputType
 from src.web.platform.core.definitions import (
     InputDefinition,
     PersonaDefinition,
