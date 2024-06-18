@@ -60,6 +60,52 @@ class InputDefinition:
     def get_fullname(self, full_name):
         self.input_fullname = full_name
 
+class TextInput(InputDefinition):
+    def validate(self):
+        pass #TODO: implementar validação
+
+class TextInput(InputDefinition):
+    def validate(self):
+        if self.options is not None:
+            raise ValueError("TextInput should not have options.")
+        if self.min_length is not None:
+            raise ValueError("TextInput should not have min_length.")
+        if self.max_length is not None:
+            raise ValueError("TextInput should not have max_length.")
+        if not (self.label or self.placeholder):
+            raise ValueError("TextInput must have at least a label or a placeholder.")
+
+class DateInput(InputDefinition):
+    def validate(self):
+        pass
+
+class RangeInput(InputDefinition):
+    def validate(self):
+        pass
+
+class NumberInput(InputDefinition):
+    def validate(self):
+        pass
+
+class ToggleInput(InputDefinition):
+    def validate(self):
+        pass
+
+class MultipleAlternativeInput(InputDefinition):
+    def validate(self):
+        pass
+
+class SingleAlternativeInput(InputDefinition):
+    def validate(self):
+        pass
+
+class TextAreaInput(InputDefinition):
+    def validate(self):
+        pass
+
+class DateTimeInput(InputDefinition):
+    def validate(self):
+        pass
 
 @dataclass
 class InputCluster:
@@ -92,6 +138,31 @@ class PersonaDefinition:
 
     def get_fullname(self, full_name):
         self.persona_fullname = full_name
+
+    def map_input_definitions(self):
+        self.mapped_inputs = []
+        for input in self.inputs_list:
+            if input.type == InputType.TEXT:
+                self.mapped_inputs.append(TextInput(**input.asdict()))
+            elif input.type == InputType.DATE:
+                self.mapped_inputs.append(DateInput(**input.asdict()))
+            elif input.type == InputType.RANGE:
+                self.mapped_inputs.append(RangeInput(**input.asdict()))
+            elif input.type == InputType.NUMBER:
+                self.mapped_inputs.append(NumberInput(**input.asdict()))
+            elif input.type == InputType.TOGGLE:
+                self.mapped_inputs.append(ToggleInput(**input.asdict()))
+            elif input.type == InputType.MULTI:
+                self.mapped_inputs.append(MultipleAlternativeInput(**input.asdict()))
+            elif input.type == InputType.SINGLE:
+                self.mapped_inputs.append(SingleAlternativeInput(**input.asdict()))
+            elif input.type == InputType.TEXT_AREA:
+                self.mapped_inputs.append(TextAreaInput(**input.asdict()))
+            elif input.type == InputType.DATETIME:
+                self.mapped_inputs.append(DateTimeInput(**input.asdict()))
+            else:
+                raise ValueError(f"Unknown input type: {input.type}")
+        return self.mapped_inputs
 
 
 @dataclass
