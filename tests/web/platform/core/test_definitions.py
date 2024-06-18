@@ -6,7 +6,7 @@ from src.web.platform.core.definitions import (
     PersonaDefinition,
     PillarDefinition,
 )
-from src.web.platform.core.types import InputType
+from src.web.platform.core.enums import InputType
 
 
 class TestDefinition:
@@ -68,8 +68,8 @@ class TestInputDefinition(TestDefinition):
         expected_input1_test_dict = {
             "private_name": "input1",
             "type": "text",
-            "placeholder": "Test",
             "options": None,
+            "placeholder": "Test",
             "min_length": None,
             "max_length": None,
             "label": None,
@@ -78,6 +78,9 @@ class TestInputDefinition(TestDefinition):
             "persona": "persona1",
             "pillar": "pillar1",
             "input_fullname": "pillar1_persona1_input1",
+            "optional": False,
+            "columns": None,
+            "rows": None,
         }
 
         assert isinstance(self.test_input1, InputDefinition)
@@ -96,8 +99,8 @@ class TestPersonaDefinition(TestDefinition):
                 {
                     "private_name": "input1",
                     "type": "text",
-                    "placeholder": "Test",
                     "options": None,
+                    "placeholder": "Test",
                     "min_length": None,
                     "max_length": None,
                     "label": None,
@@ -106,12 +109,15 @@ class TestPersonaDefinition(TestDefinition):
                     "persona": "persona1",
                     "pillar": "pillar1",
                     "input_fullname": "pillar1_persona1_input1",
+                    "optional": False,
+                    "columns": None,
+                    "rows": None,
                 },
                 {
                     "private_name": "input2",
                     "type": "number",
-                    "placeholder": None,
                     "options": None,
+                    "placeholder": None,
                     "min_length": 1,
                     "max_length": 10,
                     "label": None,
@@ -120,6 +126,9 @@ class TestPersonaDefinition(TestDefinition):
                     "persona": "persona1",
                     "pillar": "pillar1",
                     "input_fullname": "pillar1_persona1_input2",
+                    "optional": False,
+                    "columns": None,
+                    "rows": None,
                 },
             ],
             "outputs": None,
@@ -154,7 +163,6 @@ class TestPillarDefinition(TestDefinition):
         assert self.test_input2.persona == "persona1"
         assert self.test_input3.persona == "persona2"
         assert self.test_input4.persona == "persona2"
-
 
     def test_set_pillar(self):
         assert self.test_persona1.pillar == "pillar1"
