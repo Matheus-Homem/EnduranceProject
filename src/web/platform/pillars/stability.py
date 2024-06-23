@@ -1,10 +1,7 @@
+from src.web.platform.core.definitions import BoxDefinition, InputDefinition
 from src.web.platform.core.enums import FormattingType, InputType
-from src.web.platform.core.definitions import (
-    InputDefinition,
-    PersonaDefinition,
-)
 
-sponsor_persona = PersonaDefinition(
+sponsor_persona = BoxDefinition(
     public_name="Patrocinador",
     private_name="sponsor",
     role="O Patrocinador é aquele que busca ser útil para a sociedade, trazendo Estabilidade para a Expedição",
@@ -28,7 +25,7 @@ sponsor_persona = PersonaDefinition(
     ],
 )
 
-patron_persona = PersonaDefinition(
+patron_persona = BoxDefinition(
     public_name="Mecenas",
     private_name="patron",
     role="O Mecenas é aquele que se dedica à algo que traga mais Estabilidade para a Expedição",
@@ -47,7 +44,7 @@ patron_persona = PersonaDefinition(
     ],
 )
 
-treasurer_persona = PersonaDefinition(
+treasurer_persona = BoxDefinition(
     public_name="Tesoureiro",
     private_name="treasurer",
     role="O Tesoureiro é aquele que zela pelos recursos da Expedição, aumentando a Estabilidade",
@@ -78,7 +75,7 @@ treasurer_persona = PersonaDefinition(
 )
 
 
-class StabilityPersonas:
+class StabilityBoxes:
     SPONSOR = sponsor_persona
     PATRON = patron_persona
     TREASURER = treasurer_persona
