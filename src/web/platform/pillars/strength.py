@@ -1,11 +1,11 @@
 from src.web.platform.core.definitions import (
+    BoxDefinition,
     InputCluster,
     InputDefinition,
-    PersonaDefinition,
 )
 from src.web.platform.core.enums import FormattingType, Icon, InputType
 
-vanguard_persona = PersonaDefinition(
+vanguard_persona = BoxDefinition(
     public_name="Vanguarda",
     private_name="vanguard",
     role="O Vanguarda é aquele que constrói uma estrutura capaz de prover Força à Expedição e aos outros",
@@ -32,7 +32,7 @@ vanguard_persona = PersonaDefinition(
     ),
 )
 
-scout_persona = PersonaDefinition(
+scout_persona = BoxDefinition(
     public_name="Batedor",
     private_name="scout",
     role="O Batedor é aquele que aumenta a durabilidade da Expedição, trazendo Força à cada um dos membros",
@@ -88,7 +88,7 @@ scout_persona = PersonaDefinition(
     ),
 )
 
-cook_persona_morning = PersonaDefinition(
+cook_persona_morning = BoxDefinition(
     public_name="Cozinheiro",
     private_name="cook",
     role="O Cozinheiro é aquele que mantém a Força da Expedição através do equilíbrio entre prazer e necessidade",
@@ -116,7 +116,7 @@ cook_persona_morning = PersonaDefinition(
     ],
 )
 
-cook_persona_night = PersonaDefinition(
+cook_persona_night = BoxDefinition(
     public_name="Cozinheiro",
     private_name="cook",
     role="O Cozinheiro é aquele que mantém a Força da Expedição através do equilíbrio entre prazer e necessidade",
@@ -159,7 +159,7 @@ cook_persona_night = PersonaDefinition(
 )
 
 
-class StrengthPersonas:
+class StrengthBoxes:
     VANGUARD = vanguard_persona
     SCOUT = scout_persona
     MORNING_COOK = cook_persona_morning
