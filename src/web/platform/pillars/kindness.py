@@ -1,11 +1,11 @@
 from src.web.platform.core.definitions import (
+    BoxDefinition,
     InputCluster,
     InputDefinition,
-    PersonaDefinition,
 )
 from src.web.platform.core.enums import FormattingType, Icon, InputType
 
-caretaker_persona = PersonaDefinition(
+caretaker_persona = BoxDefinition(
     public_name="Zelador",
     private_name="caretaker",
     role="O Zelador é aquele que ",
@@ -41,7 +41,7 @@ caretaker_persona = PersonaDefinition(
     ),
 )
 
-diplomat_persona = PersonaDefinition(
+diplomat_persona = BoxDefinition(
     public_name="Diplomata",
     private_name="diplomat",
     role="O Diplomata é aquele que ",
@@ -73,7 +73,7 @@ diplomat_persona = PersonaDefinition(
     ),
 )
 
-citizen_persona = PersonaDefinition(
+citizen_persona = BoxDefinition(
     public_name="Cidação",
     private_name="citizen",
     role="O Cidação é aquele que ",
@@ -109,7 +109,7 @@ citizen_persona = PersonaDefinition(
 )
 
 
-class KindnessPersonas:
+class KindnessBoxes:
     CARETAKER = caretaker_persona
     DIPLOMAT = diplomat_persona
     CITIZEN = citizen_persona
