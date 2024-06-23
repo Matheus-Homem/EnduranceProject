@@ -1,11 +1,11 @@
 from src.web.platform.core.definitions import (
+    BoxDefinition,
     InputCluster,
     InputDefinition,
-    PersonaDefinition,
 )
 from src.web.platform.core.enums import FormattingType, Icon, InputType
 
-navigator_persona = PersonaDefinition(
+navigator_persona = BoxDefinition(
     public_name="Navegador",
     private_name="navigator",
     role="O Navegador é aquele que busca experiência de outras vidas para trazer a Sabedoria à Expedição",
@@ -25,7 +25,7 @@ navigator_persona = PersonaDefinition(
     ),
 )
 
-alchemist_persona = PersonaDefinition(
+alchemist_persona = BoxDefinition(
     public_name="Alquimista",
     private_name="alchemist",
     role="O Alquimista é aquele que transforma as inpurezas adquiridas durante a Expedição em Sabedoria",
@@ -51,7 +51,7 @@ alchemist_persona = PersonaDefinition(
     ],
 )
 
-sentinel_persona = PersonaDefinition(
+sentinel_persona = BoxDefinition(
     public_name="Sentinela",
     private_name="sentinel",
     role="O Sentinela é aquele que através do descanso é capaz de proteger a Sabedoria durante toda a Expedição",
@@ -75,7 +75,7 @@ sentinel_persona = PersonaDefinition(
 )
 
 
-class WisdomPersonas:
+class WisdomBoxes:
     NAVIGATOR = navigator_persona
     ALCHEMIST = alchemist_persona
     SENTINEL = sentinel_persona
