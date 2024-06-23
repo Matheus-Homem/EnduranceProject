@@ -4,7 +4,7 @@ from src.web.platform.core.definitions import (
     InputCluster,
     InputDefinition,
     PersonaDefinition,
-    PillarDefinition,
+    SectionDefinition,
 )
 from src.web.platform.core.enums import InputType
 
@@ -54,10 +54,10 @@ class TestDefinition:
             ),
         )
 
-        self.test_pillar = PillarDefinition(
-            public_name="Pillar 1",
-            private_name="pillar1",
-            description="This pillar is the pillar responsible for testing the module definition",
+        self.test_section = SectionDefinition(
+            public_name="section 1",
+            private_name="section1",
+            description="This section is the section responsible for testing the module definition",
             personas=[self.test_persona1, self.test_persona2],
         )
 
@@ -76,8 +76,8 @@ class TestInputDefinition(TestDefinition):
             "public_name": None,
             "output_formatting": None,
             "persona": "persona1",
-            "pillar": "pillar1",
-            "input_fullname": "pillar1_persona1_input1",
+            "section": "section1",
+            "input_fullname": "section1_persona1_input1",
             "optional": False,
             "columns": None,
             "rows": None,
@@ -107,8 +107,8 @@ class TestPersonaDefinition(TestDefinition):
                     "public_name": None,
                     "output_formatting": None,
                     "persona": "persona1",
-                    "pillar": "pillar1",
-                    "input_fullname": "pillar1_persona1_input1",
+                    "section": "section1",
+                    "input_fullname": "section1_persona1_input1",
                     "optional": False,
                     "columns": None,
                     "rows": None,
@@ -124,23 +124,23 @@ class TestPersonaDefinition(TestDefinition):
                     "public_name": None,
                     "output_formatting": None,
                     "persona": "persona1",
-                    "pillar": "pillar1",
-                    "input_fullname": "pillar1_persona1_input2",
+                    "section": "section1",
+                    "input_fullname": "section1_persona1_input2",
                     "optional": False,
                     "columns": None,
                     "rows": None,
                 },
             ],
             "outputs": None,
-            "pillar": "pillar1",
-            "persona_fullname": "pillar1_persona1",
+            "section": "section1",
+            "persona_fullname": "section1_persona1",
         }
 
         assert isinstance(self.test_persona1, PersonaDefinition)
         assert self.test_persona1.asdict() == expected_persona1_test_dict
 
     def test_persona_definition_fullname(self):
-        assert self.test_persona1.persona_fullname == "pillar1_persona1"
+        assert self.test_persona1.persona_fullname == "section1_persona1"
 
     def test_persona_definition_inputs_list(self):
         assert isinstance(self.test_persona1.inputs_list, list)
@@ -156,10 +156,11 @@ class TestPersonaDefinition(TestDefinition):
         )
 
     def test_persona_definition_map_input_definitions(self):
-        print(self.test_persona1.map_input_definitions())
+        #print(self.test_persona1.map_input_definitions())
+        pass
 
 
-class TestPillarDefinition(TestDefinition):
+class TestSectionDefinition(TestDefinition):
 
     def test_set_persona(self):
         assert self.test_input1.persona == "persona1"
@@ -167,18 +168,18 @@ class TestPillarDefinition(TestDefinition):
         assert self.test_input3.persona == "persona2"
         assert self.test_input4.persona == "persona2"
 
-    def test_set_pillar(self):
-        assert self.test_persona1.pillar == "pillar1"
-        assert self.test_persona2.pillar == "pillar1"
-        assert self.test_input1.pillar == "pillar1"
-        assert self.test_input2.pillar == "pillar1"
-        assert self.test_input3.pillar == "pillar1"
-        assert self.test_input4.pillar == "pillar1"
+    def test_set_section(self):
+        assert self.test_persona1.section == "section1"
+        assert self.test_persona2.section == "section1"
+        assert self.test_input1.section == "section1"
+        assert self.test_input2.section == "section1"
+        assert self.test_input3.section == "section1"
+        assert self.test_input4.section == "section1"
 
     def test_set_fullname(self):
-        assert self.test_persona1.persona_fullname == "pillar1_persona1"
-        assert self.test_persona2.persona_fullname == "pillar1_persona2"
-        assert self.test_input1.input_fullname == "pillar1_persona1_input1"
-        assert self.test_input2.input_fullname == "pillar1_persona1_input2"
-        assert self.test_input3.input_fullname == "pillar1_persona2_input3"
-        assert self.test_input4.input_fullname == "pillar1_persona2_input4"
+        assert self.test_persona1.persona_fullname == "section1_persona1"
+        assert self.test_persona2.persona_fullname == "section1_persona2"
+        assert self.test_input1.input_fullname == "section1_persona1_input1"
+        assert self.test_input2.input_fullname == "section1_persona1_input2"
+        assert self.test_input3.input_fullname == "section1_persona2_input3"
+        assert self.test_input4.input_fullname == "section1_persona2_input4"

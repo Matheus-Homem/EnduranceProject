@@ -22,7 +22,7 @@ class InputDefinition:
     - public_name: Optional[str]: The public name of the input field.
     - output_formatting: Optional[FormattingType]: The output formatting of the input field.
     - persona: Optional[str]: The persona of the input field.
-    - pillar: Optional[str]: The pillar of the input field.
+    - section: Optional[str]: The section of the input field.
     - input_fullname: Optional[str]: The input fullname of the input field.
     """
 
@@ -36,7 +36,7 @@ class InputDefinition:
     public_name: Optional[str] = None
     output_formatting: Optional[FormattingType] = None
     persona: Optional[str] = None
-    pillar: Optional[str] = None
+    section: Optional[str] = None
     input_fullname: Optional[str] = None
     optional: Optional[bool] = False
     columns: Optional[Dict] = None
@@ -51,8 +51,8 @@ class InputDefinition:
         """
         return asdict(self)
 
-    def get_pillar(self, pillar_name):
-        self.pillar = pillar_name
+    def get_section(self, section_name):
+        self.section = section_name
 
     def get_persona(self, persona_name):
         self.persona = persona_name
@@ -121,7 +121,7 @@ class PersonaDefinition:
     habit_description: str
     inputs: Union[InputCluster, List[InputDefinition]]
     outputs: Optional[Callable] = None
-    pillar: Optional[str] = None
+    section: Optional[str] = None
     persona_fullname: Optional[str] = None
 
     @property
@@ -133,8 +133,8 @@ class PersonaDefinition:
     def asdict(self):
         return asdict(self)
 
-    def get_pillar(self, pillar_name):
-        self.pillar = pillar_name
+    def get_section(self, section_name):
+        self.section = section_name
 
     def get_fullname(self, full_name):
         self.persona_fullname = full_name
@@ -166,7 +166,7 @@ class PersonaDefinition:
 
 
 @dataclass
-class PillarDefinition:
+class SectionDefinition:
     public_name: str
     private_name: str
     description: str
@@ -174,7 +174,7 @@ class PillarDefinition:
 
     def __post_init__(self):
         self._set_persona()
-        self._set_pillar()
+        self._set_section()
         self._set_fullname()
 
     def asdict(self):
@@ -185,11 +185,11 @@ class PillarDefinition:
             for input in persona.inputs_list:
                 input.get_persona(persona.private_name)
 
-    def _set_pillar(self):
+    def _set_section(self):
         for persona in self.personas:
-            persona.get_pillar(self.private_name)
+            persona.get_section(self.private_name)
             for input in persona.inputs_list:
-                input.get_pillar(self.private_name)
+                input.get_section(self.private_name)
 
     def _set_fullname(self):
         for persona in self.personas:
@@ -201,6 +201,8 @@ class PillarDefinition:
 
 
 @dataclass
-class FormDefinition:
-    form_name: str
-    pillars: List[PillarDefinition]
+class PageDefinition:
+    private_name: str
+    title: str
+    header: str
+    sections: List[SectionDefinition]
