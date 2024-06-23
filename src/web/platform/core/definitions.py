@@ -1,31 +1,25 @@
 from dataclasses import asdict, dataclass, field
 from typing import Callable, Dict, List, Optional, Union
 
-from src.web.platform.core.enums import FormattingType, InputType
 from src.web.platform.core.builders import *
-
-
-# TODO: fazer a personalist gerar os objetos de Input e fazer com que cada objeto de input possa construir seu proprio HTML
+from src.web.platform.core.enums import (
+    DefinitionType,
+    FormattingType,
+    InputType,
+    SectionType,
+)
+from src.web.platform.core.protocols import Content, Definition
 
 
 @dataclass
-class InputDefinition:
-    """
-    Define the structure of an input field in the form
-    - private_name: str: The input field name used on HTML and send to system.
-    - type: InputType: The type of the input field.
-    - options: Optional[Dict]: The options dict where keys are string send to system (private) and value is strings used on HTML (public).
-    - placeholder: Optional[str]: The placeholder of the input field.
-    - min_length: Optional[int]: The minimum length of the input field.
-    - max_length: Optional[int]: The maximum length of the input field.
-    - label: Optional[str]: The label of the input field.
-    - public_name: Optional[str]: The public name of the input field.
-    - output_formatting: Optional[FormattingType]: The output formatting of the input field.
-    - persona: Optional[str]: The persona of the input field.
-    - section: Optional[str]: The section of the input field.
-    - input_fullname: Optional[str]: The input fullname of the input field.
-    """
+class ButtonDefinition(Content, Definition):
 
+    def get_definition(self):
+        return DefinitionType.BUTTON
+
+
+@dataclass
+class InputDefinition(Content, Definition):
     private_name: str
     type: InputType
     options: Optional[Dict] = None
@@ -35,12 +29,15 @@ class InputDefinition:
     label: Optional[str] = None
     public_name: Optional[str] = None
     output_formatting: Optional[FormattingType] = None
-    persona: Optional[str] = None
+    box: Optional[str] = None
     section: Optional[str] = None
     input_fullname: Optional[str] = None
     optional: Optional[bool] = False
     columns: Optional[Dict] = None
     rows: Optional[Dict] = None
+
+    def get_definition(self):
+        return DefinitionType.INPUT
 
     def asdict(self) -> dict:
         """
@@ -54,15 +51,17 @@ class InputDefinition:
     def get_section(self, section_name):
         self.section = section_name
 
-    def get_persona(self, persona_name):
-        self.persona = persona_name
+    def get_box(self, box_name):
+        self.box = box_name
 
     def get_fullname(self, full_name):
         self.input_fullname = full_name
 
+
 class TextInput(InputDefinition):
     def validate(self):
-        pass #TODO: implementar validação
+        pass  # TODO: implementar validação
+
 
 class TextInput(InputDefinition):
     def validate(self):
@@ -75,60 +74,73 @@ class TextInput(InputDefinition):
         if not (self.label or self.placeholder):
             raise ValueError("TextInput must have at least a label or a placeholder.")
 
+
 class DateInput(InputDefinition):
     def validate(self):
         pass
+
 
 class RangeInput(InputDefinition):
     def validate(self):
         pass
 
+
 class NumberInput(InputDefinition):
     def validate(self):
         pass
+
 
 class ToggleInput(InputDefinition):
     def validate(self):
         pass
 
+
 class MultipleAlternativeInput(InputDefinition):
     def validate(self):
         pass
+
 
 class SingleAlternativeInput(InputDefinition):
     def validate(self):
         pass
 
+
 class TextAreaInput(InputDefinition):
     def validate(self):
         pass
+
 
 class DateTimeInput(InputDefinition):
     def validate(self):
         pass
 
+
 @dataclass
-class InputCluster:
-    inputs_list: List[InputDefinition]
+class InputCluster(Content):
+    content_list: List[InputDefinition]
     is_recursive: Optional[bool] = False
 
 
 @dataclass
-class PersonaDefinition:
-    public_name: str
+class BoxDefinition(Definition):
     private_name: str
+    public_name: str
     role: str
     habit_description: str
-    inputs: Union[InputCluster, List[InputDefinition]]
+    content: Content | List[Content]
     outputs: Optional[Callable] = None
     section: Optional[str] = None
-    persona_fullname: Optional[str] = None
+    box_fullname: Optional[str] = None
+
+    def get_definition(self):
+        return DefinitionType.BOX
 
     @property
-    def inputs_list(self):
-        if isinstance(self.inputs, InputCluster):
-            return self.inputs.inputs_list
-        return self.inputs
+    def content_list(self):
+        if isinstance(self.content, Content):
+            return self.content
+        else:
+            return self.content.content_list
 
     def asdict(self):
         return asdict(self)
@@ -137,72 +149,79 @@ class PersonaDefinition:
         self.section = section_name
 
     def get_fullname(self, full_name):
-        self.persona_fullname = full_name
+        self.box_fullname = full_name
 
     def map_input_definitions(self):
-        self.mapped_inputs = []
-        for input in self.inputs_list:
-            if input.type == InputType.TEXT:
-                self.mapped_inputs.append(TextInput(**input.asdict()))
-            elif input.type == InputType.DATE:
-                self.mapped_inputs.append(DateInput(**input.asdict()))
-            elif input.type == InputType.RANGE:
-                self.mapped_inputs.append(RangeInput(**input.asdict()))
-            elif input.type == InputType.NUMBER:
-                self.mapped_inputs.append(NumberInput(**input.asdict()))
-            elif input.type == InputType.TOGGLE:
-                self.mapped_inputs.append(ToggleInput(**input.asdict()))
-            elif input.type == InputType.MULTI:
-                self.mapped_inputs.append(MultipleAlternativeInput(**input.asdict()))
-            elif input.type == InputType.SINGLE:
-                self.mapped_inputs.append(SingleAlternativeInput(**input.asdict()))
-            elif input.type == InputType.TEXT_AREA:
-                self.mapped_inputs.append(TextAreaInput(**input.asdict()))
-            elif input.type == InputType.DATETIME:
-                self.mapped_inputs.append(DateTimeInput(**input.asdict()))
+        self.mapped_content = []
+        for content in self.content_list:
+            if content.type == InputType.TEXT:
+                self.mapped_content.append(TextInput(**content.asdict()))
+            elif content.type == InputType.DATE:
+                self.mapped_content.append(DateInput(**content.asdict()))
+            elif content.type == InputType.RANGE:
+                self.mapped_content.append(RangeInput(**content.asdict()))
+            elif content.type == InputType.NUMBER:
+                self.mapped_content.append(NumberInput(**content.asdict()))
+            elif content.type == InputType.TOGGLE:
+                self.mapped_content.append(ToggleInput(**content.asdict()))
+            elif content.type == InputType.MULTI:
+                self.mapped_content.append(MultipleAlternativeInput(**content.asdict()))
+            elif content.type == InputType.SINGLE:
+                self.mapped_content.append(SingleAlternativeInput(**content.asdict()))
+            elif content.type == InputType.TEXT_AREA:
+                self.mapped_content.append(TextAreaInput(**content.asdict()))
+            elif content.type == InputType.DATETIME:
+                self.mapped_content.append(DateTimeInput(**content.asdict()))
             else:
-                raise ValueError(f"Unknown input type: {input.type}")
-        return self.mapped_inputs
+                raise ValueError(f"Unknown content type: {content.type}")
+        return self.mapped_content
 
 
 @dataclass
-class SectionDefinition:
-    public_name: str
+class SectionDefinition(Definition):
     private_name: str
-    description: str
-    personas: List[PersonaDefinition]
+    type: SectionType
+    header: str
+    boxes: List[BoxDefinition]
+    description: Optional[str] = None
 
     def __post_init__(self):
-        self._set_persona()
+        self._set_box()
         self._set_section()
         self._set_fullname()
+
+    def get_definition(self):
+        return DefinitionType.SECTION
 
     def asdict(self):
         return asdict(self)
 
-    def _set_persona(self):
-        for persona in self.personas:
-            for input in persona.inputs_list:
-                input.get_persona(persona.private_name)
+    def _set_box(self):
+        for box in self.boxes:
+            for input in box.content_list:
+                input.get_box(box.private_name)
 
     def _set_section(self):
-        for persona in self.personas:
-            persona.get_section(self.private_name)
-            for input in persona.inputs_list:
-                input.get_section(self.private_name)
+        for box in self.boxes:
+            box.get_section(self.type)
+            for input in box.content_list:
+                input.get_section(self.type)
 
     def _set_fullname(self):
-        for persona in self.personas:
-            persona.get_fullname(f"{self.private_name}_{persona.private_name}")
-            for input in persona.inputs_list:
+        for box in self.boxes:
+            box.get_fullname(f"{self.type}_{box.private_name}")
+            for input in box.content_list:
                 input.get_fullname(
-                    f"{self.private_name}_{persona.private_name}_{input.private_name}"
+                    f"{self.type}_{box.private_name}_{input.private_name}"
                 )
 
 
 @dataclass
-class PageDefinition:
+class PageDefinition(Definition):
     private_name: str
     title: str
     header: str
     sections: List[SectionDefinition]
+
+    def get_definition(self):
+        return DefinitionType.PAGE
