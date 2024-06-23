@@ -1,2 +1,2 @@
-class DevotionPersonas:
+class DevotionBoxes:
     pass
