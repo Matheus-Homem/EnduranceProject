@@ -1,9 +1,9 @@
 from src.web.platform.core.definitions import PageDefinition, SectionDefinition
-from src.web.platform.pillars.wisdom import WisdomPersonas
-from src.web.platform.pillars.stability import StabilityPersonas
-from src.web.platform.pillars.strength import StrengthPersonas
-from src.web.platform.pillars.kindness import KindnessPersonas
-from src.web.platform.pillars.devotion import DevotionPersonas
+from src.web.platform.pillars.devotion import DevotionBoxes
+from src.web.platform.pillars.kindness import KindnessBoxes
+from src.web.platform.pillars.stability import StabilityBoxes
+from src.web.platform.pillars.strength import StrengthBoxes
+from src.web.platform.pillars.wisdom import WisdomBoxes
 
 morning_form = PageDefinition(
     private_name="morning_form",
@@ -14,24 +14,24 @@ morning_form = PageDefinition(
             public_name="Sabedoria",
             private_name="wisdom",
             description="A Sabedoria é...",
-            personas=[
-                WisdomPersonas.SENTINEL,
+            boxes=[
+                WisdomBoxes.SENTINEL,
             ],
         ),
         SectionDefinition(
             public_name="Estabilidade",
             private_name="stability",
             description="A Estabilidade é...",
-            personas=[
-                StabilityPersonas.TREASURER,
+            boxes=[
+                StabilityBoxes.TREASURER,
             ],
         ),
         SectionDefinition(
             public_name="Força",
             private_name="strength",
             description="A Força é...",
-            personas=[
-                StrengthPersonas.MORNING_COOK,
+            boxes=[
+                StrengthBoxes.MORNING_COOK,
             ],
         ),
     ],
