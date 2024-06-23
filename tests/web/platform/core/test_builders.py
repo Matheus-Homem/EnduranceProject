@@ -1,30 +1,66 @@
 import pytest
 
+from src.web.platform.core.builders import Builder
 from src.web.platform.core.definitions import (
+    BoxDefinition,
     InputCluster,
     InputDefinition,
-    PersonaDefinition,
+    PageDefinition,
     SectionDefinition,
 )
-from src.web.platform.core.enums import InputType
-from src.web.platform.core.builders import InputBuilder, PersonaBuilder, PillarBuilder
+from src.web.platform.core.enums import FormattingType, Icon, InputType, SectionType
+from src.web.platform.core.protocols import Definition
 
 
-class TestInputBuilder:
+class TestBuilder:
 
-    def test_text_input_builder(self):
+    def setup_method(self):
+        self.builder = Builder()
 
-        input_builder = InputBuilder()
-
-        text_input_definition = InputDefinition(
-            private_name="text_input_test",
+        self.test_input_definition = InputDefinition(
+            private_name="test_input_definition",
             type=InputType.TEXT,
         )
 
-        input_builder.get_definition(definition=text_input_definition)
+        self.test_box_definition = BoxDefinition(
+            private_name="test_box_definition",
+            public_name="Test Box",
+            role="Test Role",
+            habit_description="Test Habit Description",
+            content=[self.test_input_definition],
+        )
 
-        input_builder.build()
+        self.test_section_definition = SectionDefinition(
+            private_name="test_section_definition",
+            type=SectionType.BASIC,
+            header="Test Header",
+            description="Test Description",
+            boxes=[self.test_box_definition],
+        )
 
-        #print(text_input_definition.asdict())
-        assert isinstance(input_builder, InputBuilder)
+        self.test_page_definition = PageDefinition(
+            private_name="test_page_definition",
+            title="Test Title",
+            header="Test Header",
+            sections=[self.test_section_definition],
+        )
 
+    def test_get_definition(self):
+        self.builder.set_definition(definition=self.test_page_definition)
+
+        assert self.builder.definition.private_name == "test_page_definition"
+
+    def test_validate_definition_success(self):
+        self.builder.set_definition(definition=self.test_page_definition)
+
+        self.builder._validate_definition()
+
+    def test_validate_definition_failed(self):
+        section_type_basic = SectionType.BASIC
+        self.builder.set_definition(definition=section_type_basic)
+
+        with pytest.raises(AttributeError):
+            self.builder._validate_definition()
+
+    def test_build(self):
+        pass
