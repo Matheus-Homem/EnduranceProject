@@ -52,15 +52,16 @@ class TestBuilder:
 
     def test_validate_definition_success(self):
         self.builder.set_definition(definition=self.test_page_definition)
-
-        self.builder._validate_definition()
+        self.builder.validate_definition()
 
     def test_validate_definition_failed(self):
         section_type_basic = SectionType.BASIC
         self.builder.set_definition(definition=section_type_basic)
 
         with pytest.raises(AttributeError):
-            self.builder._validate_definition()
+            self.builder.validate_definition()
 
     def test_build(self):
-        pass
+        self.builder.set_definition(definition=self.test_page_definition)
+        self.builder.validate_definition()
+        self.builder.build()
