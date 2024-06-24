@@ -1,14 +1,15 @@
 from dataclasses import asdict, dataclass, field
 from typing import Callable, Dict, List, Optional, Union
 
-from src.web.platform.core.builders import *
 from src.web.platform.core.enums import (
     DefinitionType,
     FormattingType,
     InputType,
     SectionType,
+    TemplateType,
 )
 from src.web.platform.core.protocols import Content, Definition
+from src.web.platform.core.functions import generate_html
 
 
 @dataclass
@@ -225,3 +226,12 @@ class PageDefinition(Definition):
 
     def get_definition(self):
         return DefinitionType.PAGE
+    
+    def get_title(self):
+        return self.title
+    
+    def get_header(self):
+        return self.header
+
+    def build_definition(self):
+        generate_html(definition_type=DefinitionType.PAGE, definition=self)
