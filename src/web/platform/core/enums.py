@@ -41,6 +41,13 @@ class DefinitionType:
         return [value for name, value in vars(cls).items() if not name.startswith("__")]
 
 
+class TemplateType:
+    PAGE="page_template.html"
+    SECTION="section_template.html"
+    BOX="box_template.html"
+    INPUT="input_template.html"
+
+
 class Icon:
     PILLS = "fa-solid fa-pills"
     NOTES = "fa-solid fa-notes"
