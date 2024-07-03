@@ -4,18 +4,68 @@
     </div>
     <div class="box-role">
         <span>
-            O <strong>Vanguarda</strong> é aquele 
+            O <strong>Vanguarda</strong> é aquele que constrói uma estrutura capaz de prover <strong>Força</strong> aos outros e à <strong>Expedição</strong>
         </span>
     </div>
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>Exercitar</strong>
+                Sobre o hábito de <strong>Resistir</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-100">A</div>
+                <div class="flex-cell cell-50">
+                    <div id="toggle_vanguard_yoga" class="toggle" onclick="toggleButton('vanguard_yoga')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Yoga</span>
+                    <input type="hidden" id="input_vanguard_yoga" name="toggle_vanguard_yoga" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_vanguard_yoga_session" class="toggle" onclick="toggleButton('vanguard_yoga_session')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_vanguard_yoga_session" name="toggle_vanguard_yoga_session" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_vanguard_yoga_excelence" class="toggle" onclick="toggleButton('vanguard_yoga_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_vanguard_yoga_excelence" name="toggle_vanguard_yoga_excelence" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-100"></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">
+                    <div id="toggle_vanguard_calisthenics" class="toggle" onclick="toggleButton('vanguard_calisthenics')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Calistenia</span>
+                    <input type="hidden" id="input_vanguard_calisthenics" name="toggle_vanguard_calisthenics" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_vanguard_calisthenics_session" class="toggle" onclick="toggleButton('vanguard_calisthenics_session')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_vanguard_calisthenics_session" name="toggle_vanguard_calisthenics_session" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_vanguard_calisthenics_excelence" class="toggle" onclick="toggleButton('vanguard_calisthenics_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_vanguard_calisthenics_excelence" name="toggle_vanguard_calisthenics_excelence" value="False">
+                </div>
             </div>
         </div>
     </div>

@@ -4,18 +4,118 @@
     </div>
     <div class="box-role">
         <span>
-            O <strong>Batedor</strong> é aquele 
+            O <strong>Batedor</strong> é aquele que aumenta a durabilidade da <strong>Expedição</strong>, trazendo <strong>Força</strong> à cada um dos membros
         </span>
     </div>
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>Ativar</strong>
+                Sobre o hábito de <strong>Durar</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-100">A</div>
+                <div class="flex-cell cell-50">
+                    <div id="toggle_scout_running" class="toggle" onclick="toggleButton('scout_running')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Corrida</span>
+                    <input type="hidden" id="input_scout_running" name="toggle_scout_running" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_scout_running_session" class="toggle" onclick="toggleButton('scout_running_session')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_scout_running_session" name="toggle_scout_running_session" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_scout_running_excelence" class="toggle" onclick="toggleButton('scout_running_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_scout_running_excelence" name="toggle_scout_running_excelence" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Calorias de Ontem</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="strength_cook_Calories" 
+                        oninput="CaloriesOutput.value = formatValue(strength_cook_Calories.value, 'calories')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="CaloriesOutput">_ cal</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Tempo de Tela</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="wisdom_sentinel_ScreenTime" minlength="3" maxlength="4"
+                        oninput="ScreenTimeOutput.value = formatValue(wisdom_sentinel_ScreenTime.value, 'time')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__h __min</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Distância</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="wisdom_sentinel_ScreenTime" minlength="3" maxlength="4"
+                        oninput="ScreenTimeOutput.value = formatValue(wisdom_sentinel_ScreenTime.value, 'time')" required>
+                </div>
+                <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__km</output></div>
+            </div>
+        </div>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-50">
+                    <div id="toggle_scout_biking" class="toggle" onclick="toggleButton('scout_biking')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Ciclismo</span>
+                    <input type="hidden" id="input_scout_biking" name="toggle_scout_biking" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_scout_biking_session" class="toggle" onclick="toggleButton('scout_biking_session')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_scout_biking_session" name="toggle_scout_biking_session" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_scout_biking_excelence" class="toggle" onclick="toggleButton('scout_biking_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_scout_biking_excelence" name="toggle_scout_biking_excelence" value="False">
+                </div>
+            </div>
+        </div>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-50">
+                    <div id="toggle_scout_swimming" class="toggle" onclick="toggleButton('scout_swimming')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Natação</span>
+                    <input type="hidden" id="input_scout_swimming" name="toggle_scout_swimming" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_scout_swimming_session" class="toggle" onclick="toggleButton('scout_swimming_session')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_scout_swimming_session" name="toggle_scout_swimming_session" value="False">
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_scout_swimming_excelence" class="toggle" onclick="toggleButton('scout_swimming_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_scout_swimming_excelence" name="toggle_scout_swimming_excelence" value="False">
+                </div>
             </div>
         </div>
     </div>

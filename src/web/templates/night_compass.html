@@ -19,7 +19,8 @@
             <div class="wisdom-section"><span>Sabedoria</span></div>
             {% include "partlets/wisdom/navigator.html" %}
             {% include "partlets/wisdom/alchemist.html" %}
-            {% include "partlets/wisdom/apprentice.html" %}
+            {% include "partlets/wisdom/sentinel.html" %}
+            <!-- {% include "partlets/wisdom/apprentice.html" %} -->
             {% include "partlets/wisdom/compass.html" %}
         </section>
 
@@ -62,6 +63,13 @@
     </form>
 
     <script>
+        
+        const bedDateTimeInput = document.querySelector('input[name="wisdom_sentinel_BedDatetime"]');
+        const wakeupDateTimeInput = document.querySelector('input[name="wisdom_sentinel_WakeupDatetime"]');
+        const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
+        datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+        bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);
+        wakeupDateTimeInput.addEventListener('change', calculateDatetimeDifference);
 
         var stabilitySponsorActive = document.getElementById('stabilitySponsorActive');
         var stabilitySponsorSatisfaction = document.getElementById('stabilitySponsorSatisfaction');

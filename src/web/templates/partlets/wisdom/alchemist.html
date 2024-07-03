@@ -4,81 +4,58 @@
     </div>
     <div class="box-role">
         <span>
-            O <strong>Alquimista</strong> é aquele que permite que elementos indesejados deixem de fazer parte da <strong>Expedição</strong> dando lugar à <strong>Sabedoria</strong>
+            O <strong>Alquimista</strong> é aquele que transforma as inpurezas adquiridas durante a <strong>Expedição</strong> em <strong>Sabedoria</strong>
         </span>
     </div>
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>Abdicar</strong>
+                Sobre o hábito de <strong>Autoconhecer-se</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Ahimsa" class="toggle-label"><span>Ahimsa</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Ahimsa" class="toggle" onclick="toggleButton('alchemist_Ahimsa')">
-                        <div class="toggle-button"></div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt1" onclick="toggleCheck('opt1', 'input_apprentice_Learning', 'anger')">
+                        <span>Raiva</span>
                     </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Ahimsa" name="toggle_alchemist_Ahimsa" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt2" onclick="toggleCheck('opt2', 'input_apprentice_Learning', 'sadness')">
+                        <span>Tristeza</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt3" onclick="toggleCheck('opt3', 'input_apprentice_Learning', 'frustration')">
+                        <span>Frustração</span>
+                    </div>
                 </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Satya" class="toggle-label"><span>Satya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Satya" class="toggle" onclick="toggleButton('alchemist_Satya')">
-                        <div class="toggle-button"></div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt4" onclick="toggleCheck('opt4', 'input_apprentice_Learning', 'fear')">
+                        <span>Medo</span>
                     </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Satya" name="toggle_alchemist_Satya" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt5" onclick="toggleCheck('opt5', 'input_apprentice_Learning', 'disheartenment')">
+                        <span>Desânimo</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt6" onclick="toggleCheck('opt6', 'input_apprentice_Learning', 'resentment')">
+                        <span>Ressentimento</span>
+                    </div>
                 </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Asteya" class="toggle-label"><span>Asteya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Asteya" class="toggle" onclick="toggleButton('alchemist_Asteya')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Asteya" name="toggle_alchemist_Asteya" value="False">
-                </div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Brahmacharya" class="toggle-label"><span>Brahmacharya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Brahmacharya" class="toggle" onclick="toggleButton('alchemist_Brahmacharya')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Brahmacharya" name="toggle_alchemist_Brahmacharya" value="False">
-                </div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Aparigraha" class="toggle-label"><span>Aparigraha</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Aparigraha" class="toggle" onclick="toggleButton('alchemist_Aparigraha')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Aparigraha" name="toggle_alchemist_Aparigraha" value="False">
+                <div class="flex-cell cell-100">
+                    <textarea id="text_apprentice_Learning"></textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('text_apprentice_Learning').value = 'Situação: \nAprendizado:';
+</script>
