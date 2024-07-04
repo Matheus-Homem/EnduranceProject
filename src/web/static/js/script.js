@@ -76,6 +76,13 @@ function formatValue(value, type) {
             const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
             return formatedValue + " %";
         }
+    } else if (type === 'distance') {
+        if (value.length < 4) {
+            return "__.__ km";
+        } else {
+            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
+            return formatedValue + " km";
+        }
     }
 }
 

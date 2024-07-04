@@ -40,28 +40,28 @@
                 </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-50">Calorias de Ontem</div>
-                <div class="flex-cell cell-25">
-                    <input type="number" name="strength_cook_Calories" 
-                        oninput="CaloriesOutput.value = formatValue(strength_cook_Calories.value, 'calories')" required>
-                </div>
-                <div class="flex-cell cell-25"><output id="CaloriesOutput">_ cal</output></div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-50">Tempo de Tela</div>
-                <div class="flex-cell cell-25">
-                    <input type="number" name="wisdom_sentinel_ScreenTime" minlength="3" maxlength="4"
-                        oninput="ScreenTimeOutput.value = formatValue(wisdom_sentinel_ScreenTime.value, 'time')" required>
-                </div>
-                <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__h __min</output></div>
-            </div>
-            <div class="flex-row">
                 <div class="flex-cell cell-50">Distância</div>
                 <div class="flex-cell cell-25">
-                    <input type="number" name="wisdom_sentinel_ScreenTime" minlength="3" maxlength="4"
-                        oninput="ScreenTimeOutput.value = formatValue(wisdom_sentinel_ScreenTime.value, 'time')" required>
+                    <input type="number" name="text_scout_running_distance" minlength="3" maxlength="4"
+                        oninput="RunningDistanceOutput.value = formatValue(text_scout_running_distance.value, 'distance')">
                 </div>
-                <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__km</output></div>
+                <div class="flex-cell cell-25"><output id="RunningDistanceOutput">__.__ km</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Duração</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_running_duration" minlength="3" maxlength="4"
+                        oninput="RunningDurationOutput.value = formatValue(text_scout_running_duration.value, 'time')">
+                </div>
+                <div class="flex-cell cell-25"><output id="RunningDurationOutput">__h __min</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Calorias</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_running_calories" 
+                        oninput="RunningCaloriesOutput.value = formatValue(text_scout_running_calories.value, 'calories')">
+                </div>
+                <div class="flex-cell cell-25"><output id="RunningCaloriesOutput">_ cal</output></div>
             </div>
         </div>
         <div class="flex-table">
@@ -90,6 +90,30 @@
                     <input type="hidden" id="input_scout_biking_excelence" name="toggle_scout_biking_excelence" value="False">
                 </div>
             </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Distância</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_biking_distance" minlength="3" maxlength="4"
+                        oninput="bikingDistanceOutput.value = formatValue(text_scout_biking_distance.value, 'distance')">
+                </div>
+                <div class="flex-cell cell-25"><output id="bikingDistanceOutput">__.__ km</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Duração</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_biking_duration" minlength="3" maxlength="4"
+                        oninput="bikingDurationOutput.value = formatValue(text_scout_biking_duration.value, 'time')">
+                </div>
+                <div class="flex-cell cell-25"><output id="bikingDurationOutput">__h __min</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Calorias</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_biking_calories" 
+                        oninput="bikingCaloriesOutput.value = formatValue(text_scout_biking_calories.value, 'calories')">
+                </div>
+                <div class="flex-cell cell-25"><output id="bikingCaloriesOutput">_ cal</output></div>
+            </div>
         </div>
         <div class="flex-table">
             <div class="flex-row">
@@ -116,6 +140,30 @@
                     <span><i class="fa-solid fa-sun"></i></span>
                     <input type="hidden" id="input_scout_swimming_excelence" name="toggle_scout_swimming_excelence" value="False">
                 </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Distância</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_swimming_distance" minlength="3" maxlength="4"
+                        oninput="swimmingDistanceOutput.value = formatValue(text_scout_swimming_distance.value, 'distance')">
+                </div>
+                <div class="flex-cell cell-25"><output id="swimmingDistanceOutput">__.__ km</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Duração</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_swimming_duration" minlength="3" maxlength="4"
+                        oninput="swimmingDurationOutput.value = formatValue(text_scout_swimming_duration.value, 'time')">
+                </div>
+                <div class="flex-cell cell-25"><output id="swimmingDurationOutput">__h __min</output></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-50">Calorias</div>
+                <div class="flex-cell cell-25">
+                    <input type="number" name="text_scout_swimming_calories" 
+                        oninput="swimmingCaloriesOutput.value = formatValue(text_scout_swimming_calories.value, 'calories')">
+                </div>
+                <div class="flex-cell cell-25"><output id="swimmingCaloriesOutput">_ cal</output></div>
             </div>
         </div>
     </div>

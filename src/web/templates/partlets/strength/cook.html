@@ -13,7 +13,7 @@
                 Sobre o hábito de <strong>Alimentar-se</strong>
             </span>
         </div>
-        <div class="flex-table add-padding-20">
+        <div class="flex-table">
             <div class="flex-row">
                 <div class="flex-cell cell-40"></div>
                 <div class="flex-cell cell-15">Inexistente</div>
@@ -21,7 +21,7 @@
                 <div class="flex-cell cell-15">Razoável</div>
                 <div class="flex-cell cell-15">Excelente</div>
             </div>
-            <div class="flex-row darker-background">
+            <div class="flex-row">
                 <div class="flex-cell cell-40"><span>Café da Manhã</span></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="0"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookBreakfast" value="1"></div>
@@ -35,7 +35,7 @@
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="2"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackMorning" value="3"></div>
             </div>
-            <div class="flex-row darker-background">
+            <div class="flex-row">
                 <div class="flex-cell cell-40"><span>Almoço</span></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="0"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookLunch" value="1"></div>
@@ -49,7 +49,7 @@
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="2"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookDessert" value="3"></div>
             </div>
-            <div class="flex-row darker-background">
+            <div class="flex-row">
                 <div class="flex-cell cell-40"><span>Lanche Vespertino</span></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="0"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSnackAfternoon" value="1"></div>
@@ -63,7 +63,7 @@
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="2"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookDinner" value="3"></div>
             </div>
-            <div class="flex-row darker-background">
+            <div class="flex-row">
                 <div class="flex-cell cell-40">Ceia</div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="0"></div>
                 <div class="flex-cell cell-15"><input type="radio" name="strengthCookSupper" value="1"></div>
@@ -78,12 +78,16 @@
                 Sobre o hábito de <strong>Hidratar-se</strong>
             </span>
         </div>
-        <div class="box-yama">
-            <div class="span-container">
-                <span>Litros de Água</span>
-                <span id="strengthCookWaterOutput">Aguardando Input</span>
+        <div class="flex-table">
+            <div class="flex-row">
+                <div class="flex-cell cell-50">
+                    <span>Litros de Água:</span>&nbsp;
+                    <strong><span id="strengthCookWaterOutput">0</span></strong>
+                </div>
+                <div class="flex-cell cell-50">
+                    <input type="range" id="strengthCookWater" name="strengthCookWater" min="0" max="5" value="0" oninput="strengthCookWaterOutput.innerText = this.value">
+                </div>
             </div>
-            <input type="range" id="strengthCookWater" name="strengthCookWater" min="0" max="5" value="0" oninput="strengthCookWaterOutput.innerText = this.value">
         </div>
     </div>
 </div>
