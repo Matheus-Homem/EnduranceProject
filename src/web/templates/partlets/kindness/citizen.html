@@ -10,13 +10,52 @@
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>apoiar</strong>
+                Sobre o hábito de <strong>Depender</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-100">A</div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt7" onclick="toggleCheck('opt7', 'input_citizen_group', 'family')">
+                        <span>Família</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt8" onclick="toggleCheck('opt8', 'input_citizen_group', 'friends')">
+                        <span>Amigos</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt9" onclick="toggleCheck('opt9', 'input_citizen_group', '-')">
+                        <span>-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt10" onclick="toggleCheck('opt10', 'input_citizen_group', 'yoga')">
+                        <span>Yoga</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt11" onclick="toggleCheck('opt11', 'input_citizen_group', 'exercise')">
+                        <span>Exercício</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-33">
+                    <div class="check" id="opt12" onclick="toggleCheck('opt12', 'input_citizen_group', 'rd')">
+                        <span>RD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-100">
+                    <textarea id="text_citizen_group"></textarea>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('text_citizen_group').value = 'Conviver com pessoas me faz...';
+</script>
