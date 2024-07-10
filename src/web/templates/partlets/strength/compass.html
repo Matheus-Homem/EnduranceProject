@@ -10,8 +10,18 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-50"><input type="radio" name="strengthSatisfaction" value="False"><span>Insatisfeito</span></div>
-                <div class="flex-cell cell-50"><input type="radio" name="strengthSatisfaction" value="True"><span>Satisfeito</span></div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option31" onclick="selectAlternative(31, 'radio_strength_compass_satisfaction', 'disappointed')">
+                        <div class="dot"></div>
+                        <span>Insatisfeito</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option32" onclick="selectAlternative(32, 'radio_strength_compass_satisfaction', 'satisfied')">
+                        <div class="dot"></div>
+                        <span>Satisfeito</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -23,12 +33,27 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="vanguard"><span>Vanguarda</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="scout"><span>Batedor</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="strengthDiscontent" value="cook"><span>Cozinheiro</span></div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_vanguard" class="check" onclick="checkButton('id_compass_vanguard', 'input_compass_vanguard', 'False', 'True')">
+                        <span>Vanguarda</span>
+                    </div>
+                    <input type="hidden" id="input_compass_vanguard" name="check_compass_vanguard" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_scout" class="check" onclick="checkButton('id_compass_scout', 'input_compass_scout', 'False', 'True')">
+                        <span>Batedor</span>
+                    </div>
+                    <input type="hidden" id="input_compass_scout" name="check_compass_scout" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_cook" class="check" onclick="checkButton('id_compass_cook', 'input_compass_cook', 'False', 'True')">
+                        <span>Cozinheiro</span>
+                    </div>
+                    <input type="hidden" id="input_compass_cook" name="check_compass_cook" value="False">
+                </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-100"><input type="text" name="strengthGrowthTextArea" placeholder="Amanhã posso ser forte se..."></div>
+                <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser forte se..."></div>
             </div>
         </div>
     </div>

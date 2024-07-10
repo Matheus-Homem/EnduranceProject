@@ -10,8 +10,18 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-50"><input type="radio" name="kindnessSatisfaction" value="False"><span>Insatisfeito</span></div>
-                <div class="flex-cell cell-50"><input type="radio" name="kindnessSatisfaction" value="True"><span>Satisfeito</span></div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option3" onclick="selectAlternative(3, 'radio_kindness_compass_satisfaction', 'disappointed')">
+                        <div class="dot"></div>
+                        <span>Insatisfeito</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option4" onclick="selectAlternative(4, 'radio_kindness_compass_satisfaction', 'satisfied')">
+                        <div class="dot"></div>
+                        <span>Satisfeito</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -23,13 +33,28 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="caretaker"><span>Zelador</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="diplomat"><span>Diplomata</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="kindnessDiscontent" value="hero"><span>Herói</span></div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_caretaker" class="check" onclick="checkButton('id_compass_caretaker', 'input_compass_caretaker', 'False', 'True')">
+                        <span>Zelador</span>
+                    </div>
+                    <input type="hidden" id="input_compass_caretaker" name="check_compass_caretaker" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_diplomat" class="check" onclick="checkButton('id_compass_diplomat', 'input_compass_diplomat', 'False', 'True')">
+                        <span>Diplomata</span>
+                    </div>
+                    <input type="hidden" id="input_compass_diplomat" name="check_compass_diplomat" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_citizen" class="check" onclick="checkButton('id_compass_citizen', 'input_compass_citizen', 'False', 'True')">
+                        <span>Cidadão</span>
+                    </div>
+                    <input type="hidden" id="input_compass_citizen" name="check_compass_citizen" value="False">
+                </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-100"><input type="text" name="kindnessGrowthTextArea" placeholder="Amanhã posso ser gentil se..."></div>
+                <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser gentil se..."></div>
             </div>
         </div>
     </div>
-</div> 
+</div>

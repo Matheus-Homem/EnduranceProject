@@ -10,8 +10,18 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-50"><input type="radio" name="stabilitySatisfaction" value="False"><span>Insatisfeito</span></div>
-                <div class="flex-cell cell-50"><input type="radio" name="stabilitySatisfaction" value="True"><span>Satisfeito</span></div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option21" onclick="selectAlternative(21, 'radio_wisdom_compass_satisfaction', 'disappointed')">
+                        <div class="dot"></div>
+                        <span>Insatisfeito</span>
+                    </div>
+                </div>
+                <div class="flex-cell cell-50">
+                    <div class="alternative" id="option22" onclick="selectAlternative(22, 'radio_wisdom_compass_satisfaction', 'satisfied')">
+                        <div class="dot"></div>
+                        <span>Satisfeito</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -23,12 +33,27 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="navigator"><span>Patrocinador</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="alchimist"><span>Mecenas</span></div>
-                <div class="flex-cell cell-33"><input type="checkbox" name="stabilityDiscontent" value="apprentice"><span>Tesoureiro</span></div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_sponsor" class="check" onclick="checkButton('id_compass_sponsor', 'input_compass_sponsor', 'False', 'True')">
+                        <span>Patrocinador</span>
+                    </div>
+                    <input type="hidden" id="input_compass_sponsor" name="check_compass_sponsor" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_patron" class="check" onclick="checkButton('id_compass_patron', 'input_compass_patron', 'False', 'True')">
+                        <span>Mecenas</span>
+                    </div>
+                    <input type="hidden" id="input_compass_patron" name="check_compass_patron" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_compass_treasurer" class="check" onclick="checkButton('id_compass_treasurer', 'input_compass_treasurer', 'False', 'True')">
+                        <span>Tesoureiro</span>
+                    </div>
+                    <input type="hidden" id="input_compass_treasurer" name="check_compass_treasurer" value="False">
+                </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-100"><input type="text" name="stabilityGrowthTextArea" placeholder="Amanhã posso ser estável se..."></div>
+                <div class="flex-cell cell-100"><input type="text" name="wisdomGrowthTextArea" placeholder="Amanhã posso ser estável se..."></div>
             </div>
         </div>
     </div>
