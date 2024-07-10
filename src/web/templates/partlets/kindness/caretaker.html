@@ -10,12 +10,61 @@
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>Cuidar</strong>
+                Sobre o hábito de <strong>Cuidar-se</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-100">A</div>
+                <div class="flex-cell cell-25">
+                    <span>Higiene</span>
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_caretaker_hygiene_excelence" class="toggle" onclick="toggleButton('caretaker_hygiene_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_caretaker_hygiene_excelence" name="toggle_caretaker_hygiene_excelence" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <span>Relaxamento</span>
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_caretaker_relaxation_excelence" class="toggle" onclick="toggleButton('caretaker_relaxation_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_caretaker_relaxation_excelence" name="toggle_caretaker_relaxation_excelence" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <span>Cuidados Domésticos</span>
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_caretaker_domesticCare_excelence" class="toggle" onclick="toggleButton('caretaker_domesticCare_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_caretaker_domesticCare_excelence" name="toggle_caretaker_domesticCare_excelence" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-25">
+                    <span>Preparo de Alimentos</span>
+                </div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-regular fa-moon"></i></span>
+                    <div id="toggle_caretaker_foodPreparation_excelence" class="toggle" onclick="toggleButton('caretaker_foodPreparation_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_caretaker_foodPreparation_excelence" name="toggle_caretaker_foodPreparation_excelence" value="False">
+                </div>
             </div>
         </div>
     </div>
