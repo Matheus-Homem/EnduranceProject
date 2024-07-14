@@ -17,18 +17,18 @@
             <div class="flex-row">
                 <div class="flex-cell cell-50">Tempo de Tela</div>
                 <div class="flex-cell cell-25">
-                    <input type="number" name="wisdom_sentinel_ScreenTime" minlength="3" maxlength="4"
-                        oninput="ScreenTimeOutput.value = formatValue(wisdom_sentinel_ScreenTime.value, 'time')" required>
+                    <input type="number" name="time_wisdom_sentinel_screenTime" minlength="3" maxlength="4"
+                        oninput="screenTimeOutput.value = formatValue(time_wisdom_sentinel_screenTime.value, 'time')" required>
                 </div>
-                <div class="flex-cell cell-25"><output id="ScreenTimeOutput">__h __min</output></div>
+                <div class="flex-cell cell-25"><output id="screenTimeOutput">__h __min</output></div>
             </div>
             <div class="flex-row">
                 <div class="flex-cell cell-50">Início do Sono</div>
-                <div class="flex-cell cell-50"><input type="datetime-local" name="wisdom_sentinel_BedDatetime" required></div>
+                <div class="flex-cell cell-50"><input type="datetime-local" name="datetime_wisdom_sentinel_bedDatetime" required></div>
             </div>
             <div class="flex-row">
                 <div class="flex-cell cell-50">Fim do Sono</div>
-                <div class="flex-cell cell-50"><input type="datetime-local" name="wisdom_sentinel_WakeupDatetime" required></div>
+                <div class="flex-cell cell-50"><input type="datetime-local" name="datetime_wisdom_sentinel_wakeupDatetime" required></div>
             </div>
             <div class="flex-row">
                 <div class="flex-cell cell-100"><span id="DatetimeDifferenceOutput" placeholder="Aguardando inserção de ambos os dados."></span></div>
