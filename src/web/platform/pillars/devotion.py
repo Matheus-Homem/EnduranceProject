@@ -1,2 +1,0 @@
-class DevotionBoxes:
-    pass
