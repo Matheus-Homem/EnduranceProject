@@ -15,6 +15,11 @@
             {% include "partlets/header_morning.html" %}
         </section>
 
+        <section class="wisdom">
+            <div class="wisdom-section"><span>Sabedoria</span></div>
+            {% include "partlets/wisdom/sentinel.html" %}
+        </section>
+
         <section class="stability">
             <div class="stability-section"><span>Estabilidade</span></div>
             {% include "partlets/stability/treasurer.html" %}
@@ -25,11 +30,6 @@
             {% include "partlets/strength/feedback.html" %}
         </section>
 
-        <section class="devotion">
-            <div class="devotion-section"><span>Devoção</span></div>
-            {% include "partlets/devotion/sentinel.html" %}
-        </section>
-
         <section class="basic">
             {% include "partlets/footer.html" %}
         </section>
@@ -38,23 +38,23 @@
 
     <script>
         
-        const bedDateTimeInput = document.querySelector('input[name="devotion_sentinel_BedDatetime"]');
-        const wakeupDateTimeInput = document.querySelector('input[name="devotion_sentinel_WakeupDatetime"]');
+        const bedDateTimeInput = document.querySelector('input[name="datetime_wisdom_sentinel_bedDatetime"]');
+        const wakeupDateTimeInput = document.querySelector('input[name="datetime_wisdom_sentinel_wakeupDatetime"]');
         const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
         datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
         bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);
         wakeupDateTimeInput.addEventListener('change', calculateDatetimeDifference);
 
-        const awakePercentageInput = document.getElementById('awakePercentage');
-        const remPercentageInput   = document.getElementById('remPercentage');
-        const lightPercentageInput = document.getElementById('lightPercentage');
-        const deepPercentageInput  = document.getElementById('deepPercentage');
-        const totalPercentageOutput = document.getElementById('totalPercentage');
-        totalPercentageOutput.textContent = "Porcentagem Total: 55%";
-        awakePercentageInput.addEventListener('change', calculateTotalPercentage);
-        remPercentageInput.addEventListener('change', calculateTotalPercentage);
-        lightPercentageInput.addEventListener('change', calculateTotalPercentage);
-        deepPercentageInput.addEventListener('change', calculateTotalPercentage);
+        // const awakePercentageInput = document.getElementById('awakePercentage');
+        // const remPercentageInput   = document.getElementById('remPercentage');
+        // const lightPercentageInput = document.getElementById('lightPercentage');
+        // const deepPercentageInput  = document.getElementById('deepPercentage');
+        // const totalPercentageOutput = document.getElementById('totalPercentage');
+        // totalPercentageOutput.textContent = "Porcentagem Total: 55%";
+        // awakePercentageInput.addEventListener('change', calculateTotalPercentage);
+        // remPercentageInput.addEventListener('change', calculateTotalPercentage);
+        // lightPercentageInput.addEventListener('change', calculateTotalPercentage);
+        // deepPercentageInput.addEventListener('change', calculateTotalPercentage);
 
     </script>
 
