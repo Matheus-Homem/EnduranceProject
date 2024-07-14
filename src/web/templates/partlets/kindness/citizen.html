@@ -16,36 +16,42 @@
         <div class="flex-table">
             <div class="flex-row">
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt7" onclick="toggleCheck('opt7', 'input_citizen_group', 'family')">
+                    <div id="id_family" class="check" onclick="checkButton('id_family', 'input_kindness_citizen_family', 'False', 'True')">
                         <span>Família</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_family" name="multi_kindness_citizen_family" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt8" onclick="toggleCheck('opt8', 'input_citizen_group', 'friends')">
+                    <div id="id_friends" class="check" onclick="checkButton('id_friends', 'input_kindness_citizen_friends', 'False', 'True')">
                         <span>Amigos</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_friends" name="multi_kindness_citizen_friends" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt9" onclick="toggleCheck('opt9', 'input_citizen_group', '-')">
+                    <div id="id_empty" class="check" onclick="checkButton('id_empty', 'input_kindness_citizen_empty', 'False', 'True')">
                         <span>-</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_empty" name="multi_kindness_citizen_empty" value="False">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt10" onclick="toggleCheck('opt10', 'input_citizen_group', 'yoga')">
+                    <div id="id_yoga" class="check" onclick="checkButton('id_yoga', 'input_kindness_citizen_yoga', 'False', 'True')">
                         <span>Yoga</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_yoga" name="multi_kindness_citizen_yoga" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt11" onclick="toggleCheck('opt11', 'input_citizen_group', 'exercise')">
+                    <div id="id_exercise" class="check" onclick="checkButton('id_exercise', 'input_kindness_citizen_exercise', 'False', 'True')">
                         <span>Exercício</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_exercise" name="multi_kindness_citizen_exercise" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div class="check" id="opt12" onclick="toggleCheck('opt12', 'input_citizen_group', 'rd')">
+                    <div id="id_rd" class="check" onclick="checkButton('id_rd', 'input_kindness_citizen_rd', 'False', 'True')">
                         <span>RD</span>
                     </div>
+                    <input type="hidden" id="input_kindness_citizen_rd" name="multi_kindness_citizen_rd" value="False">
                 </div>
             </div>
             <div class="flex-row">
@@ -58,4 +64,16 @@
 </div>
 <script>
     document.getElementById('text_citizen_group').value = 'Conviver com pessoas me faz: \n- ';
+    document.getElementById('text_citizen_group').addEventListener('blur', function() {
+
+    var input = document.createElement('input');
+    
+    input.type = 'hidden';
+    input.name = 'textarea_kindness_citzen_group';
+    input.value = this.value;
+    
+    var container = this.parentNode;
+    
+    container.appendChild(input);
+});
 </script>
