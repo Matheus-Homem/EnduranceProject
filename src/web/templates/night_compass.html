@@ -19,9 +19,7 @@
             <div class="wisdom-section"><span>Sabedoria</span></div>
             {% include "partlets/wisdom/navigator.html" %}
             {% include "partlets/wisdom/alchemist.html" %}
-            {% include "partlets/wisdom/sentinel.html" %}
-            <!-- {% include "partlets/wisdom/apprentice.html" %} -->
-            {% include "partlets/wisdom/compass.html" %}
+            <!-- {% include "partlets/wisdom/sentinel.html" %} -->
         </section>
 
         <section class="stability">
@@ -29,7 +27,6 @@
             {% include "partlets/stability/sponsor.html" %}
             {% include "partlets/stability/patron.html" %}
             <!-- {% include "partlets/stability/treasurer.html" %} -->
-            {% include "partlets/stability/compass.html" %}
         </section>
 
         <section class="strength">
@@ -37,7 +34,7 @@
             {% include "partlets/strength/vanguard.html" %}
             {% include "partlets/strength/scout.html" %}
             {% include "partlets/strength/cook.html" %}
-            {% include "partlets/strength/compass.html" %}
+            <!-- {% include "partlets/strength/feedback.html" %} -->
         </section>
 
         <section class="kindness">
@@ -45,15 +42,13 @@
             {% include "partlets/kindness/caretaker.html" %}
             {% include "partlets/kindness/diplomat.html" %}
             {% include "partlets/kindness/citizen.html" %}
-            {% include "partlets/kindness/compass.html" %}
         </section>
 
         <section class="devotion">
             <div class="devotion-section"><span>Devoção</span></div>
-            {% include "partlets/devotion/ascetic.html" %}
-            <!-- {% include "partlets/devotion/sentinel.html" %} -->
-            {% include "partlets/devotion/leader.html" %}
-            {% include "partlets/devotion/compass.html" %}
+            {% include "partlets/devotion/oracle.html" %}
+            {% include "partlets/devotion/atharva.html" %}
+            {% include "partlets/devotion/nagi.html" %}
         </section>
 
         <section class="basic">
@@ -63,27 +58,6 @@
     </form>
 
     <script>
-        
-        const bedDateTimeInput = document.querySelector('input[name="wisdom_sentinel_BedDatetime"]');
-        const wakeupDateTimeInput = document.querySelector('input[name="wisdom_sentinel_WakeupDatetime"]');
-        const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
-        datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
-        bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);
-        wakeupDateTimeInput.addEventListener('change', calculateDatetimeDifference);
-
-        var stabilitySponsorActive = document.getElementById('stabilitySponsorActive');
-        var stabilitySponsorSatisfaction = document.getElementById('stabilitySponsorSatisfaction');
-        var stabilitySponsorOutcome = document.getElementById('stabilitySponsorOutcome');
-
-        stabilitySponsorActive.addEventListener('change', function() {
-            if (stabilitySponsorActive.value === 'True') {
-                stabilitySponsorSatisfaction.required = true;
-                stabilitySponsorOutcome.required = true;
-            } else {
-                stabilitySponsorSatisfaction.required = false;
-                stabilitySponsorOutcome.required = false;
-            }
-        });
 
     </script>
 
