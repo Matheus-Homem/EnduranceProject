@@ -4,81 +4,76 @@
     </div>
     <div class="box-role">
         <span>
-            O <strong>Alquimista</strong> é aquele que permite que elementos indesejados deixem de fazer parte da <strong>Expedição</strong> dando lugar à <strong>Sabedoria</strong>
+            O <strong>Alquimista</strong> é aquele que transforma as inpurezas adquiridas durante a <strong>Expedição</strong> em <strong>Sabedoria</strong>
         </span>
     </div>
     <div class="box-input">
         <div class="box-habit">
             <span>
-                Sobre o hábito de <strong>Abdicar</strong>
+                Sobre o hábito de <strong>Autoconhecer-se</strong>
             </span>
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Ahimsa" class="toggle-label"><span>Ahimsa</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Ahimsa" class="toggle" onclick="toggleButton('alchemist_Ahimsa')">
-                        <div class="toggle-button"></div>
+                <div class="flex-cell cell-33">
+                    <div id="id_anger" class="check" onclick="checkButton('id_anger', 'input_wisdom_alchemist_anger', 'False', 'True')">
+                        <span>Raiva</span>
                     </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Ahimsa" name="toggle_alchemist_Ahimsa" value="False">
+                    <input type="hidden" id="input_wisdom_alchemist_anger" name="multi_wisdom_alchemist_anger" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_sadness" class="check" onclick="checkButton('id_sadness', 'input_wisdom_alchemist_sadness', 'False', 'True')">
+                        <span>Tristeza</span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_alchemist_sadness" name="multi_wisdom_alchemist_sadness" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_frustration" class="check" onclick="checkButton('id_frustration', 'input_wisdom_alchemist_frustration', 'False', 'True')">
+                        <span>Frustração</span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_alchemist_frustration" name="multi_wisdom_alchemist_frustration" value="False">
                 </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Satya" class="toggle-label"><span>Satya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Satya" class="toggle" onclick="toggleButton('alchemist_Satya')">
-                        <div class="toggle-button"></div>
+                <div class="flex-cell cell-33">
+                    <div id="id_fear" class="check" onclick="checkButton('id_fear', 'input_wisdom_alchemist_fear', 'False', 'True')">
+                        <span>Medo</span>
                     </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Satya" name="toggle_alchemist_Satya" value="False">
+                    <input type="hidden" id="input_wisdom_alchemist_fear" name="multi_wisdom_alchemist_fear" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_disheartenment" class="check" onclick="checkButton('id_disheartenment', 'input_wisdom_alchemist_disheartenment', 'False', 'True')">
+                        <span>Desânimo</span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_alchemist_disheartenment" name="multi_wisdom_alchemist_disheartenment" value="False">
+                </div>
+                <div class="flex-cell cell-33">
+                    <div id="id_resentment" class="check" onclick="checkButton('id_resentment', 'input_wisdom_alchemist_resentment', 'False', 'True')">
+                        <span>Ressentimento</span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_alchemist_resentment" name="multi_wisdom_alchemist_resentment" value="False">
                 </div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Asteya" class="toggle-label"><span>Asteya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Asteya" class="toggle" onclick="toggleButton('alchemist_Asteya')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Asteya" name="toggle_alchemist_Asteya" value="False">
-                </div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Brahmacharya" class="toggle-label"><span>Brahmacharya</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Brahmacharya" class="toggle" onclick="toggleButton('alchemist_Brahmacharya')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Brahmacharya" name="toggle_alchemist_Brahmacharya" value="False">
-                </div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-25">
-                    <div id="label_alchemist_Aparigraha" class="toggle-label"><span>Aparigraha</span></div>
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_alchemist_Aparigraha" class="toggle" onclick="toggleButton('alchemist_Aparigraha')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_alchemist_Aparigraha" name="toggle_alchemist_Aparigraha" value="False">
+                <div class="flex-cell cell-100">
+                    <textarea id="text_apprentice_Learning"></textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('text_apprentice_Learning').value = 'Situação: \nAprendizado: ';
+    document.getElementById('text_apprentice_Learning').addEventListener('blur', function() {
+
+    var input = document.createElement('input');
+    
+    input.type = 'hidden';
+    input.name = 'textarea_wisdom_alchemist_learning';
+    input.value = this.value;
+    
+    var container = this.parentNode;
+    
+    container.appendChild(input);
+});
+</script>

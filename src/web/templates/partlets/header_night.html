@@ -7,28 +7,44 @@
     <div class="box-input">
         <div class="flex-table">
             <div class="flex-row">
-                <div class="flex-cell cell-50"><label for="date_opening_NightDate">Data do Registro</label></div>
-                <div class="flex-cell cell-50"><input type="date" name="date_opening_NightDate" required></div>
+                <div class="flex-cell cell-50"><label for="date_header_nightDate">Data do Registro</label></div>
+                <div class="flex-cell cell-50"><input type="date" name="date_header_nightDate" required></div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-50"><label for="time_opening_NightTime">Horário de Preenchimento</label></div>
-                <div class="flex-cell cell-50"><input type="time" name="time_opening_NightTime" required></div>
+                <div class="flex-cell cell-50"><label for="time_header_nightTime">Horário de Preenchimento</label></div>
+                <div class="flex-cell cell-50"><input type="time" name="time_header_nightTime" required></div>
             </div>
             <div class="flex-row">
-                <div class="flex-cell cell-50"><label for="toggle_opening_NightHumor">Humor da Noite</label></div>
+                <div class="flex-cell cell-50"><label for="toggle_header_nightHumor">Humor da Noite</label></div>
                 <div class="flex-cell cell-50">
                     <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_opening_NightHumor" class="toggle" onclick="toggleButton('opening_NightHumor')">
+                    <div id="toggle_header_nightHumor" class="toggle" onclick="toggleButton('header_nightHumor')">
                         <div class="toggle-button"></div>
                     </div>
                     <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_opening_NightHumor" name="toggle_opening_NightHumor" value="False">
+                    <input type="hidden" id="input_header_nightHumor" name="toggle_header_nightHumor" value="False">
                 </div>
             </div>
-            <div class="flex-cell cell-100">
-                <!-- TODO: Add more (+) gratitudes -->
-                <textarea name="dailyGratitude" required>Sou grato por </textarea>
+            <div class="flex-row">
+                <div class="flex-cell cell-100">
+                    <textarea id="text_gratitude"></textarea>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('text_gratitude').value = 'Sou grato por: \n- ';
+        document.getElementById('text_gratitude').addEventListener('blur', function() {
+    
+        var input = document.createElement('input');
+        
+        input.type = 'hidden';
+        input.name = 'textarea_header_gratitude';
+        input.value = this.value;
+        
+        var container = this.parentNode;
+        
+        container.appendChild(input);
+    });
+</script>
