@@ -1,7 +1,6 @@
 # 📑 Pull Request Purpose 📑
 
 ## What was done?
-
 - 
 
 ## *Label* :white_check_mark:
