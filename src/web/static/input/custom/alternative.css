@@ -1,9 +1,12 @@
+.alternative, .dot {
+    transition: all 1s ease;
+}
+
 .alternative {
     display: inline-block;
     cursor: pointer;
     margin-right: 20px;
-    transition: background-color 0.5s ease;
-  }
+}
   
 .dot {
     width: 20px;
@@ -13,7 +16,6 @@
     display: inline-block;
     margin-right: 10px;
     vertical-align: middle;
-    transition: background-color 0.5s ease;
 }
   
 .selected .dot {
@@ -24,4 +26,22 @@
 .alternative.selected span {
     color: var(--strong-section-color);
     font-weight: 800;
+}
+
+.alternative:hover, .alternative:focus {
+    background-color: var(--hover-background-color);
+}
+
+.dot:hover, .dot:focus {
+    background-color: var(--hover-dot-background-color);
+    border-color: var(--hover-dot-border-color);
+}
+
+.selected .dot:hover, .selected .dot:focus {
+    background-color: var(--hover-selected-dot-background-color);
+    border-color: var(--hover-selected-dot-border-color);
+}
+
+.alternative.selected span:hover, .alternative.selected span:focus {
+    color: var(--hover-strong-section-color);
 }

@@ -4,7 +4,7 @@
     </div>
     <div class="box-role">
         <span>
-            O <strong>Navegador</strong> é aquele que busca experiência de outras vidas para trazer mais <strong>Sabedoria</strong> à <strong>Expedição</strong>
+            O <strong>Navegador</strong> é aquele que busca experiência de outras vidas para trazer a <strong>Sabedoria</strong> à <strong>Expedição</strong>
         </span>
     </div>
     <div class="box-input">
@@ -15,46 +15,24 @@
         </div>
         <div class="flex-table">
             <div class="flex-row">
-                <!-- TODO: criar funcao para caso haja ato o Livro ser obrigatorio -->
-                <div class="flex-cell cell-50"><input type="text" name="wisdomNavigatorBook" placeholder="Livro" ></div>
+                <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book" placeholder="Nome do Livro" ></div>
+                <div class="flex-cell cell-25">
+                    <span><i class="fa-solid fa-pills"></i></span>
+                    <div id="toggle_wisdom_navigatorSession" class="toggle" onclick="toggleButton('wisdom_navigatorSession')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-regular fa-calendar-check"></i></span>
+                    <input type="hidden" id="input_wisdom_navigatorSession" name="toggle_wisdom_navigatorSession" value="False">
+                </div>
                 <div class="flex-cell cell-25">
                     <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_navigator_Sun" class="toggle" onclick="toggleButton('navigator_Sun')">
+                    <div id="toggle_wisdom_navigatorExcelence" class="toggle" onclick="toggleButton('wisdom_navigatorExcelence')">
                         <div class="toggle-button"></div>
                     </div>
                     <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_navigator_Sun" name="toggle_navigator_Sun" value="False">
-                </div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-solid fa-power-off"></i></span>
-                    <div id="toggle_navigator_Notes" class="toggle" onclick="toggleButton('navigator_Notes')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-solid fa-sticky-note"></i></span>                    
-                    <input type="hidden" id="input_navigator_Notes" name="toggle_navigator_Notes" value="False">
+                    <input type="hidden" id="input_wisdom_navigatorExcelence" name="toggle_wisdom_navigatorExcelence" value="False">
                 </div>
             </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-33">
-                    <div class="alternative" id="option1" onclick="selectAlternative(1, 'radio_navigator_Reading', 'inactive')">
-                        <div class="dot"></div>
-                        <span>Inerte</span>
-                    </div>
-                </div>
-                <div class="flex-cell cell-33">
-                    <div class="alternative" id="option2" onclick="selectAlternative(2, 'radio_navigator_Reading', 'pill')">
-                        <div class="dot"></div>
-                        <span>Pílula</span>
-                    </div>
-                </div>
-                <div class="flex-cell cell-33">
-                    <div class="alternative" id="option3" onclick="selectAlternative(3, 'radio_navigator_Reading', 'session')">
-                        <div class="dot"></div>
-                        <span>Sessão</span>
-                    </div>
-                </div>
-            </div>
-            <input type="hidden" id="radio_navigator_Reading" name="radio_navigator_Reading" required>
         </div>
     </div>
 </div>

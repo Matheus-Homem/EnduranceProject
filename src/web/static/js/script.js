@@ -76,6 +76,13 @@ function formatValue(value, type) {
             const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
             return formatedValue + " %";
         }
+    } else if (type === 'distance') {
+        if (value.length < 3) {
+            return "__.__ km";
+        } else {
+            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
+            return formatedValue + " km";
+        }
     }
 }
 
@@ -112,55 +119,41 @@ function toggleButton(suffixId) {
     }
 }
 
-// Function to update the output value
-function updateOutput(inputElement, outputElement) {
-    var value = inputElement.value;
-    var classification = "";
-    
-    if (value == 0) {
-        classification = "Falha";
-    } else if (value >= 1 && value <= 13) {
-        classification = "Derrota";
-    } else if (value == 14 || value == 15) {
-        classification = "Vitória";
-    } else if (value == 16) {
-        classification = "Sucesso";
-    }
-    outputElement.innerText = classification;
-}
-
 let selectedOption = null;
 
 // Function to select an alternative option
-function selectAlternative(id, inputId, value) {
-    
+function selectAlternative(id, inputName, value) {
+    // Deselect all options in the group
+    const options = document.querySelectorAll(`input[name="${inputName}"]`);
+    options.forEach(option => {
+        if (option.value === value) {
+            option.checked = true; // Check the radio input that matches the value
+        }
+    });
+
+    // Update visual selection
     if (selectedOption !== null) {
         document.getElementById(`option${selectedOption}`).classList.remove('selected');
     }
-
     selectedOption = id;
     document.getElementById(`option${id}`).classList.add('selected');
-
-    document.getElementById(inputId).value = value;
 }
 
-// Function to toggle the check status
-function toggleCheck(divId, inputId, valueId) {
-    var checkElement = document.getElementById(divId);
-    var inputElement = document.getElementById(inputId);
-    checkElement.classList.toggle('check-true');
-
-    // if checkElement has 'check-true' class, add the divId to the input value has a list
-    if (checkElement.classList.contains('check-true')) {
-        inputElement.value += valueId + ',';
-    } else {
-        // if checkElement does not have 'check-true' class, remove the divId from the input value
-        var values = inputElement.value.split(',');
-        var index = values.indexOf(valueId);
-        if (index > -1) {
-            values.splice(index, 1);
-        }
-        inputElement.value = values.join(',');
+function selectAlternativeOverwrite(id, questionGroup, answer) {
+    // Query all alternatives within the same question group
+    const alternatives = document.querySelectorAll(`.alternative[data-question-group="${questionGroup}"]`);
+    
+    // Remove `.selected` class from all alternatives to ensure only one is selected at a time
+    alternatives.forEach(alternative => {
+        alternative.classList.remove('selected');
+    });
+    
+    // Add `.selected` class to the clicked alternative
+    const selectedAlternative = document.getElementById(id);
+    if (selectedAlternative) {
+        selectedAlternative.classList.add('selected');
     }
-
+    
+    // Optional: Handle the answer, e.g., send it to a server or log
+    console.log(`Answer for ${questionGroup}: ${answer}`);
 }

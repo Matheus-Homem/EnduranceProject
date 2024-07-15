@@ -21,6 +21,10 @@
     justify-content: center;
 }
 
+.cell-5 {
+    flex: 1 1 5%;
+}
+
 .cell-10 {
     flex: 1 1 10%;
 }
@@ -51,6 +55,14 @@
 
 .cell-50 {
     flex: 1 1 50%;
+}
+
+.cell-70 {
+    flex: 1 1 70%;
+}
+
+.cell-75 {
+    flex: 1 1 75%;
 }
 
 .cell-100 {
