@@ -165,19 +165,19 @@ function addRow() {
         <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
         <div class="flex-cell cell-25">
             <span><i class="fa-solid fa-pills"></i></span>
-            <div id="toggle_wisdom_navigatorSession_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigatorSession_${rowIndex}')">
+            <div id="toggle_wisdom_navigator_session_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_session_${rowIndex}')">
                 <div class="toggle-button"></div>
             </div>
             <span><i class="fa-regular fa-calendar-check"></i></span>
-            <input type="hidden" id="input_wisdom_navigatorSession_${rowIndex}" name="toggle_wisdom_navigatorSession_${rowIndex}" value="False">
+            <input type="hidden" id="input_wisdom_navigator_session_${rowIndex}" name="toggle_wisdom_navigator_session_${rowIndex}" value="False">
         </div>
         <div class="flex-cell cell-25">
             <span><i class="fa-regular fa-moon"></i></span>
-            <div id="toggle_wisdom_navigatorExcelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigatorExcelence_${rowIndex}')">
+            <div id="toggle_wisdom_navigator_excelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_excelence_${rowIndex}')">
                 <div class="toggle-button"></div>
             </div>
             <span><i class="fa-solid fa-sun"></i></span>
-            <input type="hidden" id="input_wisdom_navigatorExcelence_${rowIndex}" name="toggle_wisdom_navigatorExcelence_${rowIndex}" value="False">
+            <input type="hidden" id="input_wisdom_navigator_excelence_${rowIndex}" name="toggle_wisdom_navigator_excelence_${rowIndex}" value="False">
         </div>
     `;
 
