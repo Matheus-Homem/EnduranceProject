@@ -2,8 +2,23 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
+}
+
+.spaceContainer {
     margin-top: 50px;
     margin-bottom: 100px;
+}
+
+.addButton, .removeButton {
+    background-color: var(--section-color-darker);
+    border: none;
+    color: var(--text-color);
+    font-size: 12px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    border-radius: 5px;
+
 }
 
 .resetButton, .submitButton, .returnButton {
@@ -28,8 +43,12 @@
     border-radius: 5px;
 }
 
-.resetButton:active, .submitButton:active, .returnButton:active, .createButton:active, .editButton:active {
+.resetButton:active, .submitButton:active, .returnButton:active, .createButton:active, .editButton:active, .addButton:active, .removeButton:active {
     transform: scale(0.90);
+}
+
+.addButton:hover, .removeButton:hover {
+    background-color: var(--section-color);
 }
 
 .resetButton:hover, .submitButton:hover, .returnButton:hover {
