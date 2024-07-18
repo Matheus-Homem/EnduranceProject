@@ -13,26 +13,41 @@
                 Sobre o hábito da <strong>Leitura</strong>
             </span>
         </div>
-        <div class="flex-table">
-            <div class="flex-row">
-                <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book" placeholder="Nome do Livro" ></div>
+        <div id="form-container" class="flex-table">
+            <div class="flex-row" data-row-index="0">
+                <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_0" placeholder="Nome do Livro"></div>
                 <div class="flex-cell cell-25">
                     <span><i class="fa-solid fa-pills"></i></span>
-                    <div id="toggle_wisdom_navigatorSession" class="toggle" onclick="toggleButton('wisdom_navigatorSession')">
+                    <div id="toggle_wisdom_navigatorSession_0" class="toggle" onclick="toggleButton('wisdom_navigatorSession_0')">
                         <div class="toggle-button"></div>
                     </div>
                     <span><i class="fa-regular fa-calendar-check"></i></span>
-                    <input type="hidden" id="input_wisdom_navigatorSession" name="toggle_wisdom_navigatorSession" value="False">
+                    <input type="hidden" id="input_wisdom_navigatorSession_0" name="toggle_wisdom_navigatorSession_0" value="False">
                 </div>
                 <div class="flex-cell cell-25">
                     <span><i class="fa-regular fa-moon"></i></span>
-                    <div id="toggle_wisdom_navigatorExcelence" class="toggle" onclick="toggleButton('wisdom_navigatorExcelence')">
+                    <div id="toggle_wisdom_navigatorExcelence_0" class="toggle" onclick="toggleButton('wisdom_navigatorExcelence_0')">
                         <div class="toggle-button"></div>
                     </div>
                     <span><i class="fa-solid fa-sun"></i></span>
-                    <input type="hidden" id="input_wisdom_navigatorExcelence" name="toggle_wisdom_navigatorExcelence" value="False">
+                    <input type="hidden" id="input_wisdom_navigatorExcelence_0" name="toggle_wisdom_navigatorExcelence_0" value="False">
                 </div>
             </div>
         </div>
+        <div class="buttonContainer">
+            <button type="button" class="removeButton" id="remove-row">
+                <i class="fa-solid fa-square-minus"></i>
+                Remove
+            </button>
+            <button type="button" class="addButton" id="add-row">
+                <i class="fa-solid fa-square-plus"></i>
+                Add
+            </button>
+        </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('add-row').addEventListener('click', addRow);
+    document.getElementById('remove-row').addEventListener('click', removeRow);
+</script>
