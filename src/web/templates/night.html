@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Moon Exhalation
+    Moon Breathing
 {% endblock %}
 
 {% block header %}
-    To North Tomorrow
+    Para Direcionar o Amanhã
 {% endblock %}
 
 {% block content %}
     <form action="/form/night/" id="reading-form" method="POST" onsubmit="handleSubmit(event, this)">
 
         <section class="basic">
+            <div class="info-section"><span>Informações Gerais</span></div>
             {% include "partlets/header_night.html" %}
         </section>
 
