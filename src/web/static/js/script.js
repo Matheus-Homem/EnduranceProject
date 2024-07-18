@@ -99,26 +99,6 @@ function checkButton(checkId, inputId, normalValue, checkedValue) {
     }
 }
 
-// Function to toggle the button status
-function toggleButton(suffixId) {
-    var toggleId = `toggle_${suffixId}`;
-    var inputId = `input_${suffixId}`;
-    var labelId = `label_${suffixId}`;
-
-    var toggleElement = document.getElementById(toggleId);
-    var labelElement = document.getElementById(labelId);
-    var inputElement = document.getElementById(inputId);
-
-    toggleElement.classList.toggle('toggle-true');    
-    labelElement.classList.toggle('toggle-true');
-    
-    if (inputElement.value === 'True') {
-        inputElement.value = 'False';
-    } else {
-        inputElement.value = 'True';
-    }
-}
-
 let selectedOption = null;
 
 // Function to select an alternative option
@@ -156,4 +136,60 @@ function selectAlternativeOverwrite(id, questionGroup, answer) {
     
     // Optional: Handle the answer, e.g., send it to a server or log
     console.log(`Answer for ${questionGroup}: ${answer}`);
+}
+
+
+let rowIndex = 1;  // Keep track of the number of rows
+
+// Function to toggle the button status
+function toggleButton(suffixId) {
+    const toggleId = `toggle_${suffixId}`;
+    const inputId = `input_${suffixId}`;
+
+    const toggleElement = document.getElementById(toggleId);
+    const inputElement = document.getElementById(inputId);
+
+    toggleElement.classList.toggle('toggle-true');
+
+    inputElement.value = (inputElement.value === 'True') ? 'False' : 'True';
+}
+
+// Function to add a new row of inputs
+function addRow() {
+    const formContainer = document.getElementById('form-container');
+    const newRow = document.createElement('div');
+    newRow.classList.add('flex-row');
+    newRow.setAttribute('data-row-index', rowIndex);
+
+    newRow.innerHTML = `
+        <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
+        <div class="flex-cell cell-25">
+            <span><i class="fa-solid fa-pills"></i></span>
+            <div id="toggle_wisdom_navigatorSession_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigatorSession_${rowIndex}')">
+                <div class="toggle-button"></div>
+            </div>
+            <span><i class="fa-regular fa-calendar-check"></i></span>
+            <input type="hidden" id="input_wisdom_navigatorSession_${rowIndex}" name="toggle_wisdom_navigatorSession_${rowIndex}" value="False">
+        </div>
+        <div class="flex-cell cell-25">
+            <span><i class="fa-regular fa-moon"></i></span>
+            <div id="toggle_wisdom_navigatorExcelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigatorExcelence_${rowIndex}')">
+                <div class="toggle-button"></div>
+            </div>
+            <span><i class="fa-solid fa-sun"></i></span>
+            <input type="hidden" id="input_wisdom_navigatorExcelence_${rowIndex}" name="toggle_wisdom_navigatorExcelence_${rowIndex}" value="False">
+        </div>
+    `;
+
+    formContainer.appendChild(newRow);
+    rowIndex++;  // Increment the row index
+}
+
+// Function to remove the last row of inputs
+function removeRow() {
+    const formContainer = document.getElementById('form-container');
+    if (formContainer.childElementCount > 1) {
+        formContainer.removeChild(formContainer.lastChild);
+        rowIndex--;  // Decrement the row index
+    }
 }
