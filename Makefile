@@ -20,7 +20,10 @@ create-venv: # Command to create the virtual environment
 
 activate-venv: # Command to activate the virtual environment and modify the command prompt
 	@echo Activating virtual environment...
-	@call .\$(VENV_NAME)\Scripts\activate && cmd /k
+	@$(if $(filter $(OS),Windows_NT), \
+		call .\$(VENV_NAME)\Scripts\activate && cmd /k, \
+		echo This is not a Windows system. Please activate the virtual environment with: && \
+		echo source $(VENV_NAME)/bin/activate)
 		
 build: # Command to create the virtual environment and activate it
 	@echo Building project...
