@@ -30,13 +30,13 @@ class MySqlCredential(Credential):
     HOST: str = "127.0.0.1"
     USERNAME: str = getenv("MYSQL_USERNAME")
     PASSWORD: str = getenv("MYSQL_PASSWORD")
-    DB_NAME: str = getenv("MYSQL_DATABASE")
-    DATABASE: str = f"{USERNAME}${DB_NAME}"
+    DATABASE_NAME: str = getenv("MYSQL_DATABASE")
+    DB: str = f"{USERNAME}${DATABASE_NAME}"
 
     def get_all_credentials(self) -> Dict[str, Any]:
         return {
             "host": self.HOST,
             "username": self.USERNAME,
             "password": self.PASSWORD,
-            "database": self.DATABASE
+            "database": self.DB
         }
