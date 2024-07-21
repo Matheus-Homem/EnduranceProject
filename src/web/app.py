@@ -1,4 +1,4 @@
-from src.web.utils import establish_mysql_connection
+from src.shared.database.operations import DatabaseOperations
 
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
@@ -17,7 +17,6 @@ def index():
     return render_template("index.html")
 
 @app.route("/form/morning/", methods=["GET", "POST"])
-# @establish_mysql_connection
 def form_morning():
     if request.method == "POST":
         data = request.form.to_dict()
@@ -25,21 +24,20 @@ def form_morning():
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
-                # cursor.execute(f"INSERT INTO RawMorning (data) VALUES ('{data_json}');")
+                DatabaseOperations.execute_command(f"INSERT INTO morning_data (data) VALUES ('{data_json}');")
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
-            return "Erro ao inserir no banco de dados após várias tentativas", 500
+            return "Error inserting into the database after multiple attempts", 500
         else:
             return render_template("index.html")
     else:
         return render_template("morning.html")
 
 @app.route("/form/night/", methods=["GET", "POST"])
-# @establish_mysql_connection
 def form_night():
     if request.method == "POST":
         data = request.form.to_dict()
@@ -47,14 +45,14 @@ def form_night():
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
-                # cursor.execute(f"INSERT INTO RawNight (data) VALUES ('{data_json}');")
+                DatabaseOperations.execute_command(f"INSERT INTO night_data (data) VALUES ('{data_json}');")
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
-            return "Erro ao inserir no banco de dados após várias tentativas", 500
+            return "Error inserting into the database after multiple attempts", 500
         else:
             return render_template("index.html")
     else:
