@@ -1,6 +1,9 @@
 from typing import Protocol, Dict, Any
 from dataclasses import dataclass
+from dotenv import load_dotenv
 from os import getenv
+
+load_dotenv()
 
 class Credential(Protocol):
 

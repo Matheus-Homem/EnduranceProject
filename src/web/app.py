@@ -1,13 +1,12 @@
 from src.shared.database.operations import DatabaseOperations
 
 from flask import Flask, render_template, request
-from dotenv import load_dotenv
 import json
 import os
 import time
 
 MAX_RETRIES = 2
-load_dotenv( )
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 
@@ -15,6 +14,7 @@ app.config["SECRET_KEY"] = os.urandom(24)
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
+
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
@@ -36,6 +36,7 @@ def form_morning():
             return render_template("index.html")
     else:
         return render_template("morning.html")
+
 
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
