@@ -18,7 +18,7 @@ def establish_mysql_connection(func):
             connection = pymysql.connect(
                 user=mysql_credentials.get("username"),
                 passwd=mysql_credentials.get("password"),
-                host=mysql_credentials.get("host"),
+                host=mysql_credentials.get("hostname"),
                 db=mysql_credentials.get("database"),
             )
             print("Remote connection establish with success")
