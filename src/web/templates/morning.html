@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Bússola Solar
+    Sun Breathing
 {% endblock %}
 
 {% block header %}
-    Bússola Solar
+    Para Forjar o Presente
 {% endblock %}
 
 {% block content %}
     <form action="/form/morning/" method="POST" onsubmit="return validatePercentage();">
 
         <section class="basic">
+            <div class="info-section"><span>Informações Gerais</span></div>
             {% include "partlets/header_morning.html" %}
         </section>
 
