@@ -19,7 +19,6 @@ def establish_mysql_connection(func):
                 user=mysql_credentials.get("username"),
                 passwd=mysql_credentials.get("password"),
                 host=mysql_credentials.get("host"),
-                port=tunnel.local_bind_port,
                 db=mysql_credentials.get("database"),
             )
             print("Remote connection establish with success")
