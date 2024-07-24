@@ -1,7 +1,7 @@
 from src.shared.database.operations import DatabaseOperations
+from src.web.utils import clean_form_data
 
 from flask import Flask, render_template, request
-import json
 import os
 import time
 
@@ -19,12 +19,11 @@ def index():
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
     if request.method == "POST":
-        data = request.form.to_dict()
-        data_json = json.dumps(data)
+        cleaned_data = clean_form_data(data=request.form.to_dict())
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
-                DatabaseOperations.execute_command(f"INSERT INTO morning_data (data) VALUES ('{data_json}');")
+                DatabaseOperations.execute_command(f"INSERT INTO morning_data (data) VALUES ('{cleaned_data}');")
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
@@ -41,12 +40,11 @@ def form_morning():
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
     if request.method == "POST":
-        data = request.form.to_dict()
-        data_json = json.dumps(data)
+        cleaned_data = clean_form_data(data=request.form.to_dict())
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
-                DatabaseOperations.execute_command(f"INSERT INTO night_data (data) VALUES ('{data_json}');")
+                DatabaseOperations.execute_command(f"INSERT INTO night_data (data) VALUES ('{cleaned_data}');")
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
