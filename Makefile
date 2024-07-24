@@ -67,7 +67,7 @@ server: # Command to run the web application
 
 test: # Run tests with code coverage
 	@echo Running tests with code coverage...
-	@pytest -s -vv --cov=src --cov-report=term-missing --cov-fail-under=10
+	@pytest -s -vv --cov=src --cov-report=term-missing --cov-fail-under=80
 
 todos: # Generate TODO.md from #TODO comments in the code
 	@echo Generating TODO.md...
