@@ -1,9 +1,10 @@
-from src.shared.database.operations import DatabaseOperations
-from src.web.utils import prepare_form_data
-
-from flask import Flask, render_template, request
 import os
 import time
+
+from flask import Flask, render_template, request
+
+from src.shared.database.operations import DatabaseOperations
+from src.web.utils import prepare_form_data
 
 MAX_RETRIES = 2
 

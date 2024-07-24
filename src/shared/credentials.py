@@ -1,14 +1,16 @@
-from typing import Protocol, Dict, Any
 from dataclasses import dataclass
-from dotenv import load_dotenv
 from os import getenv
+from typing import Any, Dict, Protocol
+
+from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Credential(Protocol):
 
-    def get_all_credentials(self) -> Dict[str, Any]:
-        ...
+    def get_all_credentials(self) -> Dict[str, Any]: ...
+
 
 @dataclass
 class SshCredential(Credential):
@@ -17,16 +19,16 @@ class SshCredential(Credential):
     USERNAME: str = getenv("SSH_USERNAME")
     PASSWORD: str = getenv("SSH_PASSWORD")
     HOSTNAME: str = f"{USERNAME}.mysql.pythonanywhere-services.com"
-    
+
     def get_all_credentials(self) -> Dict[str, Any]:
         return {
             "host": self.HOST,
             "port": self.PORT,
             "username": self.USERNAME,
             "password": self.PASSWORD,
-            "hostname": self.HOSTNAME
+            "hostname": self.HOSTNAME,
         }
-    
+
 
 @dataclass
 class MySqlCredential(Credential):
@@ -43,5 +45,5 @@ class MySqlCredential(Credential):
             "username": self.USERNAME,
             "password": self.PASSWORD,
             "database": self.DB,
-            "hostname": self.HOSTNAME
+            "hostname": self.HOSTNAME,
         }

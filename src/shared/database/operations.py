@@ -31,7 +31,7 @@ class DatabaseOperations:
     @staticmethod
     @establish_mysql_connection
     def count_rows(cursor, table: str):
-        command = f'SELECT COUNT(*) FROM {table}'
+        command = f"SELECT COUNT(*) FROM {table}"
         cursor.execute(command)
         result = cursor.fetchone()
         print(f"Row count: {result[0]}")

@@ -1,8 +1,7 @@
-from src.shared.credentials import SshCredential, MySqlCredential
-
 import unittest
-from unittest.mock import patch
 from os import getenv
+
+from src.shared.credentials import MySqlCredential, SshCredential
 
 
 class TestCredentials(unittest.TestCase):
