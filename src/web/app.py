@@ -4,7 +4,7 @@ import time
 from flask import Flask, render_template, request
 
 from src.shared.database.operations import DatabaseOperations
-from src.web.utils import prepare_form_data
+from src.web.functions import prepare_dict_to_command
 
 MAX_RETRIES = 2
 
@@ -20,7 +20,7 @@ def index():
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
     if request.method == "POST":
-        prepared_data = prepare_form_data(data=request.form.to_dict())
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
@@ -43,10 +43,11 @@ def form_morning():
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
     if request.method == "POST":
-        prepared_data = prepare_form_data(data=request.form.to_dict())
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
+                print(prepared_data)
                 DatabaseOperations.execute_command(
                     f"INSERT INTO night_data (data) VALUES ('{prepared_data}');"
                 )
