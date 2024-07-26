@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+PRD = getenv("USER")
 
 class Credential(Protocol):
 
