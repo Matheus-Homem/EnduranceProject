@@ -3,7 +3,7 @@ import time
 
 from flask import Flask, render_template, request
 
-from src.shared.database.operations import DatabaseOperations
+from src.shared.handlers import MySqlHandler
 from src.web.functions import prepare_dict_to_command
 
 MAX_RETRIES = 2
@@ -24,9 +24,11 @@ def form_morning():
         retry_count = 0
         while retry_count < MAX_RETRIES:
             try:
-                DatabaseOperations.execute_command(
-                    f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');"
-                )
+                (
+                    MySqlHandler()
+                    .get_statement(f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');")
+                    .execute()
+                 )
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
@@ -48,9 +50,11 @@ def form_night():
         while retry_count < MAX_RETRIES:
             try:
                 print(prepared_data)
-                DatabaseOperations.execute_command(
-                    f"INSERT INTO night_data (data) VALUES ('{prepared_data}');"
-                )
+                (
+                    MySqlHandler()
+                    .get_statement(f"INSERT INTO night_data (data) VALUES ('{prepared_data}');")
+                    .execute()
+                 )
                 break
             except Exception as e:
                 print(f"Erro ao inserir no banco de dados: {e}")
