@@ -1,5 +1,5 @@
-from pymysql import connect
 import sshtunnel
+from pymysql import connect
 
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
 
@@ -10,6 +10,7 @@ sshtunnel.TUNNEL_TIMEOUT = 5.0
 class StatmentType:
     RESULT = "result"
     COMMIT = "commit"
+
 
 class MySqlHandler:
 
@@ -23,7 +24,7 @@ class MySqlHandler:
         connection = connect(
             user=self.mysql_credentials.get("username"),
             passwd=self.mysql_credentials.get("password"),
-            host=self.mysql_credentials.get("host"),
+            host=self.mysql_credentials.get("hostname"),
             db=self.mysql_credentials.get("database"),
             connect_timeout=60,
         )
@@ -65,7 +66,9 @@ class MySqlHandler:
         available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
         command = statement.split(" ")[0].upper()
         if command not in available_statements:
-            raise ValueError("Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE")
+            raise ValueError(
+                "Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE"
+            )
 
     def _set_statement_type(self, statement: str) -> StatmentType:
         command = statement.split(" ")[0].upper()
@@ -80,7 +83,11 @@ class MySqlHandler:
         - 'SELECT * FROM local_test;'
         - 'SELECT COUNT(*) FROM local_test;'
         """
-        connection = self._establish_remote_connection() if self._is_prd_environment() else self._establish_local_connection()
+        connection = (
+            self._establish_remote_connection()
+            if self._is_prd_environment()
+            else self._establish_local_connection()
+        )
         cursor = connection.cursor()
         self._validate_statement(statement)
         statement_type = self._set_statement_type(statement)
