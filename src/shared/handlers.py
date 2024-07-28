@@ -24,7 +24,7 @@ class MySqlHandler:
         connection = connect(
             user=self.mysql_credentials.get("username"),
             passwd=self.mysql_credentials.get("password"),
-            host=self.mysql_credentials.get("host"),
+            host=self.mysql_credentials.get("hostname"),
             db=self.mysql_credentials.get("database"),
             connect_timeout=60,
         )
