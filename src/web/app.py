@@ -20,18 +20,15 @@ def index():
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
     if request.method == "POST":
-        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         retry_count = 0
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        statement = f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
             try:
-                (
-                    MySqlHandler()
-                    .get_statement(f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');")
-                    .execute()
-                 )
+                MySqlHandler().execute(statement=statement)
                 break
             except Exception as e:
-                print(f"Erro ao inserir no banco de dados: {e}")
+                print(f"Error inserting into the database: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
@@ -45,19 +42,16 @@ def form_morning():
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
     if request.method == "POST":
-        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         retry_count = 0
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        statement = f"INSERT INTO night_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
             try:
                 print(prepared_data)
-                (
-                    MySqlHandler()
-                    .get_statement(f"INSERT INTO night_data (data) VALUES ('{prepared_data}');")
-                    .execute()
-                 )
+                MySqlHandler().execute(statement=statement)
                 break
             except Exception as e:
-                print(f"Erro ao inserir no banco de dados: {e}")
+                print(f"Error inserting into the database: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
