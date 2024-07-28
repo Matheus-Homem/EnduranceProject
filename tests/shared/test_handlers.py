@@ -2,14 +2,15 @@ import unittest
 from unittest.mock import patch, MagicMock
 from src.shared.handlers import MySqlHandler
 
+
 class TestMySQLHandler(unittest.TestCase):
 
-    @patch.dict('os.environ', {'USER': 'EnduranceProject'})
+    @patch.dict("os.environ", {"USER": "EnduranceProject"})
     def test_is_prd_environment_remote(self):
         connector = MySqlHandler()
         self.assertTrue(connector._is_prd_environment())
 
-    @patch.dict('os.environ', {}, clear=True)
+    @patch.dict("os.environ", {}, clear=True)
     def test_is_prd_environment_local(self):
         connector = MySqlHandler()
         self.assertFalse(connector._is_prd_environment())
@@ -30,7 +31,6 @@ class TestMySQLHandler(unittest.TestCase):
         sshtunnel_mock.assert_called_once()
         pymysql_connect_mock.assert_called_once()
 
-    
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

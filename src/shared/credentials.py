@@ -8,6 +8,7 @@ load_dotenv()
 
 PRD = getenv("USER")
 
+
 class Credential(Protocol):
 
     def get_all_credentials(self) -> Dict[str, Any]: ...
