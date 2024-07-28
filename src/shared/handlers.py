@@ -1,4 +1,4 @@
-import pymysql
+from pymysql import connect
 import sshtunnel
 
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
@@ -6,6 +6,10 @@ from src.shared.credentials import PRD, MySqlCredential, SshCredential
 sshtunnel.SSH_TIMEOUT = 5.0
 sshtunnel.TUNNEL_TIMEOUT = 5.0
 
+
+class StatmentType:
+    RESULT = "result"
+    COMMIT = "commit"
 
 class MySqlHandler:
 
@@ -15,8 +19,8 @@ class MySqlHandler:
     def _is_prd_environment(self) -> bool:
         return True if PRD == "EnduranceProject" else False
 
-    def _establish_remote_connection(self):
-        connection = pymysql.connect(
+    def _establish_remote_connection(self) -> "connect":
+        connection = connect(
             user=self.mysql_credentials.get("username"),
             passwd=self.mysql_credentials.get("password"),
             host=self.mysql_credentials.get("host"),
@@ -26,7 +30,7 @@ class MySqlHandler:
         print("Remote connection establish with success")
         return connection
 
-    def _establish_local_connection(self):
+    def _establish_local_connection(self) -> "connect":
         ssh_credentials = SshCredential().get_all_credentials()
 
         ssh_tunnel = sshtunnel.SSHTunnelForwarder(
@@ -39,7 +43,7 @@ class MySqlHandler:
             ),
         )
         ssh_tunnel.start()
-        connection = pymysql.connect(
+        connection = connect(
             user=self.mysql_credentials.get("username"),
             passwd=self.mysql_credentials.get("password"),
             host=self.mysql_credentials.get("host"),
@@ -50,14 +54,24 @@ class MySqlHandler:
         print("Local connection establish with success")
         return connection
 
-    def _close_connection(self, connection, cursor):
+    def _close_connection(self, connection, cursor) -> None:
         if cursor:
             cursor.close()
         if connection:
             connection.close()
         print("Connection closed")
 
-    def get_statement(self, statement: str):
+    def _validate_statement(slf, statement: str) -> None:
+        available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+        command = statement.split(" ")[0].upper()
+        if command not in available_statements:
+            raise ValueError("Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE")
+
+    def _set_statement_type(self, statement: str) -> StatmentType:
+        command = statement.split(" ")[0].upper()
+        return StatmentType.RESULT if command == "SELECT" else StatmentType.COMMIT
+
+    def execute(self, statement) -> None:
         """
         Examples:
         - 'INSERT INTO local_test (data) VALUES (\'{"key1": "value1", "key2": "value2"}\');'
@@ -66,29 +80,17 @@ class MySqlHandler:
         - 'SELECT * FROM local_test;'
         - 'SELECT COUNT(*) FROM local_test;'
         """
-        available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
-        command = statement.split(" ")[0].upper()
-        if command not in available_statements:
-            raise ValueError("Invalid statement")
-        if command == "SELECT":
-            self.result_statement = statement
-        else:
-            self.statement = statement
-
-    def execute(self):
-        if self._is_prd_environment():
-            connection = self._establish_remote_connection()
-        else:
-            connection = self._establish_local_connection()
-
+        connection = self._establish_remote_connection() if self._is_prd_environment() else self._establish_local_connection()
         cursor = connection.cursor()
-        if self.result_statement:
-            cursor.execute(self.result_statement)
+        self._validate_statement(statement)
+        statement_type = self._set_statement_type(statement)
+        if statement_type == StatmentType.RESULT:
+            cursor.execute(statement)
             result = cursor.fetchall()
             self._close_connection(connection, cursor)
             return result
-        elif self.statement:
-            cursor.execute(self.statement)
+        elif statement_type == StatmentType.COMMIT:
+            cursor.execute(statement)
             connection.commit()
             self._close_connection(connection, cursor)
         else:
