@@ -1,9 +1,10 @@
-from src.shared.database.operations import DatabaseOperations
-from src.web.utils import clean_form_data
-
-from flask import Flask, render_template, request
 import os
 import time
+
+from flask import Flask, render_template, request
+
+from src.shared.handlers import MySqlHandler
+from src.web.functions import prepare_dict_to_command
 
 MAX_RETRIES = 2
 
@@ -19,14 +20,15 @@ def index():
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
     if request.method == "POST":
-        cleaned_data = clean_form_data(data=request.form.to_dict())
         retry_count = 0
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        statement = f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
             try:
-                DatabaseOperations.execute_command(f"INSERT INTO morning_data (data) VALUES ('{cleaned_data}');")
+                MySqlHandler().execute(statement=statement)
                 break
             except Exception as e:
-                print(f"Erro ao inserir no banco de dados: {e}")
+                print(f"Error inserting into the database: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
@@ -40,14 +42,16 @@ def form_morning():
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
     if request.method == "POST":
-        cleaned_data = clean_form_data(data=request.form.to_dict())
         retry_count = 0
+        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        statement = f"INSERT INTO night_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
             try:
-                DatabaseOperations.execute_command(f"INSERT INTO night_data (data) VALUES ('{cleaned_data}');")
+                print(prepared_data)
+                MySqlHandler().execute(statement=statement)
                 break
             except Exception as e:
-                print(f"Erro ao inserir no banco de dados: {e}")
+                print(f"Error inserting into the database: {e}")
                 retry_count += 1
                 time.sleep(1)
         if retry_count == MAX_RETRIES:
@@ -56,6 +60,7 @@ def form_night():
             return render_template("index.html")
     else:
         return render_template("night.html")
-    
+
+
 if __name__ == "__main__":
     app.run(debug=True)
