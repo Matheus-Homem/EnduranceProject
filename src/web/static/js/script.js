@@ -162,22 +162,26 @@ function addRow() {
     newRow.setAttribute('data-row-index', rowIndex);
 
     newRow.innerHTML = `
-        <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
-        <div class="flex-cell cell-25">
-            <span><i class="fa-solid fa-pills"></i></span>
-            <div id="toggle_wisdom_navigator_session_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_session_${rowIndex}')">
-                <div class="toggle-button"></div>
-            </div>
-            <span><i class="fa-regular fa-calendar-check"></i></span>
-            <input type="hidden" id="input_wisdom_navigator_session_${rowIndex}" name="toggle_wisdom_navigator_session_${rowIndex}" value="False">
-        </div>
-        <div class="flex-cell cell-25">
+        <div class="flex-cell cell-40"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
+        <div class="flex-cell cell-20">
             <span><i class="fa-regular fa-moon"></i></span>
             <div id="toggle_wisdom_navigator_excelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_excelence_${rowIndex}')">
                 <div class="toggle-button"></div>
             </div>
             <span><i class="fa-solid fa-sun"></i></span>
             <input type="hidden" id="input_wisdom_navigator_excelence_${rowIndex}" name="toggle_wisdom_navigator_excelence_${rowIndex}" value="False">
+        </div>
+        <div class="flex-cell cell-20">
+            <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_wisdom_navigator_read_${rowIndex}', 'False', 'True')">
+                <span><i class="fa-solid fa-book"></i></span>
+            </div>
+            <input type="hidden" id="input_wisdom_navigator_read_${rowIndex}" name="multi_wisdom_navigator_read_${rowIndex}" value="False">
+        </div>
+        <div class="flex-cell cell-20">
+            <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_wisdom_navigator_notes_${rowIndex}', 'False', 'True')">
+                <span><i class="fa-solid fa-note-sticky"></i></span>
+            </div>
+            <input type="hidden" id="input_wisdom_navigator_notes_${rowIndex}" name="multi_wisdom_navigator_notes_${rowIndex}" value="False">
         </div>
     `;
 
