@@ -1,6 +1,7 @@
 import sshtunnel
 from pymysql import connect
 
+from src.shared.logger import Logger
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
 
 sshtunnel.SSH_TIMEOUT = 5.0
@@ -14,9 +15,9 @@ class StatmentType:
 
 class MySqlHandler:
 
-    def __init__(self, logger):
+    def __init__(self, logger: Logger):
         self.mysql_credentials = MySqlCredential().get_all_credentials()
-        self.logger = logger
+        self.logger = logger.get_logger()
 
     def _is_prd_environment(self) -> bool:
         return True if PRD == "EnduranceProject" else False
