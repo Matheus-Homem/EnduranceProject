@@ -15,7 +15,7 @@ class StatmentType:
 
 class MySqlHandler:
 
-    def __init__(self, logger=Logger()):
+    def __init__(self, logger=Logger(class_name=__name__.__class__)):
         self.mysql_credentials = MySqlCredential().get_all_credentials()
         self.logger = logger.get_logger()
 
@@ -30,12 +30,11 @@ class MySqlHandler:
             db=self.mysql_credentials.get("database"),
             connect_timeout=60,
         )
-        print("Remote connection establish with success")
         return connection
 
     def _establish_local_connection(self) -> "connect":
         ssh_credentials = SshCredential().get_all_credentials()
-
+        
         ssh_tunnel = sshtunnel.SSHTunnelForwarder(
             ssh_address_or_host=ssh_credentials.get("host"),
             ssh_username=ssh_credentials.get("username"),
@@ -54,7 +53,6 @@ class MySqlHandler:
             db=self.mysql_credentials.get("database"),
             connect_timeout=60,
         )
-        print("Local connection establish with success")
         return connection
 
     def _close_connection(self, connection, cursor) -> None:
@@ -62,15 +60,14 @@ class MySqlHandler:
             cursor.close()
         if connection:
             connection.close()
-        print("Connection closed")
 
     def _validate_statement(self, statement: str) -> None:
         available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
         command = statement.split(" ")[0].upper()
         if command not in available_statements:
-            raise ValueError(
-                "Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE"
-            )
+            error_message = "Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE"
+            self.logger.error(error_message)
+            raise ValueError(error_message)
 
     def _set_statement_type(self, statement: str) -> StatmentType:
         command = statement.split(" ")[0].upper()
@@ -85,20 +82,26 @@ class MySqlHandler:
         - 'SELECT * FROM local_test;'
         - 'SELECT COUNT(*) FROM local_test;'
         """
-        connection = (
-            self._establish_remote_connection()
-            if self._is_prd_environment()
-            else self._establish_local_connection()
-        )
+        if self._is_prd_environment():
+            self.logger.info("Establishing remote connection")
+            connection = self._establish_remote_connection()
+            self.logger.info("Remote connection successfully established")
+        else:
+            self.logger.info("Establishing local connection")
+            connection = self._establish_local_connection()
+            self.logger.info("Local connection successfully established")
         cursor = connection.cursor()
         self._validate_statement(statement)
         statement_type = self._set_statement_type(statement)
+        self.logger.info("Executing statement")
         if statement_type == StatmentType.RESULT:
             cursor.execute(statement)
             result = cursor.fetchall()
             self._close_connection(connection, cursor)
+            self.logger.info("Connection closed")
             return result
         elif statement_type == StatmentType.COMMIT:
             cursor.execute(statement)
             connection.commit()
             self._close_connection(connection, cursor)
+            self.logger.info("Connection closed")
