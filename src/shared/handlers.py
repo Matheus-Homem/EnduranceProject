@@ -14,8 +14,9 @@ class StatmentType:
 
 class MySqlHandler:
 
-    def __init__(self):
+    def __init__(self, logger):
         self.mysql_credentials = MySqlCredential().get_all_credentials()
+        self.logger = logger
 
     def _is_prd_environment(self) -> bool:
         return True if PRD == "EnduranceProject" else False
