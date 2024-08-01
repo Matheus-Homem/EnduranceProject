@@ -62,7 +62,7 @@ class MySqlHandler:
             connection.close()
         print("Connection closed")
 
-    def _validate_statement(slf, statement: str) -> None:
+    def _validate_statement(self, statement: str) -> None:
         available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
         command = statement.split(" ")[0].upper()
         if command not in available_statements:
@@ -100,5 +100,3 @@ class MySqlHandler:
             cursor.execute(statement)
             connection.commit()
             self._close_connection(connection, cursor)
-        else:
-            raise ValueError("No valid statement provided")

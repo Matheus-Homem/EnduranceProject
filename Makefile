@@ -65,9 +65,20 @@ server: # Command to run the web application
 		export PYTHONPATH=./ && \
 		python3 src/web/app.py)
 
-test: # Run tests with code coverage
+chore: # Run isort and black
+	@echo Running isort...
+	@isort src/shared
+	@isort src/web
+	@isort src/main.py
+	@echo Running black...
+	@black src/shared
+	@black src/web
+	@black src/main.py
+
+test: # Run chore and tests with code coverage
+	@make chore
 	@echo Running tests with code coverage...
-	@pytest -s -vv --cov=src --cov-report=term-missing --cov-fail-under=80
+	@pytest -vv --cov=src --cov-report=term-missing --cov-fail-under=80
 
 todos: # Generate TODO.md from #TODO comments in the code
 	@echo Generating TODO.md...

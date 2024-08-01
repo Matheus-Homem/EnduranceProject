@@ -28,7 +28,7 @@ class TestStringUtils(unittest.TestCase):
             StringUtils.clean_string("João\r\n Dançarino"), "Joao Dancarino"
         )
 
-    def test_serialize_cleaned_data(self):
+    def test_serialize_dict(self):
         data = {
             "name": "JOAO DANCARINO",
             "email": "john.doe@example.com",

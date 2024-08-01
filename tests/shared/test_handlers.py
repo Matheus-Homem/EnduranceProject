@@ -1,36 +1,111 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from src.shared.handlers import MySqlHandler
+from src.shared.handlers import MySqlHandler, StatmentType
 
+class TestMySqlHandler(unittest.TestCase):
 
-class TestMySQLHandler(unittest.TestCase):
-
-    @patch.dict("os.environ", {"USER": "EnduranceProject"})
-    def test_is_prd_environment_remote(self):
+    @patch('src.shared.handlers.PRD', "EnduranceProject")
+    def test_is_prd_environment_true(self):
         connector = MySqlHandler()
-        self.assertTrue(connector._is_prd_environment())
+        is_prd = connector._is_prd_environment()
+        self.assertTrue(is_prd)
 
-    @patch.dict("os.environ", {}, clear=True)
-    def test_is_prd_environment_local(self):
+    @patch('src.shared.handlers.PRD', "")
+    def test_is_prd_environment_false(self):
         connector = MySqlHandler()
-        self.assertFalse(connector._is_prd_environment())
+        is_prd = connector._is_prd_environment()
+        self.assertFalse(is_prd)
 
-    @patch("src.shared.decorators.pymysql.connect")
-    def test_establish_remote_connection(self, pymysql_connect_mock):
-        mysql_connector = MySqlHandler()
-        self.remote_connection = mysql_connector._establish_remote_connection()
+    def test_can_establish_remote_connection(self):
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            connection = connector._establish_remote_connection()
+            self.assertEqual(connection, connection)
 
-        pymysql_connect_mock.assert_called_once()
+    def test_can_establish_local_connection(self):
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                connection = connector._establish_local_connection()
+                self.assertEqual(connection, connection)
 
-    @patch("src.shared.decorators.pymysql.connect")
-    @patch("src.shared.decorators.sshtunnel.SSHTunnelForwarder")
-    def test_establish_local_connection(self, sshtunnel_mock, pymysql_connect_mock):
-        mysql_connector = MySqlHandler()
-        self.local_connection = mysql_connector._establish_local_connection()
+    def test_can_close_connection(self):
+        connection = MagicMock()
+        cursor = MagicMock()
+        connector = MySqlHandler()
+        connector._close_connection(connection, cursor)
+        connection.close.assert_called_once()
+        cursor.close.assert_called_once()
 
-        sshtunnel_mock.assert_called_once()
-        pymysql_connect_mock.assert_called_once()
+    def test_can_validate_statement(self):
+        connector = MySqlHandler()
+        valid_statements = ["SELECT * FROM table", "INSERT INTO table", "UPDATE table", "DELETE FROM table"]
+        for statement in valid_statements:
+            connector._validate_statement(statement)
 
+        invalid_statements = ["DROP table", "CREATE table", "ALTER table", "TRUNCATE table", "SHOW table", "DESCRIBE table"]
+        for statement in invalid_statements:
+            self.assertRaises(ValueError, connector._validate_statement, statement)
 
-if __name__ == "__main__":
+    def test_can_set_statement_type(self):
+        select_statements = ["SELECT * FROM table", "select * from table", "Select count(*) from table"]
+        for statement in select_statements:
+            self.assertEqual(MySqlHandler()._set_statement_type(statement), StatmentType.RESULT)
+
+        commit_statements = ["INSERT INTO table", "UPDATE table", "DELETE FROM table"]
+        for statement in commit_statements:
+            self.assertEqual(MySqlHandler()._set_statement_type(statement), StatmentType.COMMIT)
+
+    def test_execute(self):
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                connector.execute("SELECT * FROM table")
+                cursor.execute.assert_called_once()
+
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                connector.execute("INSERT INTO table")
+                cursor.execute.assert_called_once()
+
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                connector.execute("UPDATE table")
+                cursor.execute.assert_called_once()
+
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                connector.execute("DELETE FROM table")
+                cursor.execute.assert_called_once()
+
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connector = MySqlHandler()
+        with patch('src.shared.handlers.connect', return_value=connection):
+            with patch('src.shared.handlers.sshtunnel.SSHTunnelForwarder'):
+                self.assertRaises(ValueError, connector.execute, "DROP table")
+
+if __name__ == '__main__':
     unittest.main()
