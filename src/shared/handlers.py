@@ -15,7 +15,7 @@ class StatmentType:
 
 class MySqlHandler:
 
-    def __init__(self, logger: Logger):
+    def __init__(self, logger=Logger()):
         self.mysql_credentials = MySqlCredential().get_all_credentials()
         self.logger = logger.get_logger()
 
