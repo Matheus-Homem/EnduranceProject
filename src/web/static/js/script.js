@@ -17,30 +17,6 @@ function calculateDatetimeDifference() {
     }
 }
 
-// Function to calculate the total percentage of sleep
-function calculateTotalPercentage() {
-    const awakePercentage = parseInt(awakePercentageInput.value);
-    const remPercentage = parseInt(remPercentageInput.value);
-    const lightPercentage = parseInt(lightPercentageInput.value);
-    const deepPercentage = parseInt(deepPercentageInput.value);
-
-    const totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
-    totalPercentageOutput.textContent = `Porcentagem Total: ${totalPercentage}%`;
-
-    return totalPercentage;
-}
-
-// Function to validate the total percentage of sleep
-function validatePercentage() {
-    totalPercentage = calculateTotalPercentage();
-    if (totalPercentage !== 100) {
-        alert("A soma das porcentagens deve ser igual a 100%");
-        return false;
-    }
-
-    return true;
-}
-
 // Function to format the input value
 function formatValue(value, type) {
     if (type === 'time') {
