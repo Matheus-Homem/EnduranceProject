@@ -3,7 +3,7 @@ import time
 
 from flask import Flask, render_template, request
 
-from src.shared.logger import Logger
+from src.shared.logger import LoggingManager
 from src.shared.handlers import MySqlHandler
 from src.web.functions import prepare_dict_to_command
 
@@ -16,14 +16,14 @@ app.config["SECRET_KEY"] = os.urandom(24)
 
 @app.route("/", methods=["GET"])
 def index():
-    logger = Logger().get_logger()
+    logger = LoggingManager().get_logger()
     logger.info("Accessing the index page")
     return render_template("index.html")
 
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
-    logger = Logger().get_logger()
+    logger = LoggingManager().get_logger()
     logger.info("Accessing the morning form page")
     if request.method == "POST":
         logger.info("Receiving POST request")
@@ -54,7 +54,7 @@ def form_morning():
 
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
-    logger = Logger().get_logger()
+    logger = LoggingManager().get_logger()
     logger.info("Accessing the night form page")
     if request.method == "POST":
         logger.info("Receiving POST request")
@@ -85,8 +85,9 @@ def form_night():
     
 @app.route("/test/", methods=["GET", "POST"])
 def form_test():
-    logger = Logger().get_logger()
-    logger.info("Accessing the test from page")
+    logging_manager = LoggingManager()
+    logger = logging_manager.get_logger()
+    logger.info("Accessing the test form page")
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
@@ -95,7 +96,7 @@ def form_test():
         while retry_count < MAX_RETRIES:
             logger.info(f"Trying to insert data into the database. Attempt: {retry_count}")
             try:
-                MySqlHandler().execute(statement=statement)
+                MySqlHandler(logging_manager=logging_manager).execute(statement=statement)
                 break
             except Exception as e:
                 logger.error(
