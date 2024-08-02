@@ -1,8 +1,8 @@
 import sshtunnel
 from pymysql import connect
 
-from src.shared.logger import LoggingManager
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
+from src.shared.logger import LoggingManager
 
 sshtunnel.SSH_TIMEOUT = 20.0
 sshtunnel.TUNNEL_TIMEOUT = 20.0
@@ -15,7 +15,7 @@ class StatmentType:
 
 class MySqlHandler:
 
-    def __init__(self, logging_manager:LoggingManager):
+    def __init__(self, logging_manager: LoggingManager):
         self.mysql_credentials = MySqlCredential().get_all_credentials()
         logging_manager.set_class_name(__class__.__name__)
         self.logger = logging_manager.get_logger()
@@ -35,7 +35,7 @@ class MySqlHandler:
 
     def _establish_local_connection(self) -> "connect":
         ssh_credentials = SshCredential().get_all_credentials()
-        
+
         ssh_tunnel = sshtunnel.SSHTunnelForwarder(
             ssh_address_or_host=ssh_credentials.get("host"),
             ssh_username=ssh_credentials.get("username"),

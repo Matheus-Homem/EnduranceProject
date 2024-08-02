@@ -1,7 +1,8 @@
-from sqlalchemy.orm import scoped_session
 from sqlalchemy.inspection import inspect
+from sqlalchemy.orm import scoped_session
 
 from src.shared.database.tables import Base
+
 
 class SQLExecutor:
     def __init__(self, session: scoped_session):
@@ -28,6 +29,7 @@ class SQLExecutor:
     def delete(self, table: Base, **kwargs) -> None:
         self.session.query(table).filter_by(**kwargs).delete()
         self.session.commit()
+
 
 # Example usage
 # def main():

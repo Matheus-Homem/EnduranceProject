@@ -1,8 +1,10 @@
+import inspect
 import logging
 import os
-import colorlog
 from datetime import datetime
-import inspect    
+
+import colorlog
+
 
 class CustomFormatter(logging.Formatter):
     def __init__(self, fmt, class_name):
@@ -30,7 +32,7 @@ class LoggingManager:
         return cls._instance
 
     def __init__(self, log_level=logging.DEBUG, log_file=None, class_name=None):
-        if not hasattr(self, 'logger'):
+        if not hasattr(self, "logger"):
             self.logger = self._initialize_logger(log_level, log_file, class_name)
             self.class_name = class_name
 
@@ -50,28 +52,31 @@ class LoggingManager:
         return logger
 
     def _add_file_handler(self, logger, log_file, class_name):
-        date_str = datetime.now().strftime('%Y-%m-%d')
-        log_dir = os.path.join('outputs', 'logs', date_str)
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        log_dir = os.path.join("outputs", "logs", date_str)
         os.makedirs(log_dir, exist_ok=True)
 
         if log_file is None:
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            log_file = os.path.join(log_dir, f'logs_{timestamp}.log')
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            log_file = os.path.join(log_dir, f"logs_{timestamp}.log")
 
         file_handler = logging.FileHandler(log_file)
-        self.file_formatter = CustomFormatter('%(asctime)s - %(pathname)s - %(funcName)s - %(levelname)s - %(message)s', class_name)
+        self.file_formatter = CustomFormatter(
+            "%(asctime)s - %(pathname)s - %(funcName)s - %(levelname)s - %(message)s",
+            class_name,
+        )
         file_handler.setFormatter(self.file_formatter)
         logger.addHandler(file_handler)
 
     def _add_console_handler(self, logger):
         formatter = colorlog.ColoredFormatter(
-            '%(log_color)s%(asctime)s - %(pathname)s - %(funcName)s - %(levelname)s - %(message)s',
+            "%(log_color)s%(asctime)s - %(pathname)s - %(funcName)s - %(levelname)s - %(message)s",
             log_colors={
-                'DEBUG': 'purple',
-                'INFO': 'cyan',
-                'WARNING': 'yellow',
-                'ERROR': 'red',
-            }
+                "DEBUG": "purple",
+                "INFO": "cyan",
+                "WARNING": "yellow",
+                "ERROR": "red",
+            },
         )
         console_handler = colorlog.StreamHandler()
         console_handler.setFormatter(formatter)
