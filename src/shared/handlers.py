@@ -63,12 +63,13 @@ class MySqlHandler:
             connection.close()
 
     def _validate_statement(self, statement: str) -> None:
-        available_statements = ["SELECT", "INSERT", "UPDATE", "DELETE"]
-        command = statement.split(" ")[0].upper()
-        if command not in available_statements:
-            error_message = "Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE"
-            self.logger.error(error_message)
-            raise ValueError(error_message)
+        try:
+            command = statement.split(" ")[0].upper()
+            if command not in ["SELECT", "INSERT", "UPDATE", "DELETE"]:
+                raise ValueError("Statement has a command not supported. Please use one of the following: SELECT, INSERT, UPDATE, DELETE")
+        except Exception as e:
+            self.logger.error(f"Failed to create engine: {e}")
+            raise e
 
     def _set_statement_type(self, statement: str) -> StatmentType:
         command = statement.split(" ")[0].upper()
