@@ -23,7 +23,9 @@ function formatValue(value, type) {
         if (value.length < 3 || value.length > 4) {
             return "__h __min";
         } else {
-            return value.toString().slice(0, -2) + "h " + value.toString().slice(-2) + "min";
+            const hours = value.slice(0, -2);
+            const minutes = value.slice(-2);
+            return hours + "h " + minutes + "min";
         }
     } else if (type === 'calories') {
         if (value.length < 1) {
@@ -35,29 +37,41 @@ function formatValue(value, type) {
         if (value.length < 3) {
             return "R$ __.__";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return "R$ " + formatedValue;
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return "R$ " + unit + "." + decimal;
         }
     } else if (type === 'weight') {
         if (value.length !== 4) {
             return "__.__ kg";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " kg";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " kg";
         }
     } else if (type === 'percentage') {
         if (value.length < 3 || value.length > 4) {
             return "__.__ %";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " %";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " %";
         }
     } else if (type === 'distance') {
         if (value.length < 3) {
             return "__.__ km";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " km";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " km";
+        }
+    } else if (type === 'exercise') {
+        if (value.length < 4 || value.length > 5) {
+            return "__'__''";
+        } else {
+            const minutes = value.slice(0, -2);
+            const seconds = value.slice(-2);
+            return minutes + "'" + seconds + "''";
         }
     }
 }
