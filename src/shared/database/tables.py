@@ -1,29 +1,27 @@
-from dataclasses import dataclass
-
 from sqlalchemy import JSON, Column, Integer
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
+class Table(Base):
+    __abstract__ = True
 
-@dataclass
-class LocalTest(Base):
+
+class LocalTest(Table):
     __tablename__ = "local_test"
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
     data: dict = Column(JSON, nullable=True)
 
 
-@dataclass
-class MorningData(Base):
+class MorningData(Table):
     __tablename__ = "morning_data"
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
     data: dict = Column(JSON, nullable=True)
 
 
-@dataclass
-class NightData(Base):
+class NightData(Table):
     __tablename__ = "night_data"
 
     id: int = Column(Integer, primary_key=True, autoincrement=True)
