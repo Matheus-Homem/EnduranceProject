@@ -1,50 +1,97 @@
+from typing import Dict, Protocol
+
 import sshtunnel
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
-from src.shared.credentials import PRD, MySqlCredential, SshCredential
+from src.shared.credentials import PRD, Credential
 from src.shared.logger import LoggingManager
 
-sshtunnel.SSH_TIMEOUT = 5.0
-sshtunnel.TUNNEL_TIMEOUT = 5.0
+sshtunnel.SSH_TIMEOUT = 15.0
+sshtunnel.TUNNEL_TIMEOUT = 15.0
 
+class Connector(Protocol):
+
+    def get_session(): ...
+
+    def close(): ...
 
 class DatabaseConnector:
-    def __init__(self, logger=LoggingManager(class_name=__name__.__class__)):
-        self.mysql_credentials = MySqlCredential().get_all_credentials()
-        self.logger = logger.get_logger()
+
+    def __init__(
+        self,
+        logger_manager: LoggingManager = LoggingManager(),
+    ):
+        logger_manager.set_class_name(__class__.__name__)
+        self.logger = logger_manager.get_logger()
+
         self.Session = None
         self.engine = None
-        self._create_engine()
+        self.ssh_tunnel = None
 
     def _is_prd_environment(self) -> bool:
         return PRD == "EnduranceProject"
 
-    def _create_engine(self) -> None:
-        if self._is_prd_environment():
-            self.logger.info("Creating remote engine")
-            engine_url = self._get_remote_engine_url()
-        else:
-            self.logger.info("Creating local engine")
-            engine_url = self._get_local_engine_url()
+    def _create_engine(
+        self, mysql_credentials: Credential, ssh_credentials: Credential
+    ) -> None:
+        try:
+            mysql_keys = mysql_credentials.get_all_credentials()
+            ssh_keys = ssh_credentials.get_all_credentials()
 
-        self.engine = create_engine(engine_url, pool_recycle=3600)
-        self.Session = scoped_session(sessionmaker(bind=self.engine))
-        self.logger.info("Engine created successfully")
+            if self._is_prd_environment():
+                self.logger.info("Creating remote engine")
+                engine_url = self._get_remote_engine_url(mysql_keys)
+            else:
+                self.logger.info("Creating local engine")
+                engine_url = self._get_local_engine_url(mysql_keys, ssh_keys)
 
-    def _get_remote_engine_url(self) -> str:
-        return f"mysql+pymysql://{self.mysql_credentials['username']}:{self.mysql_credentials['password']}@{self.mysql_credentials['hostname']}/{self.mysql_credentials['database']}"
+            self.engine = create_engine(engine_url, pool_recycle=3600)
+            self.Session = scoped_session(sessionmaker(bind=self.engine))
+            self.logger.info("Engine created successfully")
+        except Exception as e:
+            self.logger.error(f"Failed to create engine: {e}")
+            raise
 
-    def _get_local_engine_url(self) -> str:
-        ssh_credentials = SshCredential().get_all_credentials()
-        ssh_tunnel = sshtunnel.SSHTunnelForwarder(
-            ssh_address_or_host=ssh_credentials.get("host"),
-            ssh_username=ssh_credentials.get("username"),
-            ssh_password=ssh_credentials.get("password"),
-            remote_bind_address=(
-                ssh_credentials.get("hostname"),
-                ssh_credentials.get("port"),
-            ),
-        )
-        ssh_tunnel.start()
-        return f"mysql+pymysql://{self.mysql_credentials['username']}:{self.mysql_credentials['password']}@localhost:{ssh_tunnel.local_bind_port}/{self.mysql_credentials['database']}"
+    def _get_remote_engine_url(self, mysql_keys: Dict) -> str:
+        return self._construct_engine_url(mysql_keys, "localhost")
+
+    def _get_local_engine_url(self, mysql_keys: Dict, ssh_keys: Dict) -> str:
+        try:
+            self.ssh_tunnel = sshtunnel.SSHTunnelForwarder(
+                ssh_address_or_host=ssh_keys.get("host"),
+                ssh_username=ssh_keys.get("username"),
+                ssh_password=ssh_keys.get("password"),
+                remote_bind_address=(
+                    ssh_keys.get("hostname"),
+                    ssh_keys.get("port"),
+                ),
+            )
+            self.ssh_tunnel.start()
+            self.logger.info("SSH tunnel started successfully")
+            return self._construct_engine_url(mysql_keys, f"localhost:{self.ssh_tunnel.local_bind_port}")
+        except Exception as e:
+            self.logger.error(f"Failed to start SSH tunnel: {e}")
+            raise
+
+    def _construct_engine_url(self, mysql_keys: Dict, host: str) -> str:
+        return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{host}/{mysql_keys.get('database')}"
+
+    def get_session(
+        self, mysql_credentials: Credential, ssh_credentials: Credential
+    ) -> Session:
+        if self.Session is None:
+            self.logger.info("Session is not initialized. Creating engine.")
+            self._create_engine(mysql_credentials, ssh_credentials)
+        return self.Session()
+
+    def close(self) -> None:
+        if self.Session:
+            self.Session.remove()
+            self.logger.info("Session closed successfully")
+        if self.engine:
+            self.engine.dispose()
+            self.logger.info("Engine disposed successfully")
+        if self.ssh_tunnel:
+            self.ssh_tunnel.stop()
+            self.logger.info("SSH tunnel stopped successfully")
