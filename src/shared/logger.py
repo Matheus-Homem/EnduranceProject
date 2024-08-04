@@ -24,17 +24,9 @@ class CustomFormatter(logging.Formatter):
 
 
 class LoggingManager:
-    _instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(LoggingManager, cls).__new__(cls)
-        return cls._instance
-
     def __init__(self, log_level=logging.DEBUG, log_file=None, class_name=None):
-        if not hasattr(self, "logger"):
-            self.logger = self._initialize_logger(log_level, log_file, class_name)
-            self.class_name = class_name
+        self.logger = self._initialize_logger(log_level, log_file, class_name)
+        self.class_name = class_name
 
     def _initialize_logger(self, log_level, log_file, class_name):
         caller_frame = inspect.stack()[1]
@@ -83,8 +75,9 @@ class LoggingManager:
         logger.addHandler(console_handler)
 
     def set_class_name(self, class_name):
-        self.class_name = class_name
-        self.logger = self._initialize_logger(self.logger.level, None, class_name)
+        if self.class_name is None:
+            self.class_name = class_name
+            self.logger = self._initialize_logger(self.logger.level, None, class_name)
 
     def get_logger(self):
         return self.logger
