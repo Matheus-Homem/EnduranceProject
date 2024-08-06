@@ -4,14 +4,14 @@ import time
 from flask import Flask, render_template, request
 
 from src.shared.logger import LoggingManager
-from src.shared.handlers import MySqlHandler
 from src.web.functions import prepare_dict_to_command
+from src.shared.database.builder import initialize_database_setup
+import src.shared.database.tables as tb
 
 MAX_RETRIES = 15
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
-
 
 
 @app.route("/", methods=["GET"])
@@ -25,15 +25,17 @@ def index():
 def form_morning():
     logger = LoggingManager().get_logger()
     logger.info("Accessing the morning form page")
+    table = tb.MorningData
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
-        statement = f"INSERT INTO morning_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into the database. Attempt: {retry_count}")
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                MySqlHandler().execute(statement=statement)
+                executor, connector = initialize_database_setup()
+                executor.insert(table, data=prepared_data, profile="heuschmat")
+                connector.close()
                 break
             except Exception as e:
                 logger.error(
@@ -46,7 +48,7 @@ def form_morning():
             logger.error(f"Error inserting into the database after multiple attempts")
             return "Error inserting into the database after multiple attempts", 500
         else:
-            logger.info("Data inserted into the database")
+            logger.info("Returning to index page")
             return render_template("index.html")
     else:
         return render_template("morning.html")
@@ -56,16 +58,17 @@ def form_morning():
 def form_night():
     logger = LoggingManager().get_logger()
     logger.info("Accessing the night form page")
+    table = tb.NightData
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
-        statement = f"INSERT INTO night_data (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into the database. Attempt: {retry_count}")
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                print(prepared_data)
-                MySqlHandler().execute(statement=statement)
+                executor, connector = initialize_database_setup()
+                executor.insert(table, data=prepared_data, profile="heuschmat")
+                connector.close()
                 break
             except Exception as e:
                 logger.error(
@@ -78,7 +81,7 @@ def form_night():
             logger.error(f"Error inserting into the database after multiple attempts")
             return "Error inserting into the database after multiple attempts", 500
         else:
-            logger.info("Data inserted into the database")
+            logger.info("Returning to index page")
             return render_template("index.html")
     else:
         return render_template("night.html")
@@ -87,16 +90,18 @@ def form_night():
 def form_test():
     logging_manager = LoggingManager()
     logger = logging_manager.get_logger()
+    table = tb.LocalTest
     logger.info("Accessing the test form page")
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
-        statement = f"INSERT INTO local_test (data) VALUES ('{prepared_data}');"
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into the database. Attempt: {retry_count}")
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                MySqlHandler(logging_manager=logging_manager).execute(statement=statement)
+                executor, connector = initialize_database_setup()
+                executor.insert(table, data=prepared_data, profile="heuschmat")
+                connector.close()
                 break
             except Exception as e:
                 logger.error(
@@ -109,7 +114,7 @@ def form_test():
             logger.error(f"Error inserting into the database after multiple attempts")
             return "Error inserting into the database after multiple attempts", 500
         else:
-            logger.info("Data inserted into the database")
+            logger.info("Returning to index page")
             return render_template("index.html")
     else:
         return render_template("test.html")
