@@ -40,7 +40,9 @@ class TestStringUtils(unittest.TestCase):
 
         data_empty = {}
         expected_output_empty = "{}"
-        self.assertEqual(TextUtilities.serialize_dict(data_empty), expected_output_empty)
+        self.assertEqual(
+            TextUtilities.serialize_dict(data_empty), expected_output_empty
+        )
 
 
 if __name__ == "__main__":
