@@ -38,8 +38,9 @@ class LoggingManager:
         logger = logging.getLogger(logger_name)
         logger.setLevel(log_level)
 
-        self._add_file_handler(logger, log_file, class_name)
-        self._add_console_handler(logger)
+        if not logger.hasHandlers():
+            self._add_file_handler(logger, log_file, class_name)
+            self._add_console_handler(logger)
 
         return logger
 
