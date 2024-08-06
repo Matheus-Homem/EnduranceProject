@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, JSON, DateTime, MetaData
+from sqlalchemy import JSON, Column, DateTime, Integer, MetaData, String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
@@ -9,6 +9,7 @@ Base = declarative_base(metadata=metadata)
 
 class Table(Base):
     __abstract__ = True
+
 
 class LocalTest(Table):
     __tablename__ = "local_test"
