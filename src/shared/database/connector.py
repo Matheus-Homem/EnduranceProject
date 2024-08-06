@@ -10,11 +10,13 @@ from src.shared.logger import LoggingManager
 sshtunnel.SSH_TIMEOUT = 15.0
 sshtunnel.TUNNEL_TIMEOUT = 15.0
 
+
 class Connector(Protocol):
 
     def get_session(): ...
 
     def close(): ...
+
 
 class DatabaseConnector:
 
@@ -69,7 +71,9 @@ class DatabaseConnector:
             )
             self.ssh_tunnel.start()
             self.logger.info("SSH tunnel started successfully")
-            return self._construct_engine_url(mysql_keys, f"localhost:{self.ssh_tunnel.local_bind_port}")
+            return self._construct_engine_url(
+                mysql_keys, f"localhost:{self.ssh_tunnel.local_bind_port}"
+            )
         except Exception as e:
             self.logger.error(f"Failed to start SSH tunnel: {e}")
             raise
