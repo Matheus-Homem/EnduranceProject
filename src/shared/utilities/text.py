@@ -4,7 +4,7 @@ import re
 from unidecode import unidecode
 
 
-class StringUtils:
+class TextUtilities:
 
     @staticmethod
     def remove_newlines(input: str) -> str:
@@ -16,7 +16,7 @@ class StringUtils:
 
     @staticmethod
     def clean_string(input: str) -> str:
-        return StringUtils.remove_special_characters(StringUtils.remove_newlines(input))
+        return TextUtilities.remove_special_characters(TextUtilities.remove_newlines(input))
 
     @staticmethod
     def serialize_dict(data: dict) -> str:
