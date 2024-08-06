@@ -20,7 +20,14 @@
 
 * {
     box-sizing: border-box;
-  }
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
 
 body {
     color: var(--white-color);
@@ -31,12 +38,11 @@ body {
     align-items: center;
     justify-content: flex-start;
     height: 100vh;
-    margin: 0;
     font-family: 'Lato', sans-serif;
     font-weight: 350;
     line-height: 1.6;
 }
-  
+
 span {
     vertical-align: middle;
     user-select: none;
