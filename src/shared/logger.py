@@ -14,7 +14,7 @@ class CustomFormatter(logging.Formatter):
     def set_class_name(self, class_name):
         self.class_name = class_name
 
-    def format(self, record):
+    def format(self, record) -> str:
         src_index = record.pathname.find("src")
         if src_index != -1:
             record.pathname = record.pathname[src_index:]
@@ -24,11 +24,13 @@ class CustomFormatter(logging.Formatter):
 
 
 class LoggingManager:
-    def __init__(self, log_level=logging.DEBUG, log_file=None, class_name=None):
+    def __init__(
+        self, log_level=logging.DEBUG, log_file=None, class_name: str = None
+    ) -> None:
         self.logger = self._initialize_logger(log_level, log_file, class_name)
         self.class_name = class_name
 
-    def _initialize_logger(self, log_level, log_file, class_name):
+    def _initialize_logger(self, log_level, log_file, class_name) -> logging.Logger:
         caller_frame = inspect.stack()[1]
         frame_info = inspect.getframeinfo(caller_frame[0])
         caller_filename = frame_info.filename
@@ -44,7 +46,9 @@ class LoggingManager:
 
         return logger
 
-    def _add_file_handler(self, logger, log_file, class_name):
+    def _add_file_handler(
+        self, logger: logging.Logger, log_file, class_name: str
+    ) -> None:
         date_str = datetime.now().strftime("%Y-%m-%d")
         log_dir = os.path.join("outputs", "logs", date_str)
         os.makedirs(log_dir, exist_ok=True)
@@ -61,7 +65,7 @@ class LoggingManager:
         file_handler.setFormatter(self.file_formatter)
         logger.addHandler(file_handler)
 
-    def _add_console_handler(self, logger):
+    def _add_console_handler(self, logger: logging.Logger) -> None:
         formatter = colorlog.ColoredFormatter(
             "%(log_color)s%(asctime)s - %(pathname)s - %(funcName)s - %(levelname)s - %(message)s",
             log_colors={
@@ -75,10 +79,10 @@ class LoggingManager:
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 
-    def set_class_name(self, class_name):
+    def set_class_name(self, class_name: str) -> None:
         if self.class_name is None:
             self.class_name = class_name
             self.logger = self._initialize_logger(self.logger.level, None, class_name)
 
-    def get_logger(self):
+    def get_logger(self) -> logging.Logger:
         return self.logger
