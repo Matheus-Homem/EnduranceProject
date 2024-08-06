@@ -6,7 +6,7 @@ from flask import Flask, render_template, request
 import src.shared.database.tables as tb
 from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.logger import LoggingManager
-from src.web.functions import prepare_dict_to_command
+from src.web.helpers import clean_and_serialize_dict
 
 MAX_RETRIES = 15
 
@@ -29,7 +29,7 @@ def form_morning():
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
-        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
             logger.info(
                 f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
@@ -63,7 +63,7 @@ def form_night():
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
-        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
             logger.info(
                 f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
@@ -98,7 +98,7 @@ def form_test():
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
-        prepared_data = prepare_dict_to_command(data=request.form.to_dict())
+        prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
             logger.info(
                 f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
