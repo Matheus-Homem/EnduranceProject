@@ -3,10 +3,10 @@ import time
 
 from flask import Flask, render_template, request
 
+import src.shared.database.tables as tb
+from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.logger import LoggingManager
 from src.web.functions import prepare_dict_to_command
-from src.shared.database.builder import DatabaseExecutorBuilder
-import src.shared.database.tables as tb
 
 MAX_RETRIES = 15
 
@@ -31,7 +31,9 @@ def form_morning():
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
+            logger.info(
+                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
+            )
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -39,7 +41,7 @@ def form_morning():
             except Exception as e:
                 logger.error(
                     f"Error inserting into the database with data {prepared_data} on attempt {retry_count}: {e}",
-                    exc_info=True
+                    exc_info=True,
                 )
                 retry_count += 1
                 time.sleep(1)
@@ -63,7 +65,9 @@ def form_night():
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
+            logger.info(
+                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
+            )
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -71,7 +75,7 @@ def form_night():
             except Exception as e:
                 logger.error(
                     f"Error inserting into the database with data {prepared_data} on attempt {retry_count}: {e}",
-                    exc_info=True
+                    exc_info=True,
                 )
                 retry_count += 1
                 time.sleep(1)
@@ -83,7 +87,8 @@ def form_night():
             return render_template("index.html")
     else:
         return render_template("night.html")
-    
+
+
 @app.route("/test/", methods=["GET", "POST"])
 def form_test():
     logging_manager = LoggingManager()
@@ -95,7 +100,9 @@ def form_test():
         retry_count = 1
         prepared_data = prepare_dict_to_command(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
+            logger.info(
+                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
+            )
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -103,7 +110,7 @@ def form_test():
             except Exception as e:
                 logger.error(
                     f"Error inserting into the database with data {prepared_data} on attempt {retry_count}: {e}",
-                    exc_info=True
+                    exc_info=True,
                 )
                 retry_count += 1
                 time.sleep(1)
