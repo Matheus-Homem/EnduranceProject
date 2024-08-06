@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 
 from src.shared.logger import LoggingManager
 from src.web.functions import prepare_dict_to_command
-from src.shared.database.builder import initialize_database_setup
+from src.shared.database.builder import DatabaseExecutorBuilder
 import src.shared.database.tables as tb
 
 MAX_RETRIES = 15
@@ -33,9 +33,8 @@ def form_morning():
         while retry_count < MAX_RETRIES:
             logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                executor, connector = initialize_database_setup()
-                executor.insert(table, data=prepared_data, profile="heuschmat")
-                connector.close()
+                with DatabaseExecutorBuilder() as executor:
+                    executor.insert(table, data=prepared_data, profile="heuschmat")
                 break
             except Exception as e:
                 logger.error(
@@ -66,9 +65,8 @@ def form_night():
         while retry_count < MAX_RETRIES:
             logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                executor, connector = initialize_database_setup()
-                executor.insert(table, data=prepared_data, profile="heuschmat")
-                connector.close()
+                with DatabaseExecutorBuilder() as executor:
+                    executor.insert(table, data=prepared_data, profile="heuschmat")
                 break
             except Exception as e:
                 logger.error(
@@ -99,9 +97,8 @@ def form_test():
         while retry_count < MAX_RETRIES:
             logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
-                executor, connector = initialize_database_setup()
-                executor.insert(table, data=prepared_data, profile="heuschmat")
-                connector.close()
+                with DatabaseExecutorBuilder() as executor:
+                    executor.insert(table, data=prepared_data, profile="heuschmat")
                 break
             except Exception as e:
                 logger.error(
