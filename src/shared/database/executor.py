@@ -1,10 +1,7 @@
-from tabulate import tabulate
-from sqlalchemy import text
-from typing import List, Optional, Union
-
+from sqlalchemy import and_, select, text
 from sqlalchemy.orm import Session
-from src.shared.database.connector import Connector
-from src.shared.credentials import Credential
+from tabulate import tabulate
+
 from src.shared.database.tables import Table
 from src.shared.logger import LoggingManager
 
@@ -12,21 +9,18 @@ from src.shared.logger import LoggingManager
 class DatabaseExecutor:
     def __init__(
         self,
-        connector: Connector,
-        mysql_credentials: Credential,
-        ssh_credentials: Credential,
+        session: Session,
         logger_manager: LoggingManager = LoggingManager(),
     ):
         logger_manager.set_class_name(__class__.__name__)
         self.logger = logger_manager.get_logger()
-        self.connector_instance = connector
-        self.session: Session = self.connector_instance.get_session(mysql_credentials, ssh_credentials)
+        self.session = session
 
     def close(self) -> None:
         self.connector_instance.close()
         self.logger.info("Database connection closed successfully")
 
-    def describe(self, table: Table):
+    def describe(self, table: Table) -> None:
         table_name = table.__tablename__
         result = self.session.execute(text(f"DESCRIBE {table_name}"))
         columns = ["Field", "Type", "Null", "Key", "Default", "Extra"]
@@ -34,75 +28,66 @@ class DatabaseExecutor:
         print(tabulate(rows, headers=columns, tablefmt="grid"))
         self.logger.info(f"Table {table_name} described successfully")
 
-    def count(self, table: Table) -> int:
+    def count(self, table: Table) -> None:
         print(self.session.query(table).count())
-        self.logger.info(f"Count of records in {table.__tablename__} selected successfully")
+        self.logger.info(
+            f"Count of records in {table.__tablename__} selected successfully"
+        )
 
-    def select(
-        self,
-        table: Table,
-        columns: Union[str, List[str]] = "*",
-        order: str = "asc",
-        limit: Optional[int] = None,
-        **filters
-    ):
-        if columns == "*":
-            query = self.session.query(table)
-        else:
-            if isinstance(columns, str):
-                columns = [columns]
-            columns = [getattr(table.c, col) for col in columns]
-            query = self.session.query(*columns)
-
+    def select(self, table, **filters) -> None:
+        """
+        Example:
+            # Select rows from the LocalTest table where id is 1 and name is 'Alice':
+            executor.select(LocalTest, id=1, name='Alice')
+        """
+        stmt = select(table)
         if filters:
-            query = query.filter_by(**filters)
+            conditions = []
+            for column, value in filters.items():
+                if hasattr(table, column):
+                    conditions.append(getattr(table, column) == value)
 
-        if order.lower() == "desc":
-            query = query.order_by(table.c.id.desc())
-        else:
-            query = query.order_by(table.c.id.asc())
+            if conditions:
+                stmt = stmt.where(and_(*conditions))
 
-        if limit is not None:
-            query = query.limit(limit)
-
-        result = query.all()
-
-        if result:
-            headers = columns if columns != "*" else table.columns.keys()
-            headers = [col.key if hasattr(col, 'key') else col for col in headers]
-            rows = [list(row) for row in result]
-            print(tabulate(rows, headers=headers, tablefmt="grid"))
-        else:
-            print(f"No data found in {table.__tablename__}")
+        results = self.session.execute(stmt).scalars().all()
+        headers = [column.name for column in table.__table__.columns]
+        data = [
+            [getattr(user, column.name) for column in table.__table__.columns]
+            for user in results
+        ]
+        print(tabulate(data, headers=headers, tablefmt="grid"))
         self.logger.info(f"Data from {table.__tablename__} selected successfully")
 
     def insert(self, table: Table, **columns) -> None:
         """
         Example:
+            # Insert a new row into the LocalTest table:
+
             json_data = {"example_key": "example_value"}
-            
             executor.insert(LocalTest, data=json_data)
         """
         new_record = table(**columns)
         self.session.add(new_record)
         self.session.commit()
+        self.logger.info(f"Data inserted into {table.__tablename__} successfully")
 
     def delete(self, table: Table, **filters) -> None:
         """
         Example:
-            # Delete rows from the LocalTest table where the 'name' column is 'John Doe' and age is 25
+            # Delete rows from the LocalTest table where the 'name' column is 'John Doe' and age is 25:
             executor.delete(LocalTest, name='John Doe', age=25)
         """
         self.session.query(table).filter_by(**filters).delete()
-        self.session.commit()    
-
-
+        self.session.commit()
+        self.logger.info(f"Data deleted from {table.__tablename__} successfully")
 
     def update(self, table: Table, filters: dict, updates: dict) -> None:
         """
         Example:
-            # Update rows in LocalTest where 'name' is 'John Doe' and set 'age' to 30
+            # Update rows in LocalTest where 'name' is 'John Doe' and set 'age' to 30:
             executor.update(LocalTest, {'name': 'John Doe'}, {'age': 30})
         """
         self.session.query(table).filter_by(**filters).update(updates)
         self.session.commit()
+        self.logger.info(f"Data in {table.__tablename__} updated successfully")
