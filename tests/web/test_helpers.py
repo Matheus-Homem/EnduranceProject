@@ -1,4 +1,4 @@
-from src.web.functions import prepare_dict_to_command
+from src.web.helpers import clean_and_serialize_dict
 
 
 def test_prepare_dict_to_command():
@@ -9,8 +9,8 @@ def test_prepare_dict_to_command():
         "number": 123,
     }
     expected_output = '{"name": "JOAO DANCARINO", "email": "john.doe@example.com", "address": "Rua do Acai", "number": "123"}'
-    assert prepare_dict_to_command(data) == expected_output
+    assert clean_and_serialize_dict(data) == expected_output
 
     data_empty = {}
     expected_output_empty = "{}"
-    assert prepare_dict_to_command(data_empty) == expected_output_empty
+    assert clean_and_serialize_dict(data_empty) == expected_output_empty

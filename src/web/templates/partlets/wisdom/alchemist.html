@@ -28,18 +28,18 @@
                     <input type="hidden" id="input_wisdom_alchemist_sadness" name="multi_wisdom_alchemist_sadness" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div id="id_frustration" class="check" onclick="checkButton('id_frustration', 'input_wisdom_alchemist_frustration', 'False', 'True')">
-                        <span>Frustração</span>
-                    </div>
-                    <input type="hidden" id="input_wisdom_alchemist_frustration" name="multi_wisdom_alchemist_frustration" value="False">
-                </div>
-            </div>
-            <div class="flex-row">
-                <div class="flex-cell cell-33">
                     <div id="id_fear" class="check" onclick="checkButton('id_fear', 'input_wisdom_alchemist_fear', 'False', 'True')">
                         <span>Medo</span>
                     </div>
                     <input type="hidden" id="input_wisdom_alchemist_fear" name="multi_wisdom_alchemist_fear" value="False">
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-cell cell-33">
+                    <div id="id_frustration" class="check" onclick="checkButton('id_frustration', 'input_wisdom_alchemist_frustration', 'False', 'True')">
+                        <span>Frustração</span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_alchemist_frustration" name="multi_wisdom_alchemist_frustration" value="False">
                 </div>
                 <div class="flex-cell cell-33">
                     <div id="id_disheartenment" class="check" onclick="checkButton('id_disheartenment', 'input_wisdom_alchemist_disheartenment', 'False', 'True')">
@@ -48,22 +48,22 @@
                     <input type="hidden" id="input_wisdom_alchemist_disheartenment" name="multi_wisdom_alchemist_disheartenment" value="False">
                 </div>
                 <div class="flex-cell cell-33">
-                    <div id="id_resentment" class="check" onclick="checkButton('id_resentment', 'input_wisdom_alchemist_resentment', 'False', 'True')">
-                        <span>Ressentimento</span>
+                    <div id="id_anxiety" class="check" onclick="checkButton('id_anxiety', 'input_wisdom_alchemist_anxiety', 'False', 'True')">
+                        <span>Ansiedade</span>
                     </div>
-                    <input type="hidden" id="input_wisdom_alchemist_resentment" name="multi_wisdom_alchemist_resentment" value="False">
+                    <input type="hidden" id="input_wisdom_alchemist_anxiety" name="multi_wisdom_alchemist_anxiety" value="False">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="flex-cell cell-100">
-                    <textarea id="text_apprentice_Learning"></textarea>
+                    <textarea id="text_apprentice_Learning" style="height: 90px;"></textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    document.getElementById('text_apprentice_Learning').value = 'Situação: \nAprendizado: ';
+    document.getElementById('text_apprentice_Learning').value = 'Situação: \nPensamento: \nReação: ';
     document.getElementById('text_apprentice_Learning').addEventListener('blur', function() {
 
     var input = document.createElement('input');

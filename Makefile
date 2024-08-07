@@ -67,10 +67,12 @@ server: # Command to run the web application
 
 chore: # Run isort and black
 	@echo Running isort...
+	@isort tests/
 	@isort src/shared
 	@isort src/web
 	@isort src/main.py
 	@echo Running black...
+	@black tests/
 	@black src/shared
 	@black src/web
 	@black src/main.py
@@ -78,7 +80,7 @@ chore: # Run isort and black
 test: # Run chore and tests with code coverage
 	@make chore
 	@echo Running tests with code coverage...
-	@pytest -vv --cov=src --cov-report=term-missing --cov-fail-under=80
+	@pytest -vv --cov=src --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80
 
 todos: # Generate TODO.md from #TODO comments in the code
 	@echo Generating TODO.md...
