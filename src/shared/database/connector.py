@@ -1,4 +1,4 @@
-from typing import Dict, Protocol
+from typing import Dict
 
 import sshtunnel
 from sqlalchemy import create_engine
@@ -7,15 +7,8 @@ from sqlalchemy.orm import Session, scoped_session, sessionmaker
 from src.shared.credentials import PRD, Credential
 from src.shared.logger import LoggingManager
 
-sshtunnel.SSH_TIMEOUT = 15.0
-sshtunnel.TUNNEL_TIMEOUT = 15.0
-
-
-class Connector(Protocol):
-
-    def get_session(): ...
-
-    def close(): ...
+sshtunnel.SSH_TIMEOUT = 20.0
+sshtunnel.TUNNEL_TIMEOUT = 20.0
 
 
 class DatabaseConnector:
@@ -87,7 +80,8 @@ class DatabaseConnector:
         if self.Session is None:
             self.logger.info("Session is not initialized. Creating engine.")
             self._create_engine(mysql_credentials, ssh_credentials)
-        return self.Session()
+            return self.Session
+        return self.Session
 
     def close(self) -> None:
         if self.Session:
