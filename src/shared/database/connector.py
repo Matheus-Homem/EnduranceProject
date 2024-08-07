@@ -70,7 +70,7 @@ class DatabaseConnector:
         self, mysql_keys: Dict, local_environment: bool = False
     ) -> str:
         if local_environment:
-            return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('host')}/{mysql_keys.get('database')}"
+            return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@localhost:{self.ssh_tunnel.local_bind_port}/{mysql_keys.get('database')}"
         return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('hostname')}/{mysql_keys.get('database')}"
 
     def get_session(
