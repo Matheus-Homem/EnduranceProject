@@ -16,10 +16,6 @@ class DatabaseExecutor:
         self.logger = logger_manager.get_logger()
         self.session = session
 
-    def close(self) -> None:
-        self.connector_instance.close()
-        self.logger.info("Database connection closed successfully")
-
     def describe(self, table: Table) -> None:
         table_name = table.__tablename__
         result = self.session.execute(text(f"DESCRIBE {table_name}"))
