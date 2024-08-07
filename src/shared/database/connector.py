@@ -36,7 +36,7 @@ class DatabaseConnector:
 
             if self._is_prd_environment():
                 self.logger.info("Creating remote engine")
-                engine_url = self._get_remote_engine_url(mysql_keys)
+                engine_url = self._construct_engine_url(mysql_keys)
             else:
                 self.logger.info("Creating local engine")
                 engine_url = self._get_local_engine_url(mysql_keys, ssh_keys)
@@ -47,9 +47,6 @@ class DatabaseConnector:
         except Exception as e:
             self.logger.error(f"Failed to create engine: {e}")
             raise
-
-    def _get_remote_engine_url(self, mysql_keys: Dict) -> str:
-        return self._construct_engine_url(mysql_keys, "localhost")
 
     def _get_local_engine_url(self, mysql_keys: Dict, ssh_keys: Dict) -> str:
         try:
@@ -64,15 +61,17 @@ class DatabaseConnector:
             )
             self.ssh_tunnel.start()
             self.logger.info("SSH tunnel started successfully")
-            return self._construct_engine_url(
-                mysql_keys, f"localhost:{self.ssh_tunnel.local_bind_port}"
-            )
+            return self._construct_engine_url(mysql_keys, local_environment=True)
         except Exception as e:
             self.logger.error(f"Failed to start SSH tunnel: {e}")
             raise
 
-    def _construct_engine_url(self, mysql_keys: Dict, host: str) -> str:
-        return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{host}/{mysql_keys.get('database')}"
+    def _construct_engine_url(
+        self, mysql_keys: Dict, local_environment: bool = False
+    ) -> str:
+        if local_environment:
+            return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('host')}/{mysql_keys.get('database')}"
+        return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('hostname')}/{mysql_keys.get('database')}"
 
     def get_session(
         self, mysql_credentials: Credential, ssh_credentials: Credential
