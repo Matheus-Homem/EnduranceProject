@@ -1,4 +1,3 @@
-import os
 from datetime import datetime, date
 
 class Calendar:
@@ -82,6 +81,3 @@ class Paths:
 		# Return the full path to the file by combining the directory path and the file name.
 		return os.path.join(dir_path, file_name)
 
-
-def is_prd_environment() -> bool:
-    return True if os.getenv("USER") == "EnduranceProject" else False

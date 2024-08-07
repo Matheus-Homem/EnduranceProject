@@ -15,22 +15,26 @@
         </div>
         <div id="form-container" class="flex-table">
             <div class="flex-row" data-row-index="0">
-                <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_0" placeholder="Nome do Livro"></div>
-                <div class="flex-cell cell-25">
-                    <span><i class="fa-solid fa-pills"></i></span>
-                    <div id="toggle_wisdom_navigator_session_0" class="toggle" onclick="toggleButton('wisdom_navigator_session_0')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span><i class="fa-regular fa-calendar-check"></i></span>
-                    <input type="hidden" id="input_wisdom_navigator_session_0" name="toggle_wisdom_navigator_session_0" value="False">
-                </div>
-                <div class="flex-cell cell-25">
+                <div class="flex-cell cell-40"><input type="text" name="text_wisdom_navigator_book_0" placeholder="Nome do Livro"></div>
+                <div class="flex-cell cell-20">
                     <span><i class="fa-regular fa-moon"></i></span>
                     <div id="toggle_wisdom_navigator_excelence_0" class="toggle" onclick="toggleButton('wisdom_navigator_excelence_0')">
                         <div class="toggle-button"></div>
                     </div>
                     <span><i class="fa-solid fa-sun"></i></span>
                     <input type="hidden" id="input_wisdom_navigator_excelence_0" name="toggle_wisdom_navigator_excelence_0" value="False">
+                </div>
+                <div class="flex-cell cell-20">
+                    <div id="id_read_0" class="check" onclick="checkButton('id_read_0', 'input_wisdom_navigator_read_0', 'False', 'True')">
+                        <span><i class="fa-solid fa-book"></i></span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_navigator_read_0" name="multi_wisdom_navigator_read_0" value="False">
+                </div>
+                <div class="flex-cell cell-20">
+                    <div id="id_notes_0" class="check" onclick="checkButton('id_notes_0', 'input_wisdom_navigator_notes_0', 'False', 'True')">
+                        <span><i class="fa-solid fa-note-sticky"></i></span>
+                    </div>
+                    <input type="hidden" id="input_wisdom_navigator_notes_0" name="multi_wisdom_navigator_notes_0" value="False">
                 </div>
             </div>
         </div>

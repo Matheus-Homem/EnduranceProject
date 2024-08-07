@@ -19,10 +19,8 @@
 # Ignore venv Folder
 .venv/
 
-# Ignore PDF reports and PDF reports plots
-outputs/reports/**/**/**/*.pdf
-outputs/reports/**/**/**/*.png
-outputs/reports/**/**/**/*.txt
+# Ignore files inside output folder
+outputs/
 
 # Ignore all data
 ### raw data files

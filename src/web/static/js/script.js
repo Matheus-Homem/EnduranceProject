@@ -17,37 +17,15 @@ function calculateDatetimeDifference() {
     }
 }
 
-// Function to calculate the total percentage of sleep
-function calculateTotalPercentage() {
-    const awakePercentage = parseInt(awakePercentageInput.value);
-    const remPercentage = parseInt(remPercentageInput.value);
-    const lightPercentage = parseInt(lightPercentageInput.value);
-    const deepPercentage = parseInt(deepPercentageInput.value);
-
-    const totalPercentage = awakePercentage + remPercentage + lightPercentage + deepPercentage;
-    totalPercentageOutput.textContent = `Porcentagem Total: ${totalPercentage}%`;
-
-    return totalPercentage;
-}
-
-// Function to validate the total percentage of sleep
-function validatePercentage() {
-    totalPercentage = calculateTotalPercentage();
-    if (totalPercentage !== 100) {
-        alert("A soma das porcentagens deve ser igual a 100%");
-        return false;
-    }
-
-    return true;
-}
-
 // Function to format the input value
 function formatValue(value, type) {
     if (type === 'time') {
         if (value.length < 3 || value.length > 4) {
             return "__h __min";
         } else {
-            return value.toString().slice(0, -2) + "h " + value.toString().slice(-2) + "min";
+            const hours = value.slice(0, -2);
+            const minutes = value.slice(-2);
+            return hours + "h " + minutes + "min";
         }
     } else if (type === 'calories') {
         if (value.length < 1) {
@@ -59,29 +37,41 @@ function formatValue(value, type) {
         if (value.length < 3) {
             return "R$ __.__";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return "R$ " + formatedValue;
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return "R$ " + unit + "." + decimal;
         }
     } else if (type === 'weight') {
         if (value.length !== 4) {
             return "__.__ kg";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " kg";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " kg";
         }
     } else if (type === 'percentage') {
         if (value.length < 3 || value.length > 4) {
             return "__.__ %";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " %";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " %";
         }
     } else if (type === 'distance') {
         if (value.length < 3) {
             return "__.__ km";
         } else {
-            const formatedValue = value.slice(0, -2) + "." + value.slice(-2);
-            return formatedValue + " km";
+            const unit = value.slice(0, -2);
+            const decimal = value.slice(-2);
+            return unit + "." + decimal + " km";
+        }
+    } else if (type === 'exercise') {
+        if (value.length < 4 || value.length > 5) {
+            return "__'__''";
+        } else {
+            const minutes = value.slice(0, -2);
+            const seconds = value.slice(-2);
+            return minutes + "'" + seconds + "''";
         }
     }
 }
@@ -162,22 +152,26 @@ function addRow() {
     newRow.setAttribute('data-row-index', rowIndex);
 
     newRow.innerHTML = `
-        <div class="flex-cell cell-50"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
-        <div class="flex-cell cell-25">
-            <span><i class="fa-solid fa-pills"></i></span>
-            <div id="toggle_wisdom_navigator_session_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_session_${rowIndex}')">
-                <div class="toggle-button"></div>
-            </div>
-            <span><i class="fa-regular fa-calendar-check"></i></span>
-            <input type="hidden" id="input_wisdom_navigator_session_${rowIndex}" name="toggle_wisdom_navigator_session_${rowIndex}" value="False">
-        </div>
-        <div class="flex-cell cell-25">
+        <div class="flex-cell cell-40"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
+        <div class="flex-cell cell-20">
             <span><i class="fa-regular fa-moon"></i></span>
             <div id="toggle_wisdom_navigator_excelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_excelence_${rowIndex}')">
                 <div class="toggle-button"></div>
             </div>
             <span><i class="fa-solid fa-sun"></i></span>
             <input type="hidden" id="input_wisdom_navigator_excelence_${rowIndex}" name="toggle_wisdom_navigator_excelence_${rowIndex}" value="False">
+        </div>
+        <div class="flex-cell cell-20">
+            <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_wisdom_navigator_read_${rowIndex}', 'False', 'True')">
+                <span><i class="fa-solid fa-book"></i></span>
+            </div>
+            <input type="hidden" id="input_wisdom_navigator_read_${rowIndex}" name="multi_wisdom_navigator_read_${rowIndex}" value="False">
+        </div>
+        <div class="flex-cell cell-20">
+            <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_wisdom_navigator_notes_${rowIndex}', 'False', 'True')">
+                <span><i class="fa-solid fa-note-sticky"></i></span>
+            </div>
+            <input type="hidden" id="input_wisdom_navigator_notes_${rowIndex}" name="multi_wisdom_navigator_notes_${rowIndex}" value="False">
         </div>
     `;
 
