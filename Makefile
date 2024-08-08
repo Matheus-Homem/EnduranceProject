@@ -68,11 +68,13 @@ server: # Command to run the web application
 chore: # Run isort and black
 	@echo Running isort...
 	@isort tests/
+	@isort src/etl/
 	@isort src/shared
 	@isort src/web
 	@isort src/main.py
 	@echo Running black...
 	@black tests/
+	@black src/etl/
 	@black src/shared
 	@black src/web
 	@black src/main.py
