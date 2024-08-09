@@ -1,14 +1,24 @@
-from typing import Protocol
+from abc import ABC, abstractmethod
+
+from src.shared.logger import LoggingManager
 
 
-class Reader(Protocol):
+class Reader(ABC):
+    def __init__(self, logger_manager=LoggingManager()) -> None:
+        self.logger_manager = logger_manager
 
-    def read(self): ...
+    @abstractmethod
+    def read(self):
+        pass
 
 
-class Writer(Protocol):
+class Writer(ABC):
+    def __init__(self, logger_manager=LoggingManager()) -> None:
+        self.logger_manager = logger_manager
 
-    def write(self): ...
+    @abstractmethod
+    def write(self):
+        pass
 
 
 class ProccessingType:
