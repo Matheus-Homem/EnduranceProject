@@ -8,13 +8,14 @@ from src.etl.readers.delta import DeltaReader
 from src.etl.readers.json import JsonReader
 from src.etl.writers.delta import DeltaWriter
 from src.etl.writers.json import JsonWriter
+from src.shared.database.tables import LocalTest, MorningData
 
 
 class TestPipeline(unittest.TestCase):
 
     def test_bronze_pipeline(self):
         bronze_pipeline = PipelineProperties(
-            reader=DatabaseReader(),
+            reader=DatabaseReader(table=MorningData),
             writer=JsonWriter(),
             processing_type=ProccessingType.FULL,
         )
