@@ -30,7 +30,32 @@ class DatabaseExecutor:
             f"Count of records in {table.__tablename__} selected successfully"
         )
 
-    def select(self, table, **filters) -> None:
+    # def select(self, table, **filters) -> None:
+    #     """
+    #     Example:
+    #         # Select rows from the LocalTest table where id is 1 and name is 'Alice':
+    #         executor.select(LocalTest, id=1, name='Alice')
+    #     """
+    #     stmt = select(table)
+    #     if filters:
+    #         conditions = []
+    #         for column, value in filters.items():
+    #             if hasattr(table, column):
+    #                 conditions.append(getattr(table, column) == value)
+
+    #         if conditions:
+    #             stmt = stmt.where(and_(*conditions))
+
+    #     results = self.session.execute(stmt).scalars().all()
+    #     headers = [column.name for column in table.__table__.columns]
+    #     data = [
+    #         [getattr(user, column.name) for column in table.__table__.columns]
+    #         for user in results
+    #     ]
+    #     print(tabulate(data, headers=headers, tablefmt="grid"))
+    #     self.logger.info(f"Data from {table.__tablename__} selected successfully")
+
+    def select(self, table, **filters) -> list:
         """
         Example:
             # Select rows from the LocalTest table where id is 1 and name is 'Alice':
@@ -49,11 +74,14 @@ class DatabaseExecutor:
         results = self.session.execute(stmt).scalars().all()
         headers = [column.name for column in table.__table__.columns]
         data = [
-            [getattr(user, column.name) for column in table.__table__.columns]
+            {
+                column.name: getattr(user, column.name)
+                for column in table.__table__.columns
+            }
             for user in results
         ]
-        print(tabulate(data, headers=headers, tablefmt="grid"))
         self.logger.info(f"Data from {table.__tablename__} selected successfully")
+        return data
 
     def insert(self, table: Table, **columns) -> None:
         """
