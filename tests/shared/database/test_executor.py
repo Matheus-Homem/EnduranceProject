@@ -6,11 +6,11 @@ from sqlalchemy.orm import Session
 from tabulate import tabulate
 
 from src.shared.database.executor import DatabaseExecutor
-from src.shared.database.tables import Table
+from src.shared.database.tables import MySqlTable
 from src.shared.logger import LoggingManager
 
 
-class TestTable(Table):
+class TestTable(MySqlTable):
     __tablename__ = "test_tablename"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -40,7 +40,7 @@ class TestDatabaseExecutor(unittest.TestCase):
         )
 
     def test_count(self):
-        mock_table = MagicMock(spec=Table)
+        mock_table = MagicMock(spec=MySqlTable)
         mock_table.__tablename__ = "mock_table"
         self.mock_session.query.return_value.count.return_value = 42
 
@@ -71,7 +71,7 @@ class TestDatabaseExecutor(unittest.TestCase):
         )
 
     def test_insert(self):
-        mock_table = MagicMock(spec=Table)
+        mock_table = MagicMock(spec=MySqlTable)
         mock_table.__tablename__ = "mock_table"
 
         self.executor.insert(mock_table, id=1, name="Alice")
@@ -83,7 +83,7 @@ class TestDatabaseExecutor(unittest.TestCase):
         )
 
     def test_delete(self):
-        mock_table = MagicMock(spec=Table)
+        mock_table = MagicMock(spec=MySqlTable)
         mock_table.__tablename__ = "mock_table"
 
         self.executor.delete(mock_table, id=1)
@@ -97,7 +97,7 @@ class TestDatabaseExecutor(unittest.TestCase):
         )
 
     def test_update(self):
-        mock_table = MagicMock(spec=Table)
+        mock_table = MagicMock(spec=MySqlTable)
         mock_table.__tablename__ = "mock_table"
 
         self.executor.update(mock_table, {"id": 1}, {"name": "Alice"})

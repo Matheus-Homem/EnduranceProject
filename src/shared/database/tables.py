@@ -7,11 +7,11 @@ metadata = MetaData()
 Base = declarative_base(metadata=metadata)
 
 
-class Table(Base):
+class MySqlTable(Base):
     __abstract__ = True
 
 
-class LocalTest(Table):
+class LocalTest(MySqlTable):
     __tablename__ = "local_test"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -20,7 +20,7 @@ class LocalTest(Table):
     created_at = Column(DateTime, nullable=False, default=func.now())
 
 
-class MorningData(Table):
+class MorningData(MySqlTable):
     __tablename__ = "morning_data"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -29,7 +29,7 @@ class MorningData(Table):
     created_at = Column(DateTime, nullable=False, default=func.now())
 
 
-class NightData(Table):
+class NightData(MySqlTable):
     __tablename__ = "night_data"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

@@ -2,12 +2,12 @@ import polars as pl
 
 from src.etl.definitions import Reader
 from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.tables import Table
+from src.shared.database.tables import MySqlTable
 
 
 class DatabaseReader(Reader):
 
-    def __init__(self, table: Table) -> None:
+    def __init__(self, table: MySqlTable) -> None:
         super().__init__()
         self.logger_manager.set_class_name(__class__.__name__)
         self.logger = self.logger_manager.get_logger()
