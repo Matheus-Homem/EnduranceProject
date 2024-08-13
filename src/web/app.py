@@ -59,7 +59,7 @@ def form_morning():
 def form_night():
     logger = LoggingManager().get_logger()
     logger.info("Accessing the night form page")
-    table = tb.NightData
+    table = tb.MySqlNightTable
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1

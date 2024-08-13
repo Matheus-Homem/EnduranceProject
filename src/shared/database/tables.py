@@ -37,7 +37,7 @@ class MySqlMorningTable(MySqlTable):
     created_at = Column(DateTime, nullable=False, default=func.now())
 
 
-class NightData(MySqlTable):
+class MySqlNightTable(MySqlTable):
     __tablename__ = "night_data"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
