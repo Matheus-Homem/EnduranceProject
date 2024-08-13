@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from src.etl.pipeline.execute import execute_pipeline
-from src.etl.pipeline.properties import PipelineProperties
 from src.shared.logger import LoggingManager
 
 
@@ -10,7 +8,7 @@ class Reader(ABC):
         self.logger_manager = logger_manager
 
     @abstractmethod
-    def read(self):
+    def read_data(self):
         pass
 
 
@@ -19,9 +17,24 @@ class Writer(ABC):
         self.logger_manager = logger_manager
 
     @abstractmethod
-    def write(self):
+    def write_data(self):
         pass
 
+class PipelineDefinition:
+
+    def __init__(
+        self,
+        reader: Reader,
+        writer: Writer,
+    ) -> None:
+        self.reader = reader
+        self.writer = writer
+
+    def get_reader(self) -> Reader:
+        return self.reader
+
+    def get_writer(self) -> Writer:
+        return self.writer
 
 class Table(ABC):
     READER: Reader
@@ -31,11 +44,12 @@ class Table(ABC):
         self.pipeline_properties = self.generate_pipeline_properties()
 
     @abstractmethod
-    def generate_pipeline_properties(self) -> PipelineProperties:
+    def generate_pipeline_properties(self) -> PipelineDefinition:
         pass
 
     def update(self):
-        execute_pipeline(pipeline_properties=self.pipeline_properties)
+        pass
+        # execute_pipeline(pipeline_properties=self.pipeline_properties)
 
 
 class SilverTable(Table):
@@ -44,8 +58,3 @@ class SilverTable(Table):
 
 class GoldTable(Table):
     LAYER: str = "GOLD"
-
-
-class ProccessingType:
-    FULL = "full"
-    INCREMENTAL = "incremental"
