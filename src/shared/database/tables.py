@@ -19,8 +19,16 @@ class LocalTest(MySqlTable):
     profile = Column(String(255), nullable=False)
     created_at = Column(DateTime, nullable=False, default=func.now())
 
+    def get_schema(self):
+        return {
+            "id": self.id,
+            "data": self.data,
+            "profile": self.profile,
+            "created_at": self.created_at,
+        }
 
-class MorningData(MySqlTable):
+
+class MySqlMorningTable(MySqlTable):
     __tablename__ = "morning_data"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
