@@ -1,25 +1,28 @@
-from src.etl.definitions import Table
-from src.etl.pipeline.execute import execute_pipeline
-from src.etl.pipeline.properties import PipelineProperties
+from src.etl.definitions import Table, PipelineDefinition
 from src.etl.readers.database import DatabaseReader
-from src.etl.writers.delta import DeltaWriter
+from src.etl.writers.parquet import ParquetWriter
+from src.shared.database.tables import MySqlTable, MySqlMorningTable
+
 
 
 class RawTable(Table):
     READER = DatabaseReader
-    WRITER = DeltaWriter
+    WRITER = ParquetWriter
+    SOURCE_TABLE: MySqlTable
+    TARGET_TABLE: Table
 
 
 class MorningTable(RawTable):
-    NAME: str = "morning"
+    SOURCE_TABLE = MySqlMorningTable
+    # TARGET_TABLE: str = "morning_raw"
 
     def __init__(self):
         super().__init__()
 
-    def generate_pipeline_properties(self) -> PipelineProperties:
-        return PipelineProperties(
-            reader=self.READER(table_name=self.NAME),
-            writer=self.WRITER(table_name=self.NAME),
+    def generate_pipeline_properties(self) -> PipelineDefinition:
+        return PipelineDefinition(
+            reader=self.READER(table=self.SOURCE_TABLE),
+            writer=self.WRITER(table=RawTable),
         )
 
 
