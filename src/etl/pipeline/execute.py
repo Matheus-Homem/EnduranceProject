@@ -1,9 +1,9 @@
-# from src.etl.pipeline.properties import PipelineProperties
+from src.etl.definitions import PipelineDefinition
 
 
-# def execute_pipeline(pipeline_properties: PipelineProperties):
-#     reader = pipeline_properties.get_reader()
-#     writer = pipeline_properties.get_writer()
+def execute_pipeline(pipeline_definitions: PipelineDefinition):
+    reader = pipeline_definitions.get_reader()
+    writer = pipeline_definitions.get_writer()
 
-#     df = reader.read_data()
-#     writer.write_data(df)
+    df = reader.read_data()
+    writer.write_data(df)
