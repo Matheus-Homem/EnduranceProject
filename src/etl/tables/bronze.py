@@ -1,17 +1,17 @@
-from src.etl.definitions import Table, PipelineDefinition
+from src.etl.definitions import PipelineDefinition, Table
 from src.etl.readers.database import DatabaseReader
 from src.etl.writers.parquet import ParquetWriter
-from src.shared.database.tables import MySqlTable, MySqlMorningTable, MySqlNightTable
+from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
 
 
-class RawTable(Table):
+class BronzeTable(Table):
     LAYER: str = "bronze"
     READER = DatabaseReader
     WRITER = ParquetWriter
     SOURCE_TABLE: MySqlTable
 
 
-class MorningTable(RawTable):
+class MorningTable(BronzeTable):
     SOURCE_TABLE = MySqlMorningTable
     TARGET: str = "morning_raw"
 
@@ -25,7 +25,7 @@ class MorningTable(RawTable):
         )
 
 
-class NightTable(RawTable):
+class NightTable(BronzeTable):
     SOURCE_TABLE = MySqlNightTable
     TARGET: str = "night_raw"
 
