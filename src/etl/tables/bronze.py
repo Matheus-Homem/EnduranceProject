@@ -4,25 +4,24 @@ from src.etl.writers.parquet import ParquetWriter
 from src.shared.database.tables import MySqlTable, MySqlMorningTable
 
 
-
 class RawTable(Table):
+    LAYER: str = "bronze"
     READER = DatabaseReader
     WRITER = ParquetWriter
     SOURCE_TABLE: MySqlTable
-    TARGET_TABLE: Table
 
 
 class MorningTable(RawTable):
     SOURCE_TABLE = MySqlMorningTable
-    # TARGET_TABLE: str = "morning_raw"
+    TARGET: str = "morning_raw"
 
     def __init__(self):
         super().__init__()
 
     def generate_pipeline_properties(self) -> PipelineDefinition:
         return PipelineDefinition(
-            reader=self.READER(table=self.SOURCE_TABLE),
-            writer=self.WRITER(table=RawTable),
+            reader=self.READER(source=self.SOURCE_TABLE),
+            writer=self.WRITER(target=self.get_target_path()),
         )
 
 
