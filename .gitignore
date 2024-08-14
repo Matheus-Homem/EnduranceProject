@@ -23,12 +23,4 @@
 outputs/
 
 # Ignore all data
-### raw data files
-data/ingestion/*.json
-data/ingestion/*.xlsx
-
-### cleaned data files
-data/cleaned/*.parquet
-
-### refined data files
-data/refined/*.parquet
+data/
