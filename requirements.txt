@@ -3,6 +3,7 @@ polars==0.20.4
 pandas==2.1.4
 matplotlib==3.8.2
 xlsx2csv==0.8.2
+deltalake==0.19.0
 
 # Web Development Tools
 Flask==3.0.2
