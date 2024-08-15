@@ -7,4 +7,4 @@ class GoldTable(Table):
     LAYER: str = "gold"
     READER = ParquetReader
     WRITER = DeltaWriter
-    SOURCE_TABLE: Table
+    SOURCE: Table
