@@ -6,13 +6,14 @@ from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySql
 
 class BronzeTable(Table):
     LAYER: str = "bronze"
+    FORMAT: str = "parquet"
     READER = DatabaseReader
     WRITER = ParquetWriter
-    SOURCE_TABLE: MySqlTable
+    SOURCE: MySqlTable
 
 
 class MorningTable(BronzeTable):
-    SOURCE_TABLE = MySqlMorningTable
+    SOURCE = MySqlMorningTable
     TARGET: str = "morning_raw"
 
     def __init__(self):
@@ -20,13 +21,13 @@ class MorningTable(BronzeTable):
 
     def generate_pipeline_properties(self) -> PipelineDefinition:
         return PipelineDefinition(
-            reader=self.READER(source=self.SOURCE_TABLE),
-            writer=self.WRITER(target=self.get_target_path()),
+            reader=self.READER(source=self.SOURCE),
+            writer=self.WRITER(path=self.get_path()),
         )
 
 
 class NightTable(BronzeTable):
-    SOURCE_TABLE = MySqlNightTable
+    SOURCE = MySqlNightTable
     TARGET: str = "night_raw"
 
     def __init__(self):
@@ -34,6 +35,6 @@ class NightTable(BronzeTable):
 
     def generate_pipeline_properties(self) -> PipelineDefinition:
         return PipelineDefinition(
-            reader=self.READER(source=self.SOURCE_TABLE),
-            writer=self.WRITER(target=self.get_target_path()),
+            reader=self.READER(source=self.SOURCE),
+            writer=self.WRITER(path=self.get_path()),
         )
