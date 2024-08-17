@@ -9,8 +9,6 @@ from src.shared.logger import LoggingManager
 
 Path = NewType("Path", str)
 
-Source = Union[Path, MySqlTable]
-
 
 class Reader(ABC):
 
@@ -23,7 +21,7 @@ class Reader(ABC):
         self.logger = self.logger_manager.get_logger()
 
     @abstractmethod
-    def read_dataframe(self, source: Source) -> DataFrame:
+    def read_dataframe(self, source: Union[MySqlTable, "Table"]) -> DataFrame:
         pass
 
 
@@ -47,7 +45,7 @@ class Table:
     def __init__(
         self,
         name: str,
-        source: Source,
+        source: Union[MySqlTable, "Table"],
         layer: Literal["bronze", "silver", "gold"],
         folder: str = "data",
         format: Optional[str] = None,
@@ -80,7 +78,7 @@ class SilverTable(Table):
     def __init__(
         self,
         name: str,
-        source: Path,
+        source: BronzeTable,
         layer: str = "silver",
     ) -> None:
         super().__init__(name, source, layer)
@@ -91,7 +89,7 @@ class GoldTable(Table):
     def __init__(
         self,
         name: str,
-        source: Path,
+        source: SilverTable,
         layer: str = "gold",
     ) -> None:
         super().__init__(name, source, layer)
