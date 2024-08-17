@@ -93,3 +93,11 @@ class GoldTable(Table):
         layer: str = "gold",
     ) -> None:
         super().__init__(name, source, layer)
+
+
+class Pipeline(ABC):
+
+    @staticmethod
+    @abstractmethod
+    def execute(table: Table, reader: Reader, writer: Writer) -> None:
+        pass
