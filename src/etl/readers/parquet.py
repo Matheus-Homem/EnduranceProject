@@ -1,6 +1,6 @@
 from polars import DataFrame, read_parquet
 
-from src.etl.definitions import Reader, Path
+from src.etl.definitions import Path, Reader
 
 
 class ParquetReader(Reader):
@@ -8,7 +8,7 @@ class ParquetReader(Reader):
     def __init__(self, source: Path) -> None:
         super().__init__(source=source)
 
-    def read_data(self) -> DataFrame:
+    def read_dataframe(self) -> DataFrame:
         self.logger.info(
             f"Starting reading process. FORMAT: Parquet | TARGET: {self.source}"
         )
