@@ -1,6 +1,5 @@
-from src.etl.definitions import Reader, Writer
+from src.etl.definitions import BronzeTable, GoldTable, Reader, SilverTable, Writer
 from src.etl.readers.database import DatabaseReader
-from src.etl.tables.bronze import BronzeTable
 from src.etl.writers.parquet import ParquetWriter
 
 
@@ -13,7 +12,7 @@ class ExtractorPipeline:
         writer: Writer = ParquetWriter(),
     ) -> None:
         dataframe = reader.read_dataframe(source=table.source)
-        writer.write_dataframe(dataframe=dataframe, path=table.path)
+        writer.write_dataframe(dataframe=dataframe, path=table.get_path())
 
 
 class CleanerPipeline:
