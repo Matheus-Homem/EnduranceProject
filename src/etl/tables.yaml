@@ -1,7 +1,13 @@
 tables:
-  - table_class: BronzeTable
+  - table_type: BronzeTable
     source: MySqlMorningTable
     name: morning_raw
-  - table_class: BronzeTable
+  - table_type: BronzeTable
     source: MySqlNightTable
     name: night_raw
+  - table_type: SilverTable
+    source: night_raw
+    name: navigator
+  - table_type: GoldTable
+    source: navigator
+    name: gold_test
