@@ -1,0 +1,7 @@
+tables:
+  - table_class: BronzeTable
+    source: MySqlMorningTable
+    name: morning_raw
+  - table_class: BronzeTable
+    source: MySqlNightTable
+    name: night_raw
