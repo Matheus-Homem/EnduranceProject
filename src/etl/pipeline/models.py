@@ -1,4 +1,4 @@
-from src.etl.definitions import BronzeTable, GoldTable, Reader, SilverTable, Writer
+from src.etl.definitions import BronzeTable, GoldTable, Pipeline, SilverTable
 from src.etl.readers.database import DatabaseReader
 from src.etl.readers.delta import DeltaReader
 from src.etl.readers.parquet import ParquetReader
@@ -6,37 +6,37 @@ from src.etl.writers.delta import DeltaWriter
 from src.etl.writers.parquet import ParquetWriter
 
 
-class ExtractorPipeline:
+class ExtractorPipeline(Pipeline):
 
     @staticmethod
     def execute(
         table: BronzeTable,
-        reader: Reader = DatabaseReader(),
-        writer: Writer = ParquetWriter(),
+        reader=DatabaseReader(),
+        writer=ParquetWriter(),
     ) -> None:
         dataframe = reader.read_dataframe(source=table.source)
         writer.write_dataframe(dataframe=dataframe, path=table.get_path())
 
 
-class CleanerPipeline:
+class CleanerPipeline(Pipeline):
 
     @staticmethod
     def execute(
         table: SilverTable,
-        reader: Reader = ParquetReader(),
-        writer: Writer = DeltaWriter(),
+        reader=ParquetReader(),
+        writer=DeltaWriter(),
     ) -> None:
         dataframe = reader.read_dataframe(source=table.source.get_path())
         writer.write_dataframe(dataframe=dataframe, path=table.get_path())
 
 
-class RefinerPipeline:
+class RefinerPipeline(Pipeline):
 
     @staticmethod
     def execute(
         table: GoldTable,
-        reader: Reader = DeltaReader(),
-        writer: Writer = DeltaWriter(),
+        reader=DeltaReader(),
+        writer=DeltaWriter(),
     ) -> None:
         dataframe = reader.read_dataframe(source=table.source.get_path())
         writer.write_dataframe(dataframe=dataframe, path=table.get_path())
