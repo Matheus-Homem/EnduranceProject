@@ -16,18 +16,12 @@ class PipelineManager:
         logger_manager = LoggingManager()
         logger_manager.set_class_name(self.__class__.__name__)
         self.logger = logger_manager.get_logger()
-        self.bronze = bronze
-        self.silver = silver
-        self.gold = gold
-        self.has_enabled_layers = any([bronze, silver, gold])
-
-    @property
-    def table_layer_flags(self) -> dict:
-        return {
-            "BronzeTable": self.bronze,
-            "SilverTable": self.silver,
-            "GoldTable": self.gold,
+        self.table_layer_flags = {
+            "BronzeTable": bronze,
+            "SilverTable": silver,
+            "GoldTable": gold,
         }
+        self.has_enabled_layers = any([bronze, silver, gold])
 
     @staticmethod
     def process_table(table: Table) -> None:
