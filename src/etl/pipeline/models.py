@@ -1,5 +1,8 @@
 from src.etl.definitions import BronzeTable, GoldTable, Reader, SilverTable, Writer
 from src.etl.readers.database import DatabaseReader
+from src.etl.readers.delta import DeltaReader
+from src.etl.readers.parquet import ParquetReader
+from src.etl.writers.delta import DeltaWriter
 from src.etl.writers.parquet import ParquetWriter
 
 
@@ -17,11 +20,23 @@ class ExtractorPipeline:
 
 class CleanerPipeline:
 
-    def execute(self):
-        pass
+    @staticmethod
+    def execute(
+        table: SilverTable,
+        reader: Reader = ParquetReader(),
+        writer: Writer = DeltaWriter(),
+    ) -> None:
+        dataframe = reader.read_dataframe(source=table.source.get_path())
+        writer.write_dataframe(dataframe=dataframe, path=table.get_path())
 
 
 class RefinerPipeline:
 
-    def execute(self):
-        pass
+    @staticmethod
+    def execute(
+        table: GoldTable,
+        reader: Reader = DeltaReader(),
+        writer: Writer = DeltaWriter(),
+    ) -> None:
+        dataframe = reader.read_dataframe(source=table.source.get_path())
+        writer.write_dataframe(dataframe=dataframe, path=table.get_path())
