@@ -7,9 +7,7 @@ from src.shared.logger import CustomFormatter
 class TestCustomFormatter(unittest.TestCase):
 
     def setUp(self):
-        self.formatter = CustomFormatter(
-            fmt="%(levelname)s - %(message)s", class_name="TestClass"
-        )
+        self.formatter = CustomFormatter(fmt="%(levelname)s - %(message)s", class_name="TestClass")
         self.record = logging.LogRecord(
             name="test",
             level=logging.INFO,

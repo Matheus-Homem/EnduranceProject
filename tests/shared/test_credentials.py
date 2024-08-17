@@ -27,9 +27,7 @@ class TestCredentials(unittest.TestCase):
         self.assertEqual(mysql_credentials["host"], "127.0.0.1")
         self.assertEqual(mysql_credentials["username"], getenv("MYSQL_USERNAME"))
         self.assertEqual(mysql_credentials["password"], getenv("MYSQL_PASSWORD"))
-        self.assertEqual(
-            mysql_credentials["database"], f"{mysql_username}${mysql_database}"
-        )
+        self.assertEqual(mysql_credentials["database"], f"{mysql_username}${mysql_database}")
         self.assertEqual(
             mysql_credentials["hostname"],
             f"{mysql_username}.mysql.pythonanywhere-services.com",

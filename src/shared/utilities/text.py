@@ -16,9 +16,7 @@ class TextUtilities:
 
     @staticmethod
     def clean_string(input: str) -> str:
-        return TextUtilities.remove_special_characters(
-            TextUtilities.remove_newlines(input)
-        )
+        return TextUtilities.remove_special_characters(TextUtilities.remove_newlines(input))
 
     @staticmethod
     def serialize_dict(data: dict) -> str:

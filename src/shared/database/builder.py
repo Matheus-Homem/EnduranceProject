@@ -6,9 +6,7 @@ from src.shared.database.executor import DatabaseExecutor
 class DatabaseExecutorBuilder:
     def __init__(self) -> None:
         self.connector = DatabaseConnector()
-        self.session = self.connector.get_session(
-            mysql_credentials=MySqlCredential(), ssh_credentials=SshCredential()
-        )
+        self.session = self.connector.get_session(mysql_credentials=MySqlCredential(), ssh_credentials=SshCredential())
         self.executor = DatabaseExecutor(session=self.session)
 
     def __enter__(self) -> DatabaseExecutor:

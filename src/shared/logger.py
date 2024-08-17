@@ -24,9 +24,7 @@ class CustomFormatter(logging.Formatter):
 
 
 class LoggingManager:
-    def __init__(
-        self, log_level=logging.DEBUG, log_file=None, class_name: str = None
-    ) -> None:
+    def __init__(self, log_level=logging.DEBUG, log_file=None, class_name: str = None) -> None:
         self.logger = self._initialize_logger(log_level, log_file, class_name)
         self.class_name = class_name
 
@@ -46,9 +44,7 @@ class LoggingManager:
 
         return logger
 
-    def _add_file_handler(
-        self, logger: logging.Logger, log_file, class_name: str
-    ) -> None:
+    def _add_file_handler(self, logger: logging.Logger, log_file, class_name: str) -> None:
         date_str = datetime.now().strftime("%Y-%m-%d")
         log_dir = os.path.join("outputs", "logs", date_str)
         os.makedirs(log_dir, exist_ok=True)

@@ -25,15 +25,13 @@ def index():
 def form_morning():
     logger = LoggingManager().get_logger()
     logger.info("Accessing the morning form page")
-    table = tb.MorningData
+    table = tb.MySqlMorningTable
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -59,15 +57,13 @@ def form_morning():
 def form_night():
     logger = LoggingManager().get_logger()
     logger.info("Accessing the night form page")
-    table = tb.NightData
+    table = tb.MySqlNightTable
     if request.method == "POST":
         logger.info("Receiving POST request")
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -100,9 +96,7 @@ def form_test():
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")

@@ -27,9 +27,7 @@ class DatabaseConnector:
     def _is_prd_environment(self) -> bool:
         return PRD == "EnduranceProject"
 
-    def _create_engine(
-        self, mysql_credentials: Credential, ssh_credentials: Credential
-    ) -> None:
+    def _create_engine(self, mysql_credentials: Credential, ssh_credentials: Credential) -> None:
         try:
             mysql_keys = mysql_credentials.get_all_credentials()
             ssh_keys = ssh_credentials.get_all_credentials()
@@ -66,16 +64,12 @@ class DatabaseConnector:
             self.logger.error(f"Failed to start SSH tunnel: {e}")
             raise
 
-    def _construct_engine_url(
-        self, mysql_keys: Dict, local_environment: bool = False
-    ) -> str:
+    def _construct_engine_url(self, mysql_keys: Dict, local_environment: bool = False) -> str:
         if local_environment:
             return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@localhost:{self.ssh_tunnel.local_bind_port}/{mysql_keys.get('database')}"
         return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('hostname')}/{mysql_keys.get('database')}"
 
-    def get_session(
-        self, mysql_credentials: Credential, ssh_credentials: Credential
-    ) -> Session:
+    def get_session(self, mysql_credentials: Credential, ssh_credentials: Credential) -> Session:
         if self.Session is None:
             self.logger.info("Session is not initialized. Creating engine.")
             self._create_engine(mysql_credentials, ssh_credentials)
