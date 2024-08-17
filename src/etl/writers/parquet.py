@@ -1,14 +1,14 @@
 from polars import DataFrame
 
-from src.etl.definitions import Writer, Path
+from src.etl.definitions import Path, Writer
 
 
 class ParquetWriter(Writer):
 
-    def __init__(self, path: Path) -> None:
-        super().__init__(path=path)
+    def __init__(self) -> None:
+        super().__init__()
 
-    def write_data(self, dataframe: DataFrame) -> None:
-        self.logger.info(f"Starting writing process. FORMAT: Parquet | PATH: {self.path}")
-        dataframe.write_parquet(f"{self.path}")
+    def write_dataframe(self, dataframe: DataFrame, path: Path) -> None:
+        self.logger.info(f"Starting writing process. FORMAT: Parquet | PATH: {path}")
+        dataframe.write_parquet(f"{path}")
         self.logger.info(f"Data written successfully with {dataframe.shape[0]} records")
