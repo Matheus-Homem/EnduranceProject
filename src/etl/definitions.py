@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import NewType, Optional, Union
+from typing import Literal, NewType, Optional, Union
 
 from polars import DataFrame
 
@@ -43,13 +43,55 @@ class Writer(ABC):
 
 
 class Table:
-    name: str
-    source: Source
-    layer: str
-    folder: str = "data"
-    format: Optional[str] = None
 
-    @property
-    def path(self) -> Path:
+    def __init__(
+        self,
+        name: str,
+        source: Source,
+        layer: Literal["bronze", "silver", "gold"],
+        folder: str = "data",
+        format: Optional[str] = None,
+    ) -> None:
+        self.name = name
+        self.source = source
+        self.layer = layer
+        self.folder = folder
+        self.format = format
+
+    def get_path(self) -> Path:
         suffix = f".{self.format}" if self.format else ""
         return Path(os.path.join(self.folder, self.layer, self.name) + suffix)
+
+
+class BronzeTable(Table):
+
+    def __init__(
+        self,
+        name: str,
+        source: MySqlTable,
+        layer: str = "bronze",
+        format: str = "parquet",
+    ) -> None:
+        super().__init__(name, source, layer, format=format)
+
+
+class SilverTable(Table):
+
+    def __init__(
+        self,
+        name: str,
+        source: Path,
+        layer: str = "silver",
+    ) -> None:
+        super().__init__(name, source, layer)
+
+
+class GoldTable(Table):
+
+    def __init__(
+        self,
+        name: str,
+        source: Path,
+        layer: str = "gold",
+    ) -> None:
+        super().__init__(name, source, layer)
