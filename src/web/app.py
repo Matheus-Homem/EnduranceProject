@@ -31,9 +31,7 @@ def form_morning():
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -65,9 +63,7 @@ def form_night():
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")
@@ -100,9 +96,7 @@ def form_test():
         retry_count = 1
         prepared_data = clean_and_serialize_dict(data=request.form.to_dict())
         while retry_count < MAX_RETRIES:
-            logger.info(
-                f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}"
-            )
+            logger.info(f"Trying to insert data into table {table.__tablename__}. Attempt: {retry_count}")
             try:
                 with DatabaseExecutorBuilder() as executor:
                     executor.insert(table, data=prepared_data, profile="heuschmat")

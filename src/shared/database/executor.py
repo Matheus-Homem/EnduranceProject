@@ -26,9 +26,7 @@ class DatabaseExecutor:
 
     def count(self, table: MySqlTable) -> None:
         print(self.session.query(table).count())
-        self.logger.info(
-            f"Count of records in {table.__tablename__} selected successfully"
-        )
+        self.logger.info(f"Count of records in {table.__tablename__} selected successfully")
 
     # def select(self, table, **filters) -> None:
     #     """
@@ -73,13 +71,7 @@ class DatabaseExecutor:
 
         results = self.session.execute(stmt).scalars().all()
         headers = [column.name for column in table.__table__.columns]
-        data = [
-            {
-                column.name: getattr(user, column.name)
-                for column in table.__table__.columns
-            }
-            for user in results
-        ]
+        data = [{column.name: getattr(user, column.name) for column in table.__table__.columns} for user in results]
         self.logger.info(f"Data from {table.__tablename__} selected successfully")
         return data
 

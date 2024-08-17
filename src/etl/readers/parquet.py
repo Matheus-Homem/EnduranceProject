@@ -1,21 +1,15 @@
-from polars import DataFrame
+from polars import DataFrame, read_parquet
 
-from src.etl.definitions import Reader, Table
+from src.etl.definitions import Path, Reader
 
 
 class ParquetReader(Reader):
-    SOURCE: str = "Parquet"
 
-    def __init__(self, source: Table) -> None:
-        super().__init__(source=source)
+    def __init__(self) -> None:
+        super().__init__()
 
-    def read_data(self) -> DataFrame:
-        # self.logger.info(
-        #     f"Starting reading process. SOURCE: {self.SOURCE} | TABLE: {self.source.__tablename__}"
-        # )
-        # Read parquet file
-        # self.logger.info(
-        #     f"Data read successfully from {self.source.__tablename__} with {df.shape[0]} records"
-        # )
-        # return df
-        pass
+    def read_dataframe(self, source: Path) -> DataFrame:
+        self.logger.info(f"Starting reading process. FORMAT: Parquet | TARGET: {source}")
+        df = read_parquet(source)
+        self.logger.info(f"Data read successfully from {source} with {df.shape[0]} records")
+        return df

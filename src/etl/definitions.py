@@ -1,24 +1,27 @@
 import os
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Literal, NewType, Optional, Union
+
+from polars import DataFrame
 
 from src.shared.database.tables import MySqlTable
 from src.shared.logger import LoggingManager
 
+Path = NewType("Path", str)
+
 
 class Reader(ABC):
+
     def __init__(
         self,
-        source: Union[str, MySqlTable],
         logger_manager=LoggingManager(),
     ) -> None:
-        self.source = source
         self.logger_manager = logger_manager
         self.logger_manager.set_class_name(self.__class__.__name__)
         self.logger = self.logger_manager.get_logger()
 
     @abstractmethod
-    def read_data(self):
+    def read_dataframe(self, source: Union[MySqlTable, "Table"]) -> DataFrame:
         pass
 
 
@@ -26,60 +29,67 @@ class Writer(ABC):
 
     def __init__(
         self,
-        target: str,
         logger_manager=LoggingManager(),
     ) -> None:
-        self.target = target
         self.logger_manager = logger_manager
         self.logger_manager.set_class_name(self.__class__.__name__)
         self.logger = self.logger_manager.get_logger()
 
     @abstractmethod
-    def write_data(self, dataframe):
+    def write_dataframe(self, dataframe: DataFrame, path: Path) -> None:
         pass
 
 
-class PipelineDefinition:
+class Table:
 
     def __init__(
         self,
-        reader: Reader,
-        writer: Writer,
+        name: str,
+        source: Union[MySqlTable, "Table"],
+        layer: Literal["bronze", "silver", "gold"],
+        folder: str = "data",
+        format: Optional[str] = None,
     ) -> None:
-        self.reader = reader
-        self.writer = writer
+        self.name = name
+        self.source = source
+        self.layer = layer
+        self.folder = folder
+        self.format = format
 
-    def get_reader(self) -> Reader:
-        return self.reader
-
-    def get_writer(self) -> Writer:
-        return self.writer
-
-    def print(self):
-        print(
-            f"""
-        Pipeline Definition:
-        Reader: {type(self.reader).__name__}
-        Writer: {type(self.writer).__name__}
-        Source: {str(self.reader.source).split('.')[-1][:-2]}
-        Target: {self.writer.target}
-        """
-        )
+    def get_path(self) -> Path:
+        suffix = f".{self.format}" if self.format else ""
+        return Path(os.path.join(self.folder, self.layer, self.name) + suffix)
 
 
-class Table(ABC):
-    FOLDER: str = "data"
-    LAYER: str
-    TARGET: str
-    READER: Reader
-    WRITER: Writer
+class BronzeTable(Table):
 
-    def __init__(self):
-        self.pipeline_properties = self.generate_pipeline_properties()
+    def __init__(
+        self,
+        name: str,
+        source: MySqlTable,
+        layer: str = "bronze",
+        format: str = "parquet",
+    ) -> None:
+        super().__init__(name, source, layer, format=format)
 
-    @abstractmethod
-    def generate_pipeline_properties(self) -> PipelineDefinition:
-        pass
 
-    def get_target_path(self) -> str:
-        return os.path.join(self.FOLDER, self.LAYER, self.TARGET)
+class SilverTable(Table):
+
+    def __init__(
+        self,
+        name: str,
+        source: BronzeTable,
+        layer: str = "silver",
+    ) -> None:
+        super().__init__(name, source, layer)
+
+
+class GoldTable(Table):
+
+    def __init__(
+        self,
+        name: str,
+        source: SilverTable,
+        layer: str = "gold",
+    ) -> None:
+        super().__init__(name, source, layer)

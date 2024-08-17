@@ -12,9 +12,7 @@ class TestLoggingManager(unittest.TestCase):
     @patch("src.shared.logger.logging.getLogger")
     @patch.object(LoggingManager, "_add_file_handler")
     @patch.object(LoggingManager, "_add_console_handler")
-    def test_initialize_logger_adds_handlers(
-        self, mock_add_console_handler, mock_add_file_handler, mock_get_logger
-    ):
+    def test_initialize_logger_adds_handlers(self, mock_add_console_handler, mock_add_file_handler, mock_get_logger):
         mock_logger = MagicMock()
         mock_logger.hasHandlers.return_value = False
         mock_get_logger.return_value = mock_logger
@@ -31,9 +29,7 @@ class TestLoggingManager(unittest.TestCase):
     @patch("src.shared.logger.logging.getLogger")
     @patch.object(LoggingManager, "_add_file_handler")
     @patch.object(LoggingManager, "_add_console_handler")
-    def test_initialize_logger_does_not_add_handlers(
-        self, mock_add_console_handler, mock_add_file_handler, mock_get_logger
-    ):
+    def test_initialize_logger_does_not_add_handlers(self, mock_add_console_handler, mock_add_file_handler, mock_get_logger):
         mock_logger = MagicMock()
         mock_logger.hasHandlers.return_value = True
         mock_get_logger.return_value = mock_logger
@@ -51,9 +47,7 @@ class TestLoggingManager(unittest.TestCase):
     @patch("src.shared.logger.os.makedirs")
     @patch("src.shared.logger.logging.FileHandler")
     @patch("src.shared.logger.datetime")
-    def test_can_add_file_handler(
-        self, mock_datetime, mock_file_handler, mock_makedirs
-    ):
+    def test_can_add_file_handler(self, mock_datetime, mock_file_handler, mock_makedirs):
         mock_datetime.now.return_value = datetime(2023, 1, 1, 12, 0, 0)
         mock_datetime.strftime = datetime.strftime
 
@@ -64,21 +58,15 @@ class TestLoggingManager(unittest.TestCase):
 
         logging_manager._add_file_handler(logger, None, "TestClass")
 
-        mock_makedirs.assert_called_once_with(
-            os.path.join("outputs", "logs", "2023-01-01"), exist_ok=True
-        )
+        mock_makedirs.assert_called_once_with(os.path.join("outputs", "logs", "2023-01-01"), exist_ok=True)
 
-        expected_log_file = os.path.join(
-            "outputs", "logs", "2023-01-01", "logs_20230101_120000.log"
-        )
+        expected_log_file = os.path.join("outputs", "logs", "2023-01-01", "logs_20230101_120000.log")
         mock_file_handler.assert_called_once_with(expected_log_file)
 
         self.assertEqual(len(logger.handlers), 1)
         self.assertIsInstance(logger.handlers[0], MagicMock)
 
-        self.assertIsInstance(
-            logger.handlers[0].setFormatter.call_args[0][0], CustomFormatter
-        )
+        self.assertIsInstance(logger.handlers[0].setFormatter.call_args[0][0], CustomFormatter)
 
     @patch("src.shared.logger.colorlog.StreamHandler")
     @patch("src.shared.logger.colorlog.ColoredFormatter")
@@ -100,9 +88,7 @@ class TestLoggingManager(unittest.TestCase):
         )
 
         mock_stream_handler_instance = mock_stream_handler.return_value
-        mock_stream_handler_instance.setFormatter.assert_called_once_with(
-            mock_colored_formatter.return_value
-        )
+        mock_stream_handler_instance.setFormatter.assert_called_once_with(mock_colored_formatter.return_value)
 
         mock_logger.addHandler.assert_called_once_with(mock_stream_handler_instance)
 
