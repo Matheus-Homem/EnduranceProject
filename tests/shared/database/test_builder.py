@@ -9,9 +9,7 @@ class TestDatabaseExecutorBuilder(unittest.TestCase):
     @patch("src.shared.database.builder.DatabaseConnector")
     @patch("src.shared.database.builder.MySqlCredential")
     @patch("src.shared.database.builder.SshCredential")
-    def test_database_executor_builder(
-        self, MockSshCredential, MockMySqlCredential, MockDatabaseConnector
-    ):
+    def test_database_executor_builder(self, MockSshCredential, MockMySqlCredential, MockDatabaseConnector):
         mock_connector = MockDatabaseConnector.return_value
         mock_session = MagicMock()
         mock_connector.get_session.return_value = mock_session
