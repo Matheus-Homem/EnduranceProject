@@ -5,6 +5,15 @@ from datetime import datetime
 
 import colorlog
 
+SUCCESS_LEVEL_NUM = 25
+logging.addLevelName(SUCCESS_LEVEL_NUM, "SUCCESS")
+
+def success(self, message, *args, **kwargs):
+    if self.isEnabledFor(SUCCESS_LEVEL_NUM):
+        self._log(SUCCESS_LEVEL_NUM, message, args, **kwargs)
+
+logging.Logger.success = success
+
 
 class CustomFormatter(logging.Formatter):
     def __init__(self, fmt, class_name):
@@ -67,6 +76,7 @@ class LoggingManager:
             log_colors={
                 "DEBUG": "purple",
                 "INFO": "cyan",
+                "SUCCESS": "green",
                 "WARNING": "yellow",
                 "ERROR": "red",
             },
@@ -82,3 +92,7 @@ class LoggingManager:
 
     def get_logger(self) -> logging.Logger:
         return self.logger
+
+def raise_error_and_log(logger: logging.Logger,  error_message: str) -> None:
+    logger.error(error_message)
+    raise ValueError(error_message)
