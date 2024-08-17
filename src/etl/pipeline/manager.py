@@ -21,6 +21,14 @@ class PipelineManager:
         self.gold = gold
         self.has_enabled_layers = any([bronze, silver, gold])
 
+    @property
+    def table_layer_flags(self) -> dict:
+        return {
+            "BronzeTable": self.bronze,
+            "SilverTable": self.silver,
+            "GoldTable": self.gold,
+        }
+
     @staticmethod
     def process_table(table: Table) -> None:
 
@@ -42,14 +50,6 @@ class PipelineManager:
                 exception=ValueError,
             )
         return retrieved_class
-
-    @property
-    def table_layer_flags(self) -> dict:
-        return {
-            "BronzeTable": self.bronze,
-            "SilverTable": self.silver,
-            "GoldTable": self.gold,
-        }
 
     def load_table_data(self) -> dict:
         with open(os.path.join("src", "etl", "tables.yaml"), "r") as file:
