@@ -70,7 +70,6 @@ class PipelineManager:
                 table["name"],
             )
 
-
             if self.table_layer_flags.get(layer_class_str, False):
 
                 layer_class = self.get_layer_class(layer_class_str)
@@ -84,7 +83,6 @@ class PipelineManager:
 
             else:
                 skipped_tables.append(table["name"])
-        
+
         self.logger.info(f"Skipped tables ({len(skipped_tables)}): {', '.join(skipped_tables)}") if skipped_tables else None
         self.logger.success(f"Pipeline execution completed. Executed {len(processed_tables)} tables.")
-        
