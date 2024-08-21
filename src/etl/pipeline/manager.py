@@ -1,11 +1,11 @@
 import os
-from typing import Tuple
+from typing import Union
 
 import yaml
 
 from src.etl.definitions import BronzeTable, GoldTable, SilverTable, Table
 from src.etl.pipeline.models import CleanerPipeline, ExtractorPipeline, RefinerPipeline
-from src.shared.database.tables import MySqlMorningTable, MySqlNightTable
+from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
 from src.shared.logger import LoggingManager, raise_error_and_log
 
 
@@ -38,12 +38,12 @@ class PipelineManager:
         if isinstance(table, GoldTable):
             RefinerPipeline.execute(table=table)
 
-    def get_layer_class(self, layer_class_str):
+    def get_layer_class(self, layer_class_str: str) -> Table:
         layer_class = next((cls for cls in self.valid_layer_classes if cls.__name__ == layer_class_str), None)
         raise_error_and_log(f"Name {layer_class_str} must be 'BronzeTable', 'SilverTable' or 'GoldTable'") if layer_class is None else None
         return layer_class
 
-    def get_source(self, layer_class, source_str):
+    def get_source(self, layer_class: Table, source_str: str) -> Union[MySqlTable, Table]:
         if layer_class == BronzeTable:
             source = next((cls for cls in self.sql_tables_list if cls.__name__ == source_str), None)
             raise_error_and_log(f"Name {source_str} must be a valid source name") if source is None else None
