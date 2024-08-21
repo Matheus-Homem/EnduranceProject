@@ -4,7 +4,13 @@ import unittest
 from datetime import datetime
 from unittest.mock import MagicMock, call, patch
 
-from src.shared.logger import SUCCESS_LEVEL_NUM, CustomFormatter, LoggingManager, raise_error_and_log, success
+from src.shared.logger import (
+    SUCCESS_LEVEL_NUM,
+    CustomFormatter,
+    LoggingManager,
+    raise_error_and_log,
+    success,
+)
 
 
 class TestLoggingManager(unittest.TestCase):
