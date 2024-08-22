@@ -2,15 +2,9 @@ import logging
 import os
 import unittest
 from datetime import datetime
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 
-from src.shared.logger import (
-    SUCCESS_LEVEL_NUM,
-    CustomFormatter,
-    LoggingManager,
-    raise_error_and_log,
-    success,
-)
+from src.shared.logger import CustomFormatter, LoggingManager, raise_error_and_log
 
 
 class TestLoggingManager(unittest.TestCase):
