@@ -25,7 +25,8 @@ jobs:
           pip install -r requirements_tests.txt
 
       - name: Run tests with pytest
-        run: pytest -vv  --disable-warnings \
-            --cov=src/web --cov=src/shared --cov=src/etl \
-            --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80
+        run: |
+            pytest -vv  --disable-warnings \
+                --cov=src/web --cov=src/shared --cov=src/etl \
+                --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80 tests/
             
