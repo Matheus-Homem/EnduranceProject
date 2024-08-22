@@ -26,7 +26,11 @@ jobs:
 
       - name: Run tests with pytest
         run: |
-            pytest -vv  --disable-warnings \
-                --cov=src/web --cov=src/shared --cov=src/etl \
-                --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80 tests/
+            pytest -vv  \
+                --disable-warnings \
+                --cov=src \
+                --cov-config=.coveragerc \
+                --cov-report=term-missing \
+                --cov-fail-under=90 \
+                tests/
             

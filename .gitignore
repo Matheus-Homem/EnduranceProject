@@ -1,26 +1,18 @@
 # Ignore .env secrets file
 .env
 
+# Ignore venv Folder
+.venv/
+
 # Ignore .coverage
 .coverage
 
 # Ignore test notebooks
 *.ipynb
 
-# Ignore deprecated python files
-**/*_deprecated.py
-
 # Ignore Python Cache
 **/*.pyc
 
-# Ignore Databases
-**/*.db
-
-# Ignore venv Folder
-.venv/
-
-# Ignore files inside output folder
+# Ignore files inside output and data folder
 outputs/
-
-# Ignore all data
 data/
