@@ -1,9 +1,9 @@
 import unittest
-from pathlib import Path
 from unittest.mock import patch
 
 import polars as pl
 
+from src.etl.definitions import Path
 from src.etl.readers.delta import DeltaReader
 
 
