@@ -4,7 +4,13 @@ import unittest
 from datetime import datetime
 from unittest.mock import MagicMock, call, patch
 
-from src.shared.logger import CustomFormatter, LoggingManager
+from src.shared.logger import (
+    SUCCESS_LEVEL_NUM,
+    CustomFormatter,
+    LoggingManager,
+    raise_error_and_log,
+    success,
+)
 
 
 class TestLoggingManager(unittest.TestCase):
@@ -82,6 +88,7 @@ class TestLoggingManager(unittest.TestCase):
             log_colors={
                 "DEBUG": "purple",
                 "INFO": "cyan",
+                "SUCCESS": "green",
                 "WARNING": "yellow",
                 "ERROR": "red",
             },
@@ -114,6 +121,16 @@ class TestLoggingManager(unittest.TestCase):
         logger = logging_manager.get_logger()
 
         self.assertEqual(logger, mock_logger)
+
+    def test_raise_error_and_log(self):
+        mock_logger = MagicMock()
+        error_message = "This is an error message"
+
+        with self.assertRaises(ValueError) as context:
+            raise_error_and_log(mock_logger, error_message)
+
+        mock_logger.error.assert_called_once_with(error_message)
+        self.assertEqual(str(context.exception), error_message)
 
 
 if __name__ == "__main__":

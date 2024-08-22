@@ -82,7 +82,7 @@ chore: # Run isort and black
 test: # Run chore and tests with code coverage
 	@make chore
 	@echo Running tests with code coverage...
-	@pytest -vv --cov=src --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80
+	@pytest -vv --cov=src/web --cov=src/shared --cov=src/etl --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=80
 
 todos: # Generate TODO.md from #TODO comments in the code
 	@echo Generating TODO.md...

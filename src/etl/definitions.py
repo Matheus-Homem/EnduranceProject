@@ -21,8 +21,7 @@ class Reader(ABC):
         self.logger = self.logger_manager.get_logger()
 
     @abstractmethod
-    def read_dataframe(self, source: Union[MySqlTable, "Table"]) -> DataFrame:
-        pass
+    def read_dataframe(self, source: Union[MySqlTable, "Table"]) -> DataFrame: ...
 
 
 class Writer(ABC):
@@ -36,8 +35,7 @@ class Writer(ABC):
         self.logger = self.logger_manager.get_logger()
 
     @abstractmethod
-    def write_dataframe(self, dataframe: DataFrame, path: Path) -> None:
-        pass
+    def write_dataframe(self, dataframe: DataFrame, path: Path) -> None: ...
 
 
 class Table:
@@ -99,5 +97,4 @@ class Pipeline(ABC):
 
     @staticmethod
     @abstractmethod
-    def execute(table: Table, reader: Reader, writer: Writer) -> None:
-        pass
+    def execute(table: Table, reader: Reader, writer: Writer) -> None: ...
