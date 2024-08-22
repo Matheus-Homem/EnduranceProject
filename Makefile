@@ -2,7 +2,7 @@
 VENV_NAME := .venv
 
 # Defines the commands that are not files
-.PHONY: clean create-venv activate-venv build todos configure run full-run server test help
+.PHONY: clean create-venv activate-venv build todos configure run full-run server test help delete-coverage
 
 clear: # Command to clean the virtual environment and compilation files
 	@$(if $(filter $(OS),Windows_NT), \
@@ -72,11 +72,21 @@ chore: # Run isort and black
 	@echo Running black...
 	@black tests/
 	@black src/
+	@echo isort and black ran successfully!
 
 test: # Run chore and tests with code coverage
 	@make chore
 	@echo Running tests with code coverage...
 	@pytest -vv --cov=src --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=90
+	@make delete-coverage
+	@echo Tests with code coverage ran successfully!
+
+
+delete-coverage: # Delete the coverage file
+	@echo Deleting coverage file...
+	@python -c "import os; os.remove('.coverage') if os.path.exists('.coverage') else None"
+	@echo Coverage file deleted successfully!
+
 
 todos: # Generate TODO.md from #TODO comments in the code
 	@echo Generating TODO.md...
