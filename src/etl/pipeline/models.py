@@ -1,10 +1,10 @@
 from src.etl.definitions import BronzeTable, GoldTable, Pipeline, SilverTable
+from src.etl.engines.cleaner.fomatter import CleanerFormatter
 from src.etl.readers.database import DatabaseReader
 from src.etl.readers.delta import DeltaReader
 from src.etl.readers.parquet import ParquetReader
 from src.etl.writers.delta import DeltaWriter
 from src.etl.writers.parquet import ParquetWriter
-from src.etl.engines.cleaner import CleanerEngine
 
 
 class ExtractorPipeline(Pipeline):
@@ -26,11 +26,10 @@ class CleanerPipeline(Pipeline):
         table: SilverTable,
         reader=ParquetReader(),
         writer=DeltaWriter(),
-        engine=CleanerEngine(),
     ) -> None:
         dataframe = reader.read_dataframe(source=table.source.get_path())
-        cleaned_dataframe = engine.process(dataframe=dataframe)
-        writer.write_dataframe(dataframe=cleaned_dataframe, path=table.get_path())
+        dataframe_formatted = CleanerFormatter().format_dataframe_columns(dataframe)
+        writer.write_dataframe(dataframe=dataframe_formatted, path=table.get_path())
 
 
 class RefinerPipeline(Pipeline):
