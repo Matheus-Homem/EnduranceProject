@@ -99,6 +99,7 @@ class Pipeline(ABC):
     @abstractmethod
     def execute(table: Table, reader: Reader, writer: Writer) -> None: ...
 
+
 class Engine(ABC):
 
     @staticmethod
