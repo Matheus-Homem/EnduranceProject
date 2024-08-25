@@ -1,6 +1,7 @@
 import os
 from typing import Union
 
+import logging
 import yaml
 
 from src.etl.definitions import BronzeTable, GoldTable, SilverTable, Table
@@ -8,12 +9,13 @@ from src.etl.pipeline.models import CleanerPipeline, ExtractorPipeline, RefinerP
 from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
 from src.shared.logger import LoggingManager, raise_error_and_log
 
+LoggingManager.initialize_logger(log_level=logging.DEBUG)
 
 class PipelineManager:
 
     def __init__(self, logger_manager=LoggingManager(), bronze: bool = False, silver: bool = False, gold: bool = False) -> None:
         logger_manager.set_class_name(self.__class__.__name__)
-        self.logger = logger_manager.get_logger()
+        self.logger = logging.getLogger(self.__class__.__name__)
 
         if not any([bronze, silver, gold]):
             raise_error_and_log("At least one of the parameters 'bronze', 'silver', or 'gold' must be set to True")
@@ -75,9 +77,8 @@ class PipelineManager:
                 layer_class = self.get_layer_class(layer_class_str)
                 source = self.get_source(layer_class, source_str)
 
-                self.logger.info(f"Starting '{name}' table execution.")
+                self.logger.info(f"Executing for table: {name}")
                 PipelineManager.process_table(layer_class(source=source, name=name))
-                self.logger.info(f"Finished '{name}' table execution.")
 
                 processed_tables.append(table["name"])
 
