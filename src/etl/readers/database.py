@@ -11,9 +11,8 @@ class DatabaseReader(Reader):
         super().__init__()
 
     def read_dataframe(self, source: MySqlTable) -> DataFrame:
-        self.logger.info(f"Starting reading process. SOURCE: Database | TABLE: {source.__tablename__}")
+        self.logger.info(f"Reading table {source.__tablename__} from Database")
         with DatabaseExecutorBuilder() as executor:
             database_table_data = executor.select(source)
         df = DataFrame(database_table_data)
-        self.logger.info(f"Data read successfully from {source.__tablename__} with {df.shape[0]} records")
         return df
