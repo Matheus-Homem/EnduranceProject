@@ -78,8 +78,9 @@ class SilverTable(Table):
         name: str,
         source: BronzeTable,
         layer: str = "silver",
+        format: str = "parquet",
     ) -> None:
-        super().__init__(name, source, layer)
+        super().__init__(name, source, layer, format=format)
 
 
 class GoldTable(Table):
@@ -94,6 +95,15 @@ class GoldTable(Table):
 
 
 class Pipeline(ABC):
+
+    def __init__(
+        self,
+        class_name: str,
+        logger_manager=LoggingManager(),
+    ) -> None:
+        self.logger_manager = logger_manager
+        self.logger_manager.set_class_name(class_name)
+        self.logger = self.logger_manager.get_logger()
 
     @staticmethod
     @abstractmethod
