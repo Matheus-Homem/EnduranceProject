@@ -35,7 +35,7 @@ class TestSilverTable(unittest.TestCase):
         self.assertEqual(silver_table.source, source)
         self.assertEqual(silver_table.layer, "silver")
         self.assertEqual(silver_table.folder, "data")
-        self.assertIsNone(silver_table.format)
+        self.assertEqual(silver_table.format, "parquet")
 
 
 class TestGoldTable(unittest.TestCase):
