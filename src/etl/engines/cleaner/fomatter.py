@@ -1,14 +1,23 @@
-from typing import Union, List, Literal, Tuple
+from typing import Union
+from src.etl.definitions import Engine
 
-from polars import Boolean, DataFrame, Date, Time, UInt8, UInt16, Utf8, col, concat_str, Datetime
+from polars import (
+    Boolean,
+    DataFrame,
+    Date,
+    Datetime,
+    Time,
+    UInt8,
+    UInt16,
+    Utf8,
+    col,
+    concat_str,
+)
 
-from src.shared.logger import LoggingManager
+class CleanerFormatter(Engine):
 
-
-class CleanerFormatter:
-    def __init__(self, logger_manager=LoggingManager()) -> None:
-        logger_manager.set_class_name(self.__class__.__name__)
-        self.logger = logger_manager.get_logger()
+    def __init__(self) -> None:
+        super().__init__(class_name=self.__class__.__name__)
         self.default_columns = ["data", "profile", "user_id", "created_at", "updated_at", "deleted_at"]
 
     def _get_time_conversion(self, col_name: str, default_time_col: str) -> callable:
@@ -27,8 +36,10 @@ class CleanerFormatter:
     def _to_date(self, df: DataFrame, col_name: str) -> DataFrame:
         return df.with_columns(col(col_name).cast(Date).alias(col_name))
 
-    def _to_time(self, df: DataFrame, col_name: str, default_time_col:str) -> DataFrame:
-        return df.with_columns(col(col_name).map_elements(self._get_time_conversion(col_name, default_time_col)).str.strptime(Time, "%H:%M:%S").alias(col_name))
+    def _to_time(self, df: DataFrame, col_name: str, default_time_col: str) -> DataFrame:
+        return df.with_columns(
+            col(col_name).map_elements(self._get_time_conversion(col_name, default_time_col)).str.strptime(Time, "%H:%M:%S").alias(col_name)
+        )
 
     def _to_boolean(self, df: DataFrame, col_name: str) -> DataFrame:
         return df.with_columns(
@@ -61,16 +72,18 @@ class CleanerFormatter:
             else:
                 raise ValueError(f"Invalid column name prefix: {prefix}")
             return df
-        
-    def _join_timestamp(self, df: DataFrame, default_date_col:str, default_time_col:str, new_datetime_col:str) -> DataFrame:
+
+    def _join_timestamp(self, df: DataFrame, default_date_col: str, default_time_col: str, new_datetime_col: str) -> DataFrame:
         return df.with_columns(
             concat_str(
                 col(default_date_col).cast(Utf8),
                 col(default_time_col).cast(Utf8),
-            ).str.strptime(Datetime, "%Y-%m-%d%H:%M:%S").alias(new_datetime_col)
+            )
+            .str.strptime(Datetime, "%Y-%m-%d%H:%M:%S")
+            .alias(new_datetime_col)
         )
-        
-    def format_dataframe_columns(self, df: DataFrame, default_date_col:str, default_time_col:str, new_datetime_col: str) -> DataFrame:
+
+    def format_dataframe_columns(self, df: DataFrame, default_date_col: str, default_time_col: str, new_datetime_col: str) -> DataFrame:
         try:
             self.logger.info("Casting correct types to dataframe columns")
             for col_name in df.columns:
