@@ -2,36 +2,36 @@ import unittest
 from unittest.mock import MagicMock, call, patch
 
 from src.etl.definitions import BronzeTable, GoldTable, SilverTable
-from src.etl.pipeline.manager import PipelineManager
+from src.etl.manager import DataProcessingManager
 from src.shared.database.tables import MySqlMorningTable
 
 
-class TestPipelineManager(unittest.TestCase):
+class TestDataProcessingManager(unittest.TestCase):
 
     def setUp(self):
         self.logger_manager = MagicMock()
         self.logger_manager.get_logger.return_value = MagicMock()
-        self.manager = PipelineManager(logger_manager=self.logger_manager, bronze=True, silver=True, gold=True)
+        self.manager = DataProcessingManager(logger_manager=self.logger_manager, bronze=True, silver=True, gold=True)
 
     def test_error_missing_layer_param(self):
         with self.assertRaises(Exception):
-            PipelineManager(logger_manager=self.logger_manager)
+            DataProcessingManager(logger_manager=self.logger_manager)
 
-    @patch("src.etl.pipeline.models.ExtractorPipeline.execute")
-    @patch("src.etl.pipeline.models.CleanerPipeline.execute")
-    @patch("src.etl.pipeline.models.RefinerPipeline.execute")
+    @patch("src.etl.pipeline.extractor.ExtractorPipeline.execute")
+    @patch("src.etl.pipeline.cleaner.CleanerPipeline.execute")
+    @patch("src.etl.pipeline.refiner.RefinerPipeline.execute")
     def test_process_table(self, mock_refiner_execute, mock_cleaner_execute, mock_extractor_execute):
         bronze_table = BronzeTable(name="test_bronze_table", source=None)
         silver_table = SilverTable(name="test_silver_table", source=bronze_table)
         gold_table = GoldTable(name="test_gold_table", source=silver_table)
 
-        PipelineManager.process_table(bronze_table)
+        DataProcessingManager.process_table(bronze_table)
         mock_extractor_execute.assert_called_once_with(table=bronze_table)
 
-        PipelineManager.process_table(silver_table)
+        DataProcessingManager.process_table(silver_table)
         mock_cleaner_execute.assert_called_once_with(table=silver_table)
 
-        PipelineManager.process_table(gold_table)
+        DataProcessingManager.process_table(gold_table)
         mock_refiner_execute.assert_called_once_with(table=gold_table)
 
     def test_get_layer_class(self):
@@ -56,11 +56,11 @@ class TestPipelineManager(unittest.TestCase):
         with self.assertRaises(Exception):
             self.manager.get_source(BronzeTable, "InvalidSource")
 
-    @patch("src.etl.pipeline.manager.PipelineManager.process_table")
-    @patch("src.etl.pipeline.manager.PipelineManager.get_source")
-    @patch("src.etl.pipeline.manager.PipelineManager.get_layer_class")
+    @patch("src.etl.manager.DataProcessingManager.process_table")
+    @patch("src.etl.manager.DataProcessingManager.get_source")
+    @patch("src.etl.manager.DataProcessingManager.get_layer_class")
     @patch(
-        "src.etl.pipeline.manager.yaml.safe_load",
+        "src.etl.manager.yaml.safe_load",
         return_value={
             "tables": [
                 {"layer_class": "BronzeTable", "source": "MySqlMorningTable", "name": "morning_raw"},
