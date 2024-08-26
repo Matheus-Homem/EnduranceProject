@@ -3,17 +3,16 @@ from sqlalchemy.orm import Session
 from tabulate import tabulate
 
 from src.shared.database.tables import MySqlTable
-from src.shared.logger import LoggingManager
+from src.shared.logging.printer import LoggingPrinter
 
 
-class DatabaseExecutor:
+
+class DatabaseExecutor(LoggingPrinter):
     def __init__(
         self,
         session: Session,
-        logger_manager: LoggingManager = LoggingManager(),
     ):
-        logger_manager.set_class_name(__class__.__name__)
-        self.logger = logger_manager.get_logger()
+        super().__init__(class_name=self.__class__.__name__)
         self.session = session
 
     def describe(self, table: MySqlTable) -> None:
@@ -27,31 +26,6 @@ class DatabaseExecutor:
     def count(self, table: MySqlTable) -> None:
         print(self.session.query(table).count())
         self.logger.info(f"Count of records in {table.__tablename__} selected successfully")
-
-    # def select(self, table, **filters) -> None:
-    #     """
-    #     Example:
-    #         # Select rows from the LocalTest table where id is 1 and name is 'Alice':
-    #         executor.select(LocalTest, id=1, name='Alice')
-    #     """
-    #     stmt = select(table)
-    #     if filters:
-    #         conditions = []
-    #         for column, value in filters.items():
-    #             if hasattr(table, column):
-    #                 conditions.append(getattr(table, column) == value)
-
-    #         if conditions:
-    #             stmt = stmt.where(and_(*conditions))
-
-    #     results = self.session.execute(stmt).scalars().all()
-    #     headers = [column.name for column in table.__table__.columns]
-    #     data = [
-    #         [getattr(user, column.name) for column in table.__table__.columns]
-    #         for user in results
-    #     ]
-    #     print(tabulate(data, headers=headers, tablefmt="grid"))
-    #     self.logger.info(f"Data from {table.__tablename__} selected successfully")
 
     def select(self, table, **filters) -> list:
         """
