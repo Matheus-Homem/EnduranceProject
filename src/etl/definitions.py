@@ -5,34 +5,18 @@ from typing import Literal, NewType, Optional, Union
 from polars import DataFrame
 
 from src.shared.database.tables import MySqlTable
-from src.shared.logger import LoggingManager
+from src.shared.logging.printer import LoggingPrinter
 
 Path = NewType("Path", str)
 
 
-class Reader(ABC):
-
-    def __init__(
-        self,
-        logger_manager=LoggingManager(),
-    ) -> None:
-        self.logger_manager = logger_manager
-        self.logger_manager.set_class_name(self.__class__.__name__)
-        self.logger = self.logger_manager.get_logger()
+class Reader(ABC, LoggingPrinter):
 
     @abstractmethod
     def read_dataframe(self, source: Union[MySqlTable, "Table"]) -> DataFrame: ...
 
 
-class Writer(ABC):
-
-    def __init__(
-        self,
-        logger_manager=LoggingManager(),
-    ) -> None:
-        self.logger_manager = logger_manager
-        self.logger_manager.set_class_name(self.__class__.__name__)
-        self.logger = self.logger_manager.get_logger()
+class Writer(ABC, LoggingPrinter):
 
     @abstractmethod
     def write_dataframe(self, dataframe: DataFrame, path: Path) -> None: ...
@@ -94,24 +78,13 @@ class GoldTable(Table):
         super().__init__(name, source, layer)
 
 
-class Pipeline(ABC):
+class Pipeline(ABC, LoggingPrinter):
 
-    def __init__(
-        self,
-        class_name: str,
-        logger_manager=LoggingManager(),
-    ) -> None:
-        self.logger_manager = logger_manager
-        self.logger_manager.set_class_name(class_name)
-        self.logger = self.logger_manager.get_logger()
-
-    @staticmethod
     @abstractmethod
     def execute(table: Table, reader: Reader, writer: Writer) -> None: ...
 
 
-class Engine(ABC):
+class Engine(ABC, LoggingPrinter):
 
-    @staticmethod
-    @abstractmethod
-    def process() -> None: ...
+    def __init__(self, class_name: str) -> None:
+        super().__init__(class_name=class_name)
