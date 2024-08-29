@@ -1,12 +1,15 @@
-from src.shared.logging.manager import LoggingManager
 import logging
 
+from src.shared.logging.manager import LoggingManager
+
 LoggingManager()
+
 
 class LoggingPrinter:
 
     def __init__(self, class_name: str) -> None:
         self.logger = logging.getLogger(class_name)
+
 
 def raise_error_and_log(logger: logging.Logger, error_message: str) -> None:
     logger.error(error_message)
