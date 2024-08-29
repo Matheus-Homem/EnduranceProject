@@ -12,14 +12,13 @@ from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySql
 from src.shared.logging.printer import LoggingPrinter, raise_error_and_log
 
 
-
 class DataProcessingManager(LoggingPrinter):
 
     def __init__(self, bronze: bool = False, silver: bool = False, gold: bool = False) -> None:
         super().__init__(class_name=self.__class__.__name__)
-        
+
         if not any([bronze, silver, gold]):
-            raise_error_and_log(logger=self.logger , error_message="At least one of the parameters 'bronze', 'silver', or 'gold' must be set to True")
+            raise_error_and_log(logger=self.logger, error_message="At least one of the parameters 'bronze', 'silver', or 'gold' must be set to True")
 
         self.table_layer_flags = {
             "BronzeTable": bronze,
@@ -43,7 +42,11 @@ class DataProcessingManager(LoggingPrinter):
 
     def get_layer_class(self, layer_class_str: str) -> Table:
         layer_class = next((cls for cls in self.valid_layer_classes if cls.__name__ == layer_class_str), None)
-        raise_error_and_log(logger=self.logger, error_message=f"Name {layer_class_str} must be 'BronzeTable', 'SilverTable' or 'GoldTable'") if layer_class is None else None
+        (
+            raise_error_and_log(logger=self.logger, error_message=f"Name {layer_class_str} must be 'BronzeTable', 'SilverTable' or 'GoldTable'")
+            if layer_class is None
+            else None
+        )
         return layer_class
 
     def get_source(self, layer_class: Table, source_str: str) -> Union[MySqlTable, Table]:
@@ -64,8 +67,6 @@ class DataProcessingManager(LoggingPrinter):
         with open(os.path.join("src", "etl", "tables.yaml"), "r") as file:
             data = yaml.safe_load(file)
 
-        
-
         for table in data["tables"]:
             layer_class_str, source_str, name = (
                 table["layer_class"],
@@ -78,13 +79,9 @@ class DataProcessingManager(LoggingPrinter):
                 layer_class = self.get_layer_class(layer_class_str)
                 source = self.get_source(layer_class, source_str)
 
-                
                 DataProcessingManager.process_table(layer_class(source=source, name=name))
 
                 processed_tables.append(table["name"])
 
             else:
                 skipped_tables.append(table["name"])
-
-        
-
