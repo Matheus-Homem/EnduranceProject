@@ -6,7 +6,6 @@ from src.shared.database.tables import MySqlTable
 from src.shared.logging.printer import LoggingPrinter
 
 
-
 class DatabaseExecutor(LoggingPrinter):
     def __init__(
         self,
