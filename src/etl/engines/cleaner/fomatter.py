@@ -1,5 +1,4 @@
 from typing import Union
-from src.etl.definitions import Engine
 
 from polars import (
     Boolean,
@@ -13,6 +12,9 @@ from polars import (
     col,
     concat_str,
 )
+
+from src.etl.definitions import Engine
+
 
 class CleanerFormatter(Engine):
 
