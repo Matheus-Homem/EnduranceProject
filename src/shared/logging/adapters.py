@@ -3,8 +3,6 @@ import logging
 from src.shared.logging.manager import LoggingManager
 
 
-
-
 class LoggingPrinter:
     LoggingManager()
 
@@ -16,9 +14,8 @@ def raise_error_and_log(logger: logging.Logger, error_message: str) -> None:
     logger.error(error_message)
     raise ValueError(error_message)
 
+
 def reset_logger() -> None:
     logger = logging.getLogger()
     for handler in logger.handlers[:]:
         logger.removeHandler(handler)
-
-
