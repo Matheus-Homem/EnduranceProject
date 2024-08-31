@@ -1,4 +1,3 @@
-import logging
 import os
 from typing import Union
 
@@ -9,7 +8,7 @@ from src.etl.pipeline.cleaner import CleanerPipeline
 from src.etl.pipeline.extractor import ExtractorPipeline
 from src.etl.pipeline.refiner import RefinerPipeline
 from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
-from src.shared.logging.printer import LoggingPrinter, raise_error_and_log
+from src.shared.logging.adapters import LoggingPrinter, raise_error_and_log
 
 
 class DataProcessingManager(LoggingPrinter):

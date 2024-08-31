@@ -5,7 +5,7 @@ from typing import Literal, NewType, Optional, Union
 from polars import DataFrame
 
 from src.shared.database.tables import MySqlTable
-from src.shared.logging.printer import LoggingPrinter
+from src.shared.logging.adapters import LoggingPrinter
 
 Path = NewType("Path", str)
 

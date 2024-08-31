@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from tabulate import tabulate
 
 from src.shared.database.tables import MySqlTable
-from src.shared.logging.printer import LoggingPrinter
+from src.shared.logging.adapters import LoggingPrinter
 
 
 class DatabaseExecutor(LoggingPrinter):
