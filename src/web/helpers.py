@@ -5,3 +5,7 @@ def clean_and_serialize_dict(data: dict) -> str:
     cleaned_dict = {TextUtilities.clean_string(key): TextUtilities.clean_string(str(value)) for key, value in data.items()}
     serialized_dict = TextUtilities.serialize_dict(cleaned_dict)
     return serialized_dict
+
+
+def print_green(text: str):
+    print(f"\033[92mSUCCESS - {text}\033[0m")
