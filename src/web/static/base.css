@@ -1,6 +1,9 @@
 body {
     color: var(--white-color);
     background-color: var(--gray-color-1);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.0;
 }
 
 h1 {
