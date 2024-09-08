@@ -22,6 +22,16 @@ def index():
     print_green("Accessing the index page")
     return render_template("index.html")
 
+@app.route("/2/", methods=["GET"])
+def index2():
+    print_green("Accessing the index page")
+    return render_template("index2.html")
+
+@app.route("/add/navigator/", methods=["GET", "POST"])
+def add_navigator():
+    print_green("Accessing the Navigator page to add a new entry")
+    return render_template("core/wisdom/navigator.html")
+
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
