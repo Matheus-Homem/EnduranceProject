@@ -1,4 +1,10 @@
-@import url('core/colors.css');
-@import url('base.css');
-@import url('accordion_colors.css');
-@import url('accordion.css');
+@import url('core2/colors.css');
+@import url('core2/fonts.css');
+@import url('core2/sections.css');
+@import url('core2/base.css');
+@import url('core2/accordion_colors.css');
+@import url('core2/accordion.css');
+@import url('input/custom/check.css');
+@import url('input/custom/button.css');
+@import url('div/anima.css');
+@import url('div/cells.css');
