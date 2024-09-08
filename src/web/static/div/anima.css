@@ -1,0 +1,84 @@
+.anima-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--green-color-darkest);
+    border: 4px solid var(--green-color-dark);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 600px;
+    box-shadow: 0 10px 25px var(--green-color-darker);
+}
+
+.anima-header {
+    background-color: var(--green-color-dark);
+    border-radius: 20px;
+    padding: 7px 12px;
+    position: relative;
+    top: -36px;
+    text-align: center;
+    z-index: 1;
+}
+
+.anima-header span {
+    display: block;
+    font-weight: bold;
+}
+
+.anima-habit {
+    background-color: var(--gray-color-3);
+    border: 1px inset var(--white-color);
+    border-radius: 20px;
+    padding: 10px 10px;
+    position: relative;
+    top: -12px;
+    text-align: center;
+    z-index: 1;
+}
+
+.anima-habit span {
+    display: block;
+}
+
+.anima-table {
+    width: 100%;
+    background-color: var(--gray-color-3);
+    border: 1px inset var(--white-color);
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 10px;
+}   
+
+.anima-row {
+    display: flex;
+    width: 100%;
+}
+
+.anima-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 0px 7px 0px;
+}
+
+@media (max-width: 600px) {
+    .anima-box {
+        padding: 15px;
+    }
+
+    .anima-header {
+        padding: 5px 15px;
+        top: -32px;
+    }
+
+    .anima-header span {
+        font-weight: normal;
+    }
+
+    .anima-habit {
+        padding: 5px 15px;
+    }
+
+}
