@@ -1,0 +1,31 @@
+body {
+    color: var(--white-color);
+    background-color: var(--gray-color-1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.page-title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.page-title h1 {
+    display: block;
+}
+
+.page-title h2 {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .page-title h1 {
+        display: none;
+    }
+
+    .page-title h2 {
+        display: block;
+    }
+}
