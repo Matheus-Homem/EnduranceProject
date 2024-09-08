@@ -1,0 +1,44 @@
+.basic {
+    --section-color: orange;
+    --section-color-dark: darkorange;
+}
+
+.wisdom {
+    --strong-section-color: var(--green-color-light);
+    --section-color: var(--green-color);
+    --section-color-dark: var(--green-color-dark);
+    --section-color-darker: var(--green-color-darker);
+    --section-color-darkest: var(--green-color-darkest);
+}
+
+.stability {
+    --strong-section-color: var(--red-color);
+    --section-color: var(--red-color);
+    --section-color-dark: var(--red-color-dark);
+    --section-color-darker: var(--red-color-darker);
+    --section-color-darkest: var(--red-color-darkest);
+}
+
+.strength {
+    --strong-section-color: var(--blue-color);
+    --section-color: var(--blue-color);
+    --section-color-dark: var(--blue-color-dark);
+    --section-color-darker: var(--blue-color-darker);
+    --section-color-darkest: var(--blue-color-darkest);
+}
+
+.kindness {
+    --strong-section-color: var(--yellow-color);
+    --section-color: var(--yellow-color);
+    --section-color-dark: var(--yellow-color-dark);
+    --section-color-darker: var(--yellow-color-darker);
+    --section-color-darkest: var(--yellow-color-darkest);
+}
+
+.devotion {
+    --strong-section-color: var(--purple-color-light);
+    --section-color: var(--purple-color);
+    --section-color-dark: var(--purple-color-dark);
+    --section-color-darker: var(--purple-color-darker);
+    --section-color-darkest: var(--purple-color-darkest);
+}
