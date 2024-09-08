@@ -161,46 +161,49 @@ function toggleButton(suffixId) {
     inputElement.value = (inputElement.value === 'True') ? 'False' : 'True';
 }
 
-// Function to add a new row of inputs
+
 function addRow() {
     const formContainer = document.getElementById('form-container');
     const newRow = document.createElement('div');
-    newRow.classList.add('flex-row');
-    newRow.setAttribute('data-row-index', rowIndex);
+    newRow.setAttribute('input-index', rowIndex);
 
     newRow.innerHTML = `
-        <div class="flex-cell cell-40"><input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro"></div>
-        <div class="flex-cell cell-20">
-            <span><i class="fa-regular fa-moon"></i></span>
-            <div id="toggle_wisdom_navigator_excelence_${rowIndex}" class="toggle" onclick="toggleButton('wisdom_navigator_excelence_${rowIndex}')">
-                <div class="toggle-button"></div>
+        <div class="anima-row">
+            <div class="anima-cell cell-100 text-input">
+                <input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro">
             </div>
-            <span><i class="fa-solid fa-sun"></i></span>
-            <input type="hidden" id="input_wisdom_navigator_excelence_${rowIndex}" name="toggle_wisdom_navigator_excelence_${rowIndex}" value="False">
         </div>
-        <div class="flex-cell cell-20">
-            <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_wisdom_navigator_read_${rowIndex}', 'False', 'True')">
-                <span><i class="fa-solid fa-book"></i></span>
+        <div class="anima-row">
+            <div class="anima-cell cell-33">
+                <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_wisdom_navigator_read_${rowIndex}', 'False', 'True')">
+                    <span><i class="fas fa-glasses"></i></span>
+                </div>
+                <input type="hidden" id="input_wisdom_navigator_read_${rowIndex}" name="bool_wisdom_navigator_read_${rowIndex}" value="False">
             </div>
-            <input type="hidden" id="input_wisdom_navigator_read_${rowIndex}" name="multi_wisdom_navigator_read_${rowIndex}" value="False">
-        </div>
-        <div class="flex-cell cell-20">
-            <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_wisdom_navigator_notes_${rowIndex}', 'False', 'True')">
-                <span><i class="fa-solid fa-note-sticky"></i></span>
+            <div class="anima-cell cell-33">
+                <div id="id_listen_${rowIndex}" class="check" onclick="checkButton('id_listen_${rowIndex}', 'input_wisdom_navigator_listen_${rowIndex}', 'False', 'True')">
+                    <span><i class="fas fa-headphones-alt"></i></span>
+                </div>
+                <input type="hidden" id="input_wisdom_navigator_listen_${rowIndex}" name="bool_wisdom_navigator_listen_${rowIndex}" value="False">
             </div>
-            <input type="hidden" id="input_wisdom_navigator_notes_${rowIndex}" name="multi_wisdom_navigator_notes_${rowIndex}" value="False">
+            <div class="anima-cell cell-33">
+                <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_wisdom_navigator_notes_${rowIndex}', 'False', 'True')">
+                    <span><i class="fas fa-quote-right"></i></span>
+                </div>
+                <input type="hidden" id="input_wisdom_navigator_notes_${rowIndex}" name="bool_wisdom_navigator_notes_${rowIndex}" value="False">
+            </div>
         </div>
     `;
 
     formContainer.appendChild(newRow);
-    rowIndex++;  // Increment the row index
+    rowIndex++;
 }
 
-// Function to remove the last row of inputs
+
 function removeRow() {
     const formContainer = document.getElementById('form-container');
     if (formContainer.childElementCount > 1) {
         formContainer.removeChild(formContainer.lastChild);
-        rowIndex--;  // Decrement the row index
+        rowIndex--;
     }
 }
