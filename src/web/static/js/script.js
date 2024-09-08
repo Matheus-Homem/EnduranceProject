@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const accordionButtons = document.querySelectorAll(".accordion-button");
+
+    accordionButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const content = this.nextElementSibling;
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(item => item.style.maxHeight = null);
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+});
+
 // Function to calculate the time difference between bed and wakeup time
 function calculateDatetimeDifference() {
     const bedDateTime = bedDateTimeInput.value;
