@@ -1,0 +1,61 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Patrocinador
+{% endblock %}
+
+{% block content %}
+
+<div class="anima-box stability">
+    <div class="anima-header">
+        <span>Patrocinador</span>
+    </div>
+    <div class="anima-habit">
+        <span>Sobre o hábito da <strong>Trabalhar</strong></span>
+    </div>
+    <div class="anima-table">
+        <div class="anima-row">
+            <div class="anima-cell cell-100">
+                <input type="date" id="data" name="input_date">
+            </div>
+        </div>
+        <div class="anima-row">
+            <div class="anima-cell cell-50 text-input">
+                <div id="toggle_sponsor_action" class="toggle" onclick="toggleButton('sponsor_action')">
+                    <div class="toggle-button"></div>
+                </div>
+                <span>Ação</span>
+                <input type="hidden" id="input_sponsor_action" name="bool_stability_sponsor_action" value="False">
+            </div>
+            <div class="anima-cell cell-50 text-input">
+                <div id="toggle_sponsor_excelence" class="toggle" onclick="toggleButton('sponsor_excelence')">
+                    <div class="toggle-button"></div>
+                </div>
+                <span>Autoelogio</span>
+                <input type="hidden" id="input_sponsor_excelence" name="bool_stability_sponsor_excelence" value="False">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+        <i class="fas fa-home"></i>
+        Home
+    </button>
+    <button class="submitButton" id="submit" type="submit" value="Submit">
+        <i class="fas fa-paper-plane"></i>
+        Submit
+    </button>
+    <button class="nextButton" id="reset" type="reset">
+        <i class="fas fa-arrow-right"></i>
+        Next
+    </button>
+</div>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+</script>
+
+{% endblock %}
