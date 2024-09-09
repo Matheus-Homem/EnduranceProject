@@ -93,6 +93,13 @@ function formatValue(value, type) {
     }
 }
 
+
+
+function updateOutput(outputId, value, type) {
+    document.getElementById(outputId).value = formatValue(value, type);
+}
+
+
 //  Function to check the button status
 function checkButton(checkId, inputId, normalValue, checkedValue) {
     var element = document.getElementById(checkId);
