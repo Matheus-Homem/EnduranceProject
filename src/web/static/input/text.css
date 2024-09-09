@@ -1,15 +1,17 @@
 input[type="text"] {
-    border-radius: 5px;
+    border: 2px solid var(--white-color);
     padding: 5px;
-    width: 200px;
+    border-radius: 5px;
+    max-width: 300px;    
+    width: 70%;
 }
 
 input[type="text"]:hover {
-    border-color: var(--section-color);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border: 2px solid;
+    border-color: var(--strong-section-color);
 }
 
 input[type="text"]:focus {
-    border-color: var(--section-color);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border: 2px solid;
+    border-color: var(--strong-section-color);
 }
