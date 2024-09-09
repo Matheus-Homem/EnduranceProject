@@ -1,19 +1,33 @@
 input[type="date"] {
-    padding: 8px;
+    padding: 5px;
+    font-size: 14px;
     border: 2px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    background-color: #f9f9f9;
+    color: #333;
     outline: none;
-    height: 30px;
-    font-size: 14px;
-}
-
-input[type="date"]:hover {
-    border-color: var(--section-color);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 input[type="date"]:focus {
     border-color: var(--section-color);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: var(--section-color-dark);
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="date"] {
+    width: 70%;
+    max-width: 150px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    display: none;
 }
