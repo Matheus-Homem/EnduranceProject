@@ -1,7 +1,7 @@
 import os
 import time
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 
 import src.shared.database.tables as tb
 from src.shared.database.builder import DatabaseExecutorBuilder
@@ -27,11 +27,20 @@ def index2():
     print_green("Accessing the index page")
     return render_template("index2.html")
 
-@app.route("/add/navigator/", methods=["GET", "POST"])
-def add_navigator():
-    print_green("Accessing the Navigator page to add a new entry")
-    return render_template("core/wisdom/navigator.html")
-
+@app.route("/add/<anima>/", methods=["GET", "POST"])
+def add_entry(anima):
+    anima_paths = {
+        "navigator": "core/wisdom",
+        "sponsor": "core/stability",
+        "patron": "core/stability",
+        "treasurer": "core/stability"
+    }
+    
+    if anima in anima_paths:
+        print_green(f"Accessing the {anima.capitalize()} page to add a new entry")
+        return render_template(f"{anima_paths[anima]}/{anima}.html")
+    else:
+        abort(404)
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
