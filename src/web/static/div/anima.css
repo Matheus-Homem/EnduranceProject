@@ -3,17 +3,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--green-color-darkest);
-    border: 4px solid var(--green-color-dark);
+    background-color: var(--section-color-darkest);
+    border: 4px solid var(--section-color-dark);
     border-radius: 15px;
     padding: 20px;
     margin: 50px auto;
     max-width: 600px;
-    box-shadow: 0 10px 25px var(--green-color-darker);
+    box-shadow: 0 10px 25px var(--section-color-darker);
 }
 
 .anima-header {
-    background-color: var(--green-color-dark);
+    background-color: var(--section-color-dark);
     border-radius: 20px;
     padding: 7px 12px;
     position: relative;
