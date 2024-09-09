@@ -17,6 +17,11 @@
         <div input-index="0">
             <div class="anima-row">
                 <div class="anima-cell cell-100 text-input">
+                    <input type="date" id="data" name="input_date">
+                </div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-100 text-input">
                     <input type="text" name="text_wisdom_navigator_book_0" placeholder="Nome do Livro">
                 </div>
             </div>
@@ -53,7 +58,7 @@
 </div>
 
 <div class="buttonContainer">
-    <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
+    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
         <i class="fas fa-home"></i>
         Home
     </button>
@@ -67,25 +72,12 @@
     </button>
 </div>
 
-<style>
-
-    input[type="text"] {
-        border: 2px solid var(--white-color);
-        padding: 5px;
-        border-radius: 5px;
-        max-width: 300px;    
-        width: 70%;
-    }
-
-    input[type="text"]:hover {
-        border: 2px solid var(--green-color-light);
-    }
-
-</style>
-
 <script>
     document.getElementById('add-row').addEventListener('click', addRow);
     document.getElementById('remove-row').addEventListener('click', removeRow);
+    
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
 </script>
 
 {% endblock %}
