@@ -206,3 +206,43 @@ function removeRow() {
         rowIndex--;
     }
 }
+
+function submitForm(event) {
+    event.preventDefault();
+    const form = document.getElementById('myForm');
+
+    fetch('/add/sentinel/', {
+        method: 'POST',
+        body: new FormData(form),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message === 'Form successfully submitted!') {
+            alert(data.message);
+            resetAllInputs('myForm');
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting the form:', error);
+        alert('Error submitting the form.');
+    });
+}
+
+function resetAllInputs(formId) {
+    const form = document.getElementById(formId);
+    if (form) {
+        const inputs = form.querySelectorAll('input');
+        
+        inputs.forEach(input => {
+            if (input.type === 'checkbox' || input.type === 'radio') {
+                input.checked = false;
+            } else {
+                input.value = '';
+            }
+        });
+    } else {
+        console.error(`Form with ID '${formId}' not found.`);
+    }
+}
