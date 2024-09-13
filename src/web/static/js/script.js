@@ -94,7 +94,6 @@ function formatValue(value, type) {
 }
 
 
-
 function updateOutput(outputId, value, type) {
     document.getElementById(outputId).value = formatValue(value, type);
 }
@@ -117,15 +116,13 @@ let selectedOption = null;
 
 // Function to select an alternative option
 function selectAlternative(id, inputName, value) {
-    // Deselect all options in the group
     const options = document.querySelectorAll(`input[name="${inputName}"]`);
     options.forEach(option => {
         if (option.value === value) {
-            option.checked = true; // Check the radio input that matches the value
+            option.checked = true;
         }
     });
 
-    // Update visual selection
     if (selectedOption !== null) {
         document.getElementById(`option${selectedOption}`).classList.remove('selected');
     }
@@ -134,26 +131,21 @@ function selectAlternative(id, inputName, value) {
 }
 
 function selectAlternativeOverwrite(id, questionGroup, answer) {
-    // Query all alternatives within the same question group
     const alternatives = document.querySelectorAll(`.alternative[data-question-group="${questionGroup}"]`);
-    
-    // Remove `.selected` class from all alternatives to ensure only one is selected at a time
     alternatives.forEach(alternative => {
         alternative.classList.remove('selected');
     });
     
-    // Add `.selected` class to the clicked alternative
     const selectedAlternative = document.getElementById(id);
     if (selectedAlternative) {
         selectedAlternative.classList.add('selected');
     }
     
-    // Optional: Handle the answer, e.g., send it to a server or log
     console.log(`Answer for ${questionGroup}: ${answer}`);
 }
 
 
-let rowIndex = 1;  // Keep track of the number of rows
+let rowIndex = 1;
 
 // Function to toggle the button status
 function toggleButton(suffixId) {
@@ -177,27 +169,27 @@ function addRow() {
     newRow.innerHTML = `
         <div class="anima-row">
             <div class="anima-cell cell-100 text-input">
-                <input type="text" name="text_wisdom_navigator_book_${rowIndex}" placeholder="Nome do Livro">
+                <input type="text" name="string_book_${rowIndex}" placeholder="Nome do Livro">
             </div>
         </div>
         <div class="anima-row">
             <div class="anima-cell cell-33">
-                <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_wisdom_navigator_read_${rowIndex}', 'False', 'True')">
+                <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_read_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-glasses"></i></span>
                 </div>
-                <input type="hidden" id="input_wisdom_navigator_read_${rowIndex}" name="bool_wisdom_navigator_read_${rowIndex}" value="False">
+                <input type="hidden" id="input_read_${rowIndex}" name="bool_read_${rowIndex}" value="False">
             </div>
             <div class="anima-cell cell-33">
-                <div id="id_listen_${rowIndex}" class="check" onclick="checkButton('id_listen_${rowIndex}', 'input_wisdom_navigator_listen_${rowIndex}', 'False', 'True')">
+                <div id="id_listen_${rowIndex}" class="check" onclick="checkButton('id_listen_${rowIndex}', 'input_listen_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-headphones-alt"></i></span>
                 </div>
-                <input type="hidden" id="input_wisdom_navigator_listen_${rowIndex}" name="bool_wisdom_navigator_listen_${rowIndex}" value="False">
+                <input type="hidden" id="input_listen_${rowIndex}" name="bool_listen_${rowIndex}" value="False">
             </div>
             <div class="anima-cell cell-33">
-                <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_wisdom_navigator_notes_${rowIndex}', 'False', 'True')">
+                <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_notes_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-quote-right"></i></span>
                 </div>
-                <input type="hidden" id="input_wisdom_navigator_notes_${rowIndex}" name="bool_wisdom_navigator_notes_${rowIndex}" value="False">
+                <input type="hidden" id="input_notes_${rowIndex}" name="bool_notes_${rowIndex}" value="False">
             </div>
         </div>
     `;
