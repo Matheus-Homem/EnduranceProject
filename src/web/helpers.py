@@ -1,5 +1,6 @@
-from src.shared.utilities.text import TextUtilities
 from datetime import date
+
+from src.shared.utilities.text import TextUtilities
 
 
 def clean_and_serialize_dict(data: dict) -> str:
@@ -7,7 +8,7 @@ def clean_and_serialize_dict(data: dict) -> str:
     serialized_dict = TextUtilities.serialize_dict(cleaned_dict)
     return serialized_dict
 
-    
+
 def convert_input_date(date_to_convert: str) -> date:
     return date.fromisoformat(date_to_convert)
 
