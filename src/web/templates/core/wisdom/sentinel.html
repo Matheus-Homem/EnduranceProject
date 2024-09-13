@@ -1,0 +1,74 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Sentinela
+{% endblock %}
+
+{% block content %}
+
+<div class="anima-box wisdom">
+    <div class="anima-header">
+        <span>Sentinela</span>
+    </div>
+    <div class="anima-habit">
+        <span>Sobre o hábito da <strong>Dormir</strong></span>
+    </div>
+    <div class="anima-table">
+        <div class="anima-row">
+            <div class="anima-cell cell-100">
+                <input type="date" id="data" name="date_input">
+            </div>
+        </div>
+        <div class="anima-row">
+            <div class="anima-cell cell-40">Tempo de Tela</div>
+            <div class="anima-cell cell-30">
+                <input type="number" id="hourMin_screenTime" name="hourMin_screenTime" minlength="3" 
+                    oninput="updateOutput('screenTimeOutput', this.value, 'time')">
+            </div>
+            <div class="anima-cell cell-30"><output id="screenTimeOutput">__h __min</output></div>
+        </div>
+        <div class="anima-row">
+            <div class="anima-cell cell-40">Início do Sono</div>
+            <div class="anima-cell cell-60"><input type="datetime-local" name="timestamp_bedDatetime"></div>
+        </div>
+        <div class="anima-row">
+            <div class="anima-cell cell-40">Fim do Sono</div>
+            <div class="anima-cell cell-60"><input type="datetime-local" name="timestamp_wakeupDatetime"></div>
+        </div>
+        <div class="anima-row">
+            <div class="anima-cell cell-100">
+                <span id="DatetimeDifferenceOutput" placeholder="Aguardando inserção de ambos os dados."></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+        <i class="fas fa-home"></i>
+        Home
+    </button>
+    <button class="submitButton" id="submit" type="submit" value="Submit">
+        <i class="fas fa-paper-plane"></i>
+        Submit
+    </button>
+    <button class="nextButton" id="reset" type="reset">
+        <i class="fas fa-arrow-right"></i>
+        Next
+    </button>
+</div>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+
+    const bedDateTimeInput = document.querySelector('input[name="timestamp_bedDatetime"]');
+    const wakeupDateTimeInput = document.querySelector('input[name="timestamp_wakeupDatetime"]');
+    const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
+    datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
+    bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);
+    wakeupDateTimeInput.addEventListener('change', calculateDatetimeDifference);
+
+</script>
+
+{% endblock %}
