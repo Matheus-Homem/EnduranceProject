@@ -6,52 +6,54 @@
 
 {% block content %}
 
-<div class="anima-box stability">
-    <div class="anima-header">
-        <span>Mecenas</span>
-    </div>
-    <div class="anima-habit">
-        <span>Sobre o hábito da <strong>Estudar</strong></span>
-    </div>
-    <div class="anima-table">
-        <div class="anima-row">
-            <div class="anima-cell cell-100">
-                <input type="date" id="data" name="date_input">
+<form id="myForm" action="/add/patron/" method="POST" onsubmit="submitForm(event)">
+    <div class="anima-box stability">
+        <div class="anima-header">
+            <span>Mecenas</span>
+        </div>
+        <div class="anima-habit">
+            <span>Sobre o hábito da <strong>Estudar</strong></span>
+        </div>
+        <div class="anima-table">
+            <div class="anima-row">
+                <div class="anima-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-50 text-input">
+                    <div id="toggle_engineer" class="toggle" onclick="toggleButton('engineer')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Engenharia</span>
+                    <input type="hidden" id="input_engineer" name="bool_engineer" value="False">
+                </div>
+                <div class="anima-cell cell-50 text-input">
+                    <div id="toggle_neuroscience" class="toggle" onclick="toggleButton('neuroscience')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Neurociências</span>
+                    <input type="hidden" id="input_neuroscience" name="bool_neuroscience" value="False">
+                </div>
             </div>
         </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50 text-input">
-                <div id="toggle_engineer" class="toggle" onclick="toggleButton('engineer')">
-                    <div class="toggle-button"></div>
-                </div>
-                <span>Engenharia</span>
-                <input type="hidden" id="input_engineer" name="bool_engineer" value="False">
-            </div>
-            <div class="anima-cell cell-50 text-input">
-                <div id="toggle_neuroscience" class="toggle" onclick="toggleButton('neuroscience')">
-                    <div class="toggle-button"></div>
-                </div>
-                <span>Neurociências</span>
-                <input type="hidden" id="input_neuroscience" name="bool_neuroscience" value="False">
-            </div>
-        </div>
     </div>
-</div>
 
-<div class="buttonContainer">
-    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
-        <i class="fas fa-home"></i>
-        Home
-    </button>
-    <button class="submitButton" id="submit" type="submit" value="Submit">
-        <i class="fas fa-paper-plane"></i>
-        Submit
-    </button>
-    <button class="nextButton" id="reset" type="reset">
-        <i class="fas fa-arrow-right"></i>
-        Next
-    </button>
-</div>
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fas fa-paper-plane"></i>
+            Submit
+        </button>
+        <button class="nextButton" id="reset" type="reset">
+            <i class="fas fa-arrow-right"></i>
+            Next
+        </button>
+    </div>
+</form>
 
 <script>
     const today = new Date().toISOString().split('T')[0];
