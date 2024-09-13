@@ -1,4 +1,4 @@
-from sqlalchemy import JSON, Column, DateTime, Integer, MetaData, String, Enum
+from sqlalchemy import JSON, Column, DateTime, Integer, MetaData, String, Enum, Date
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
@@ -41,7 +41,7 @@ class ElementEntries(MySqlTable):
     __tablename__ = "element_entries"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    date = Column(DateTime, nullable=False)
+    date = Column(Date, nullable=False)
     user_id = Column(Integer, nullable=False)
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
