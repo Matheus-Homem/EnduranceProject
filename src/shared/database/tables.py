@@ -1,4 +1,4 @@
-from sqlalchemy import JSON, Column, DateTime, Integer, MetaData, String, Enum, Date
+from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
@@ -37,6 +37,7 @@ class MySqlNightTable(MySqlTable):
     profile = Column(String(255), nullable=False)
     created_at = Column(DateTime, nullable=False, default=func.now())
 
+
 class ElementEntries(MySqlTable):
     __tablename__ = "element_entries"
 
@@ -47,9 +48,10 @@ class ElementEntries(MySqlTable):
     element_name = Column(String(255), nullable=False)
     element_string = Column(String(255), nullable=False)
     schema_version = Column(Integer, nullable=False)
-    op = Column(Enum('c', 'd', 'u'), nullable=False)
+    op = Column(Enum("c", "d", "u"), nullable=False)
     created_at = Column(DateTime, nullable=False, default=func.now())
     updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+
 
 class ElementSchemas(MySqlTable):
     __tablename__ = "element_schemas"
