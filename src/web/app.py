@@ -1,7 +1,7 @@
 import os
 import time
 
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, jsonify
 
 import src.shared.database.tables as tb
 from src.shared.database.builder import DatabaseExecutorBuilder
@@ -27,9 +27,9 @@ def index2():
     print_green("Accessing the index page")
     return render_template("index2.html")
 
-@app.route("/add/<anima>/", methods=["GET", "POST"])
-def add_entry(anima):
-    anima_paths = {
+@app.route("/add/<element>/", methods=["GET", "POST"])
+def add_entry(element):
+    element_path = {
         "navigator": "core/wisdom",
         "sentinel": "core/wisdom",
         "sponsor": "core/stability",
@@ -37,12 +37,41 @@ def add_entry(anima):
         "treasurer": "core/stability",
         "nutritionist": "core/strength",
     }
+    element_category = element_path[element].split("/")[1]
     
-    if anima in anima_paths:
-        print_green(f"Accessing the {anima.capitalize()} page to add a new entry")
-        return render_template(f"{anima_paths[anima]}/{anima}.html")
-    else:
+    if element not in element_path:
         abort(404)
+    
+    if request.method == "POST":
+        print_green(f"Processing POST request for {element.capitalize()}")
+        
+        retry_count = 1        
+        form_data = request.form.to_dict()
+        date = form_data["date_input"]
+        prepared_data = clean_and_serialize_dict(data=form_data)
+
+        while retry_count < MAX_RETRIES:
+            try:
+                with DatabaseExecutorBuilder() as executor:
+                    executor.insert(
+                        table=tb.ElementEntries, 
+                        date=date,
+                        user_id=1,
+                        element_category=element_category,
+                        element_name=element,
+                        element_string=prepared_data,
+                        op="c",
+                    )
+                break
+            except Exception as e:
+                retry_count += 1
+                time.sleep(1)
+        if retry_count == MAX_RETRIES:
+            return "Error inserting into the database after multiple attempts", 500
+        else:
+            return render_template(f"{element_path[element]}/{element}.html")
+    else:
+        return render_template(f"{element_path[element]}/{element}.html")
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
