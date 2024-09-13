@@ -3,9 +3,9 @@ from typing import Dict
 import sshtunnel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
-from src.shared.logging.adapters import LoggingPrinter
 
 from src.shared.credentials import PRD, Credential
+from src.shared.logging.adapters import LoggingPrinter
 
 sshtunnel.SSH_TIMEOUT = 20.0
 sshtunnel.TUNNEL_TIMEOUT = 20.0
