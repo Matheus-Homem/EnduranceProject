@@ -1,11 +1,10 @@
 input[type="datetime-local"] {
-    padding: 8px;
+    padding: 0 8px;
     border: 2px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
-    height: 30px;
-    font-size: 14px;
+    height: 30px; 
 }
 
 input[type="datetime-local"]:hover {
@@ -16,4 +15,16 @@ input[type="datetime-local"]:hover {
 input[type="datetime-local"]:focus {
     border-color: var(--section-color);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    background-color: var(--section-color-dark);
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="datetime-local"]::-webkit-inner-spin-button,
+input[type="datetime-local"]::-webkit-clear-button {
+    display: none;
 }
