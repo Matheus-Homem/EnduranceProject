@@ -41,6 +41,22 @@
                     <span id="DatetimeDifferenceOutput" placeholder="Aguardando inserção de ambos os dados."></span>
                 </div>
             </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-40">Sono REM</div>
+                <div class="anima-cell cell-30">
+                    <input type="number" id="hourMin_remSleep" name="hourMin_remSleep"
+                        oninput="updateOutput('remSleepOutput', this.value, 'time')">
+                </div>
+                <div class="anima-cell cell-30"><output id="remSleepOutput">__h __min</output></div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-40">Sono Profundo</div>
+                <div class="anima-cell cell-30">
+                    <input type="number" id="hourMin_deepSleep" name="hourMin_deepSleep"
+                        oninput="updateOutput('deepSleepOutput', this.value, 'time')">
+                </div>
+                <div class="anima-cell cell-30"><output id="deepSleepOutput">__h __min</output></div>
+            </div>
         </div>
     </div>
 
