@@ -5,20 +5,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
 from src.shared.credentials import PRD, Credential
-from src.shared.logger import LoggingManager
+from src.shared.logging.adapters import LoggingPrinter
 
 sshtunnel.SSH_TIMEOUT = 20.0
 sshtunnel.TUNNEL_TIMEOUT = 20.0
 
 
-class DatabaseConnector:
+class DatabaseConnector(LoggingPrinter):
 
     def __init__(
         self,
-        logger_manager: LoggingManager = LoggingManager(),
     ):
-        logger_manager.set_class_name(__class__.__name__)
-        self.logger = logger_manager.get_logger()
+        super().__init__(class_name=self.__class__.__name__)
 
         self.Session = None
         self.engine = None

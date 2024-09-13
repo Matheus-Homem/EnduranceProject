@@ -8,12 +8,11 @@ from src.shared.database.tables import MySqlTable
 class DatabaseReader(Reader):
 
     def __init__(self) -> None:
-        super().__init__()
+        super().__init__(class_name=self.__class__.__name__)
 
     def read_dataframe(self, source: MySqlTable) -> DataFrame:
-        self.logger.info(f"Starting reading process. SOURCE: Database | TABLE: {source.__tablename__}")
+        self.logger.info(f"Reading table {source.__tablename__} from Database")
         with DatabaseExecutorBuilder() as executor:
             database_table_data = executor.select(source)
         df = DataFrame(database_table_data)
-        self.logger.info(f"Data read successfully from {source.__tablename__} with {df.shape[0]} records")
         return df

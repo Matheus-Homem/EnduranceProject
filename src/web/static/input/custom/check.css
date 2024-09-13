@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     max-width: 120px;
+    padding: 2px;
     background-color: var(--gray-color-9);
     cursor: pointer;
     display: flex;
@@ -30,4 +31,10 @@
 
 .check.check-true:hover, .check.check-true:focus {
     background-color: var(--section-color-dark);
+}
+
+@media (max-width: 600px) {
+    .check {
+        max-width: 75px;
+    }
 }
