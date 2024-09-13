@@ -1,3 +1,7 @@
+strong {
+    color: var(--strong-section-color);
+}
+
 .basic {
     --section-color: orange;
     --section-color-dark: darkorange;
