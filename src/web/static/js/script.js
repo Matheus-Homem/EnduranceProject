@@ -210,24 +210,38 @@ function removeRow() {
 function submitForm(event) {
     event.preventDefault();
     const form = document.getElementById('myForm');
+    const maxAttempts = 3;
 
-    fetch('/add/sentinel/', {
-        method: 'POST',
-        body: new FormData(form),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message === 'Form successfully submitted!') {
-            alert(data.message);
-            resetAllInputs('myForm');
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error submitting the form:', error);
-        alert('Error submitting the form.');
-    });
+    function trySubmit(attempt) {
+        fetch('/add/sentinel/', {
+            method: 'POST',
+            body: new FormData(form),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.message === 'Form successfully submitted!') {
+                alert(data.message);
+                resetAllInputs('myForm');
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error(`Error submitting the form on attempt ${attempt}:`, error);
+            if (attempt < maxAttempts) {
+                setTimeout(() => trySubmit(attempt + 1), 1000);
+            } else {
+                alert('Error submitting the form after multiple attempts.');
+            }
+        });
+    }
+
+    trySubmit(1);
 }
 
 function resetAllInputs(formId) {
@@ -238,8 +252,17 @@ function resetAllInputs(formId) {
         inputs.forEach(input => {
             if (input.type === 'checkbox' || input.type === 'radio') {
                 input.checked = false;
-            } else {
+            } else if (input.type != 'hidden'){
                 input.value = '';
+            }
+        });
+
+        const boolInputs = form.querySelectorAll('input[name^="bool_"]');
+        
+        boolInputs.forEach(input => {
+            console.log(input);
+            if (input.value === 'True') {
+                toggleButton(input.id.split('_')[1]);
             }
         });
     } else {
