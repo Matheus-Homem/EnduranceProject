@@ -7,7 +7,7 @@ from src.etl.definitions import Path, Reader
 class DeltaReader(Reader):
 
     def __init__(self) -> None:
-        super().__init__()
+        super().__init__(class_name=self.__class__.__name__)
 
     def read_dataframe(self, source: Path) -> DataFrame:
         self.logger.info(f"Starting reading process. FORMAT: Delta | TARGET: {source}")

@@ -1,0 +1,83 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Navegador
+{% endblock %}
+
+{% block content %}
+
+<div class="anima-box wisdom">
+    <div class="anima-header">
+        <span>Navegador</span>
+    </div>
+    <div class="anima-habit">
+        <span>Sobre o hábito da <strong>Leitura</strong></span>
+    </div>
+    <div id="form-container" class="anima-table">
+        <div input-index="0">
+            <div class="anima-row">
+                <div class="anima-cell cell-100 text-input">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-100 text-input">
+                    <input type="text" name="string_book_0" placeholder="Nome do Livro">
+                </div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-33">
+                    <div id="id_read_0" class="check" onclick="checkButton('id_read_0', 'input_read_0', 'False', 'True')">
+                        <span><i class="fas fa-glasses"></i></span>
+                    </div>
+                    <input type="hidden" id="input_read_0" name="bool_read_0" value="False">
+                </div>
+                <div class="anima-cell cell-33">
+                    <div id="id_listen_0" class="check" onclick="checkButton('id_listen_0', 'input_listen_0', 'False', 'True')">
+                        <span><i class="fas fa-headphones-alt"></i></span>
+                    </div>
+                    <input type="hidden" id="input_listen_0" name="bool_listen_0" value="False">
+                </div>
+                <div class="anima-cell cell-33">
+                    <div id="id_notes_0" class="check" onclick="checkButton('id_notes_0', 'input_notes_0', 'False', 'True')">
+                        <span><i class="fas fa-quote-right"></i></span>
+                    </div>
+                    <input type="hidden" id="input_notes_0" name="bool_notes_0" value="False">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttonContainer">
+        <button type="button" class="removeButton" id="remove-row">
+            <i class="fas fa-minus"></i>
+        </button>
+        <button type="button" class="addButton" id="add-row">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+        <i class="fas fa-home"></i>
+        Home
+    </button>
+    <button class="submitButton" id="submit" type="submit" value="Submit">
+        <i class="fas fa-paper-plane"></i>
+        Submit
+    </button>
+    <button class="nextButton" id="reset" type="reset">
+        <i class="fas fa-arrow-right"></i>
+        Next
+    </button>
+</div>
+
+<script>
+    document.getElementById('add-row').addEventListener('click', addRow);
+    document.getElementById('remove-row').addEventListener('click', removeRow);
+    
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+</script>
+
+{% endblock %}

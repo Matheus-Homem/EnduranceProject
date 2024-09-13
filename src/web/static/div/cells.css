@@ -1,0 +1,39 @@
+.cell-100 {
+    flex: 0 0 100%;
+}
+
+.cell-80 {
+    flex: 0 0 80%;
+}
+
+.cell-75 {
+    flex: 0 0 75%;
+}
+
+.cell-60 {
+    flex: 0 0 60%;
+}
+
+.cell-50 {
+    flex: 0 0 50%;
+}
+
+.cell-40 {
+    flex: 0 0 40%;
+}
+
+.cell-33 {
+    flex: 0 0 33%;
+}
+
+.cell-30 {
+    flex: 0 0 30%;
+}
+
+.cell-25 {
+    flex: 0 0 25%;
+}
+
+.cell-20 {
+    flex: 0 0 20%;
+}

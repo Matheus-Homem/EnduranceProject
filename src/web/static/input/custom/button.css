@@ -1,27 +1,23 @@
 .buttonContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
-}
-
-.spaceContainer {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    max-width: 600px;
+    margin: 15px auto;
 }
 
 .addButton, .removeButton {
     background-color: var(--section-color-darker);
     border: none;
     color: var(--text-color);
-    font-size: 12px;
-    padding: 8px 15px;
+    padding: 7px 9px;
     cursor: pointer;
     transition: transform 0.1s ease;
-    border-radius: 5px;
+    border-radius: 20px;
 
 }
 
-.resetButton, .submitButton, .returnButton {
+.nextButton, .submitButton, .homeButton {
     background-color: var(--gray-color-4);
     border: none;
     color: var(--text-color);
@@ -43,7 +39,7 @@
     border-radius: 5px;
 }
 
-.resetButton:active, .submitButton:active, .returnButton:active, .createButton:active, .editButton:active, .addButton:active, .removeButton:active {
+.nextButton:active, .submitButton:active, .homeButton:active, .createButton:active, .editButton:active, .addButton:active, .removeButton:active {
     transform: scale(0.90);
 }
 
@@ -51,11 +47,11 @@
     background-color: var(--section-color);
 }
 
-.resetButton:hover, .submitButton:hover, .returnButton:hover {
+.nextButton:hover, .submitButton:hover, .homeButton:hover {
     background-color: var(--gray-color-6);
 }
 
-.resetButton:focus, .submitButton:focus, .returnButton:focus {
+.nextButton:focus, .submitButton:focus, .homeButton:focus {
     background-color: var(--gray-color-8);
 }
 
