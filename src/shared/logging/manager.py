@@ -2,7 +2,7 @@ import logging
 
 import colorlog
 
-from src.shared.logging.custom_formattter import CustomColoredFormatter
+from src.shared.logging.custom_formatter import CustomColoredFormatter
 
 SUCCESS_LEVEL_NUM = 25
 logging.addLevelName(SUCCESS_LEVEL_NUM, "SUCCESS")
