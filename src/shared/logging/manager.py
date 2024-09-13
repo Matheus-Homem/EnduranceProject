@@ -1,15 +1,20 @@
 import logging
+
 import colorlog
+
 from src.shared.logging.custom_formattter import CustomColoredFormatter
 
 SUCCESS_LEVEL_NUM = 25
 logging.addLevelName(SUCCESS_LEVEL_NUM, "SUCCESS")
 
+
 def success(self, message, *args, **kwargs):
     if self.isEnabledFor(SUCCESS_LEVEL_NUM):
         self._log(SUCCESS_LEVEL_NUM, message, args, **kwargs)
 
+
 logging.Logger.success = success
+
 
 class LoggingManager:
     def __init__(self):
@@ -35,10 +40,10 @@ class LoggingManager:
         )
         console_handler = colorlog.StreamHandler()
         console_handler.setFormatter(formatter)
-        
+
         def filter_empty_messages(record):
             message = formatter.format(record)
             return message != ""
-        
-        console_handler.addFilter(filter_empty_messages)        
+
+        console_handler.addFilter(filter_empty_messages)
         logger.addHandler(console_handler)
