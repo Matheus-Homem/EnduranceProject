@@ -16,27 +16,30 @@
     <div class="anima-table">
         <div class="anima-row">
             <div class="anima-cell cell-100">
-                <input type="date" id="data" name="input_date">
+                <input type="date" id="data" name="date_input">
             </div>
         </div>
         <div class="anima-row">
             <div class="anima-cell cell-50">Crédito</div>
             <div class="anima-cell cell-25">
-                <input type="number" id="number_stability_treasurer_credit" name="number_stability_treasurer_credit" minlength="3" oninput="updateOutput('creditOutput', this.value, 'money')">
+                <input type="number" id="double_credit" name="double_credit" minlength="3"
+                    oninput="updateOutput('creditOutput', this.value, 'money')">
             </div>
             <div class="anima-cell cell-25"><output id="creditOutput">R$ __.__</output></div>
         </div>
         <div class="anima-row">
             <div class="anima-cell cell-50">Débito</div>
             <div class="anima-cell cell-25">
-                <input type="number" id="number_stability_treasurer_debit" name="number_stability_treasurer_debit" minlength="3" oninput="updateOutput('debitOutput', this.value, 'money')">
+                <input type="number" id="double_debit" name="double_debit" minlength="3"
+                    oninput="updateOutput('debitOutput', this.value, 'money')">
             </div>
             <div class="anima-cell cell-25"><output id="debitOutput">R$ __.__</output></div>
         </div>
         <div class="anima-row">
             <div class="anima-cell cell-50">Benefício</div>
             <div class="anima-cell cell-25">
-                <input type="number" id="number_stability_treasurer_benefit" name="number_stability_treasurer_benefit" minlength="3" oninput="updateOutput('benefitOutput', this.value, 'money')">
+                <input type="number" id="double_benefit" name="double_benefit" minlength="3"
+                    oninput="updateOutput('benefitOutput', this.value, 'money')">
             </div>
             <div class="anima-cell cell-25"><output id="benefitOutput">R$ __.__</output></div>
         </div>
