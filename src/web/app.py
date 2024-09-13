@@ -31,9 +31,11 @@ def index2():
 def add_entry(anima):
     anima_paths = {
         "navigator": "core/wisdom",
+        "sentinel": "core/wisdom",
         "sponsor": "core/stability",
         "patron": "core/stability",
-        "treasurer": "core/stability"
+        "treasurer": "core/stability",
+        "nutritionist": "core/strength",
     }
     
     if anima in anima_paths:
