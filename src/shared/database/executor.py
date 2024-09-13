@@ -29,8 +29,8 @@ class DatabaseExecutor(LoggingPrinter):
     def select(self, table, **filters) -> list:
         """
         Example:
-            # Select rows from the LocalTest table where id is 1 and name is 'Alice':
-            executor.select(LocalTest, id=1, name='Alice')
+            Select rows from the `LocalTest` table where id is 1 and name is 'Alice':
+            `executor.select(LocalTest, id=1, name='Alice')`
         """
         stmt = select(table)
         if filters:
@@ -51,10 +51,10 @@ class DatabaseExecutor(LoggingPrinter):
     def insert(self, table: MySqlTable, **columns) -> None:
         """
         Example:
-            # Insert a new row into the LocalTest table:
+            Insert a new row into the `LocalTest` table:
 
-            json_data = {"example_key": "example_value"}
-            executor.insert(LocalTest, data=json_data)
+            `json_data = {"example_key": "example_value"}` \n
+            `executor.insert(LocalTest, data=json_data)`
         """
         new_record = table(**columns)
         self.session.add(new_record)
@@ -64,8 +64,8 @@ class DatabaseExecutor(LoggingPrinter):
     def delete(self, table: MySqlTable, **filters) -> None:
         """
         Example:
-            # Delete rows from the LocalTest table where the 'name' column is 'John Doe' and age is 25:
-            executor.delete(LocalTest, name='John Doe', age=25)
+            Delete rows from the `LocalTest` table where the 'name' column is 'John Doe' and age is 25:
+            `executor.delete(LocalTest, name='John Doe', age=25)`
         """
         self.session.query(table).filter_by(**filters).delete()
         self.session.commit()
@@ -74,8 +74,8 @@ class DatabaseExecutor(LoggingPrinter):
     def update(self, table: MySqlTable, filters: dict, updates: dict) -> None:
         """
         Example:
-            # Update rows in LocalTest where 'name' is 'John Doe' and set 'age' to 30:
-            executor.update(LocalTest, {'name': 'John Doe'}, {'age': 30})
+            Update rows in `LocalTest` where 'name' is 'John Doe' and set 'age' to 30:
+            `executor.update(LocalTest, {'name': 'John Doe'}, {'age': 30})`
         """
         self.session.query(table).filter_by(**filters).update(updates)
         self.session.commit()
