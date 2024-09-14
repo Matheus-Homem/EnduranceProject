@@ -167,6 +167,7 @@ function addRow() {
     newRow.setAttribute('input-index', rowIndex);
 
     newRow.innerHTML = `
+        <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
         <div class="anima-row">
             <div class="anima-cell cell-100 text-input">
                 <input type="text" name="string_book_${rowIndex}" placeholder="Nome do Livro">
