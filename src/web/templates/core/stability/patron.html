@@ -15,20 +15,26 @@
             <span>Sobre o hábito da <strong>Estudar</strong></span>
         </div>
         <div class="anima-table">
+
             <div class="anima-row">
                 <div class="anima-cell cell-100">
                     <input type="date" id="data" name="date_input">
                 </div>
             </div>
+
+            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+
             <div class="anima-row">
-                <div class="anima-cell cell-50 text-input">
+                <div class="anima-cell cell-100 text-input">
                     <div id="toggle_engineer" class="toggle" onclick="toggleButton('engineer')">
                         <div class="toggle-button"></div>
                     </div>
                     <span>Engenharia</span>
                     <input type="hidden" id="input_engineer" name="bool_engineer" value="False">
                 </div>
-                <div class="anima-cell cell-50 text-input">
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-100 text-input">
                     <div id="toggle_neuroscience" class="toggle" onclick="toggleButton('neuroscience')">
                         <div class="toggle-button"></div>
                     </div>
@@ -36,6 +42,7 @@
                     <input type="hidden" id="input_neuroscience" name="bool_neuroscience" value="False">
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -45,11 +52,11 @@
             Home
         </button>
         <button type="submit" class="submitButton" id="submit">
-            <i class="fas fa-paper-plane"></i>
+            <i class="fa-solid fa-share"></i>
             Submit
         </button>
-        <button class="nextButton" id="reset" type="reset">
-            <i class="fas fa-arrow-right"></i>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
             Next
         </button>
     </div>
