@@ -6,76 +6,78 @@
 
 {% block content %}
 
-<div class="anima-box strength">
-    <div class="anima-header">
-        <span>Nutricionista</span>
-    </div>
-    <div class="anima-habit">
-        <span>Sobre o resultado da <strong>Manutenção</strong></span>
-    </div>
-    <div class="anima-table">
-        <div class="anima-row">
-            <div class="anima-cell cell-100">
-                <input type="date" id="data" name="date_input">
-            </div>
+<form id="myForm" action="/add/nutritionist/" method="POST" onsubmit="submitForm(event)">
+    <div class="anima-box strength">
+        <div class="anima-header">
+            <span>Nutricionista</span>
         </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50">Peso Total</div>
-            <div class="anima-cell cell-25">
-                <input type="number" id="double_totalWeight" name="double_totalWeight" minlength="4" maxlength="5"
-                    oninput="updateOutput('totalWeightOutput', this.value, 'weight')">
-            </div>
-            <div class="anima-cell cell-25"><output id="totalWeightOutput">__.__ kg</output></div>
+        <div class="anima-habit">
+            <span>Sobre o resultado da <strong>Manutenção</strong></span>
         </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50">Percentual de Gordura</div>
-            <div class="anima-cell cell-25">
-                <input type="number" id="double_fatPercentage" name="double_fatPercentage" minlength="4" maxlength="4"
-                    oninput="updateOutput('fatPercentageOutput', this.value, 'percentage')">
-            </div>
-            <div class="anima-cell cell-25"><output id="fatPercentageOutput">__.__ %</output></div>
-        </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50">Massa Magra</div>
-            <div class="anima-cell cell-25">
-                <input type="number" id="double_muscleWeight" name="double_muscleWeight" minlength="4" maxlength="5"
-                    oninput="updateOutput('muscleWeightOutput', this.value, 'weight')">
-            </div>
-            <div class="anima-cell cell-25"><output id="muscleWeightOutput">__.__ kg</output></div>
-        </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50">Metabolismo Basal</div>
-            <div class="anima-cell cell-25">
-                <input type="number" id="integer_basalMetabolism" name="integer_basalMetabolism"
-                    oninput="updateOutput('basalMetabolismOutput', this.value, 'calories')">
-            </div>
-            <div class="anima-cell cell-25"><output id="basalMetabolismOutput">_ cal</output></div>
-        </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50">Calorias de Ontem</div>
-            <div class="anima-cell cell-25">
-                <input type="number" id="integer_yesterdayCalories" name="integer_yesterdayCalories"
-                    oninput="updateOutput('caloriesOutput', this.value, 'calories')" required>
-            </div>
-            <div class="anima-cell cell-25"><output id="caloriesOutput">_ cal</output></div>
-        </div>
-    </div>
-</div>
+        <div class="anima-table">
 
-<div class="buttonContainer">
-    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
-        <i class="fas fa-home"></i>
-        Home
-    </button>
-    <button class="submitButton" id="submit" type="submit" value="Submit">
-        <i class="fas fa-paper-plane"></i>
-        Submit
-    </button>
-    <button class="nextButton" id="reset" type="reset">
-        <i class="fas fa-arrow-right"></i>
-        Next
-    </button>
-</div>
+            <div class="anima-row">
+                <div class="anima-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+
+            <div class="anima-row">
+                <div class="anima-cell cell-50">Calorias de Ontem</div>
+                <div class="anima-cell cell-25">
+                    <input type="number" id="integer_yesterdayCalories" name="integer_yesterdayCalories"
+                        oninput="updateOutput('caloriesOutput', this.value, 'calories')" required>
+                </div>
+                <div class="anima-cell cell-25"><output id="caloriesOutput">_ cal</output></div>
+            </div>
+
+            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+
+            <div class="anima-row">
+                <div class="anima-cell cell-50">Peso Total</div>
+                <div class="anima-cell cell-25">
+                    <input type="number" id="double_totalWeight" name="double_totalWeight" minlength="4" maxlength="5"
+                        oninput="updateOutput('totalWeightOutput', this.value, 'weight')">
+                </div>
+                <div class="anima-cell cell-25"><output id="totalWeightOutput">__.__ kg</output></div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-50">Percentual de Gordura</div>
+                <div class="anima-cell cell-25">
+                    <input type="number" id="double_fatPercentage" name="double_fatPercentage" minlength="4" maxlength="4"
+                        oninput="updateOutput('fatPercentageOutput', this.value, 'percentage')">
+                </div>
+                <div class="anima-cell cell-25"><output id="fatPercentageOutput">__.__ %</output></div>
+            </div>
+            <div class="anima-row">
+                <div class="anima-cell cell-50">Massa Magra</div>
+                <div class="anima-cell cell-25">
+                    <input type="number" id="double_muscleWeight" name="double_muscleWeight" minlength="4" maxlength="5"
+                        oninput="updateOutput('muscleWeightOutput', this.value, 'weight')">
+                </div>
+                <div class="anima-cell cell-25"><output id="muscleWeightOutput">__.__ kg</output></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button class="submitButton" id="submit" type="submit" value="Submit">
+            <i class="fas fa-paper-plane"></i>
+            Submit
+        </button>
+        <button class="nextButton" id="reset" type="reset">
+            <i class="fas fa-arrow-right"></i>
+            Next
+        </button>
+    </div>
+</form>
 
 <script>
     const today = new Date().toISOString().split('T')[0];
