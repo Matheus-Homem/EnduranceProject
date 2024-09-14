@@ -5,6 +5,7 @@ input[type="datetime-local"] {
     font-size: 14px;
     outline: none;
     height: 30px; 
+    max-width: 90%;
 }
 
 input[type="datetime-local"]:hover {
