@@ -1,12 +1,12 @@
 import os
 import time
 
-from flask import Flask, abort, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 import src.shared.database.tables as tb
 from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.logging.adapters import reset_logger
-from src.web.helpers import clean_and_serialize_dict, convert_input_date, print_green
+from src.web.helpers import clean_and_serialize_dict, convert_input_date, display_success_message, display_debug_message
 
 MAX_RETRIES = 15
 
@@ -19,34 +19,24 @@ app.config["SECRET_KEY"] = os.urandom(24)
 
 @app.route("/", methods=["GET"])
 def index():
-    print_green("Accessing the index page")
+    display_success_message("Accessing the index page")
     return render_template("index.html")
 
 
 @app.route("/2/", methods=["GET"])
 def index2():
-    print_green("Accessing the index page")
+    display_success_message("Accessing the index page")
     return render_template("index2.html")
 
 
-@app.route("/add/<element>/", methods=["GET", "POST"])
-def add_entry(element):
-    element_path = {
-        "navigator": "core/wisdom",
-        "sentinel": "core/wisdom",
-        "sponsor": "core/stability",
-        "patron": "core/stability",
-        "treasurer": "core/stability",
-        "nutritionist": "core/strength",
-    }
+@app.route("/add/<category>/<element>/", methods=["GET", "POST"])
+def add_entry(category, element):
 
-    if element not in element_path:
-        abort(404)
-
-    entry_category = element_path[element].split("/")[1]
+    display_debug_message(f"Received element = {element}")
+    display_debug_message(f"Received category = {category}")
 
     if request.method == "POST":
-        print_green(f"Processing POST request for {element.capitalize()}")
+        display_success_message(f"Processing POST request for {element.capitalize()}")
 
         form_data = request.form.to_dict()
         entry_date = convert_input_date(date_to_convert=form_data["date_input"])
@@ -59,7 +49,7 @@ def add_entry(element):
                         table=tb.ElementEntries,
                         date=entry_date,
                         user_id=1,
-                        element_category=entry_category,
+                        element_category=category,
                         element_name=element,
                         element_string=entry_string,
                         schema_version=1,
@@ -72,12 +62,12 @@ def add_entry(element):
 
         return jsonify({"message": "Error inserting into the database after multiple attempts"}), 500
     else:
-        return render_template(f"{element_path[element]}/{element}.html")
+        return render_template(f"core/{category}/{element}.html")
 
 
 @app.route("/form/morning/", methods=["GET", "POST"])
 def form_morning():
-    print_green("Accessing the morning form page")
+    display_success_message("Accessing the morning form page")
     table = tb.MySqlMorningTable
     if request.method == "POST":
         retry_count = 1
@@ -100,7 +90,7 @@ def form_morning():
 
 @app.route("/form/night/", methods=["GET", "POST"])
 def form_night():
-    print_green("Accessing the night form page")
+    display_success_message("Accessing the night form page")
     table = tb.MySqlNightTable
     if request.method == "POST":
         retry_count = 1
@@ -123,7 +113,7 @@ def form_night():
 
 @app.route("/test/", methods=["GET", "POST"])
 def form_test():
-    print_green("Accessing the test form page")
+    display_success_message("Accessing the test form page")
     table = tb.LocalTest
     if request.method == "POST":
         retry_count = 1
