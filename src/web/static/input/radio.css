@@ -1,20 +1,42 @@
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"] {
+    appearance: none; 
     width: 17.5px;
     height: 17.5px;
-    margin: 5px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    border: 2px solid var(--white-color);
+    border-radius: 50%;
     outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+    background-color: transparent;
 }
 
-input[type="radio"]:checked, input[type="checkbox"]:checked {
-    background-color: #ccc;
+
+input[type="radio"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
 }
 
-input[type="radio"]:hover input, input[type="checkbox"]:hover input {
+
+input[type="radio"]:checked::before {
+    background-color: var(--section-color);
+}
+
+
+input[type="radio"]:hover {
     border-color: var(--section-color);
 }
 
-input[type="radio"]:focus input, input[type="checkbox"]:focus input {
+
+input[type="radio"]:focus {
     border-color: var(--section-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
