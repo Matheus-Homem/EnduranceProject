@@ -6,7 +6,12 @@ from flask import Flask, jsonify, render_template, request
 import src.shared.database.tables as tb
 from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.logging.adapters import reset_logger
-from src.web.helpers import clean_and_serialize_dict, convert_input_date, display_success_message, display_debug_message
+from src.web.helpers import (
+    clean_and_serialize_dict,
+    convert_input_date,
+    display_debug_message,
+    display_success_message,
+)
 
 MAX_RETRIES = 15
 
