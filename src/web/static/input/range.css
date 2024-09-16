@@ -1,11 +1,10 @@
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 100%;
-    height: 15px;
-    background: #ddd;
+    width: 90%;
+    height: 10px;
+    background: var(--gray-color-9);
     border-radius: 50px;
-    padding: 5px;
     box-shadow: 0 0 5px #333;
     transition: background .3s;
 }
@@ -13,18 +12,17 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #666;
+    width: 20px;
+    height: 20px;
+    background: var(--white-color);
     border-radius: 50%;
     box-shadow: 0 0 5px #333;
-    transition: background .3s;
-    transition: 0.5s ease;
+    transition: 0.3s ease;
 }
 
 input[type="range"]:hover,
 input[type="range"]:focus {
-    background: #ccc;
+    background: var(--white-color);
 }
 
 input[type="range"]:hover::-webkit-slider-thumb,
@@ -33,5 +31,6 @@ input[type="range"]:focus::-webkit-slider-thumb {
 }
 
 input[type="range"]:active::-webkit-slider-thumb {
-    width: 12px;
+    width: 10px;
+    height: 25px;
 }
