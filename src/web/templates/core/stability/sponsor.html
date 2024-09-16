@@ -6,52 +6,61 @@
 
 {% block content %}
 
-<div class="anima-box stability">
-    <div class="anima-header">
-        <span>Patrocinador</span>
-    </div>
-    <div class="anima-habit">
-        <span>Sobre o hábito da <strong>Trabalhar</strong></span>
-    </div>
-    <div class="anima-table">
-        <div class="anima-row">
-            <div class="anima-cell cell-100">
-                <input type="date" id="data" name="date_input">
-            </div>
+<form id="myForm" action="/add/stability/sponsor/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box stability">
+        <div class="element-header">
+            <span>Patrocinador</span>
         </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-50 text-input">
-                <div id="toggle_work" class="toggle" onclick="toggleButton('work')">
-                    <div class="toggle-button"></div>
-                </div>
-                <span>Trabalho</span>
-                <input type="hidden" id="input_work" name="bool_work" value="False">
-            </div>
-            <div class="anima-cell cell-50 text-input">
-                <div id="toggle_excelence" class="toggle" onclick="toggleButton('excelence')">
-                    <div class="toggle-button"></div>
-                </div>
-                <span>Autoelogio</span>
-                <input type="hidden" id="input_excelence" name="bool_excelence" value="False">
-            </div>
+        <div class="element-habit">
+            <span>Sobre o hábito da <strong>Trabalhar</strong></span>
         </div>
-    </div>
-</div>
+        <div class="element-table">
 
-<div class="buttonContainer">
-    <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
-        <i class="fas fa-home"></i>
-        Home
-    </button>
-    <button class="submitButton" id="submit" type="submit" value="Submit">
-        <i class="fas fa-paper-plane"></i>
-        Submit
-    </button>
-    <button class="nextButton" id="reset" type="reset">
-        <i class="fas fa-arrow-right"></i>
-        Next
-    </button>
-</div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-100 text-input">
+                    <div id="toggle_work" class="toggle" onclick="toggleButton('work')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Trabalho</span>
+                    <input type="hidden" id="input_work" name="bool_work" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100 text-input">
+                    <div id="toggle_excelence" class="toggle" onclick="toggleButton('excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Autoelogio</span>
+                    <input type="hidden" id="input_excelence" name="bool_excelence" value="False">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
 
 <script>
     const today = new Date().toISOString().split('T')[0];

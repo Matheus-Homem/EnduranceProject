@@ -1,0 +1,7 @@
+.background-contrast {
+    background-color: var(--gray-color-2);
+    border-radius: 15px;
+    border: 1px solid var(--section-color-darker);
+    max-width: 100%;
+    padding: 7px 10px;
+}

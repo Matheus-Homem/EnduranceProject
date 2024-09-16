@@ -1,3 +1,6 @@
+from datetime import datetime
+
+import pytz
 from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
@@ -5,6 +8,8 @@ from sqlalchemy.sql import func
 metadata = MetaData()
 
 Base = declarative_base(metadata=metadata)
+
+current_brasilia_sp_time = lambda: datetime.now(pytz.timezone("America/Sao_Paulo"))
 
 
 class MySqlTable(Base):
@@ -49,8 +54,8 @@ class ElementEntries(MySqlTable):
     element_string = Column(String(255), nullable=False)
     schema_version = Column(Integer, nullable=False)
     op = Column(Enum("c", "d", "u"), nullable=False)
-    created_at = Column(DateTime, nullable=False, default=func.now())
-    updated_at = Column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time)
+    updated_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time, onupdate=current_brasilia_sp_time)
 
 
 class ElementSchemas(MySqlTable):

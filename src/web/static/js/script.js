@@ -167,25 +167,26 @@ function addRow() {
     newRow.setAttribute('input-index', rowIndex);
 
     newRow.innerHTML = `
-        <div class="anima-row">
-            <div class="anima-cell cell-100 text-input">
+        <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+        <div class="element-row">
+            <div class="element-cell cell-100 text-input">
                 <input type="text" name="string_book_${rowIndex}" placeholder="Nome do Livro">
             </div>
         </div>
-        <div class="anima-row">
-            <div class="anima-cell cell-33">
+        <div class="element-row">
+            <div class="element-cell cell-33">
                 <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_read_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-glasses"></i></span>
                 </div>
                 <input type="hidden" id="input_read_${rowIndex}" name="bool_read_${rowIndex}" value="False">
             </div>
-            <div class="anima-cell cell-33">
+            <div class="element-cell cell-33">
                 <div id="id_listen_${rowIndex}" class="check" onclick="checkButton('id_listen_${rowIndex}', 'input_listen_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-headphones-alt"></i></span>
                 </div>
                 <input type="hidden" id="input_listen_${rowIndex}" name="bool_listen_${rowIndex}" value="False">
             </div>
-            <div class="anima-cell cell-33">
+            <div class="element-cell cell-33">
                 <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_notes_${rowIndex}', 'False', 'True')">
                     <span><i class="fas fa-quote-right"></i></span>
                 </div>
@@ -209,11 +210,12 @@ function removeRow() {
 
 function submitForm(event) {
     event.preventDefault();
-    const form = document.getElementById('myForm');
+    const form = event.target;
+    const action = form.getAttribute('action');
     const maxAttempts = 3;
 
     function trySubmit(attempt) {
-        fetch('/add/sentinel/', {
+        fetch(action, {
             method: 'POST',
             body: new FormData(form),
         })
@@ -226,7 +228,7 @@ function submitForm(event) {
         .then(data => {
             if (data.message === 'Form successfully submitted!') {
                 alert(data.message);
-                resetAllInputs('myForm');
+                resetAllInputs(form.id);
             } else {
                 alert(data.message);
             }
