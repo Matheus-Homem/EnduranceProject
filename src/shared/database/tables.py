@@ -1,14 +1,16 @@
+from datetime import datetime
+
+import pytz
 from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
-import pytz
-from datetime import datetime
 
 metadata = MetaData()
 
 Base = declarative_base(metadata=metadata)
 
-current_brasilia_sp_time = lambda: datetime.now(pytz.timezone('America/Sao_Paulo'))
+current_brasilia_sp_time = lambda: datetime.now(pytz.timezone("America/Sao_Paulo"))
+
 
 class MySqlTable(Base):
     __abstract__ = True
