@@ -13,5 +13,8 @@ def convert_input_date(date_to_convert: str) -> date:
     return date.fromisoformat(date_to_convert)
 
 
-def print_green(text: str):
+def display_success_message(text: str):
     print(f"\033[92mSUCCESS - {text}\033[0m")
+
+def display_debug_message(text: str):
+    print(f"\033[95mDEBUG - {text}\033[0m")
