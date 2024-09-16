@@ -1,11 +1,11 @@
 input[type="datetime-local"] {
-    padding: 0 8px;
+    padding: 0 5px;
     border: 2px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
     height: 30px; 
-    max-width: 90%;
+    width: 165px;
 }
 
 input[type="datetime-local"]:hover {
