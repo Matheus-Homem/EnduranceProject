@@ -210,11 +210,12 @@ function removeRow() {
 
 function submitForm(event) {
     event.preventDefault();
-    const form = document.getElementById('myForm');
+    const form = event.target;
+    const action = form.getAttribute('action');
     const maxAttempts = 3;
 
     function trySubmit(attempt) {
-        fetch('/add/sentinel/', {
+        fetch(action, {
             method: 'POST',
             body: new FormData(form),
         })
@@ -227,7 +228,7 @@ function submitForm(event) {
         .then(data => {
             if (data.message === 'Form successfully submitted!') {
                 alert(data.message);
-                resetAllInputs('myForm');
+                resetAllInputs(form.id);
             } else {
                 alert(data.message);
             }
