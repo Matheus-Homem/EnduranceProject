@@ -8,13 +8,14 @@
 /* @import url('input/custom/alternative.css'); */
 @import url('input/date.css');
 @import url('input/datetime.css');
-/* @import url('input/radio.css'); */
+@import url('input/radio.css');
+@import url('input/range.css');
 /* @import url('input/time.css'); */
 @import url('input/text.css');
-/* @import url('input/textarea.css'); */
+@import url('input/textarea.css');
 @import url('input/number.css');
 @import url('div/accordion_colors.css');
 @import url('div/accordion.css');
-@import url('div/anima.css');
+@import url('div/element.css');
 @import url('div/cells.css');
 @import url('div/utilities.css');
