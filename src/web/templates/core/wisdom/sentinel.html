@@ -6,68 +6,68 @@
 
 {% block content %}
 
-<form id="myForm" action="/add/sentinel/" method="POST" onsubmit="submitForm(event)">
-    <div class="anima-box wisdom">
-        <div class="anima-header">
+<form id="myForm" action="/add/wisdom/sentinel/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box wisdom">
+        <div class="element-header">
             <span>Sentinela</span>
         </div>
-        <div class="anima-habit">
+        <div class="element-habit">
             <span>Sobre o hábito da <strong>Dormir</strong></span>
         </div>
-        <div class="anima-table">
+        <div class="element-table">
 
-            <div class="anima-row">
-                <div class="anima-cell cell-100">
+            <div class="element-row">
+                <div class="element-cell cell-100">
                     <input type="date" id="data" name="date_input">
                 </div>
             </div>
             
-            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
-            <div class="anima-row">
-                <div class="anima-cell cell-40">Tempo de Tela</div>
-                <div class="anima-cell cell-30">
+            <div class="element-row">
+                <div class="element-cell cell-40">Tempo de Tela</div>
+                <div class="element-cell cell-30">
                     <input type="number" id="hourMin_screenTime" name="hourMin_screenTime" minlength="3" 
                         oninput="updateOutput('screenTimeOutput', this.value, 'time')">
                 </div>
-                <div class="anima-cell cell-30"><output id="screenTimeOutput">__h __min</output></div>
+                <div class="element-cell cell-30"><output id="screenTimeOutput">__h __min</output></div>
             </div>
 
-            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
-            <div class="anima-row">
-                <div class="anima-cell cell-40">Início do Sono</div>
-                <div class="anima-cell cell-60"><input type="datetime-local" name="timestamp_bedDatetime"></div>
+            <div class="element-row">
+                <div class="element-cell cell-40">Início do Sono</div>
+                <div class="element-cell cell-60"><input type="datetime-local" name="timestamp_bedDatetime"></div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-40">Fim do Sono</div>
-                <div class="anima-cell cell-60"><input type="datetime-local" name="timestamp_wakeupDatetime"></div>
+            <div class="element-row">
+                <div class="element-cell cell-40">Fim do Sono</div>
+                <div class="element-cell cell-60"><input type="datetime-local" name="timestamp_wakeupDatetime"></div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-100">
+            <div class="element-row">
+                <div class="element-cell cell-100">
                     <div class="background-contrast">
                         <span id="DatetimeDifferenceOutput" placeholder="Aguardando inserção de ambos os dados."></span>
                     </div>
                 </div>
             </div>
 
-            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
-            <div class="anima-row">
-                <div class="anima-cell cell-40">Sono REM</div>
-                <div class="anima-cell cell-30">
+            <div class="element-row">
+                <div class="element-cell cell-40">Sono REM</div>
+                <div class="element-cell cell-30">
                     <input type="number" id="hourMin_remSleep" name="hourMin_remSleep"
                         oninput="updateOutput('remSleepOutput', this.value, 'time')">
                 </div>
-                <div class="anima-cell cell-30"><output id="remSleepOutput">__h __min</output></div>
+                <div class="element-cell cell-30"><output id="remSleepOutput">__h __min</output></div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-40">Sono Profundo</div>
-                <div class="anima-cell cell-30">
+            <div class="element-row">
+                <div class="element-cell cell-40">Sono Profundo</div>
+                <div class="element-cell cell-30">
                     <input type="number" id="hourMin_deepSleep" name="hourMin_deepSleep"
                         oninput="updateOutput('deepSleepOutput', this.value, 'time')">
                 </div>
-                <div class="anima-cell cell-30"><output id="deepSleepOutput">__h __min</output></div>
+                <div class="element-cell cell-30"><output id="deepSleepOutput">__h __min</output></div>
             </div>
 
         </div>

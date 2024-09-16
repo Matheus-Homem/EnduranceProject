@@ -6,26 +6,26 @@
 
 {% block content %}
 
-<form id="myForm" action="/add/patron/" method="POST" onsubmit="submitForm(event)">
-    <div class="anima-box stability">
-        <div class="anima-header">
+<form id="myForm" action="/add/stability/patron/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box stability">
+        <div class="element-header">
             <span>Mecenas</span>
         </div>
-        <div class="anima-habit">
+        <div class="element-habit">
             <span>Sobre o hábito da <strong>Estudar</strong></span>
         </div>
-        <div class="anima-table">
+        <div class="element-table">
 
-            <div class="anima-row">
-                <div class="anima-cell cell-100">
+            <div class="element-row">
+                <div class="element-cell cell-100">
                     <input type="date" id="data" name="date_input">
                 </div>
             </div>
 
-            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
-            <div class="anima-row">
-                <div class="anima-cell cell-100 text-input">
+            <div class="element-row">
+                <div class="element-cell cell-100 text-input">
                     <div id="toggle_engineer" class="toggle" onclick="toggleButton('engineer')">
                         <div class="toggle-button"></div>
                     </div>
@@ -33,8 +33,8 @@
                     <input type="hidden" id="input_engineer" name="bool_engineer" value="False">
                 </div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-100 text-input">
+            <div class="element-row">
+                <div class="element-cell cell-100 text-input">
                     <div id="toggle_neuroscience" class="toggle" onclick="toggleButton('neuroscience')">
                         <div class="toggle-button"></div>
                     </div>

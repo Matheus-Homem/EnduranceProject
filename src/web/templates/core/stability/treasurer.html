@@ -6,49 +6,49 @@
 
 {% block content %}
 
-<form id="myForm" action="/add/treasurer/" method="POST" onsubmit="submitForm(event)">
-    <div class="anima-box stability">
-        <div class="anima-header">
+<form id="myForm" action="/add/stability/treasurer/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box stability">
+        <div class="element-header">
             <span>Patrocinador</span>
         </div>
-        <div class="anima-habit">
+        <div class="element-habit">
             <span>Sobre o hábito da <strong>Contabilizar</strong></span>
         </div>
-        <div class="anima-table">
+        <div class="element-table">
 
-            <div class="anima-row">
-                <div class="anima-cell cell-100">
+            <div class="element-row">
+                <div class="element-cell cell-100">
                     <input type="date" id="data" name="date_input">
                 </div>
             </div>
 
-            <div class="anima-row"><div class="anima-cell cell-100"><br></div></div>
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
-            <div class="anima-row">
-                <div class="anima-cell cell-50">Crédito</div>
-                <div class="anima-cell cell-25">
+            <div class="element-row">
+                <div class="element-cell cell-50">Crédito</div>
+                <div class="element-cell cell-25">
                     <input type="number" id="double_credit" name="double_credit" minlength="3"
                         oninput="updateOutput('creditOutput', this.value, 'money')">
                 </div>
-                <div class="anima-cell cell-25"><output id="creditOutput">R$ __.__</output></div>
+                <div class="element-cell cell-25"><output id="creditOutput">R$ __.__</output></div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-50">Débito</div>
-                <div class="anima-cell cell-25">
+            <div class="element-row">
+                <div class="element-cell cell-50">Débito</div>
+                <div class="element-cell cell-25">
                     <input type="number" id="double_debit" name="double_debit" minlength="3"
                         oninput="updateOutput('debitOutput', this.value, 'money')">
                 </div>
-                <div class="anima-cell cell-25"><output id="debitOutput">R$ __.__</output></div>
+                <div class="element-cell cell-25"><output id="debitOutput">R$ __.__</output></div>
             </div>
-            <div class="anima-row">
-                <div class="anima-cell cell-50">Benefício</div>
-                <div class="anima-cell cell-25">
+            <div class="element-row">
+                <div class="element-cell cell-50">Benefício</div>
+                <div class="element-cell cell-25">
                     <input type="number" id="double_benefit" name="double_benefit" minlength="3"
                         oninput="updateOutput('benefitOutput', this.value, 'money')">
                 </div>
-                <div class="anima-cell cell-25"><output id="benefitOutput">R$ __.__</output></div>
+                <div class="element-cell cell-25"><output id="benefitOutput">R$ __.__</output></div>
             </div>
-            
+
         </div>
     </div>
 
