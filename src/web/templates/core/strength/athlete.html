@@ -1,0 +1,141 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Atleta
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/add/strength/athlete/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box strength">
+        <div class="element-header">
+            <span>Atleta</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Ativar-se</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-60 ">
+                    <div id="toggle_runningAction" class="toggle" onclick="toggleButton('runningAction')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Corrida</span>
+                    <input type="hidden" id="input_runningAction" name="bool_runningAction" value="False">
+                </div>
+                <div class="element-cell cell-40 ">
+                    <div id="toggle_runningMute" class="toggle" onclick="toggleButton('runningMute')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-volume-xmark"></i></span>
+                    <input type="hidden" id="input_runningMute" name="bool_runningMute" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40">Distância</div>
+                <div class="element-cell cell-30">
+                    <input type="number" name="double_runningDistance" minlength="3" maxlength="4"
+                        oninput="updateOutput('RunningDistanceOutput', this.value, 'distance')">
+                </div>
+                <div class="element-cell cell-30"><output id="RunningDistanceOutput">__.__ km</output></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40">Duração</div>
+                <div class="element-cell cell-30">
+                    <input type="number" name="hhmmss_runningDuration" minlength="6" maxlength="6"
+                        oninput="updateOutput('RunningDurationOutput', this.value, 'exercise')">
+                </div>
+                <div class="element-cell cell-30"><output id="RunningDurationOutput">__h__'__''</output></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40">Calorias</div>
+                <div class="element-cell cell-30">
+                    <input type="number" name="int_runningCalories" 
+                        oninput="updateOutput('RunningCaloriesOutput', this.value, 'calories')">
+                </div>
+                <div class="element-cell cell-30"><output id="RunningCaloriesOutput">_ cal</output></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40">FC Média</div>
+                <div class="element-cell cell-30">
+                    <input type="number" name="int_runningAvgBpm" minlength="2" maxlength="3"
+                        oninput="updateOutput('RunningAvgBpmOutput', this.value, 'bpm')">
+                </div>
+                <div class="element-cell cell-30"><output id="RunningAvgBpmOutput">_ bpm</output></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40">FC Máx</div>
+                <div class="element-cell cell-30">
+                    <input type="number" name="int_runningMaxBpm" minlength="2" maxlength="3"
+                        oninput="updateOutput('RunningMaxBpmOutput', this.value, 'bpm')">
+                </div>
+                <div class="element-cell cell-30"><output id="RunningMaxBpmOutput">_ bpm</output></div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-40"></div>
+                <div class="element-cell cell-20"><span><i class="fas fa-times-circle"></i></span></div>
+                <div class="element-cell cell-20"><span><i class="fa-solid fa-pills"></i></span></div>
+                <div class="element-cell cell-20"><span><i class="fa-regular fa-calendar-check"></i></span></div>    
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40"><span>Yoga</span></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_yoga" value="0" checked></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_yoga" value="1"></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_yoga" value="2"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40"><span>Resistência</span></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_resistence" value="0" checked></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_resistence" value="1"></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_resistence" value="2"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40"><span>Ciclismo</span></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_biking" value="0" checked></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_biking" value="1"></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_biking" value="2"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-40"><span>Natação</span></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_swimming" value="0" checked></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_swimming" value="1"></div>
+                <div class="element-cell cell-20"><input type="radio" name="ordinal_swimming" value="2"></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+</script>
+
+{% endblock %}
