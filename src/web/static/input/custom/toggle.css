@@ -47,3 +47,12 @@
     font-weight: bold;
     color: var(--section-color);
 }
+
+@media (hover: none) and (pointer: coarse) {
+    .toggle:hover, .toggle:focus {
+        background: initial !important;
+    }
+    .toggle-button:hover, .toggle-button:focus {
+        background: initial !important;
+    }
+}
