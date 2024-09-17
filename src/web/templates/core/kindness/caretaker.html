@@ -1,0 +1,77 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Zelador
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/add/kindness/caretaker/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box kindness">
+        <div class="element-header">
+            <span>Zelador</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Cuidar-se</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-50"></div>
+                <div class="element-cell cell-25"><span><i class="fas fa-thumbs-down"></i></span></div>
+                <div class="element-cell cell-25"><span><i class="fas fa-thumbs-up"></i></span></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Cartão de Visita</span></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_teeth" value="0" checked></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_teeth" value="1"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Purificação</span></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_shower" value="0" checked></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_shower" value="1"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Faxina</span></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_houseMaintenance" value="0" checked></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_houseMaintenance" value="1"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Preparo de Refeições</span></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_mealPreparation" value="0" checked></div>
+                <div class="element-cell cell-25"><input type="radio" name="ordinal_mealPreparation" value="1"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+</script>
+
+{% endblock %}

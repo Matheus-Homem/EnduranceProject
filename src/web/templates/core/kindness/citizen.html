@@ -1,0 +1,93 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Cidadão
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/add/kindness/citizen/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box kindness">
+        <div class="element-header">
+            <span>Cidadão</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Conectar-se</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_comunity" class="check" onclick="checkButton('id_comunity', 'input_comunity', 'False', 'True')">
+                        <span>Comunidade</span>
+                    </div>
+                    <input type="hidden" id="input_comunity" name="bool_comunity" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_family" class="check" onclick="checkButton('id_family', 'input_family', 'False', 'True')">
+                        <span>Família</span>
+                    </div>
+                    <input type="hidden" id="input_family" name="bool_family" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_friends" class="check" onclick="checkButton('id_friends', 'input_friends', 'False', 'True')">
+                        <span>Amigos</span>
+                    </div>
+                    <input type="hidden" id="input_friends" name="bool_friends" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_society" class="check" onclick="checkButton('id_society', 'input_society', 'False', 'True')">
+                        <span>Sociedade</span>
+                    </div>
+                    <input type="hidden" id="input_society" name="bool_society" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_yoga" class="check" onclick="checkButton('id_yoga', 'input_yoga', 'False', 'True')">
+                        <span>Yoga</span>
+                    </div>
+                    <input type="hidden" id="input_yoga" name="bool_yoga" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_exercise" class="check" onclick="checkButton('id_exercise', 'input_exercise', 'False', 'True')">
+                        <span>Exercícios</span>
+                    </div>
+                    <input type="hidden" id="input_exercise" name="bool_exercise" value="False">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+</script>
+
+{% endblock %}
