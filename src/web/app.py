@@ -44,7 +44,12 @@ def add_entry(category, element):
         display_success_message(f"Processing POST request for {element.capitalize()}")
 
         form_data = request.form.to_dict()
-        entry_date = convert_input_date(date_to_convert=form_data["date_input"])
+
+        try:
+            entry_date = convert_input_date(date_to_convert=form_data.get("date_input"))
+        except ValueError as e:
+            return jsonify({"message": f"Invalid date format: {e}"}), 400
+
         entry_string = clean_and_serialize_dict(data=form_data)
 
         for attempt in range(1, 4):
