@@ -1,0 +1,69 @@
+{% extends "base2.html" %}
+
+{% block title %}
+    Expectador
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/add/devotion/witness/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box devotion">
+        <div class="element-header">
+            <span>Expectador</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Atentar-se</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="data" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="string_experience"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('data').value = today;
+    
+    document.getElementById('string_experience').value = 'Experiência Marcante: \n-> \n-> ';
+    document.getElementById('string_experience').addEventListener('blur', function() {
+
+    var input = document.createElement('input');
+    
+    input.type = 'hidden';
+    input.name = 'string_experience';
+    input.value = this.value;
+    
+    var container = this.parentNode;
+    
+    container.appendChild(input);
+});
+</script>
+
+{% endblock %}
