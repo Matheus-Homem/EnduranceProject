@@ -50,6 +50,12 @@
                 <div class="element-cell cell-25"><input type="radio" name="ordinal_mealPreparation" value="1"></div>
             </div>
 
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="string_gratitude"></textarea>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -72,6 +78,20 @@
 <script>
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('data').value = today;
+
+    document.getElementById('string_gratitude').value = 'Sou grato por: \n-> \n-> ';
+    document.getElementById('string_gratitude').addEventListener('blur', function() {
+    
+        var input = document.createElement('input');
+        
+        input.type = 'hidden';
+        input.name = 'string_gratitude';
+        input.value = this.value;
+        
+        var container = this.parentNode;
+        
+        container.appendChild(input);
+    });
 </script>
 
 {% endblock %}
