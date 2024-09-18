@@ -4,7 +4,7 @@ import sshtunnel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
-from src.shared.credentials import PRD, Credential
+from src.shared.credentials import PRD, MySqlCredential, SshCredential
 from src.shared.logging.adapters import LoggingPrinter
 
 sshtunnel.SSH_TIMEOUT = 20.0
@@ -15,9 +15,11 @@ class DatabaseConnector(LoggingPrinter):
 
     def __init__(
         self,
+        use_production_db: bool,
     ):
         super().__init__(class_name=self.__class__.__name__)
 
+        self.use_production_db = use_production_db
         self.Session = None
         self.engine = None
         self.ssh_tunnel = None
@@ -25,9 +27,9 @@ class DatabaseConnector(LoggingPrinter):
     def _is_prd_environment(self) -> bool:
         return PRD == "EnduranceProject"
 
-    def _create_engine(self, mysql_credentials: Credential, ssh_credentials: Credential) -> None:
+    def _create_engine(self, mysql_credentials: MySqlCredential, ssh_credentials: SshCredential) -> None:
         try:
-            mysql_keys = mysql_credentials.get_all_credentials()
+            mysql_keys = mysql_credentials.get_all_credentials(use_production_db=self.use_production_db)
             ssh_keys = ssh_credentials.get_all_credentials()
 
             if self._is_prd_environment():
@@ -67,7 +69,7 @@ class DatabaseConnector(LoggingPrinter):
             return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@localhost:{self.ssh_tunnel.local_bind_port}/{mysql_keys.get('database')}"
         return f"mysql+pymysql://{mysql_keys.get('username')}:{mysql_keys.get('password')}@{mysql_keys.get('hostname')}/{mysql_keys.get('database')}"
 
-    def get_session(self, mysql_credentials: Credential, ssh_credentials: Credential) -> Session:
+    def get_session(self, mysql_credentials: MySqlCredential, ssh_credentials: SshCredential) -> Session:
         if self.Session is None:
             self.logger.info("Session is not initialized. Creating engine.")
             self._create_engine(mysql_credentials, ssh_credentials)
