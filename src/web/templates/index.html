@@ -1,253 +1,63 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Menu
+    Menu de Inserção
 {% endblock %}
 
-{% block header %}
-    Endurance Project
-{% endblock %}
 
 {% block content %}
+
+    <div class="page-title">
+        <h1>O Cardápio</h1>
+        <h2>O Cardápio</h2>
+    </div>
+
     <div class="accordion">
-        <!-- Seção Matinal -->
-        <div class="accordion-item">
-            <button class="accordion-button">Matinal Inteiro</button>
+        <div class="accordion-item wisdom-color">
+            <button class="accordion-button">Sabedoria</button>
             <div class="accordion-content">
-                <button>Navegador</button>
-                <button>Alquimista</button>
-                <button>Sentinela</button>
+                <a href="/add/wisdom/navigator/"><button>Navegador</button></a>
+                <a href="/add/wisdom/alchemist/"><button>Alquimista</button></a>
+                <a href="/add/wisdom/sentinel/"><button>Sentinela</button></a>
             </div>
         </div>
 
-        <!-- Seção Noturno -->
-        <div class="accordion-item">
-            <button class="accordion-button">Noturno Inteiro</button>
+        <div class="accordion-item stability-color">
+            <button class="accordion-button">Estabilidade</button>
             <div class="accordion-content">
-                <button>Mecenas</button>
-                <button>Tesoureiro</button>
-                <button>Patrocinador</button>
+                <a href="/add/stability/sponsor/"><button>Patrocinador</button></a>
+                <a href="/add/stability/patron/"><button>Mecenas</button></a>
+                <a href="/add/stability/treasurer/"><button>Tesoureiro</button></a>
             </div>
         </div>
 
-        <!-- Seção Sabedoria -->
-        <div class="accordion-item">
-            <button class="accordion-button">Sabedoria Inteiro</button>
+        <div class="accordion-item strength-color">
+            <button class="accordion-button">Força</button>
             <div class="accordion-content">
-                <button>Vanguarda</button>
-                <button>Cozinheiro</button>
-                <button>Feedback do Cozinheiro</button>
-                <button>Batedor</button>
+                <a href="/add/strength/athlete/"><button>Atleta</button></a>
+                <a href="/add/strength/cook/"><button>Cozinheiro</button></a>
+                <a href="/add/strength/nutritionist/"><button>Nutricionista</button></a>
             </div>
         </div>
 
-        <!-- Seção Estabilidade -->
-        <div class="accordion-item">
-            <button class="accordion-button">Estabilidade Inteiro</button>
+        <div class="accordion-item kindness-color">
+            <button class="accordion-button">Gentileza</button>
             <div class="accordion-content">
-                <button>Cidadão</button>
-                <button>Zelador</button>
-                <button>Diplomata</button>
+                <a href="/add/kindness/caretaker/"><button>Zelador</button></a>
+                <a href="/add/kindness/diplomat/"><button>Diplomata</button></a>
+                <a href="/add/kindness/citizen/"><button>Cidadão</button></a>
             </div>
         </div>
 
-        <!-- Seção Força -->
-        <div class="accordion-item">
-            <button class="accordion-button">Força Inteiro</button>
+        <div class="accordion-item devotion-color">
+            <button class="accordion-button">Devoção</button>
             <div class="accordion-content">
-                <button>Oráculo</button>
-                <button>Atharba</button>
-                <button>Nagi</button>
-                <button>Personagem</button>
+                <a href="/add/devotion/oracle/"><button>Oráculo</button></a>
+                <a href="/add/devotion/atharva_bindu/"><button>Atharva Bindu</button></a>
+                <a href="/add/devotion/witness/"><button>Expectador</button></a>
             </div>
         </div>
     </div>
 
-    <section class="basic">
-
-        <div class="info-box box">
-            <div class="box-title">
-                <span>Rotinas</span>
-            </div>
-            <div class="box-input">
-                <div class="box-habit">
-                    <span>
-                        Completas
-                    </span>
-                </div>
-                <div class="flex-table">
-                    <div class="flex-row">
-                        <div class="flex-cell cell-50">
-                            <a href="/form/morning/" class="createButton">
-                                <i class="fas fa-plus"></i> Matinal
-                            </a>
-                        </div>
-                        <div class="flex-cell cell-50">
-                            <a href="/form/night/" class="createButton">
-                                <i class="fas fa-plus"></i> Nortuno
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-habit">
-                    <span>
-                        Completas
-                    </span>
-                </div>
-                <div class="flex-table">
-                    <div class="flex-row">
-                        <div class="flex-cell cell-50">
-                            <a href="/form/morning/" class="createButton">
-                                <i class="fas fa-plus"></i> Matinal
-                            </a>
-                        </div>
-                        <div class="flex-cell cell-50">
-                            <a href="/form/night/" class="createButton">
-                                <i class="fas fa-plus"></i> Nortuno
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="basic">
-
-        <div class="info-box box">
-            <div class="box-title">
-                <span>Menu</span>
-            </div>
-            <div class="box-input">
-                <div class="flex-table">
-                    <div class="flex-row">
-                        <div class="flex-cell cell-50">Matinal</div>
-                        <div class="flex-cell cell-25">
-                            <a href="/form/morning/" class="createButton">
-                                <i class="fas fa-plus"></i> New
-                            </a>
-                        </div>
-                        <div class="flex-cell cell-25">
-                            <button class="editButton">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex-row">
-                        <div class="flex-cell cell-50">Noturno</div>
-                        <div class="flex-cell cell-25">
-                            <a href="/form/night/" class="createButton">
-                                <i class="fas fa-plus"></i> New
-                            </a>
-                        </div>
-                        <div class="flex-cell cell-25">
-                            <button class="editButton">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="basic">
-
-        <div class="info-box box">
-            <div class="box-title">
-                <span>Relatórios</span>
-            </div>
-            <div class="box-input">
-                <div class="flex-table">
-                    <div class="flex-row">
-                        <div class="flex-cell cell-100">A ser implementado</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-<style>
-
-
-.accordion {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.accordion-item {
-    margin-bottom: 10px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.accordion-button {
-    width: 100%;
-    padding: 15px;
-    text-align: left;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.accordion-button:hover {
-    background-color: #0056b3;
-}
-
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    background-color: #f4f4f4;
-    padding-left: 20px;
-}
-
-.accordion-content button {
-    display: block;
-    width: 90%;
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.accordion-content button:hover {
-    background-color: #0056b3;
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const accordionButtons = document.querySelectorAll(".accordion-button");
-
-    accordionButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            const content = this.nextElementSibling;
-
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                document.querySelectorAll('.accordion-content').forEach(item => item.style.maxHeight = null);
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    });
-});
-
-</script>
 
 {% endblock %}
