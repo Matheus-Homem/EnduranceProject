@@ -4,6 +4,7 @@ import time
 from flask import Flask, jsonify, render_template, request
 
 import src.shared.database.tables as tb
+from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.logging.adapters import reset_logger
 from src.web.helpers import (
@@ -57,7 +58,7 @@ def add_entry(category, element):
 
         for attempt in range(1, 4):
             try:
-                with DatabaseExecutorBuilder(use_production_db=True) as executor:
+                with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
                     executor.insert(
                         table=tb.ElementEntries,
                         date=entry_date,
