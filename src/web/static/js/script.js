@@ -235,7 +235,7 @@ function submitForm(event) {
         .then(data => {
             if (data.message === 'Form successfully submitted!') {
                 alert(data.message);
-                resetAllInputs(form.id);
+                location.reload();
             } else {
                 alert(data.message);
             }
@@ -251,30 +251,4 @@ function submitForm(event) {
     }
 
     trySubmit(1);
-}
-
-function resetAllInputs(formId) {
-    const form = document.getElementById(formId);
-    if (form) {
-        const inputs = form.querySelectorAll('input');
-        
-        inputs.forEach(input => {
-            if (input.type === 'checkbox' || input.type === 'radio') {
-                input.checked = false;
-            } else if (input.type != 'hidden'){
-                input.value = '';
-            }
-        });
-
-        const boolInputs = form.querySelectorAll('input[name^="bool_"]');
-        
-        boolInputs.forEach(input => {
-            console.log(input);
-            if (input.value === 'True') {
-                toggleButton(input.id.split('_')[1]);
-            }
-        });
-    } else {
-        console.error(`Form with ID '${formId}' not found.`);
-    }
 }
