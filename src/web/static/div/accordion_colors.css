@@ -1,79 +1,39 @@
-.wisdom-color .accordion-button {
-    background-color: var(--green-color-darker);
-}
-
-.wisdom-color .accordion-button:hover {
+.wisdom-color .accordion-button, .wisdom-color .accordion-content button {
     background-color: var(--green-color-darkest);
 }
 
-.wisdom-color .accordion-content button {
+.wisdom-color .accordion-button:hover, .wisdom-color .accordion-content button:hover {
     background-color: var(--green-color);
 }
 
-.wisdom-color .accordion-content button:hover {
-    background-color: var(--green-color-dark);
-}
-
-.stability-color .accordion-button {
-    background-color: var(--red-color-darker);
-}
-
-.stability-color .accordion-button:hover {
+.stability-color .accordion-button, .stability-color .accordion-content button {
     background-color: var(--red-color-darkest);
 }
 
-.stability-color .accordion-content button {
+.stability-color .accordion-button:hover, .stability-color .accordion-content button:hover {
     background-color: var(--red-color);
 }
 
-.stability-color .accordion-content button:hover {
-    background-color: var(--red-color-dark);
-}
-
-.strength-color .accordion-button {
-    background-color: var(--blue-color-darker);
-}
-
-.strength-color .accordion-button:hover {
+.strength-color .accordion-button, .strength-color .accordion-content button {
     background-color: var(--blue-color-darkest);
 }
 
-.strength-color .accordion-content button {
+.strength-color .accordion-button:hover, .strength-color .accordion-content button:hover {
     background-color: var(--blue-color);
 }
 
-.strength-color .accordion-content button:hover {
-    background-color: var(--blue-color-dark);
-}
-
-.kindness-color .accordion-button {
-    background-color: var(--yellow-color-darker);
-}
-
-.kindness-color .accordion-button:hover {
+.kindness-color .accordion-button, .kindness-color .accordion-content button {
     background-color: var(--yellow-color-darkest);
 }
 
-.kindness-color .accordion-content button {
+.kindness-color .accordion-button:hover, .kindness-color .accordion-content button:hover {
     background-color: var(--yellow-color);
 }
 
-.kindness-color .accordion-content button:hover {
-    background-color: var(--yellow-color-dark);
-}
-
-.devotion-color .accordion-button {
-    background-color: var(--purple-color-darker);
-}
-
-.devotion-color .accordion-button:hover {
+.devotion-color .accordion-button, .devotion-color .accordion-content button {
     background-color: var(--purple-color-darkest);
 }
 
-.devotion-color .accordion-content button {
+.devotion-color .accordion-button:hover, .devotion-color .accordion-content button:hover {
     background-color: var(--purple-color);
-}
-
-.devotion-color .accordion-content button:hover {
-    background-color: var(--purple-color-dark);
 }
