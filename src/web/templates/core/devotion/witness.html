@@ -1,18 +1,18 @@
 {% extends "base2.html" %}
 
 {% block title %}
-    Patrocinador
+    Expectador
 {% endblock %}
 
 {% block content %}
 
-<form id="myForm" action="/add/stability/sponsor/" method="POST" onsubmit="submitForm(event)">
-    <div class="element-box stability">
+<form id="myForm" action="/add/devotion/witness/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box devotion">
         <div class="element-header">
-            <span>Patrocinador</span>
+            <span>Expectador</span>
         </div>
         <div class="element-habit">
-            <span>Sobre o hábito da <strong>Trabalhar</strong></span>
+            <span>Sobre o hábito de <strong>Atentar-se</strong></span>
         </div>
         <div class="element-table">
 
@@ -22,24 +22,9 @@
                 </div>
             </div>
 
-            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
-
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_work" class="toggle" onclick="toggleButton('work')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span>Trabalho</span>
-                    <input type="hidden" id="input_work" name="bool_work" value="False">
-                </div>
-            </div>
-            <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_excelence" class="toggle" onclick="toggleButton('excelence')">
-                        <div class="toggle-button"></div>
-                    </div>
-                    <span>Autoelogio</span>
-                    <input type="hidden" id="input_excelence" name="bool_excelence" value="False">
+                <div class="element-cell cell-100">
+                    <textarea id="string_experience"></textarea>
                 </div>
             </div>
 
@@ -65,6 +50,20 @@
 <script>
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('data').value = today;
+    
+    document.getElementById('string_experience').value = 'Experiência Marcante: \n-> \n-> ';
+    document.getElementById('string_experience').addEventListener('blur', function() {
+
+    var input = document.createElement('input');
+    
+    input.type = 'hidden';
+    input.name = 'string_experience';
+    input.value = this.value;
+    
+    var container = this.parentNode;
+    
+    container.appendChild(input);
+});
 </script>
 
 {% endblock %}

@@ -64,17 +64,13 @@
                     </div>
                     <input type="hidden" id="input_anxiety" name="bool_anxiety" value="False">
                 </div>
-            </div>        
-
-            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            </div>
 
             <div class="element-row">
                 <div class="element-cell cell-100">
                     <textarea id="string_vent"></textarea>
                 </div>
             </div>
-
-            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
         </div>
     </div>
@@ -99,7 +95,7 @@
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('data').value = today;
 
-    document.getElementById('string_vent').value = '- Gatilho: \n- Reação Impulsiva: \n- Resposta Desejada: ';
+    document.getElementById('string_vent').value = '• Gatilho: \n• Reação Impulsiva: \n• Resposta Desejada: ';
     document.getElementById('string_vent').addEventListener('blur', function() {
 
     var input = document.createElement('input');
