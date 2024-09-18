@@ -24,7 +24,155 @@
 
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
+            <div class="element-row wisdom">
+                <div class="element-cell cell-33">Sabedoria</div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="11" data-question-group="enum_wisdom" onclick="selectAlternativeOverwrite('11', 'enum_wisdom', 'disappointed')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-down"></i></span>
+                    </div>
+                </div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="12" data-question-group="enum_wisdom" onclick="selectAlternativeOverwrite('12', 'enum_wisdom', 'satisfied')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-up"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="element-row stability">
+                <div class="element-cell cell-33">Estabilidade</div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="21" data-question-group="enum_stability" onclick="selectAlternativeOverwrite('21', 'enum_stability', 'disappointed')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-down"></i></span>
+                    </div>
+                </div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="22" data-question-group="enum_stability" onclick="selectAlternativeOverwrite('22', 'enum_stability', 'satisfied')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-up"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="element-row strength">
+                <div class="element-cell cell-33">Força</div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="31" data-question-group="enum_strength" onclick="selectAlternativeOverwrite('31', 'enum_strength', 'disappointed')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-down"></i></span>
+                    </div>
+                </div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="32" data-question-group="enum_strength" onclick="selectAlternativeOverwrite('32', 'enum_strength', 'satisfied')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-up"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="element-row kindness">
+                <div class="element-cell cell-33">Gentileza</div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="41" data-question-group="enum_kindness" onclick="selectAlternativeOverwrite('41', 'enum_kindness', 'disappointed')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-down"></i></span>
+                    </div>
+                </div>
+                <div class="element-cell cell-33">
+                    <div class="alternative" id="42" data-question-group="enum_kindness" onclick="selectAlternativeOverwrite('42', 'enum_kindness', 'satisfied')">
+                        <div class="dot"></div>
+                        <span><i class="fas fa-thumbs-up"></i></span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="element-row"><div class="element-cell cell-100"><br><br></div></div>
+
+            <div class="element-row wisdom">
+                <div class="element-cell cell-33">
+                    <div id="id_navigator" class="check" onclick="checkButton('id_navigator', 'input_navigator', 'False', 'True')">
+                        <span>Navegador</span>
+                    </div>
+                    <input type="hidden" id="input_navigator" name="bool_navigator" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_alchimist" class="check" onclick="checkButton('id_alchimist', 'input_alchimist', 'False', 'True')">
+                        <span>Alquimista</span>
+                    </div>
+                    <input type="hidden" id="input_alchimist" name="bool_alchimist" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_sentinel" class="check" onclick="checkButton('id_sentinel', 'input_sentinel', 'False', 'True')">
+                        <span>Sentinela</span>
+                    </div>
+                    <input type="hidden" id="input_sentinel" name="bool_sentinel" value="False">
+                </div>
+            </div>
+            <div class="element-row stability">
+                <div class="element-cell cell-33">
+                    <div id="id_sponsor" class="check" onclick="checkButton('id_sponsor', 'input_sponsor', 'False', 'True')">
+                        <span>Patrocinador</span>
+                    </div>
+                    <input type="hidden" id="input_sponsor" name="bool_sponsor" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_patron" class="check" onclick="checkButton('id_patron', 'input_patron', 'False', 'True')">
+                        <span>Mecenas</span>
+                    </div>
+                    <input type="hidden" id="input_patron" name="bool_patron" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_treasurer" class="check" onclick="checkButton('id_treasurer', 'input_treasurer', 'False', 'True')">
+                        <span>Tesoureiro</span>
+                    </div>
+                    <input type="hidden" id="input_treasurer" name="bool_treasurer" value="False">
+                </div>
+            </div>
+            <div class="element-row strength">
+                <div class="element-cell cell-33">
+                    <div id="id_athlete" class="check" onclick="checkButton('id_athlete', 'input_athlete', 'False', 'True')">
+                        <span>Atleta</span>
+                    </div>
+                    <input type="hidden" id="input_athlete" name="bool_athlete" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_cook" class="check" onclick="checkButton('id_cook', 'input_cook', 'False', 'True')">
+                        <span>Cozinheiro</span>
+                    </div>
+                    <input type="hidden" id="input_cook" name="bool_cook" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_nutritionist" class="check" onclick="checkButton('id_nutritionist', 'input_nutritionist', 'False', 'True')">
+                        <span>Nutricionista</span>
+                    </div>
+                    <input type="hidden" id="input_nutritionist" name="bool_nutritionist" value="False">
+                </div>
+            </div>
+            <div class="element-row kindness">
+                <div class="element-cell cell-33">
+                    <div id="id_caretaker" class="check" onclick="checkButton('id_caretaker', 'input_caretaker', 'False', 'True')">
+                        <span>Zelador</span>
+                    </div>
+                    <input type="hidden" id="input_caretaker" name="bool_caretaker" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_diplomat" class="check" onclick="checkButton('id_diplomat', 'input_diplomat', 'False', 'True')">
+                        <span>Diplomata</span>
+                    </div>
+                    <input type="hidden" id="input_diplomat" name="bool_diplomat" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_citizen" class="check" onclick="checkButton('id_citizen', 'input_citizen', 'False', 'True')">
+                        <span>Cidadão</span>
+                    </div>
+                    <input type="hidden" id="input_citizen" name="bool_citizen" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="string_feedback"></textarea>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -48,6 +196,20 @@
 <script>
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('data').value = today;
+    
+    document.getElementById('string_feedback').value = 'Amanhã posso ser melhor que hoje se: \n-> \n-> ';
+    document.getElementById('string_feedback').addEventListener('blur', function() {
+
+    var input = document.createElement('input');
+    
+    input.type = 'hidden';
+    input.name = 'string_feedback';
+    input.value = this.value;
+    
+    var container = this.parentNode;
+    
+    container.appendChild(input);
+});
 </script>
 
 {% endblock %}
