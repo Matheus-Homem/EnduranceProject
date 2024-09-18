@@ -83,12 +83,19 @@ function formatValue(value, type) {
             return unit + "." + decimal + " km";
         }
     } else if (type === 'exercise') {
-        if (value.length < 4 || value.length > 5) {
-            return "__'__''";
+        if (value.length !== 6) {
+            return "__h__'__''";
         } else {
-            const minutes = value.slice(0, -2);
+            const hour = value.slice(0, 2);
+            const minutes = value.slice(2, 4);
             const seconds = value.slice(-2);
-            return minutes + "'" + seconds + "''";
+            return hour + "h " + minutes + "' " + seconds + "''";
+        }
+    } else if (type === 'bpm') {
+        if (value.length < 2 || value.length > 3) {
+            return "_ bpm";
+        } else {
+            return value + " bpm";
         }
     }
 }
@@ -169,7 +176,7 @@ function addRow() {
     newRow.innerHTML = `
         <div class="element-row"><div class="element-cell cell-100"><br></div></div>
         <div class="element-row">
-            <div class="element-cell cell-100 text-input">
+            <div class="element-cell cell-100 ">
                 <input type="text" name="string_book_${rowIndex}" placeholder="Nome do Livro">
             </div>
         </div>
@@ -228,7 +235,7 @@ function submitForm(event) {
         .then(data => {
             if (data.message === 'Form successfully submitted!') {
                 alert(data.message);
-                resetAllInputs(form.id);
+                location.reload();
             } else {
                 alert(data.message);
             }
@@ -244,30 +251,4 @@ function submitForm(event) {
     }
 
     trySubmit(1);
-}
-
-function resetAllInputs(formId) {
-    const form = document.getElementById(formId);
-    if (form) {
-        const inputs = form.querySelectorAll('input');
-        
-        inputs.forEach(input => {
-            if (input.type === 'checkbox' || input.type === 'radio') {
-                input.checked = false;
-            } else if (input.type != 'hidden'){
-                input.value = '';
-            }
-        });
-
-        const boolInputs = form.querySelectorAll('input[name^="bool_"]');
-        
-        boolInputs.forEach(input => {
-            console.log(input);
-            if (input.value === 'True') {
-                toggleButton(input.id.split('_')[1]);
-            }
-        });
-    } else {
-        console.error(`Form with ID '${formId}' not found.`);
-    }
 }

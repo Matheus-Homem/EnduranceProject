@@ -11,6 +11,7 @@ from src.web.helpers import (
     convert_input_date,
     display_debug_message,
     display_success_message,
+    display_error_message,
 )
 
 MAX_RETRIES = 15
@@ -44,8 +45,15 @@ def add_entry(category, element):
         display_success_message(f"Processing POST request for {element.capitalize()}")
 
         form_data = request.form.to_dict()
-        entry_date = convert_input_date(date_to_convert=form_data["date_input"])
+        display_debug_message(f"Form data received: {form_data}")
+
+        try:
+            entry_date = convert_input_date(date_to_convert=form_data.get("date_input"))
+        except ValueError as e:
+            return jsonify({"message": f"Invalid date format: {e}"}), 400
+
         entry_string = clean_and_serialize_dict(data=form_data)
+        display_debug_message(f"Serialized entry string: {entry_string}")
 
         for attempt in range(1, 4):
             try:
@@ -60,11 +68,13 @@ def add_entry(category, element):
                         schema_version=1,
                         op="c",
                     )
+                display_success_message("Form successfully submitted!")
                 return jsonify({"message": "Form successfully submitted!"}), 200
             except Exception as e:
-                print(f"Error inserting into the database on attempt {attempt}: {e}")
+                display_error_message(f"Error inserting into the database on attempt {attempt}: {e}")
                 time.sleep(1)
 
+        display_error_message("Error inserting into the database after multiple attempts")
         return jsonify({"message": "Error inserting into the database after multiple attempts"}), 500
     else:
         return render_template(f"core/{category}/{element}.html")

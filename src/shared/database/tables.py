@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pytz
-from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String
+from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String, Text
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
@@ -51,7 +51,7 @@ class ElementEntries(MySqlTable):
     user_id = Column(Integer, nullable=False)
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
-    element_string = Column(String(255), nullable=False)
+    element_string = Column(Text, nullable=False)
     schema_version = Column(Integer, nullable=False)
     op = Column(Enum("c", "d", "u"), nullable=False)
     created_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time)

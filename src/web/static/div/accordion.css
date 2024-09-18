@@ -16,7 +16,6 @@
     width: 100%;
     padding: 15px;
     text-align: left;
-    background-color: var(--green-color);
     color: var(--white-color);
     font-size: 16px;
     border: none;
@@ -33,7 +32,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
-    background-color: var(--white-color);
+    background-color: var(--gray-color-1);
     padding-left: 20px;
 }
 

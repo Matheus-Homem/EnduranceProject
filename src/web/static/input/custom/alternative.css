@@ -1,20 +1,20 @@
 .alternative, .dot {
-    transition: all 1s ease;
+    transition: all .5s ease;
 }
 
 .alternative {
     display: inline-block;
     cursor: pointer;
-    margin-right: 20px;
+    color: var(--gray-color-9);
 }
   
 .dot {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border: 3px solid var(--gray-color-8);
+    border: 2px solid var(--gray-color-9);
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 3px;
     vertical-align: middle;
 }
   
@@ -25,23 +25,17 @@
 
 .alternative.selected span {
     color: var(--strong-section-color);
-    font-weight: 800;
 }
 
-.alternative:hover, .alternative:focus {
-    background-color: var(--hover-background-color);
+.alternative:not(.selected):hover, .alternative:not(.selected):hover .dot, .dot:not(.selected):hover, .dot:not(.selected):hover  {
+    color: var(--white-color);
+    border-color: var(--white-color);
+    
 }
 
-.dot:hover, .dot:focus {
-    background-color: var(--hover-dot-background-color);
-    border-color: var(--hover-dot-border-color);
-}
-
-.selected .dot:hover, .selected .dot:focus {
-    background-color: var(--hover-selected-dot-background-color);
-    border-color: var(--hover-selected-dot-border-color);
-}
-
-.alternative.selected span:hover, .alternative.selected span:focus {
-    color: var(--hover-strong-section-color);
+@media (hover: none) and (pointer: coarse) {
+    .alternative:not(.selected):hover, .alternative:not(.selected):hover .dot, .dot:not(.selected):hover, .dot:not(.selected):hover .alternative {
+        color: initial;
+        border-color: initial;
+    }
 }
