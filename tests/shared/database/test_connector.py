@@ -7,7 +7,7 @@ from src.shared.database.connector import DatabaseConnector
 class TestDatabaseConnector(unittest.TestCase):
 
     def setUp(self):
-        self.database_connector = DatabaseConnector()
+        self.database_connector = DatabaseConnector(use_production_db=True)
         self.database_connector.logger = MagicMock()
 
         self.mock_mysql_keys = {

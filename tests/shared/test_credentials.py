@@ -19,15 +19,29 @@ class TestCredentials(unittest.TestCase):
             f"{ssh_username}.mysql.pythonanywhere-services.com",
         )
 
-    def test_mysql_credentials(self):
-        mysql_credentials = MySqlCredential().get_all_credentials()
+    def test_mysql_credentials_prd(self):
+        mysql_credentials = MySqlCredential().get_all_credentials(use_production_db=True)
         mysql_username = getenv("MYSQL_USERNAME")
-        mysql_database = getenv("MYSQL_DATABASE")
+        mysql_database_prd = getenv("MYSQL_DATABASE_PRD")
 
         self.assertEqual(mysql_credentials["host"], "127.0.0.1")
         self.assertEqual(mysql_credentials["username"], getenv("MYSQL_USERNAME"))
         self.assertEqual(mysql_credentials["password"], getenv("MYSQL_PASSWORD"))
-        self.assertEqual(mysql_credentials["database"], f"{mysql_username}${mysql_database}")
+        self.assertEqual(mysql_credentials["database"], f"{mysql_username}${mysql_database_prd}")
+        self.assertEqual(
+            mysql_credentials["hostname"],
+            f"{mysql_username}.mysql.pythonanywhere-services.com",
+        )
+
+    def test_mysql_credentials_dev(self):
+        mysql_credentials = MySqlCredential().get_all_credentials()
+        mysql_username = getenv("MYSQL_USERNAME")
+        mysql_database_dev = getenv("MYSQL_DATABASE_DEV")
+
+        self.assertEqual(mysql_credentials["host"], "127.0.0.1")
+        self.assertEqual(mysql_credentials["username"], getenv("MYSQL_USERNAME"))
+        self.assertEqual(mysql_credentials["password"], getenv("MYSQL_PASSWORD"))
+        self.assertEqual(mysql_credentials["database"], f"{mysql_username}${mysql_database_dev}")
         self.assertEqual(
             mysql_credentials["hostname"],
             f"{mysql_username}.mysql.pythonanywhere-services.com",

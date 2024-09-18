@@ -14,7 +14,7 @@ class TestDatabaseExecutorBuilder(unittest.TestCase):
         mock_session = MagicMock()
         mock_connector.get_session.return_value = mock_session
 
-        builder = DatabaseExecutorBuilder()
+        builder = DatabaseExecutorBuilder(use_production_db=False)
 
         MockDatabaseConnector.assert_called_once()
         mock_connector.get_session.assert_called_once_with(

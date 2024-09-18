@@ -1,7 +1,17 @@
 from datetime import datetime
 
 import pytz
-from sqlalchemy import JSON, Column, Date, DateTime, Enum, Integer, MetaData, String, Text
+from sqlalchemy import (
+    JSON,
+    Column,
+    Date,
+    DateTime,
+    Enum,
+    Integer,
+    MetaData,
+    String,
+    Text,
+)
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
@@ -66,4 +76,4 @@ class ElementSchemas(MySqlTable):
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
     schema_version = Column(Integer, nullable=False)
-    schema_definition = Column(JSON, nullable=False)
+    schema_definition = Column(Text, nullable=False)
