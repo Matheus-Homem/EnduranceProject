@@ -35,6 +35,6 @@
 
 @media (max-width: 600px) {
     .check {
-        max-width: 75px;
+        max-width: 85%;
     }
 }
