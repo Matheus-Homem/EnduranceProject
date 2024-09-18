@@ -10,8 +10,8 @@ from src.web.helpers import (
     clean_and_serialize_dict,
     convert_input_date,
     display_debug_message,
-    display_success_message,
     display_error_message,
+    display_success_message,
 )
 
 MAX_RETRIES = 15
@@ -57,7 +57,7 @@ def add_entry(category, element):
 
         for attempt in range(1, 4):
             try:
-                with DatabaseExecutorBuilder() as executor:
+                with DatabaseExecutorBuilder(use_production_db=True) as executor:
                     executor.insert(
                         table=tb.ElementEntries,
                         date=entry_date,
