@@ -1,4 +1,4 @@
-{% extends "base2.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     Atharva Bindu
@@ -70,19 +70,19 @@
             <div class="element-row">
                 <div class="element-cell cell-33">
                     <div id="id_badDay" class="check" onclick="checkButton('id_badDay', 'input_badDay', 'False', 'True')">
-                        <span>Um Dia Ruim</span>
+                        <span>Dia Ruim</span>
                     </div>
                     <input type="hidden" id="input_badDay" name="bool_badDay" value="False">
                 </div>
                 <div class="element-cell cell-33">
                     <div id="id_goodDay" class="check" onclick="checkButton('id_goodDay', 'input_goodDay', 'False', 'True')">
-                        <span>Um Dia Bom</span>
+                        <span>Dia Bom</span>
                     </div>
                     <input type="hidden" id="input_goodDay" name="bool_goodDay" value="False">
                 </div>
                 <div class="element-cell cell-33">
                     <div id="id_bestDay" class="check" onclick="checkButton('id_bestDay', 'input_bestDay', 'False', 'True')">
-                        <span>O Melhor Dia</span>
+                        <span>Melhor Dia</span>
                     </div>
                     <input type="hidden" id="input_bestDay" name="bool_bestDay" value="False">
                 </div>
@@ -114,7 +114,7 @@
     </div>
 
     <div class="buttonContainer">
-        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
             <i class="fas fa-home"></i>
             Home
         </button>

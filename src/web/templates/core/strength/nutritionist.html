@@ -1,4 +1,4 @@
-{% extends "base2.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     Nutricionista
@@ -27,7 +27,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Calorias de Ontem</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="integer_yesterdayCalories" name="integer_yesterdayCalories"
+                    <input type="number" id="int_yesterdayCalories" name="int_yesterdayCalories"
                         oninput="updateOutput('caloriesOutput', this.value, 'calories')" required>
                 </div>
                 <div class="element-cell cell-25"><output id="caloriesOutput">_ cal</output></div>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="buttonContainer">
-        <button type="button" class="homeButton" id="return" onclick="window.location.href='/2/'">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
             <i class="fas fa-home"></i>
             Home
         </button>
