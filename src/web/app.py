@@ -36,6 +36,8 @@ def add_entry(category, element):
     display_debug_message(f"Received element = {element}")
     display_debug_message(f"Received category = {category}")
 
+    element_entries_table = tb.ElementEntries
+
     if request.method == "POST":
         display_success_message(f"Processing POST request for {element.capitalize()}")
 
@@ -53,15 +55,15 @@ def add_entry(category, element):
         for attempt in range(1, 4):
             try:
                 with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
-                    executor.insert(
-                        table=tb.ElementEntries,
+                    executor.upsert(
+                        table=element_entries_table,
+                        uc_name=element_entries_table.get_unique_constraint_name(),
                         date=entry_date,
                         user_id=1,
                         element_category=category,
                         element_name=element,
                         element_string=entry_string,
                         schema_version=1,
-                        op="c",
                     )
                 display_success_message("Form successfully submitted!")
                 return jsonify({"message": "Form successfully submitted!"}), 200
