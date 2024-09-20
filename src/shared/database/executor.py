@@ -1,4 +1,7 @@
-from sqlalchemy import and_, select, text
+from typing import List
+
+from sqlalchemy import UniqueConstraint, and_, select, text
+from sqlalchemy.dialects.mysql import insert as mysql_insert
 from sqlalchemy.orm import Session
 from tabulate import tabulate
 
@@ -43,7 +46,6 @@ class DatabaseExecutor(LoggingPrinter):
                 stmt = stmt.where(and_(*conditions))
 
         results = self.session.execute(stmt).scalars().all()
-        headers = [column.name for column in table.__table__.columns]
         data = [{column.name: getattr(user, column.name) for column in table.__table__.columns} for user in results]
         self.logger.info(f"Data from {table.__tablename__} selected successfully")
         return data
@@ -80,3 +82,32 @@ class DatabaseExecutor(LoggingPrinter):
         self.session.query(table).filter_by(**filters).update(updates)
         self.session.commit()
         self.logger.info(f"Data in {table.__tablename__} updated successfully")
+
+    def upsert(self, table: MySqlTable, uc_name: str, **columns) -> None:
+        try:
+            uc_cols = self._get_unique_constraint_columns(table, uc_name)
+
+            stmt = mysql_insert(table).values(**columns)
+
+            update_dict = {col: stmt.inserted[col] for col in columns if col not in uc_cols}
+
+            if "updated_at" in table.__table__.columns:
+                update_dict["updated_at"] = stmt.inserted["updated_at"]
+            if "op" in table.__table__.columns:
+                update_dict["op"] = "u"
+
+            stmt = stmt.on_duplicate_key_update(**update_dict)
+
+            self.session.execute(stmt)
+            self.session.commit()
+            self.logger.success(f"Data upserted into {table.__tablename__} successfully")
+        except Exception as e:
+            self.session.rollback()
+            self.logger.error(f"Failed to upsert data into {table.__tablename__}: {e}")
+            raise
+
+    def _get_unique_constraint_columns(self, table: MySqlTable, uc_name: str) -> List[str]:
+        for constraint in table.__table__.constraints:
+            if isinstance(constraint, UniqueConstraint) and constraint.name == uc_name:
+                return list(constraint.columns.keys())
+        raise ValueError(f"Unique constraint {uc_name} not found in table {table.__tablename__}")
