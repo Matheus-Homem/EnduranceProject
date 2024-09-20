@@ -18,7 +18,7 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="data" name="date_input">
+                    <input type="date" id="date_input" name="date_input">
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
             <i class="fa-solid fa-share"></i>
             Submit
         </button>
-        <button type="button" class="nextButton" id="next">
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/add/kindness/caretaker/'">
             <i class="fa-solid fa-forward"></i>
             Next
         </button>
@@ -63,8 +63,9 @@
 </form>
 
 <script>
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('data').value = today;
+    const now = new Date();
+    now.setHours(now.getHours() - 3);
+    document.getElementById('date_input').value = now.toISOString().split('T')[0];
 </script>
 
 {% endblock %}
