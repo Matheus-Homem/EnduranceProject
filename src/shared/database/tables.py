@@ -27,6 +27,7 @@ class MySqlTable(Base):
 
 class ElementEntries(MySqlTable):
     __tablename__ = "element_entries"
+    __unique_constraint_name__ = "_entry_uc"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     date = Column(Date, nullable=False)
@@ -39,7 +40,11 @@ class ElementEntries(MySqlTable):
     created_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time)
     updated_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time, onupdate=current_brasilia_sp_time)
 
-    __table_args__ = (UniqueConstraint("date", "user_id", "element_category", "element_name", name="_entry_uc"),)
+    __table_args__ = (UniqueConstraint("date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
+
+    @classmethod
+    def get_unique_constraint_name(cls):
+        return cls.__unique_constraint_name__
 
 
 class ElementSchemas(MySqlTable):
