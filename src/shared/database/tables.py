@@ -10,12 +10,15 @@ from sqlalchemy import (
     MetaData,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base(metadata=MetaData())
 
-current_brasilia_sp_time = lambda: datetime.now(pytz.timezone("America/Sao_Paulo"))
+
+def current_brasilia_sp_time():
+    return datetime.now(pytz.timezone("America/Sao_Paulo"))
 
 
 class MySqlTable(Base):
@@ -32,9 +35,11 @@ class ElementEntries(MySqlTable):
     element_name = Column(String(255), nullable=False)
     element_string = Column(Text, nullable=False)
     schema_version = Column(Integer, nullable=False)
-    op = Column(Enum("c", "d", "u"), nullable=False)
+    op = Column(Enum("c", "u", "d"), nullable=False, default="c")
     created_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time)
     updated_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time, onupdate=current_brasilia_sp_time)
+
+    __table_args__ = (UniqueConstraint("date", "user_id", "element_category", "element_name", name="_entry_uc"),)
 
 
 class ElementSchemas(MySqlTable):
