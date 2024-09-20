@@ -25,13 +25,23 @@ class MySqlTable(Base):
     __abstract__ = True
 
 
+class User(MySqlTable):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(255), nullable=False, unique=True)
+    email = Column(String(255), nullable=False, unique=True)
+    password = Column(String(255), nullable=False)
+    user_id = Column(String(36), unique=True, nullable=False)
+
+
 class ElementEntries(MySqlTable):
     __tablename__ = "element_entries"
     __unique_constraint_name__ = "_entry_uc"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     date = Column(Date, nullable=False)
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(String(36), nullable=False)
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
     element_string = Column(Text, nullable=False)
