@@ -17,7 +17,7 @@
 
 }
 
-.nextButton, .submitButton, .homeButton {
+.nextButton, .submitButton, .homeButton, .loginButton {
     background-color: var(--gray-color-4);
     border: none;
     color: var(--text-color);
@@ -28,18 +28,7 @@
     border-radius: 5px;
 }
 
-.createButton, .editButton {
-    background-color: var(--gray-color-2);
-    border: none;
-    color: var(--text-color);
-    font-size: 13px;
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: transform 0.1s ease;
-    border-radius: 5px;
-}
-
-.nextButton:active, .submitButton:active, .homeButton:active, .createButton:active, .editButton:active, .addButton:active, .removeButton:active {
+.nextButton:active, .submitButton:active, .homeButton:active, .addButton:active, .removeButton:active, .loginButton:active {
     transform: scale(0.90);
 }
 
@@ -47,18 +36,10 @@
     background-color: var(--section-color);
 }
 
-.nextButton:hover, .submitButton:hover, .homeButton:hover {
+.nextButton:hover, .submitButton:hover, .homeButton:hover, .loginButton:hover {
     background-color: var(--gray-color-6);
 }
 
-.nextButton:focus, .submitButton:focus, .homeButton:focus {
+.nextButton:focus, .submitButton:focus, .homeButton:focus, .loginButton:focus {
     background-color: var(--gray-color-8);
-}
-
-.createButton:hover, .editButton:hover {
-    background-color: orange;
-}
-
-.createButton:focus, .editButton:focus {
-    background-color: orange;
 }
