@@ -106,7 +106,7 @@ def register():
 
         hashed_password = generate_password_hash(new_password)
 
-        with DatabaseExecutorBuilder(use_production_db=False) as executor:
+        with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
             existing_user = executor.select(tb.User, username=new_username)
             existing_email = executor.select(tb.User, email=new_email)
             if existing_user != []:
