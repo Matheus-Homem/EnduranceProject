@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="page-title">
+        <h1>Login</h1>
+        <h2>Login</h2>
+    </div>
+
+    <form action="/login" method="POST">
+        <div class="element-box">
+            <div class="element-table">
+
+                <div class="element-row">
+                    <div class="element-cell cell-50">
+                        <label for="username">Username:</label>
+                    </div>
+                    <div class="element-cell cell-50">
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                </div>
+                <div class="element-row">
+                    <div class="element-cell cell-50">
+                        <label for="password">Password:</label>
+                    </div>
+                    <div class="element-cell cell-50">
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="buttonContainer">
+            <button type="button" class="loginButton" id="register">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Sign In
+            </button>
+            <button type="submit" class="loginButton" id="submit">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('register').addEventListener('click', function() {
+            window.location.href = '/register';
+        });
+    </script>
+
+
+{% endblock %}
