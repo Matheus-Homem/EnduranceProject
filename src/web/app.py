@@ -17,8 +17,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import src.shared.database.tables as tb
 from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
+from src.shared.utils import DateUtils, DictUtils, HashUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
-from src.web.helpers import WebUtils
 
 MAX_RETRIES = 15
 
@@ -54,7 +54,7 @@ def register():
         confirm_password = request.form["confirm_password"]
         new_email = request.form["email"]
 
-        if not WebUtils.is_valid_password(new_password):
+        if not ValidationUtils.is_valid_password(new_password):
             return redirect(
                 url_for(
                     "flash_message",
@@ -67,7 +67,7 @@ def register():
         if new_password != confirm_password:
             return redirect(url_for("flash_message", page="register", flash_category="error", message="Passwords do not match"))
 
-        if not WebUtils.is_valid_email(new_email):
+        if not ValidationUtils.is_valid_email(new_email):
             return redirect(url_for("flash_message", page="register", flash_category="error", message="Invalid email format"))
 
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
@@ -144,7 +144,7 @@ def add_entry(category, element):
         form_data = request.form.to_dict()
 
         try:
-            entry_date = WebUtils.convert_input_date(date_to_convert=form_data.get("date_input"))
+            entry_date = DateUtils.convert_input_date(date_to_convert=form_data.get("date_input"))
         except ValueError as e:
             return jsonify({"message": f"Invalid date format: {e}"}), 400
 
@@ -159,8 +159,8 @@ def add_entry(category, element):
                         user_id=session["user_id"],
                         element_category=category,
                         element_name=element,
-                        element_string=WebUtils.clean_and_serialize_dict(data=form_data),
-                        schema_version=1,
+                        element_string=DictUtils.clean_and_serialize_dict(data=form_data),
+                        schema_version=HashUtils.hash_list(input_list=list(form_data.keys())),
                     )
 
                 smp.success("Form successfully submitted!")
