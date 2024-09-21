@@ -1,6 +1,3 @@
-from datetime import datetime
-
-import pytz
 from sqlalchemy import (
     Column,
     Date,
@@ -13,13 +10,9 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 from sqlalchemy.orm import declarative_base
+from src.shared.utils import DateUtils
 
 Base = declarative_base(metadata=MetaData())
-
-
-def current_brasilia_sp_time():
-    return datetime.now(pytz.timezone("America/Sao_Paulo"))
-
 
 class MySqlTable(Base):
     __abstract__ = True
@@ -47,8 +40,8 @@ class ElementEntries(MySqlTable):
     element_string = Column(Text, nullable=False)
     schema_version = Column(Integer, nullable=False)
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
-    created_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time)
-    updated_at = Column(DateTime, nullable=False, default=current_brasilia_sp_time, onupdate=current_brasilia_sp_time)
+    created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
 
     __table_args__ = (UniqueConstraint("date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
 
@@ -59,10 +52,19 @@ class ElementEntries(MySqlTable):
 
 class ElementSchemas(MySqlTable):
     __tablename__ = "element_schemas"
+    __unique_constraint_name__ = "_schema_uc"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, nullable=False)
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
-    schema_version = Column(Integer, nullable=False)
+    schema_version = Column(String(64), nullable=False)
     schema_definition = Column(Text, nullable=False)
+    op = Column(Enum("c", "u", "d"), nullable=False, default="c")
+    created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
+
+    __table_args__ = (UniqueConstraint("element_category", "element_name", "schema_version", name=__unique_constraint_name__),)
+
+    @classmethod
+    def get_unique_constraint_name(cls):
+        return cls.__unique_constraint_name__
