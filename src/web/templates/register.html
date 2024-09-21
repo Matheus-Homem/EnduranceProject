@@ -57,13 +57,17 @@
                 <i class="fa-solid fa-pen-to-square"></i>
                 Sign Up
             </button>
+            <button type="button" class="loginButton" id="login">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Login
+            </button>
         </div>
     </form>
 
     <script>
-        function showError(message) {
-            alert(message);
-        }
+        document.getElementById('login').addEventListener('click', function() {
+            window.location.href = '/login';
+        });
 
         async function handleSubmit(event) {
             event.preventDefault();
