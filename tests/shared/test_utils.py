@@ -1,6 +1,6 @@
 import unittest
 
-from src.shared.utils import (DateUtils, StringUtils, ValidationUtils, DictUtils)
+from src.shared.utils import DateUtils, DictUtils, StringUtils, ValidationUtils
 
 
 class TestStringUtils(unittest.TestCase):
