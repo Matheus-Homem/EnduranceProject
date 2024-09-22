@@ -71,8 +71,8 @@ def register():
             return redirect(url_for("flash_message", page="register", flash_category="error", message="Invalid email format"))
 
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
-            existing_user = executor.select(tb.User, username=new_username)
-            existing_email = executor.select(tb.User, email=new_email)
+            existing_user = executor.select(tb.Users, username=new_username)
+            existing_email = executor.select(tb.Users, email=new_email)
 
             if existing_user != []:
                 return redirect(url_for("flash_message", page="register", flash_category="error", message="Username already exists"))
@@ -80,7 +80,7 @@ def register():
                 return redirect(url_for("flash_message", page="register", flash_category="error", message="Email already exists"))
 
             executor.insert(
-                table=tb.User,
+                table=tb.Users,
                 username=new_username,
                 email=new_email,
                 password=generate_password_hash(new_password),
@@ -98,7 +98,7 @@ def login():
 
     if request.method == "POST":
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
-            users = executor.select(tb.User, username=request.form["username"])
+            users = executor.select(tb.Users, username=request.form["username"])
             user = users[0] if users else None
 
             if not user:
@@ -144,9 +144,11 @@ def add_entry(category, element):
         form_data = request.form.to_dict()
 
         try:
-            entry_date = DateUtils.convert_input_date(date_to_convert=form_data.get("date_input"))
+            entry_date = DateUtils.convert_date_input(date_to_convert=form_data.get("date_input"))
         except ValueError as e:
             return jsonify({"message": f"Invalid date format: {e}"}), 400
+
+        schema_fields = list(form_data.keys())
 
         for attempt in range(1, 4):
             try:
@@ -160,7 +162,7 @@ def add_entry(category, element):
                         element_category=category,
                         element_name=element,
                         element_string=DictUtils.clean_and_serialize_dict(data=form_data),
-                        schema_version=HashUtils.hash_list(input_list=list(form_data.keys())),
+                        schema_hash=element_entries_table.get_schema_hash(schema_fields=schema_fields),
                     )
 
                 smp.success("Form successfully submitted!")
