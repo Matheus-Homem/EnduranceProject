@@ -2,6 +2,7 @@ import hashlib
 import json
 import re
 from datetime import date, datetime
+
 import pytz
 from unidecode import unidecode
 
@@ -19,10 +20,6 @@ class StringUtils:
     @staticmethod
     def clean_string(input: str) -> str:
         return StringUtils.remove_special_characters(StringUtils.remove_newlines(input))
-    
-    @staticmethod
-    def convert_list_to_string(input_list: list) -> str:
-        return ",".join(input_list)
 
 
 class DictUtils:
@@ -59,9 +56,9 @@ class ValidationUtils:
 class DateUtils:
 
     @staticmethod
-    def convert_input_date(date_to_convert: str) -> date:
+    def convert_date_input(date_to_convert: str) -> date:
         return date.fromisoformat(date_to_convert)
-    
+
     @staticmethod
     def current_brasilia_sp_time():
         return datetime.now(pytz.timezone("America/Sao_Paulo"))
@@ -70,5 +67,5 @@ class DateUtils:
 class HashUtils:
 
     @staticmethod
-    def hash_list(input_list: list) -> str:
-        return hashlib.sha256(str(input_list).encode("utf-8")).hexdigest()
+    def string_to_sha256(input: str) -> str:
+        return hashlib.sha256(input.encode("utf-8")).hexdigest()
