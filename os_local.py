@@ -4,7 +4,7 @@ from typing import List
 def get_absolute_path(path: str) -> str:
     return os.path.abspath(path)
 
-def get_environment_variable(var: str, default: str) -> str:
+def get_environment_variable(var: str, default: str=None) -> str:
     return os.environ.get(var, default)
 
 def join_paths(*paths) -> str:
