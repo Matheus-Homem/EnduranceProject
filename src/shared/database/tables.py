@@ -13,7 +13,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base
 
-from src.shared.utils import DateUtils, HashUtils
+from src.shared.utils import DateUtils, HashUtils, ValidationUtils
 
 Base = declarative_base(metadata=MetaData())
 
@@ -28,6 +28,8 @@ class MySqlTable(Base):
 
     @staticmethod
     def get_schema_hash(schema_fields: List[str]) -> str:
+        if not ValidationUtils.is_list_of_strings(schema_fields):
+            raise ValueError("Input `schema_fields` must be a list of strings.")
         fields_as_string = ",".join(schema_fields)
         return HashUtils.string_to_sha256(fields_as_string)
 
