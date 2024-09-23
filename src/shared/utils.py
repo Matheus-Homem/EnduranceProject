@@ -2,6 +2,7 @@ import hashlib
 import json
 import re
 from datetime import date, datetime
+from typing import List
 
 import pytz
 from unidecode import unidecode
@@ -10,7 +11,7 @@ from unidecode import unidecode
 class StringUtils:
 
     @staticmethod
-    def remove_newlines(input: str) -> str:
+    def remove_linebreaks(input: str) -> str:
         return re.sub(r"[\r\n]", "", input)
 
     @staticmethod
@@ -19,7 +20,7 @@ class StringUtils:
 
     @staticmethod
     def clean_string(input: str) -> str:
-        return StringUtils.remove_special_characters(StringUtils.remove_newlines(input))
+        return StringUtils.remove_special_characters(StringUtils.remove_linebreaks(input))
 
 
 class DictUtils:
@@ -29,8 +30,8 @@ class DictUtils:
         return json.dumps(data)
 
     @staticmethod
-    def clean_and_serialize_dict(data: dict) -> str:
-        cleaned_dict = {StringUtils.clean_string(key): StringUtils.clean_string(str(value)) for key, value in data.items()}
+    def clean_and_serialize_dict(input_dict: dict) -> str:
+        cleaned_dict = {StringUtils.clean_string(key): StringUtils.clean_string(str(value)) for key, value in input_dict.items()}
         serialized_dict = DictUtils.serialize_dict(cleaned_dict)
         return serialized_dict
 
@@ -38,7 +39,7 @@ class DictUtils:
 class ValidationUtils:
 
     @staticmethod
-    def is_valid_password(password) -> bool:
+    def is_valid_password(password: str) -> bool:
         if len(password) < 8:
             return False
         if not re.search(r"\d", password):
@@ -48,9 +49,13 @@ class ValidationUtils:
         return True
 
     @staticmethod
-    def is_valid_email(email) -> bool:
+    def is_valid_email(email: str) -> bool:
         email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         return re.match(email_regex, email) is not None
+
+    @staticmethod
+    def is_list_of_strings(input: List[str]) -> bool:
+        return isinstance(input, list) and all(isinstance(item, str) for item in input)
 
 
 class DateUtils:
