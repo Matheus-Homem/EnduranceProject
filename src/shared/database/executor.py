@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from sqlalchemy import UniqueConstraint, and_, select, text
 from sqlalchemy.dialects.mysql import insert as mysql_insert
@@ -82,6 +82,19 @@ class DatabaseExecutor(LoggingPrinter):
         self.session.query(table).filter_by(**filters).update(updates)
         self.session.commit()
         self.logger.info(f"Data in {table.__tablename__} updated successfully")
+
+    def show_tables(self) -> List[str]:
+        result = self.session.execute(text("SHOW TABLES"))
+        tables = [row[0] for row in result]
+        self.logger.info("Tables shown successfully")
+        return tables
+
+    def show_create_table(self, table: Union[MySqlTable, str]) -> str:
+        table_name = table.__tablename__.upper() if isinstance(table, MySqlTable) else table.upper()
+        result = self.session.execute(text(f"SHOW CREATE TABLE {table}"))
+        create_table_stmt = result.fetchone()[1]
+        self.logger.info(f"CREATE TABLE statement for {table_name} shown successfully")
+        return create_table_stmt
 
     def upsert(self, table: MySqlTable, uc_name: str, **columns) -> None:
         try:
