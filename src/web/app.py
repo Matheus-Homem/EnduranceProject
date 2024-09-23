@@ -161,7 +161,7 @@ def add_entry(category, element):
                         user_id=session["user_id"],
                         element_category=category,
                         element_name=element,
-                        element_string=DictUtils.clean_and_serialize_dict(data=form_data),
+                        element_string=DictUtils.clean_and_serialize_dict(input_dict=form_data),
                         schema_hash=element_entries_table.get_schema_hash(schema_fields=schema_fields),
                     )
 
