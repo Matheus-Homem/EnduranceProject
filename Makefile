@@ -50,9 +50,9 @@ sql-export:
 	@echo Running the web application...
 	@$(if $(filter $(OS),Windows_NT), \
 		set PYTHONPATH=./ && \
-		python scripts/export_db_statements.py, \
+		python scripts/schema_exporter.py, \
 		export PYTHONPATH=./ && \
-		python3 scripts/export_db_statements.py)
+		python3 scripts/schema_exporter.py)
 
 chore:
 	@echo Running isort...
