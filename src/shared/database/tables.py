@@ -21,6 +21,7 @@ Base = declarative_base(metadata=MetaData())
 class MySqlTable(Base):
     __abstract__ = True
     __unique_constraint_name__ = None
+    __tablename__: str
 
     @classmethod
     def get_unique_constraint_name(cls) -> str:
