@@ -1,4 +1,3 @@
-import os
 import time
 import uuid
 
@@ -15,6 +14,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import src.shared.database.tables as tb
+from os_local import get_environment_variable
 from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
 from src.shared.utils import DateUtils, DictUtils, HashUtils, ValidationUtils
@@ -23,7 +23,7 @@ from src.web.helpers import SimpleMessagePrinter as smp
 MAX_RETRIES = 15
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "default_secret_key")
+app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
 
 
 def login_required(f):

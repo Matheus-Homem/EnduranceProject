@@ -1,11 +1,11 @@
-import os
-
 import colorlog
+
+from os_local import join_paths
 
 
 class CustomColoredFormatter(colorlog.ColoredFormatter):
     def format(self, record):
-        src_path = os.path.join("src", "")
+        src_path = join_paths("src", "")
         src_index = record.pathname.lower().find(src_path)
 
         if src_index == -1:
