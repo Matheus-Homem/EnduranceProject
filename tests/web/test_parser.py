@@ -7,7 +7,7 @@ from os_local import (
     join_paths,
     list_directory_contents,
 )
-from src.web.parser import HTMLParser
+from src.web.schema.parser import HTMLParser
 
 
 class TestHTMLParser(unittest.TestCase):
@@ -50,6 +50,11 @@ class TestHTMLParser(unittest.TestCase):
     def test_parse_invalid_directory(self):
         with self.assertRaises(FileNotFoundError):
             self.parser.parse_html_files("src/web/templates/invalid")
+
+    def test_get_keynames(self):
+        self.assertEqual(self.parser.get_category_keyname(), "category")
+        self.assertEqual(self.parser.get_field_keyname(), "fields")
+        self.assertEqual(self.parser.get_dtype_keyname(), "dtypes")
 
     def test_parse_html_file(self):
         parsed_data = self.parser.parse_html_files("src/web/templates/core")
