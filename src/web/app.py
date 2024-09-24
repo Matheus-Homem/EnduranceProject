@@ -17,13 +17,16 @@ import src.shared.database.tables as tb
 from os_local import get_environment_variable
 from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.utils import DateUtils, DictUtils, HashUtils, ValidationUtils
+from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
+from src.web.schema.updater import SchemaUpdater
 
 MAX_RETRIES = 15
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
+
+SchemaUpdater().update_element_schemas()
 
 
 def login_required(f):
