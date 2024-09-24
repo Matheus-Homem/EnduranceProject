@@ -65,8 +65,43 @@
                 </div>
             </div>
 
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <span>Hedonismo:</span>&nbsp;
+                    <strong><span id="hedonicOutput">0</span></strong>
+                </div>
+                <div class="element-cell cell-50">
+                    <input type="range" id="hedonism" dtype="ordinal" name="hedonism" min="0" max="3" value="0" checked oninput="hedonicOutput.innerText = this.value">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <span>Eudaimonismo:</span>&nbsp;
+                    <strong><span id="eudaimonicOutput">0</span></strong>
+                </div>
+                <div class="element-cell cell-50">
+                    <input type="range" id="eudaimonic" dtype="ordinal" name="eudaimonic" min="0" max="3" value="0" checked oninput="eudaimonicOutput.innerText = this.value">
+                </div>
+            </div>
+
             <div class="element-row"><div class="element-cell cell-100"><br><br></div></div>
 
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <div id="id_sunset" class="check" onclick="checkButton('id_sunset', 'input_sunset', 'False', 'True')">
+                        <span>Ocaso</span>
+                    </div>
+                    <input type="hidden" id="input_sunset" dtype="bool" name="sunset" value="False">
+                </div>
+                <div class="element-cell cell-50">
+                    <div id="id_dawn" class="check" onclick="checkButton('id_dawn', 'input_dawn', 'False', 'True')">
+                        <span>Alvorada</span>
+                    </div>
+                    <input type="hidden" id="input_dawn" dtype="bool" name="dawn" value="False">
+                </div>
+            </div>
             <div class="element-row">
                 <div class="element-cell cell-33">
                     <div id="id_badDay" class="check" onclick="checkButton('id_badDay', 'input_badDay', 'False', 'True')">
@@ -85,26 +120,6 @@
                         <span>Melhor Dia</span>
                     </div>
                     <input type="hidden" id="input_bestDay" dtype="bool" name="bestDay" value="False">
-                </div>
-            </div>
-            <div class="element-row">
-                <div class="element-cell cell-33">
-                    <div id="id_sunset" class="check" onclick="checkButton('id_sunset', 'input_sunset', 'False', 'True')">
-                        <span>Ocaso</span>
-                    </div>
-                    <input type="hidden" id="input_sunset" dtype="bool" name="sunset" value="False">
-                </div>
-                <div class="element-cell cell-33">
-                    <div id="id_hedonicDay" class="check" onclick="checkButton('id_hedonicDay', 'input_hedonicDay', 'False', 'True')">
-                        <span>Hedônico</span>
-                    </div>
-                    <input type="hidden" id="input_hedonicDay" dtype="bool" name="hedonicDay" value="False">
-                </div>
-                <div class="element-cell cell-33">
-                    <div id="id_dawn" class="check" onclick="checkButton('id_dawn', 'input_dawn', 'False', 'True')">
-                        <span>Alvorada</span>
-                    </div>
-                    <input type="hidden" id="input_dawn" dtype="bool" name="dawn" value="False">
                 </div>
             </div>
 
