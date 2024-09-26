@@ -18,7 +18,7 @@ class SchemaUpdater(LoggingPrinter):
         self,
         table: MySqlTable = ElementSchemas,
         parser: HTMLParser = HTMLParser(),
-        hash_column: str = "schema_hash",
+        encoded_column: str = "schema_encoded",
         version_column: str = "schema_version",
         category_column: str = "element_category",
         element_column: str = "element_name",
@@ -27,11 +27,11 @@ class SchemaUpdater(LoggingPrinter):
         self.table = table
         self.parser = parser
         self.directory_path = "src/web/templates/core"
-        self.hash_column = hash_column
+        self.encoded_column = encoded_column
         self.version_column = version_column
         self.category_column = category_column
         self.element_column = element_column
-        self._validate_columns(columns=[self.hash_column, self.version_column, self.category_column, self.element_column])
+        self._validate_columns(columns=[self.encoded_column, self.version_column, self.category_column, self.element_column])
 
     def _validate_columns(self, columns: List[str]):
         for column in columns:
@@ -65,14 +65,14 @@ class SchemaUpdater(LoggingPrinter):
         self,
         category: str,
         element: str,
-        current_hash: str,
+        current_encode: str,
         defined_schemas: List[Dict[str, Any]],
     ) -> bool:
         for schema in defined_schemas:
             if (
                 schema.get(self.category_column) == category
                 and schema.get(self.element_column) == element
-                and schema.get(self.hash_column) == current_hash
+                and schema.get(self.encoded_column) == current_encode
             ):
                 return True
         return False
@@ -93,6 +93,10 @@ class SchemaUpdater(LoggingPrinter):
 
     def update_element_schemas(self):
         self.logger.info("Starting schema update process")
+
+        skipped_schemas = []
+        updated_schemas = []
+
         parsed_html_elements = self.parser.parse_html_files(directory=self.directory_path)
         table_uc = self.table.get_unique_constraint_name()
         category_keyname = self.parser.get_category_keyname()
@@ -113,18 +117,18 @@ class SchemaUpdater(LoggingPrinter):
                 renumbered_fields = self._reenumerate_fields(fields=unique_fields)
                 renumbered_dtypes = self._reenumerate_dtypes(dtypes=unique_dtypes)
 
-                schema_hash = self.table.get_schema_hash(schema_fields=unique_columns)
+                schema_encoded = self.table.get_schema_encoded(schema_fields=unique_columns)
 
                 if self._is_version_defined(
                     category=v.get("category"),
                     element=element,
-                    current_hash=schema_hash,
+                    current_encode=schema_encoded,
                     defined_schemas=existing_table,
                 ):
-                    self.logger.info(f"Schema for {element} in category {category} already up to date")
+                    skipped_schemas.append(element.upper() if element else element)
                     continue
                 else:
-                    self.logger.info(f"Schema for {element} in category {category} needs to be updated")
+                    updated_schemas.append(element.upper() if element else element)
                     schema_version = self._fetch_next_schema_version(
                         category=v.get("category"),
                         element=element,
@@ -137,7 +141,10 @@ class SchemaUpdater(LoggingPrinter):
                         element_category=category,
                         element_name=element,
                         schema_version=schema_version,
-                        schema_hash=schema_hash,
+                        schema_encoded=schema_encoded,
                         schema_fields=DictUtils.serialize_dict(data=renumbered_fields),
                         schema_dtypes=DictUtils.serialize_dict(data=renumbered_dtypes),
                     )
+        self.logger.success("Schema update process completed")
+        self.logger.info(f"Skipped schemas: {skipped_schemas}")
+        self.logger.info(f"Updated schemas: {updated_schemas}")
