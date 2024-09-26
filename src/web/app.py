@@ -26,8 +26,6 @@ MAX_RETRIES = 15
 app = Flask(__name__)
 app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
 
-SchemaUpdater().update_element_schemas()
-
 
 def login_required(f):
     def wrap(*args, **kwargs):
@@ -165,7 +163,7 @@ def add_entry(category, element):
                         element_category=category,
                         element_name=element,
                         element_string=DictUtils.clean_and_serialize_dict(input_dict=form_data),
-                        schema_hash=element_entries_table.get_schema_hash(schema_fields=schema_fields),
+                        schema_encoded=element_entries_table.get_schema_encoded(schema_fields=schema_fields),
                     )
 
                 smp.success("Form successfully submitted!")
@@ -181,4 +179,8 @@ def add_entry(category, element):
 
 
 if __name__ == "__main__":
+    if PRD:
+        SchemaUpdater().update_element_schemas()
+    else:
+        smp.debug("Running in development mode")
     app.run(debug=True)
