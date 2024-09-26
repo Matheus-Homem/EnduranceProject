@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import json
 import re
@@ -34,6 +35,10 @@ class DictUtils:
         cleaned_dict = {StringUtils.clean_string(key): StringUtils.clean_string(str(value)) for key, value in input_dict.items()}
         serialized_dict = DictUtils.serialize_dict(cleaned_dict)
         return serialized_dict
+
+    @staticmethod
+    def deserialize_dict(data: str) -> dict:
+        return json.loads(data)
 
 
 class ValidationUtils:
@@ -74,3 +79,13 @@ class HashUtils:
     @staticmethod
     def string_to_sha256(input: str) -> str:
         return hashlib.sha256(input.encode("utf-8")).hexdigest()
+
+
+class EncodingUtils:
+    @staticmethod
+    def encode_to_base64(input_string: str) -> str:
+        return base64.b64encode(input_string.encode("utf-8")).decode("utf-8")
+
+    @staticmethod
+    def decode_from_base64(encoded_string: str) -> str:
+        return base64.b64decode(encoded_string.encode("utf-8")).decode("utf-8")
