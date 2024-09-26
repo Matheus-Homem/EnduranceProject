@@ -13,26 +13,31 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base
 
-from src.shared.utils import DateUtils, HashUtils, ValidationUtils
+from src.shared.utils import DateUtils, EncodingUtils, ValidationUtils
 
 Base = declarative_base(metadata=MetaData())
 
 
 class MySqlTable(Base):
-    __abstract__ = True
-    __unique_constraint_name__ = None
     __tablename__: str
+    __abstract__: str = True
+    __unique_constraint_name__: str = None
 
     @classmethod
     def get_unique_constraint_name(cls) -> str:
         return cls.__unique_constraint_name__
 
     @staticmethod
-    def get_schema_hash(schema_fields: List[str]) -> str:
+    def get_schema_encoded(schema_fields: List[str]) -> str:
         if not ValidationUtils.is_list_of_strings(schema_fields):
             raise ValueError("Input `schema_fields` must be a list of strings.")
-        fields_as_string = ",".join(schema_fields)
-        return HashUtils.string_to_sha256(fields_as_string)
+        sorted_fields_as_string = ",".join(sorted(schema_fields))
+        return EncodingUtils.encode_to_base64(sorted_fields_as_string)
+
+    @staticmethod
+    def decode_schema(encoded_schema: str) -> List[str]:
+        decoded_string = EncodingUtils.decode_from_base64(encoded_schema)
+        return decoded_string.split(",")
 
 
 class Users(MySqlTable):
@@ -55,7 +60,7 @@ class ElementEntries(MySqlTable):
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
     element_string = Column(Text, nullable=False)
-    schema_hash = Column(String(64), nullable=False)
+    schema_encoded = Column(Text, nullable=False)
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
     created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
     updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
@@ -71,7 +76,7 @@ class ElementSchemas(MySqlTable):
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
     schema_version = Column(Integer, nullable=False)
-    schema_hash = Column(String(64), nullable=False)
+    schema_encoded = Column(Text, nullable=False)
     schema_fields = Column(Text, nullable=False)
     schema_dtypes = Column(Text, nullable=False)
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
