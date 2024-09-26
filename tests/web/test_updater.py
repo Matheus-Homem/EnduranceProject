@@ -11,7 +11,7 @@ class TestSchemaUpdater(unittest.TestCase):
     def setUp(self):
         self.table = MagicMock(spec=MySqlTable)
         self.table.__tablename__ = "mock_table"
-        self.table.schema_hash = "schema_hash"
+        self.table.schema_encoded = "schema_encoded"
         self.table.schema_version = "schema_version"
         self.table.element_category = "element_category"
         self.table.element_name = "element_name"
@@ -51,24 +51,24 @@ class TestSchemaUpdater(unittest.TestCase):
 
     def test_is_version_defined(self):
         defined_schemas = [
-            {"element_category": "category1", "element_name": "element1", "schema_hash": "hash1", "schema_version": 2},
-            {"element_category": "category2", "element_name": "element2", "schema_hash": "hash2", "schema_version": 3},
+            {"element_category": "category1", "element_name": "element1", "schema_encoded": "encode1", "schema_version": 2},
+            {"element_category": "category2", "element_name": "element2", "schema_encoded": "encode2", "schema_version": 3},
         ]
         category = "category1"
         element = "element1"
-        current_hash = "hash1"
-        result = self.updater._is_version_defined(category, element, current_hash, defined_schemas)
+        current_encode = "encode1"
+        result = self.updater._is_version_defined(category, element, current_encode, defined_schemas)
         self.assertTrue(result)
 
     def test_is_version_not_defined(self):
         defined_schemas = [
-            {"element_category": "category1", "element_name": "element1", "schema_hash": "hash1", "schema_version": 2},
-            {"element_category": "category2", "element_name": "element2", "schema_hash": "hash2", "schema_version": 3},
+            {"element_category": "category1", "element_name": "element1", "schema_encoded": "encode1", "schema_version": 2},
+            {"element_category": "category2", "element_name": "element2", "schema_encoded": "encode2", "schema_version": 3},
         ]
         category = "category1"
         element = "element1"
-        current_hash = "hash2"
-        result = self.updater._is_version_defined(category, element, current_hash, defined_schemas)
+        current_encode = "encode2"
+        result = self.updater._is_version_defined(category, element, current_encode, defined_schemas)
         self.assertFalse(result)
 
     def test_fetch_next_schema_version(self):
@@ -91,7 +91,7 @@ class TestSchemaUpdater(unittest.TestCase):
             }
         }
         self.table.get_unique_constraint_name.return_value = "unique_constraint"
-        self.table.get_schema_hash.return_value = "hash1"
+        self.table.get_schema_encoded.return_value = "encode1"
         self.updater._fetch_next_schema_version = MagicMock(return_value=1)
         self.updater._extract_unique_fields = MagicMock(return_value=["date_input", "boolTest", "snackMorning"])
         self.updater._filter_duplicate_fields = MagicMock(
@@ -108,7 +108,7 @@ class TestSchemaUpdater(unittest.TestCase):
 
         self.parser.parse_html_files.assert_called_once_with(directory=self.updater.directory_path)
         self.table.get_unique_constraint_name.assert_called_once()
-        self.table.get_schema_hash.assert_called_once_with(schema_fields=["date_input", "boolTest", "snackMorning"])
+        self.table.get_schema_encoded.assert_called_once_with(schema_fields=["date_input", "boolTest", "snackMorning"])
         self.updater._fetch_next_schema_version.assert_called_once_with(category="category1", element="element1", defined_schemas=[])
 
         executor.__enter__.return_value.upsert.assert_called_once_with(
@@ -117,7 +117,7 @@ class TestSchemaUpdater(unittest.TestCase):
             element_category=None,
             element_name="element1",
             schema_version=1,
-            schema_hash="hash1",
+            schema_encoded="encode1",
             schema_fields='{"0": "date_input", "1": "boolTest", "2": "snackMorning"}',
             schema_dtypes='{"0": "date", "1": "bool", "2": "ordinal"}',
         )
