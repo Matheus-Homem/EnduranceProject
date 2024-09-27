@@ -10,6 +10,7 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    Boolean,
 )
 from sqlalchemy.orm import declarative_base
 
@@ -55,7 +56,7 @@ class ElementEntries(MySqlTable):
     __unique_constraint_name__ = "_entry_uc"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    date = Column(Date, nullable=False)
+    entry_date = Column(Date, nullable=False)
     user_id = Column(String(36), nullable=False)
     element_category = Column(String(255), nullable=False)
     element_name = Column(String(255), nullable=False)
@@ -84,3 +85,12 @@ class ElementSchemas(MySqlTable):
     updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
 
     __table_args__ = (UniqueConstraint("element_category", "element_name", "schema_version", name=__unique_constraint_name__),)
+
+class DailyControl(MySqlTable):
+    __tablename__ = "daily_control"
+    
+    entry_date = Column(Date, primary_key=True)
+    user_id = Column(String(36), primary_key=True)
+    element_category = Column(String(255), primary_key=True)
+    element_name = Column(String(255), primary_key=True)
+    has_data = Column(Boolean, nullable=False)
