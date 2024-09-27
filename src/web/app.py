@@ -158,7 +158,7 @@ def add_entry(category, element):
                     executor.upsert(
                         table=element_entries_table,
                         uc_name=element_entries_table.get_unique_constraint_name(),
-                        date=entry_date,
+                        entry_date=entry_date,
                         user_id=session["user_id"],
                         element_category=category,
                         element_name=element,
