@@ -113,7 +113,6 @@ class TestSchemaUpdater(unittest.TestCase):
 
         executor.__enter__.return_value.upsert.assert_called_once_with(
             table=self.table,
-            uc_name="unique_constraint",
             element_category=None,
             element_name="element1",
             schema_version=1,
