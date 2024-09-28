@@ -1,6 +1,7 @@
 from typing import List
 
 from sqlalchemy import (
+    Boolean,
     Column,
     Date,
     DateTime,
@@ -10,7 +11,6 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
-    Boolean,
 )
 from sqlalchemy.orm import declarative_base
 
@@ -66,7 +66,7 @@ class ElementEntries(MySqlTable):
     created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
     updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
 
-    __table_args__ = (UniqueConstraint("date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
+    __table_args__ = (UniqueConstraint("entry_date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
 
 
 class ElementSchemas(MySqlTable):
@@ -86,11 +86,15 @@ class ElementSchemas(MySqlTable):
 
     __table_args__ = (UniqueConstraint("element_category", "element_name", "schema_version", name=__unique_constraint_name__),)
 
+
 class DailyControl(MySqlTable):
     __tablename__ = "daily_control"
-    
+    __unique_constraint_name__ = "_control_uc"
+
     entry_date = Column(Date, primary_key=True)
     user_id = Column(String(36), primary_key=True)
     element_category = Column(String(255), primary_key=True)
     element_name = Column(String(255), primary_key=True)
     has_data = Column(Boolean, nullable=False)
+
+    __table_args__ = (UniqueConstraint("entry_date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
