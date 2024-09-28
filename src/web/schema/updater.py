@@ -98,7 +98,6 @@ class SchemaUpdater(LoggingPrinter):
         updated_schemas = []
 
         parsed_html_elements = self.parser.parse_html_files(directory=self.directory_path)
-        table_uc = self.table.get_unique_constraint_name()
         category_keyname = self.parser.get_category_keyname()
         field_keyname = self.parser.get_field_keyname()
         dtype_keyname = self.parser.get_dtype_keyname()
@@ -137,7 +136,6 @@ class SchemaUpdater(LoggingPrinter):
 
                     executor.upsert(
                         table=self.table,
-                        uc_name=table_uc,
                         element_category=category,
                         element_name=element,
                         schema_version=schema_version,
