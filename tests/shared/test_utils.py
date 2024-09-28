@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import unittest
 from datetime import date, datetime
@@ -5,6 +6,7 @@ from datetime import date, datetime
 from src.shared.utils import (
     DateUtils,
     DictUtils,
+    EncodingUtils,
     HashUtils,
     StringUtils,
     ValidationUtils,
@@ -52,6 +54,9 @@ class TestDictUtils(unittest.TestCase):
         expected_output = '{"Cafe": "Morning"}'
         self.assertEqual(DictUtils.clean_and_serialize_dict(input_dict), expected_output)
 
+    def test_deserialize_dict(self):
+        self.assertEqual(DictUtils.deserialize_dict('{"key": "value"}'), {"key": "value"})
+
 
 class TestValidationUtils(unittest.TestCase):
 
@@ -82,12 +87,24 @@ class TestDateUtils(unittest.TestCase):
         self.assertIsInstance(current_time, datetime)
         self.assertEqual(current_time.tzinfo.zone, "America/Sao_Paulo")
 
+    def test_get_today_date(self):
+        self.assertEqual(DateUtils.get_today_date(), datetime.now().date())
+
 
 class TestHashUtils(unittest.TestCase):
 
     def test_string_to_sha256(self):
         expected_result = hashlib.sha256("test".encode("utf-8")).hexdigest()
         self.assertEqual(HashUtils.string_to_sha256("test"), expected_result)
+
+
+class TestEncodingUtils(unittest.TestCase):
+
+    def test_encode_to_base64(self):
+        self.assertEqual(EncodingUtils.encode_to_base64("test"), base64.b64encode("test".encode("utf-8")).decode("utf-8"))
+
+    def test_decode_from_base64(self):
+        self.assertEqual(EncodingUtils.decode_from_base64(base64.b64encode("test".encode("utf-8")).decode("utf-8")), "test")
 
 
 if __name__ == "__main__":
