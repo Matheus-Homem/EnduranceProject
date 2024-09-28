@@ -11,20 +11,26 @@ from flask import (
     session,
     url_for,
 )
+from flask_caching import Cache
 from werkzeug.security import check_password_hash, generate_password_hash
 
-import src.shared.database.tables as tb
 from os_local import get_environment_variable
 from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
+from src.shared.database.tables import DailyControl, ElementEntries
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
-from src.web.schema.updater import SchemaUpdater
 
 MAX_RETRIES = 15
+ELEMENT_ENTRIES = ElementEntries
+DAILY_CONTROL = DailyControl
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
+app.config["CACHE_TYPE"] = "simple"
+app.config["CACHE_DEFAULT_TIMEOUT"] = 300
+
+cache = Cache(app)
 
 
 def login_required(f):
@@ -128,16 +134,26 @@ def unauthorized():
 
 @app.route("/", methods=["GET"])
 @login_required
+@cache.cached(timeout=300)
 def index():
     smp.success("Accessing the index page")
-    return render_template("index.html")
+
+    with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
+        daily_control = executor.select(
+            table=DAILY_CONTROL,
+            user_id=session["user_id"],
+            entry_date=DateUtils.get_today_date(),
+        )
+
+    has_data_map = {(entry["element_category"], entry["element_name"]): entry["has_data"] for entry in daily_control}
+
+    return render_template("index.html", has_data_map=has_data_map)
 
 
 @app.route("/add/<category>/<element>/", methods=["GET", "POST"])
 @login_required
 def add_entry(category, element):
     smp.success(f"Accessing the entry page with Category: {category.capitalize()} and Element: {element.capitalize()}")
-    element_entries_table = tb.ElementEntries
 
     if request.method == "POST":
         smp.success(f"Processing POST request for {element.capitalize()}")
@@ -156,14 +172,21 @@ def add_entry(category, element):
 
                 with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
                     executor.upsert(
-                        table=element_entries_table,
-                        uc_name=element_entries_table.get_unique_constraint_name(),
+                        table=ELEMENT_ENTRIES,
                         entry_date=entry_date,
                         user_id=session["user_id"],
                         element_category=category,
                         element_name=element,
                         element_string=DictUtils.clean_and_serialize_dict(input_dict=form_data),
-                        schema_encoded=element_entries_table.get_schema_encoded(schema_fields=schema_fields),
+                        schema_encoded=ELEMENT_ENTRIES.get_schema_encoded(schema_fields=schema_fields),
+                    )
+                    executor.upsert(
+                        table=DAILY_CONTROL,
+                        entry_date=entry_date,
+                        user_id=session["user_id"],
+                        element_category=category,
+                        element_name=element,
+                        has_data=True,
                     )
 
                 smp.success("Form successfully submitted!")
@@ -179,8 +202,4 @@ def add_entry(category, element):
 
 
 if __name__ == "__main__":
-    if PRD:
-        SchemaUpdater().update_element_schemas()
-    else:
-        smp.debug("Running in development mode")
     app.run(debug=True)
