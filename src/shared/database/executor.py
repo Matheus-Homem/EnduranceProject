@@ -90,7 +90,7 @@ class DatabaseExecutor(LoggingPrinter):
         return tables
 
     def show_create_table(self, table: Union[MySqlTable, str]) -> str:
-        table_name = table.__tablename__.upper() if isinstance(table, MySqlTable) else table.upper()
+        table_name = table.__tablename__.upper() if issubclass(table, MySqlTable) else table.upper()
         result = self.session.execute(text(f"SHOW CREATE TABLE {table}"))
         create_table_stmt = result.fetchone()[1]
         self.logger.info(f"CREATE TABLE statement for {table_name} shown successfully")
@@ -123,4 +123,4 @@ class DatabaseExecutor(LoggingPrinter):
         for constraint in table.__table__.constraints:
             if isinstance(constraint, UniqueConstraint) and constraint.name == uc_name:
                 return list(constraint.columns.keys())
-        raise ValueError(f"Unique constraint {uc_name} not found in table {table.__tablename__}")
+        raise AttributeError(f"Unique constraint {uc_name} not found in table {table.__tablename__}")
