@@ -72,7 +72,7 @@ class DateUtils:
     @staticmethod
     def current_brasilia_sp_time():
         return datetime.now(pytz.timezone("America/Sao_Paulo"))
-    
+
     @staticmethod
     def get_today_date():
         return datetime.now().date()
