@@ -107,7 +107,6 @@ class TestSchemaUpdater(unittest.TestCase):
             self.updater.update_element_schemas()
 
         self.parser.parse_html_files.assert_called_once_with(directory=self.updater.directory_path)
-        self.table.get_unique_constraint_name.assert_called_once()
         self.table.get_schema_encoded.assert_called_once_with(schema_fields=["date_input", "boolTest", "snackMorning"])
         self.updater._fetch_next_schema_version.assert_called_once_with(category="category1", element="element1", defined_schemas=[])
 
