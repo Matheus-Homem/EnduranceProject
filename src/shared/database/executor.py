@@ -96,9 +96,9 @@ class DatabaseExecutor(LoggingPrinter):
         self.logger.info(f"CREATE TABLE statement for {table_name} shown successfully")
         return create_table_stmt
 
-    def upsert(self, table: MySqlTable, uc_name: str, **columns) -> None:
+    def upsert(self, table: MySqlTable, **columns) -> None:
         try:
-            uc_cols = self._get_unique_constraint_columns(table, uc_name)
+            uc_cols = self._get_unique_constraint_columns(table=table, uc_name=table.get_unique_constraint_name())
 
             stmt = mysql_insert(table).values(**columns)
 
