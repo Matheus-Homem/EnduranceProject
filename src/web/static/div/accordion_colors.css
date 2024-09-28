@@ -1,39 +1,47 @@
-.wisdom-color .accordion-button, .wisdom-color .accordion-content button {
+.wisdom-color .accordion-button, .wisdom-color .accordion-content button.enabled-button {
     background-color: var(--green-color-darkest);
 }
 
-.wisdom-color .accordion-button:hover, .wisdom-color .accordion-content button:hover {
+.wisdom-color .accordion-button:hover, .wisdom-color .accordion-content button.enabled-button:hover {
     background-color: var(--green-color);
 }
 
-.stability-color .accordion-button, .stability-color .accordion-content button {
+.stability-color .accordion-button, .stability-color .accordion-content button.enabled-button {
     background-color: var(--red-color-darkest);
 }
 
-.stability-color .accordion-button:hover, .stability-color .accordion-content button:hover {
+.stability-color .accordion-button:hover, .stability-color .accordion-content button.enabled-button:hover {
     background-color: var(--red-color);
 }
 
-.strength-color .accordion-button, .strength-color .accordion-content button {
+.strength-color .accordion-button, .strength-color .accordion-content button.enabled-button {
     background-color: var(--blue-color-darkest);
 }
 
-.strength-color .accordion-button:hover, .strength-color .accordion-content button:hover {
+.strength-color .accordion-button:hover, .strength-color .accordion-content button.enabled-button:hover {
     background-color: var(--blue-color);
 }
 
-.kindness-color .accordion-button, .kindness-color .accordion-content button {
+.kindness-color .accordion-button, .kindness-color .accordion-content button.enabled-button {
     background-color: var(--yellow-color-darkest);
 }
 
-.kindness-color .accordion-button:hover, .kindness-color .accordion-content button:hover {
+.kindness-color .accordion-button:hover, .kindness-color .accordion-content button.enabled-button:hover {
     background-color: var(--yellow-color);
 }
 
-.devotion-color .accordion-button, .devotion-color .accordion-content button {
+.devotion-color .accordion-button, .devotion-color .accordion-content button.enabled-button {
     background-color: var(--purple-color-darkest);
 }
 
-.devotion-color .accordion-button:hover, .devotion-color .accordion-content button:hover {
+.devotion-color .accordion-button:hover, .devotion-color .accordion-content button.enabled-button:hover {
     background-color: var(--purple-color);
+}
+
+button.disabled-button {
+    background-color: var(--gray-color-4);
+}
+
+button.disabled-button:hover {
+    background-color: var(--gray-color-8);
 }
