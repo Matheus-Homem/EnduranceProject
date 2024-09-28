@@ -98,3 +98,15 @@ class DailyControl(MySqlTable):
     has_data = Column(Boolean, nullable=False)
 
     __table_args__ = (UniqueConstraint("entry_date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
+
+
+class MockTable(MySqlTable):
+    __tablename__ = "mock_table"
+    __unique_constraint_name__ = "_mock_uc"
+
+    mock_id = Column(String(36), primary_key=True)
+    mock_colA = Column(String(255))
+    op = Column(Enum("c", "u", "d"), nullable=False, default="c")
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
+
+    __table_args__ = (UniqueConstraint("mock_id", name=__unique_constraint_name__),)
