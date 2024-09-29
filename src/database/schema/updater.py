@@ -4,7 +4,7 @@ from src.database.connection.builder import DatabaseExecutorBuilder
 from src.database.tables import ElementSchemas, MySqlTable
 from src.shared.credentials import PRD
 from src.shared.logging.adapters import LoggingPrinter
-from src.shared.utils import DictUtils
+from src.shared.utils import DictUtils, StringUtils
 from src.web.schema.parser import HTMLParser
 
 
@@ -55,11 +55,11 @@ class SchemaUpdater(LoggingPrinter):
                 unique_dtypes[k] = dtype_mapping[k]
         return unique_fields, unique_dtypes
 
-    def _reenumerate_fields(self, fields: Dict[int, str]) -> Dict[int, str]:
-        return {new_idx: value for new_idx, (old_idx, value) in enumerate(fields.items())}
+    def _sort_fields(self, fields: Dict[int, str]) -> List[str]:
+        return sorted(fields.values())
 
-    def _reenumerate_dtypes(self, dtypes: Dict[int, str]) -> Dict[int, str]:
-        return {new_idx: dtypes[old_idx] for new_idx, (old_idx, value) in enumerate(dtypes.items())}
+    def _map_dtypes_to_columns(self, fields: Dict[int, str], dtypes: Dict[int, str]) -> Dict[str, str]:
+        return {fields[k]: dtypes[k] for k in fields}
 
     def _is_version_defined(
         self,
@@ -113,8 +113,8 @@ class SchemaUpdater(LoggingPrinter):
                 unique_columns = self._extract_unique_fields(field_mapping=field_mapping)
                 unique_fields, unique_dtypes = self._filter_duplicate_fields(field_mapping=field_mapping, dtype_mapping=dtype_mapping)
 
-                renumbered_fields = self._reenumerate_fields(fields=unique_fields)
-                renumbered_dtypes = self._reenumerate_dtypes(dtypes=unique_dtypes)
+                sorted_fields = self._sort_fields(fields=unique_fields)
+                mapped_dtypes = self._map_dtypes_to_columns(fields=unique_fields, dtypes=unique_dtypes)
 
                 schema_encoded = self.table.get_schema_encoded(schema_fields=unique_columns)
 
@@ -140,8 +140,8 @@ class SchemaUpdater(LoggingPrinter):
                         element_name=element,
                         schema_version=schema_version,
                         schema_encoded=schema_encoded,
-                        schema_fields=DictUtils.serialize_dict(data=renumbered_fields),
-                        schema_dtypes=DictUtils.serialize_dict(data=renumbered_dtypes),
+                        schema_fields=StringUtils.stringify_list(list=sorted_fields),
+                        schema_dtypes=DictUtils.serialize_dict(dict=mapped_dtypes),
                     )
         self.logger.success("Schema update process completed")
         self.logger.info(f"Skipped schemas: {skipped_schemas}")
