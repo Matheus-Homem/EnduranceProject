@@ -3,10 +3,10 @@ from src.etl.definitions import Layer
 from src.etl.engines.cleaning import CleaningEngine
 from src.etl.engines.extraction import ExtractionEngine
 from src.etl.engines.refinement import RefinementEngine
-from src.etl.pipeline import Pipeline
 from src.etl.io.database import DatabaseReader
 from src.etl.io.delta import DeltaHandler
 from src.etl.io.parquet import ParquetHandler
+from src.etl.pipeline import Pipeline
 
 
 def orchestrate_etl_process():
