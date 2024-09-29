@@ -18,7 +18,7 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input">
                 </div>
             </div>
 
@@ -27,8 +27,8 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Calorias de Ontem</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="int_yesterdayCalories" name="int_yesterdayCalories"
-                        oninput="updateOutput('caloriesOutput', this.value, 'calories')" required>
+                    <input type="number" id="int_yesterdayCalories" dtype="int" name="yesterdayCalories"
+                        oninput="updateOutput('caloriesOutput', this.value, 'calories')">
                 </div>
                 <div class="element-cell cell-25"><output id="caloriesOutput">_ cal</output></div>
             </div>
@@ -38,7 +38,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Peso Total</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_totalWeight" name="double_totalWeight" minlength="4" maxlength="5"
+                    <input type="number" id="double_totalWeight" dtype="double" name="totalWeight" minlength="4" maxlength="5"
                         oninput="updateOutput('totalWeightOutput', this.value, 'weight')">
                 </div>
                 <div class="element-cell cell-25"><output id="totalWeightOutput">__.__ kg</output></div>
@@ -46,7 +46,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Percentual de Gordura</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_fatPercentage" name="double_fatPercentage" minlength="4" maxlength="4"
+                    <input type="number" id="double_fatPercentage" dtype="double" name="fatPercentage" minlength="4" maxlength="4"
                         oninput="updateOutput('fatPercentageOutput', this.value, 'percentage')">
                 </div>
                 <div class="element-cell cell-25"><output id="fatPercentageOutput">__.__ %</output></div>
@@ -54,7 +54,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Massa Magra</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_muscleWeight" name="double_muscleWeight" minlength="4" maxlength="5"
+                    <input type="number" id="double_muscleWeight" dtype="double" name="muscleWeight" minlength="4" maxlength="5"
                         oninput="updateOutput('muscleWeightOutput', this.value, 'weight')">
                 </div>
                 <div class="element-cell cell-25"><output id="muscleWeightOutput">__.__ kg</output></div>

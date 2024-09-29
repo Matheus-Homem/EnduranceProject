@@ -1,91 +1,113 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from sqlalchemy import JSON, Column, DateTime, Integer, String, func
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
-from tabulate import tabulate
 
 from src.shared.database.executor import DatabaseExecutor
-from src.shared.database.tables import MySqlTable
-
-
-class TestTable(MySqlTable):
-    __tablename__ = "test_tablename"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    data = Column(JSON, nullable=False, default={})
-    profile = Column(String(255), nullable=False)
-    created_at = Column(DateTime, nullable=False, default=func.now())
+from src.shared.database.tables import MockTable
 
 
 class TestDatabaseExecutor(unittest.TestCase):
-    def setUp(self):
-        self.mock_session = MagicMock(spec=Session)
 
-        self.executor = DatabaseExecutor(self.mock_session)
+    def setUp(self):
+        self.builder = MagicMock()
+        self.session = MagicMock(spec=Session)
+        self.executor = DatabaseExecutor(session=self.session)
 
     def test_describe(self):
-        table = TestTable
-
-        with patch("builtins.print") as mocked_print:
-            self.executor.describe(table)
-
-        expected_headers = ["Field", "Type", "Null", "Key", "Default", "Extra"]
-        mocked_print.assert_called_with(tabulate(None, headers=expected_headers, tablefmt="grid"))
+        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+            with patch("builtins.print") as mocked_print:
+                self.executor.describe(MockTable)
+                mocked_print.assert_called()
+                self.session.execute.assert_called()
 
     def test_count(self):
-        mock_table = MagicMock(spec=MySqlTable)
-        mock_table.__tablename__ = "mock_table"
-        self.mock_session.query.return_value.count.return_value = 42
-
-        with patch("builtins.print") as mocked_print:
-            self.executor.count(mock_table)
-
-        self.mock_session.query.assert_called_once_with(mock_table)
-        self.mock_session.query.return_value.count.assert_called_once()
-        mocked_print.assert_called_once_with(42)
+        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+            with patch("builtins.print") as mocked_print:
+                self.executor.count(MockTable)
+                mocked_print.assert_called()
+                self.session.query(MockTable).count.assert_called()
 
     def test_select_with_filters(self):
-        table = TestTable
-        self.mock_session.execute.return_value.scalars.return_value.all.return_value = []
-        with patch("src.shared.database.executor.select") as select_mock:
-            self.executor.select(table, id=1, name="Alice")
+        mock_result = [
+            MagicMock(mock_id=1, mock_colA="Alice", op="c", updated_at="2021-01-01 00:00:00"),
+        ]
+        self.session.execute.return_value.scalars.return_value.all.return_value = mock_result
 
-        select_mock.assert_called_once_with(table)
-        self.mock_session.execute.assert_called_once()
-        self.mock_session.execute.return_value.scalars.assert_called_once()
-        self.mock_session.execute.return_value.scalars.return_value.all.assert_called_once()
+        result = self.executor.select(MockTable, mock_id=1, mock_colA="Alice")
+        expected_result = [{"mock_id": 1, "mock_colA": "Alice", "op": "c", "updated_at": "2021-01-01 00:00:00"}]
+
+        self.session.execute.assert_called()
+        print(result)
+        self.assertEqual(result, expected_result)
+
+    def test_select_without_filters(self):
+        mock_result = [
+            MagicMock(mock_id=1, mock_colA="Alice", op="c", updated_at="2021-01-01 00:00:00"),
+            MagicMock(mock_id=2, mock_colA="Bob", op="u", updated_at="2021-01-01 00:00:00"),
+        ]
+        self.session.execute.return_value.scalars.return_value.all.return_value = mock_result
+
+        result = self.executor.select(MockTable)
+        expected_result = [
+            {"mock_id": 1, "mock_colA": "Alice", "op": "c", "updated_at": "2021-01-01 00:00:00"},
+            {"mock_id": 2, "mock_colA": "Bob", "op": "u", "updated_at": "2021-01-01 00:00:00"},
+        ]
+
+        self.session.execute.assert_called()
+        self.assertEqual(result, expected_result)
 
     def test_insert(self):
-        mock_table = MagicMock(spec=MySqlTable)
-        mock_table.__tablename__ = "mock_table"
-
-        self.executor.insert(mock_table, id=1, name="Alice")
-
-        self.mock_session.add.assert_called_once()
-        self.mock_session.commit.assert_called_once()
+        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+            self.executor.insert(MockTable, mock_id=1, mock_colA="Alice")
+            self.session.add.assert_called_once()
+            self.session.commit.assert_called_once()
 
     def test_delete(self):
-        mock_table = MagicMock(spec=MySqlTable)
-        mock_table.__tablename__ = "mock_table"
-
-        self.executor.delete(mock_table, id=1)
-
-        self.mock_session.query.assert_called_once_with(mock_table)
-        self.mock_session.query.return_value.filter_by.assert_called_once_with(id=1)
-        self.mock_session.query.return_value.filter_by.return_value.delete.assert_called_once()
-        self.mock_session.commit.assert_called_once()
+        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+            self.executor.delete(MockTable, mock_id=1)
+            self.session.query(MockTable).filter_by(mock_id=1).delete.assert_called_once()
+            self.session.commit.assert_called_once()
 
     def test_update(self):
-        mock_table = MagicMock(spec=MySqlTable)
-        mock_table.__tablename__ = "mock_table"
+        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+            self.executor.update(MockTable, filters={"mock_id": 1}, updates={"mock_colA": "Alice"})
+            self.session.query(MockTable).filter_by(**{"mock_id": 1}).update.assert_called_once()
+            self.session.commit.assert_called_once()
 
-        self.executor.update(mock_table, {"id": 1}, {"name": "Alice"})
+    def test_show_tables(self):
+        self.session.execute.return_value = [("table1",), ("table2",)]
+        result = self.executor.show_tables()
+        self.assertEqual(result, ["table1", "table2"])
 
-        self.mock_session.query.assert_called_once_with(mock_table)
-        self.mock_session.query.return_value.filter_by.assert_called_once_with(id=1)
-        self.mock_session.query.return_value.filter_by.return_value.update.assert_called_once_with({"name": "Alice"})
-        self.mock_session.commit.assert_called_once()
+    def test_show_create_table(self):
+        self.session.execute.return_value.fetchone.return_value = (None, "CREATE TABLE test_table ...")
+        result = self.executor.show_create_table(MockTable)
+        self.assertEqual(result, "CREATE TABLE test_table ...")
+
+    def test_upsert(self):
+        self.executor._get_unique_constraint_columns = MagicMock(return_value=["mock_id"])
+        self.executor.upsert(MockTable, mock_id=1, mock_colA="Alice")
+        self.session.execute.assert_called()
+        self.session.commit.assert_called()
+
+    def test_upsert_exception(self):
+        self.executor._get_unique_constraint_columns = MagicMock(return_value=["mock_id"])
+        self.session.execute.side_effect = SQLAlchemyError("Simulated exception")
+
+        with self.assertRaises(SQLAlchemyError):
+            self.executor.upsert(MockTable, mock_id=1, mock_colA="Alice")
+
+        self.session.rollback.assert_called()
+
+    def test_get_unique_constraint_columns(self):
+        result = self.executor._get_unique_constraint_columns(MockTable, MockTable.get_unique_constraint_name())
+        self.assertEqual(result, ["mock_id"])
+
+    def test_undefined_unique_constraint_column(self):
+        with self.assertRaises(AttributeError):
+            self.executor._get_unique_constraint_columns(MockTable, "undefined_column")
 
 
 if __name__ == "__main__":

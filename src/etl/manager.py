@@ -1,8 +1,8 @@
-import os
 from typing import Union
 
 import yaml
 
+from os_local import join_paths
 from src.etl.definitions import BronzeTable, GoldTable, SilverTable, Table
 from src.etl.pipeline.cleaner import CleanerPipeline
 from src.etl.pipeline.extractor import ExtractorPipeline
@@ -63,7 +63,7 @@ class DataProcessingManager(LoggingPrinter):
         processed_tables = []
         skipped_tables = []
 
-        with open(os.path.join("src", "etl", "tables.yaml"), "r") as file:
+        with open(join_paths("src", "etl", "tables.yaml"), "r") as file:
             data = yaml.safe_load(file)
 
         for table in data["tables"]:

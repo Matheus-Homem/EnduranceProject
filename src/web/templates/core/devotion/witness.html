@@ -18,13 +18,30 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_blade" class="toggle" onclick="toggleButton('blade')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-moon"></i></span>
+                    <input type="hidden" id="input_blade" dtype="bool" name="blade" value="False">
+                </div>
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_sheath" class="toggle" onclick="toggleButton('sheath')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span><i class="fa-solid fa-sun"></i></span>
+                    <input type="hidden" id="input_sheath" dtype="bool" name="sheath" value="False">
                 </div>
             </div>
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <textarea id="string_experience" name="string_experience"></textarea>
+                    <textarea id="string_experience" dtype="string" name="experience"></textarea>
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 VENV_NAME := .venv
 
-.PHONY: clean create-venv activate-venv prepare_environment prepare-requirements server test help tutorial
+.PHONY: clean create-venv activate-venv prepare-environment prepare-requirements server test help tutorial
 
 clear:
 	@$(if $(filter $(OS),Windows_NT), \
@@ -23,7 +23,7 @@ activate-venv:
 		echo This is not a Windows system. Please activate the virtual environment with: && \
 		echo source $(VENV_NAME)/bin/activate)
 		
-prepare_environment:
+prepare-environment:
 	@echo Building project...
 	@make clean
 	@make create-venv
@@ -46,14 +46,28 @@ server:
 		export PYTHONPATH=./ && \
 		python3 src/web/app.py)
 
+sql-export:
+	@echo Running the web application...
+	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
+		python scripts/schema_exporter.py, \
+		export PYTHONPATH=./ && \
+		python3 scripts/schema_exporter.py)
+
 chore:
+	@echo Running autoflake...
+	@autoflake --remove-all-unused-imports --in-place --recursive tests/
+	@autoflake --remove-all-unused-imports --in-place --recursive src/
+	@autoflake --remove-all-unused-imports --in-place --recursive scripts/
 	@echo Running isort...
 	@isort tests/
 	@isort src/
+	@isort scripts/
 	@echo Running black...
 	@black tests/
 	@black src/
-	@echo isort and black ran successfully!
+	@black scripts/
+	@echo autoflake, isort, and black ran successfully!
 
 test:
 	@make chore
@@ -69,7 +83,7 @@ help:
 	@echo "  |  clear                : Clean up the environment by removing __pycache__ and *.pyc files         |
 	@echo "  |  create-venv          : Create the virtual environment                                           |
 	@echo "  |  activate-venv        : Activate the virtual environment                                         |
-	@echo "  |  prepare_environment  : Build the project (clean, create virtual environment, and activate it)   |
+	@echo "  |  prepare-environment  : Build the project (clean, create virtual environment, and activate it)   |
 	@echo "  |  prepare-requirements : Install project dependencies from requirements.txt                       |
 	@echo "  |  server               : Run the web application                                                  |
 	@echo "  |  chore                : Run code formatting tools (isort and black) on the project               |
@@ -80,6 +94,6 @@ tutorial:
 	@echo     ____________________________________________ 
 	@echo "  |                                            |
 	@echo "  |   To build the project, run these steps:   |
-	@echo "  |        1. make prepare_environment         |
+	@echo "  |        1. make prepare-environment         |
 	@echo "  |        2. make prepare-requirements        |
 	@echo "  |____________________________________________|

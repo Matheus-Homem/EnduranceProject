@@ -18,7 +18,7 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input">
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Crédito</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_credit" name="double_credit" minlength="3"
+                    <input type="number" id="double_credit" dtype="double" name="credit" minlength="3"
                         oninput="updateOutput('creditOutput', this.value, 'money')">
                 </div>
                 <div class="element-cell cell-25"><output id="creditOutput">R$ __.__</output></div>
@@ -35,7 +35,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Débito</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_debit" name="double_debit" minlength="3"
+                    <input type="number" id="double_debit" dtype="double" name="debit" minlength="3"
                         oninput="updateOutput('debitOutput', this.value, 'money')">
                 </div>
                 <div class="element-cell cell-25"><output id="debitOutput">R$ __.__</output></div>
@@ -43,7 +43,7 @@
             <div class="element-row">
                 <div class="element-cell cell-50">Benefício</div>
                 <div class="element-cell cell-25">
-                    <input type="number" id="double_benefit" name="double_benefit" minlength="3"
+                    <input type="number" id="double_benefit" dtype="double" name="benefit" minlength="3"
                         oninput="updateOutput('benefitOutput', this.value, 'money')">
                 </div>
                 <div class="element-cell cell-25"><output id="benefitOutput">R$ __.__</output></div>
