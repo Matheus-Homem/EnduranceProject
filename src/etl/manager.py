@@ -3,11 +3,11 @@ from typing import Union
 import yaml
 
 from os_local import join_paths
+from src.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
 from src.etl.definitions import BronzeTable, GoldTable, SilverTable, Table
 from src.etl.pipeline.cleaner import CleanerPipeline
 from src.etl.pipeline.extractor import ExtractorPipeline
 from src.etl.pipeline.refiner import RefinerPipeline
-from src.shared.database.tables import MySqlMorningTable, MySqlNightTable, MySqlTable
 from src.shared.logging.adapters import LoggingPrinter, raise_error_and_log
 
 

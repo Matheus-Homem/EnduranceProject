@@ -5,7 +5,7 @@ from sqlalchemy.dialects.mysql import insert as mysql_insert
 from sqlalchemy.orm import Session
 from tabulate import tabulate
 
-from src.shared.database.tables import MySqlTable
+from src.database.tables import MySqlTable
 from src.shared.logging.adapters import LoggingPrinter
 
 

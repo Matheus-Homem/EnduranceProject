@@ -1,14 +1,14 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.executor import DatabaseExecutor
+from src.database.connection.builder import DatabaseExecutorBuilder
+from src.database.connection.executor import DatabaseExecutor
 
 
 class TestDatabaseExecutorBuilder(unittest.TestCase):
-    @patch("src.shared.database.builder.DatabaseConnector")
-    @patch("src.shared.database.builder.MySqlCredential")
-    @patch("src.shared.database.builder.SshCredential")
+    @patch("src.database.connection.builder.DatabaseConnector")
+    @patch("src.database.connection.builder.MySqlCredential")
+    @patch("src.database.connection.builder.SshCredential")
     def test_database_executor_builder(self, MockSshCredential, MockMySqlCredential, MockDatabaseConnector):
         mock_connector = MockDatabaseConnector.return_value
         mock_session = MagicMock()
