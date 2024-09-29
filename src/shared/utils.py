@@ -22,7 +22,7 @@ class StringUtils:
     @staticmethod
     def clean_string(input: str) -> str:
         return StringUtils.remove_special_characters(StringUtils.remove_linebreaks(input))
-    
+
     @staticmethod
     def stringify_list(list: List[str]) -> str:
         return ",".join(list)

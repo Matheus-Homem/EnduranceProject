@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import MagicMock
 
-from src.database.tables import MySqlTable
 from src.database.schema.parser import HTMLParser
 from src.database.schema.updater import ColumnNotDefinedError, SchemaUpdater
+from src.database.tables import MySqlTable
 
 
 class TestSchemaUpdater(unittest.TestCase):
