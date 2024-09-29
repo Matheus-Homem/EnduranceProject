@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import MagicMock
 
 from src.database.tables import MySqlTable
-from src.web.schema.parser import HTMLParser
-from src.web.schema.updater import ColumnNotDefinedError, SchemaUpdater
+from src.database.schema.parser import HTMLParser
+from src.database.schema.updater import ColumnNotDefinedError, SchemaUpdater
 
 
 class TestSchemaUpdater(unittest.TestCase):
@@ -103,7 +103,7 @@ class TestSchemaUpdater(unittest.TestCase):
         executor = MagicMock()
         executor.__enter__.return_value.select.return_value = []
         executor.__enter__.return_value.upsert.return_value = []
-        with unittest.mock.patch("src.web.schema.updater.DatabaseExecutorBuilder", return_value=executor):
+        with unittest.mock.patch("src.database.schema.updater.DatabaseExecutorBuilder", return_value=executor):
             self.updater.update_element_schemas()
 
         self.parser.parse_html_files.assert_called_once_with(directory=self.updater.directory_path)

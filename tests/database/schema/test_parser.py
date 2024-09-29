@@ -7,7 +7,7 @@ from os_local import (
     join_paths,
     list_directory_contents,
 )
-from src.web.schema.parser import HTMLParser
+from src.database.schema.parser import HTMLParser
 
 
 class TestHTMLParser(unittest.TestCase):
