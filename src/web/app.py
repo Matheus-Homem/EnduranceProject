@@ -15,9 +15,9 @@ from flask_caching import Cache
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from os_local import get_environment_variable
+from src.database.connection.builder import DatabaseExecutorBuilder
+from src.database.tables import DailyControl, ElementEntries, Users
 from src.shared.credentials import PRD
-from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.tables import DailyControl, ElementEntries, Users
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
 

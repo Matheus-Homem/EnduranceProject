@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
+from src.database.tables import MySqlTable
 from src.etl.readers.database import DatabaseReader
-from src.shared.database.tables import MySqlTable
 
 
 class TestDatabaseReader(unittest.TestCase):
