@@ -12,7 +12,7 @@ from os_local import (
 from src.shared.logging.adapters import LoggingPrinter
 
 
-class HTMLParser(LoggingPrinter):
+class HTMLSchemaParser(LoggingPrinter):
 
     def __init__(self):
         super().__init__(class_name=self.__class__.__name__)

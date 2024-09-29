@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Tuple
 
 from src.database.connection.builder import DatabaseExecutorBuilder
-from src.database.schema.parser import HTMLParser
+from src.database.schema.parser import HTMLSchemaParser
 from src.database.tables import ElementSchemas, MySqlTable
 from src.shared.credentials import PRD
 from src.shared.logging.adapters import LoggingPrinter
@@ -12,12 +12,12 @@ class ColumnNotDefinedError(Exception):
     pass
 
 
-class SchemaUpdater(LoggingPrinter):
+class DatabaseSchemaUpdater(LoggingPrinter):
 
     def __init__(
         self,
         table: MySqlTable = ElementSchemas,
-        parser: HTMLParser = HTMLParser(),
+        parser: HTMLSchemaParser = HTMLSchemaParser(),
         encoded_column: str = "schema_encoded",
         version_column: str = "schema_version",
         category_column: str = "element_category",

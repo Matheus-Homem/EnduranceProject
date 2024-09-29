@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import MagicMock
 
-from src.database.schema.parser import HTMLParser
-from src.database.schema.updater import ColumnNotDefinedError, SchemaUpdater
+from src.database.schema.parser import HTMLSchemaParser
+from src.database.schema.updater import ColumnNotDefinedError, DatabaseSchemaUpdater
 from src.database.tables import MySqlTable
 
 
@@ -15,8 +15,8 @@ class TestSchemaUpdater(unittest.TestCase):
         self.table.schema_version = "schema_version"
         self.table.element_category = "element_category"
         self.table.element_name = "element_name"
-        self.parser = MagicMock(spec=HTMLParser)
-        self.updater = SchemaUpdater(table=self.table, parser=self.parser)
+        self.parser = MagicMock(spec=HTMLSchemaParser)
+        self.updater = DatabaseSchemaUpdater(table=self.table, parser=self.parser)
 
     def test_column_not_defined_error(self):
         with self.assertRaises(ColumnNotDefinedError):

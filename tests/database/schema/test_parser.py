@@ -7,13 +7,13 @@ from os_local import (
     join_paths,
     list_directory_contents,
 )
-from src.database.schema.parser import HTMLParser
+from src.database.schema.parser import HTMLSchemaParser
 
 
 class TestHTMLParser(unittest.TestCase):
 
     def setUp(self):
-        self.parser = HTMLParser()
+        self.parser = HTMLSchemaParser()
 
     def test_list_subfolders(self):
         test_path = get_absolute_path("src/")
