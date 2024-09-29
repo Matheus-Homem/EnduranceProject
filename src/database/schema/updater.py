@@ -5,7 +5,7 @@ from src.database.tables import ElementSchemas, MySqlTable
 from src.shared.credentials import PRD
 from src.shared.logging.adapters import LoggingPrinter
 from src.shared.utils import DictUtils, StringUtils
-from src.web.schema.parser import HTMLParser
+from src.database.schema.parser import HTMLParser
 
 
 class ColumnNotDefinedError(Exception):
