@@ -16,45 +16,75 @@
         <div class="accordion-item wisdom-color">
             <button class="accordion-button">Sabedoria</button>
             <div class="accordion-content">
-                <a href="/add/wisdom/navigator/"><button>Navegador</button></a>
-                <a href="/add/wisdom/alchemist/"><button>Alquimista</button></a>
-                <a href="/add/wisdom/sentinel/"><button>Sentinela</button></a>
+                <a href="/add/wisdom/navigator/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('wisdom', 'navigator'), False) else 'enabled-button' }}">Navegador</button>
+                </a>
+                <a href="/add/wisdom/alchemist/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('wisdom', 'alchemist'), False) else 'enabled-button' }}">Alquimista</button>
+                </a>
+                <a href="/add/wisdom/sentinel/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('wisdom', 'sentinel'), False) else 'enabled-button' }}">Sentinela</button>
+                </a>
             </div>
         </div>
 
         <div class="accordion-item stability-color">
             <button class="accordion-button">Estabilidade</button>
             <div class="accordion-content">
-                <a href="/add/stability/sponsor/"><button>Patrocinador</button></a>
-                <a href="/add/stability/patron/"><button>Mecenas</button></a>
-                <a href="/add/stability/treasurer/"><button>Tesoureiro</button></a>
+                <a href="/add/stability/sponsor/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('stability', 'sponsor'), False) else 'enabled-button' }}">Patrocinador</button>
+                </a>
+                <a href="/add/stability/patron/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('stability', 'patron'), False) else 'enabled-button' }}">Mecenas</button>
+                </a>
+                <a href="/add/stability/treasurer/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('stability', 'treasurer'), False) else 'enabled-button' }}">Tesoureiro</button>
+                </a>
             </div>
         </div>
 
         <div class="accordion-item strength-color">
             <button class="accordion-button">Força</button>
             <div class="accordion-content">
-                <a href="/add/strength/athlete/"><button>Atleta</button></a>
-                <a href="/add/strength/cook/"><button>Cozinheiro</button></a>
-                <a href="/add/strength/nutritionist/"><button>Nutricionista</button></a>
+                <a href="/add/strength/athlete/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('strength', 'athlete'), False) else 'enabled-button' }}">Atleta</button>
+                </a>
+                <a href="/add/strength/cook/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('strength', 'cook'), False) else 'enabled-button' }}">Cozinheiro</button>
+                </a>
+                <a href="/add/strength/nutritionist/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('strength', 'nutritionist'), False) else 'enabled-button' }}">Nutricionista</button>
+                </a>
             </div>
         </div>
 
         <div class="accordion-item kindness-color">
             <button class="accordion-button">Gentileza</button>
             <div class="accordion-content">
-                <a href="/add/kindness/caretaker/"><button>Zelador</button></a>
-                <a href="/add/kindness/diplomat/"><button>Diplomata</button></a>
-                <a href="/add/kindness/citizen/"><button>Cidadão</button></a>
+                <a href="/add/kindness/caretaker/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('kindness', 'caretaker'), False) else 'enabled-button' }}">Zelador</button>
+                </a>
+                <a href="/add/kindness/diplomat/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('kindness', 'diplomat'), False) else 'enabled-button' }}">Diplomata</button>
+                </a>
+                <a href="/add/kindness/citizen/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('kindness', 'citizen'), False) else 'enabled-button' }}">Cidadão</button>
+                </a>
             </div>
         </div>
 
         <div class="accordion-item devotion-color">
             <button class="accordion-button">Devoção</button>
             <div class="accordion-content">
-                <a href="/add/devotion/oracle/"><button>Oráculo</button></a>
-                <a href="/add/devotion/atharva_bindu/"><button>Atharva Bindu</button></a>
-                <a href="/add/devotion/witness/"><button>Expectador</button></a>
+                <a href="/add/devotion/oracle/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('devotion', 'oracle'), False) else 'enabled-button' }}">Oráculo</button>
+                </a>
+                <a href="/add/devotion/atharva_bindu/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('devotion', 'atharva_bindu'), False) else 'enabled-button' }}">Atharva Bindu</button>
+                </a>
+                <a href="/add/devotion/witness/">
+                    <button class="{{ 'disabled-button' if has_data_map.get(('devotion', 'witness'), False) else 'enabled-button' }}">Expectador</button>
+                </a>
             </div>
         </div>
     </div>

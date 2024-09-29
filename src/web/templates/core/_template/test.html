@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Teste
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/add/template/test/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box strength">
+        <div class="element-header">
+            <span>Teste</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Ter um Hábito</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="date_input" dtype="date" name="date_input">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100 ">
+                    <div id="toggle_runningAction" class="toggle" onclick="toggleButton('runningAction')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <span>Corrida</span>
+                    <input type="hidden" id="input_runningAction" dtype="bool" name="boolTest" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="number" dtype="double" name="doubleTest" minlength="3" maxlength="4"
+                        oninput="updateOutput('RunningDistanceOutput', this.value, 'distance')">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="number" dtype="hhmmss" name="hhmmssTest" minlength="6" maxlength="6"
+                        oninput="updateOutput('RunningDurationOutput', this.value, 'exercise')">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="number" dtype="int" name="intTest" 
+                        oninput="updateOutput('RunningCaloriesOutput', this.value, 'calories')">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-25"><input type="radio" dtype="ordinal" name="ordinalTest" value="0" checked></div>
+                <div class="element-cell cell-25"><input type="radio" dtype="ordinal" name="ordinalTest" value="1"></div>
+                <div class="element-cell cell-25"><input type="radio" dtype="ordinal" name="ordinalTest" value="2"></div>
+                <div class="element-cell cell-25"><input type="radio" dtype="ordinal" name="ordinalTest" value="3"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100"><input type="datetime-local" dtype="timestamp" name="timestampTest"></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="number" id="hhmm_remSleep" dtype="hhmm" name="hhmmTest"
+                        oninput="updateOutput('hhmmTest', this.value, 'time')">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="stringTest" dtype="string" name="stringTest"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/add/template/test/'">
+            <i class="fa-solid fa-forward"></i>
+            Next
+        </button>
+    </div>
+</form>
+
+<script>
+    const now = new Date();
+    now.setHours(now.getHours() - 3);
+    document.getElementById('date_input').value = now.toISOString().split('T')[0];
+</script>
+
+{% endblock %}

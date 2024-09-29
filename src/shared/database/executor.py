@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from sqlalchemy import UniqueConstraint, and_, select, text
 from sqlalchemy.dialects.mysql import insert as mysql_insert
@@ -83,9 +83,22 @@ class DatabaseExecutor(LoggingPrinter):
         self.session.commit()
         self.logger.info(f"Data in {table.__tablename__} updated successfully")
 
-    def upsert(self, table: MySqlTable, uc_name: str, **columns) -> None:
+    def show_tables(self) -> List[str]:
+        result = self.session.execute(text("SHOW TABLES"))
+        tables = [row[0] for row in result]
+        self.logger.info("Tables shown successfully")
+        return tables
+
+    def show_create_table(self, table: Union[MySqlTable, str]) -> str:
+        table_name = table.upper() if isinstance(table, str) else table.__tablename__.upper()
+        result = self.session.execute(text(f"SHOW CREATE TABLE {table}"))
+        create_table_stmt = result.fetchone()[1]
+        self.logger.info(f"CREATE TABLE statement for {table_name} shown successfully")
+        return create_table_stmt
+
+    def upsert(self, table: MySqlTable, **columns) -> None:
         try:
-            uc_cols = self._get_unique_constraint_columns(table, uc_name)
+            uc_cols = self._get_unique_constraint_columns(table=table, uc_name=table.get_unique_constraint_name())
 
             stmt = mysql_insert(table).values(**columns)
 
@@ -110,4 +123,4 @@ class DatabaseExecutor(LoggingPrinter):
         for constraint in table.__table__.constraints:
             if isinstance(constraint, UniqueConstraint) and constraint.name == uc_name:
                 return list(constraint.columns.keys())
-        raise ValueError(f"Unique constraint {uc_name} not found in table {table.__tablename__}")
+        raise AttributeError(f"Unique constraint {uc_name} not found in table {table.__tablename__}")

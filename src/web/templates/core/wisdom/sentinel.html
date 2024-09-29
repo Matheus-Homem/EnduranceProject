@@ -18,7 +18,7 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input">
                 </div>
             </div>
             
@@ -27,7 +27,7 @@
             <div class="element-row">
                 <div class="element-cell cell-40">Tempo de Tela</div>
                 <div class="element-cell cell-30">
-                    <input type="number" id="hhmm_screenTime" name="hhmm_screenTime" minlength="3" 
+                    <input type="number" id="hhmm_screenTime" dtype="hhmm" name="screenTime" minlength="3" 
                         oninput="updateOutput('screenTimeOutput', this.value, 'time')">
                 </div>
                 <div class="element-cell cell-30"><output id="screenTimeOutput">__h __min</output></div>
@@ -37,11 +37,11 @@
 
             <div class="element-row">
                 <div class="element-cell cell-40">Início do Sono</div>
-                <div class="element-cell cell-60"><input type="datetime-local" name="timestamp_bedDatetime"></div>
+                <div class="element-cell cell-60"><input type="datetime-local" dtype="timestamp" name="bedDatetime"></div>
             </div>
             <div class="element-row">
                 <div class="element-cell cell-40">Fim do Sono</div>
-                <div class="element-cell cell-60"><input type="datetime-local" name="timestamp_wakeupDatetime"></div>
+                <div class="element-cell cell-60"><input type="datetime-local" dtype="timestamp" name="wakeupDatetime"></div>
             </div>
             <div class="element-row">
                 <div class="element-cell cell-100">
@@ -56,7 +56,7 @@
             <div class="element-row">
                 <div class="element-cell cell-40">Sono REM</div>
                 <div class="element-cell cell-30">
-                    <input type="number" id="hhmm_remSleep" name="hhmm_remSleep"
+                    <input type="number" id="hhmm_remSleep" dtype="hhmm" name="remSleep"
                         oninput="updateOutput('remSleepOutput', this.value, 'time')">
                 </div>
                 <div class="element-cell cell-30"><output id="remSleepOutput">__h __min</output></div>
@@ -64,7 +64,7 @@
             <div class="element-row">
                 <div class="element-cell cell-40">Sono Profundo</div>
                 <div class="element-cell cell-30">
-                    <input type="number" id="hhmm_deepSleep" name="hhmm_deepSleep"
+                    <input type="number" id="hhmm_deepSleep" dtype="hhmm" name="deepSleep"
                         oninput="updateOutput('deepSleepOutput', this.value, 'time')">
                 </div>
                 <div class="element-cell cell-30"><output id="deepSleepOutput">__h __min</output></div>
@@ -94,8 +94,8 @@
     now.setHours(now.getHours() - 3);
     document.getElementById('date_input').value = now.toISOString().split('T')[0];
 
-    const bedDateTimeInput = document.querySelector('input[name="timestamp_bedDatetime"]');
-    const wakeupDateTimeInput = document.querySelector('input[name="timestamp_wakeupDatetime"]');
+    const bedDateTimeInput = document.querySelector('input[name="bedDatetime"]');
+    const wakeupDateTimeInput = document.querySelector('input[name="wakeupDatetime"]');
     const datetimeDifferenceOutput = document.getElementById('DatetimeDifferenceOutput');
     datetimeDifferenceOutput.textContent = "Aguardando inserção de ambos os dados.";
     bedDateTimeInput.addEventListener('change', calculateDatetimeDifference);

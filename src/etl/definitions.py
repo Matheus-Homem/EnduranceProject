@@ -1,9 +1,9 @@
-import os
 from abc import ABC, abstractmethod
 from typing import Literal, NewType, Optional, Union
 
 from polars import DataFrame
 
+from os_local import join_paths
 from src.shared.database.tables import MySqlTable
 from src.shared.logging.adapters import LoggingPrinter
 
@@ -40,7 +40,7 @@ class Table:
 
     def get_path(self) -> Path:
         suffix = f".{self.format}" if self.format else ""
-        return Path(os.path.join(self.folder, self.layer, self.name) + suffix)
+        return Path(join_paths(self.folder, self.layer, self.name) + suffix)
 
 
 class BronzeTable(Table):
