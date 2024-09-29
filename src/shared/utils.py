@@ -22,13 +22,17 @@ class StringUtils:
     @staticmethod
     def clean_string(input: str) -> str:
         return StringUtils.remove_special_characters(StringUtils.remove_linebreaks(input))
+    
+    @staticmethod
+    def stringify_list(list: List[str]) -> str:
+        return ",".join(list)
 
 
 class DictUtils:
 
     @staticmethod
-    def serialize_dict(data: dict) -> str:
-        return json.dumps(data)
+    def serialize_dict(dict: dict) -> str:
+        return json.dumps(dict)
 
     @staticmethod
     def clean_and_serialize_dict(input_dict: dict) -> str:
