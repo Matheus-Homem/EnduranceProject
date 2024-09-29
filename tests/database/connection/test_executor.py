@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, patch
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from src.shared.database.executor import DatabaseExecutor
-from src.shared.database.tables import MockTable
+from src.database.connection.executor import DatabaseExecutor
+from src.database.tables import MockTable
 
 
 class TestDatabaseExecutor(unittest.TestCase):
@@ -16,14 +16,14 @@ class TestDatabaseExecutor(unittest.TestCase):
         self.executor = DatabaseExecutor(session=self.session)
 
     def test_describe(self):
-        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+        with patch("src.database.connection.builder.DatabaseExecutorBuilder", return_value=self.builder):
             with patch("builtins.print") as mocked_print:
                 self.executor.describe(MockTable)
                 mocked_print.assert_called()
                 self.session.execute.assert_called()
 
     def test_count(self):
-        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+        with patch("src.database.connection.builder.DatabaseExecutorBuilder", return_value=self.builder):
             with patch("builtins.print") as mocked_print:
                 self.executor.count(MockTable)
                 mocked_print.assert_called()
@@ -59,19 +59,19 @@ class TestDatabaseExecutor(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_insert(self):
-        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+        with patch("src.database.connection.builder.DatabaseExecutorBuilder", return_value=self.builder):
             self.executor.insert(MockTable, mock_id=1, mock_colA="Alice")
             self.session.add.assert_called_once()
             self.session.commit.assert_called_once()
 
     def test_delete(self):
-        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+        with patch("src.database.connection.builder.DatabaseExecutorBuilder", return_value=self.builder):
             self.executor.delete(MockTable, mock_id=1)
             self.session.query(MockTable).filter_by(mock_id=1).delete.assert_called_once()
             self.session.commit.assert_called_once()
 
     def test_update(self):
-        with patch("src.shared.database.builder.DatabaseExecutorBuilder", return_value=self.builder):
+        with patch("src.database.connection.builder.DatabaseExecutorBuilder", return_value=self.builder):
             self.executor.update(MockTable, filters={"mock_id": 1}, updates={"mock_colA": "Alice"})
             self.session.query(MockTable).filter_by(**{"mock_id": 1}).update.assert_called_once()
             self.session.commit.assert_called_once()
