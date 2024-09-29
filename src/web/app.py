@@ -17,13 +17,14 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from os_local import get_environment_variable
 from src.shared.credentials import PRD
 from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.tables import DailyControl, ElementEntries
+from src.shared.database.tables import DailyControl, ElementEntries, Users
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
 
 MAX_RETRIES = 15
 ELEMENT_ENTRIES = ElementEntries
 DAILY_CONTROL = DailyControl
+USERS = Users
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
@@ -78,8 +79,8 @@ def register():
             return redirect(url_for("flash_message", page="register", flash_category="error", message="Invalid email format"))
 
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
-            existing_user = executor.select(tb.Users, username=new_username)
-            existing_email = executor.select(tb.Users, email=new_email)
+            existing_user = executor.select(USERS, username=new_username)
+            existing_email = executor.select(USERS, email=new_email)
 
             if existing_user != []:
                 return redirect(url_for("flash_message", page="register", flash_category="error", message="Username already exists"))
@@ -87,7 +88,7 @@ def register():
                 return redirect(url_for("flash_message", page="register", flash_category="error", message="Email already exists"))
 
             executor.insert(
-                table=tb.Users,
+                table=USERS,
                 username=new_username,
                 email=new_email,
                 password=generate_password_hash(new_password),
@@ -105,7 +106,7 @@ def login():
 
     if request.method == "POST":
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
-            users = executor.select(tb.Users, username=request.form["username"])
+            users = executor.select(USERS, username=request.form["username"])
             user = users[0] if users else None
 
             if not user:
