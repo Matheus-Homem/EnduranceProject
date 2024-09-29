@@ -1,7 +1,8 @@
 # Data Manipulation and Processing
-polars==0.20.4
 pandas==2.1.4
-deltalake==0.19.0
+pyspark==3.5.3
+delta-spark==3.2.1
+# deltalake==0.19.0
 
 # Web Frameworks and Extensions
 Flask==3.0.2
