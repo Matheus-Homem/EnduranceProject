@@ -55,6 +55,10 @@ sql-export:
 		python3 scripts/schema_exporter.py)
 
 chore:
+	@echo Running autoflake...
+	@autoflake --remove-all-unused-imports --in-place --recursive tests/
+	@autoflake --remove-all-unused-imports --in-place --recursive src/
+	@autoflake --remove-all-unused-imports --in-place --recursive scripts/
 	@echo Running isort...
 	@isort tests/
 	@isort src/
@@ -62,8 +66,8 @@ chore:
 	@echo Running black...
 	@black tests/
 	@black src/
-	@isort scripts/
-	@echo isort and black ran successfully!
+	@black scripts/
+	@echo autoflake, isort, and black ran successfully!
 
 test:
 	@make chore
