@@ -90,7 +90,7 @@ class DatabaseExecutor(LoggingPrinter):
         return tables
 
     def show_create_table(self, table: Union[MySqlTable, str]) -> str:
-        table_name = table.__tablename__.upper() if issubclass(table, MySqlTable) else table.upper()
+        table_name = table.upper() if isinstance(table, str) else table.__tablename__.upper()
         result = self.session.execute(text(f"SHOW CREATE TABLE {table}"))
         create_table_stmt = result.fetchone()[1]
         self.logger.info(f"CREATE TABLE statement for {table_name} shown successfully")
