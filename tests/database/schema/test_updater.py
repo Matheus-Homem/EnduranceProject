@@ -22,19 +22,20 @@ class TestSchemaUpdater(unittest.TestCase):
         with self.assertRaises(ColumnNotDefinedError):
             self.updater._validate_columns("non_existent_column")
 
-    def test_reenumerate_fields(self):
+    def test_can_sort_fields(self):
         fields = {0: "date_input", 1: "boolTest", 5: "snackMorning"}
-        expected = {0: "date_input", 1: "boolTest", 2: "snackMorning"}
-        result = self.updater._reenumerate_fields(fields)
+        expected = ["boolTest", "date_input", "snackMorning"]
+        result = self.updater._sort_fields(fields)
         self.assertEqual(result, expected)
 
-    def test_reenumerate_dtypes(self):
+    def test_can_map_dtypes_to_columns(self):
+        fields = {0: "date_input", 1: "boolTest", 5: "ordinalSnackMorning"}
         dtypes = {0: "date", 1: "bool", 5: "ordinal"}
-        expected = {0: "date", 1: "bool", 2: "ordinal"}
-        result = self.updater._reenumerate_dtypes(dtypes)
+        expected = {"date_input": "date", "boolTest": "bool", "ordinalSnackMorning": "ordinal"}
+        result = self.updater._map_dtypes_to_columns(fields, dtypes)
         self.assertEqual(result, expected)
 
-    def test_filter_duplicate_fields(self):
+    def test_can_filter_duplicate_fields(self):
         field_mapping = {0: "date_input", 1: "boolTest", 2: "doubleTest", 3: "hhmmssTest", 4: "intTest", 5: "ordinalTest", 6: "ordinalTest"}
         dtype_mapping = {0: "date", 1: "bool", 2: "double", 3: "hhmmss", 4: "int", 5: "ordinal", 6: "ordinal"}
         expected_fields = {0: "date_input", 1: "boolTest", 2: "doubleTest", 3: "hhmmssTest", 4: "intTest", 5: "ordinalTest"}
@@ -43,13 +44,13 @@ class TestSchemaUpdater(unittest.TestCase):
         self.assertEqual(result_fields, expected_fields)
         self.assertEqual(result_dtypes, expected_dtypes)
 
-    def test_extract_unique_fields(self):
+    def test_can_extract_unique_fields(self):
         field_mapping = {0: "date_input", 1: "boolTest", 2: "doubleTest", 3: "hhmmssTest", 4: "intTest", 5: "ordinalTest", 6: "ordinalTest"}
         expected = ["date_input", "boolTest", "doubleTest", "hhmmssTest", "intTest", "ordinalTest"]
         result = self.updater._extract_unique_fields(field_mapping)
         self.assertCountEqual(result, expected)
 
-    def test_is_version_defined(self):
+    def test_if_version_is_defined(self):
         defined_schemas = [
             {"element_category": "category1", "element_name": "element1", "schema_encoded": "encode1", "schema_version": 2},
             {"element_category": "category2", "element_name": "element2", "schema_encoded": "encode2", "schema_version": 3},
@@ -60,7 +61,7 @@ class TestSchemaUpdater(unittest.TestCase):
         result = self.updater._is_version_defined(category, element, current_encode, defined_schemas)
         self.assertTrue(result)
 
-    def test_is_version_not_defined(self):
+    def test_if_version_is_not_defined(self):
         defined_schemas = [
             {"element_category": "category1", "element_name": "element1", "schema_encoded": "encode1", "schema_version": 2},
             {"element_category": "category2", "element_name": "element2", "schema_encoded": "encode2", "schema_version": 3},
@@ -71,7 +72,7 @@ class TestSchemaUpdater(unittest.TestCase):
         result = self.updater._is_version_defined(category, element, current_encode, defined_schemas)
         self.assertFalse(result)
 
-    def test_fetch_next_schema_version(self):
+    def test_can_fetch_next_schema_version(self):
         defined_schemas = [
             {"element_category": "category1", "element_name": "element1", "schema_version": 2},
             {"element_category": "category1", "element_name": "element1", "schema_version": 3},
@@ -82,23 +83,23 @@ class TestSchemaUpdater(unittest.TestCase):
         result = self.updater._fetch_next_schema_version(category, element, defined_schemas)
         self.assertEqual(result, 4)
 
-    def test_update_element_schemas(self):
+    def test_can_update_element_schemas(self):
         self.parser.parse_html_files.return_value = {
             "element1": {
                 "category": "category1",
-                "fields": {0: "date_input", 1: "boolTest", 5: "snackMorning"},
+                "fields": {0: "date_input", 1: "boolTest", 5: "ordinalTest"},
                 "dtypes": {0: "date", 1: "bool", 5: "ordinal"},
             }
         }
         self.table.get_unique_constraint_name.return_value = "unique_constraint"
         self.table.get_schema_encoded.return_value = "encode1"
         self.updater._fetch_next_schema_version = MagicMock(return_value=1)
-        self.updater._extract_unique_fields = MagicMock(return_value=["date_input", "boolTest", "snackMorning"])
+        self.updater._extract_unique_fields = MagicMock(return_value=["date_input", "boolTest", "ordinalTest"])
         self.updater._filter_duplicate_fields = MagicMock(
-            return_value=({0: "date_input", 1: "boolTest", 2: "snackMorning"}, {0: "date", 1: "bool", 2: "ordinal"})
+            return_value=({0: "date_input", 1: "boolTest", 2: "ordinalTest"}, {0: "date", 1: "bool", 2: "ordinal"})
         )
-        self.updater._reenumerate_fields = MagicMock(return_value={0: "date_input", 1: "boolTest", 2: "snackMorning"})
-        self.updater._reenumerate_dtypes = MagicMock(return_value={0: "date", 1: "bool", 2: "ordinal"})
+        self.updater._sort_fields = MagicMock(return_value=["boolTest", "date_input", "ordinalTest"])
+        self.updater._map_dtypes_to_columns = MagicMock(return_value={"date_input": "date", "boolTest": "bool", "ordinalTest": "ordinal"})
 
         executor = MagicMock()
         executor.__enter__.return_value.select.return_value = []
@@ -107,7 +108,7 @@ class TestSchemaUpdater(unittest.TestCase):
             self.updater.update_element_schemas()
 
         self.parser.parse_html_files.assert_called_once_with(directory=self.updater.directory_path)
-        self.table.get_schema_encoded.assert_called_once_with(schema_fields=["date_input", "boolTest", "snackMorning"])
+        self.table.get_schema_encoded.assert_called_once_with(schema_fields=["date_input", "boolTest", "ordinalTest"])
         self.updater._fetch_next_schema_version.assert_called_once_with(category="category1", element="element1", defined_schemas=[])
 
         executor.__enter__.return_value.upsert.assert_called_once_with(
@@ -116,8 +117,8 @@ class TestSchemaUpdater(unittest.TestCase):
             element_name="element1",
             schema_version=1,
             schema_encoded="encode1",
-            schema_fields='{"0": "date_input", "1": "boolTest", "2": "snackMorning"}',
-            schema_dtypes='{"0": "date", "1": "bool", "2": "ordinal"}',
+            schema_fields="boolTest,date_input,ordinalTest",
+            schema_dtypes='{"date_input": "date", "boolTest": "bool", "ordinalTest": "ordinal"}',
         )
 
 
