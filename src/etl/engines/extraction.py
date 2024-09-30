@@ -1,5 +1,3 @@
-from typing import List
-
 from src.etl.ports import DatabaseDF, Engine, PandasDF
 
 

@@ -1,5 +1,10 @@
-from src.etl.ports import Engine
+from src.etl.ports import Engine, PandasDF
 
 
 class RefinementEngine(Engine):
-    pass
+
+    def __init__(self):
+        super().__init__()
+
+    def process(self, table: PandasDF) -> PandasDF:
+        pass
