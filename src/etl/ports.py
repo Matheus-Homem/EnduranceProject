@@ -1,3 +1,4 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Union
 
@@ -14,7 +15,9 @@ PandasDF = pandas.DataFrame
 class IOHandler(ABC):
 
     def __init__(self, layer: Layer):
+        self.logger = logging.getLogger(__class__.__name__)
         self.path = join_paths(DATA_FOLDER, layer.value)
+        self.layer = layer
         self.pd = pandas
 
     @abstractmethod
@@ -29,6 +32,7 @@ class IOHandler(ABC):
 class Engine(ABC):
 
     def __init__(self):
+        self.logger = logging.getLogger(__name__)
         self.pd = pandas
 
     @abstractmethod
