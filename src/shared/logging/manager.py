@@ -37,6 +37,7 @@ class LoggingManager:
                 "ERROR": "red",
                 "CRITICAL": "bold_red",
             },
+            datefmt="%Y-%m-%d %H:%M:%S",
         )
         console_handler = colorlog.StreamHandler()
         console_handler.setFormatter(formatter)
