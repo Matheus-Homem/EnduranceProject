@@ -84,19 +84,21 @@ class TestDateUtils(unittest.TestCase):
     def test_convert_date_input(self):
         self.assertEqual(DateUtils.convert_date_input("2023-01-01"), date(2023, 1, 1))
 
-    def test_get_current_brasilia_sp_datetime(self):
-        current_sp_time = DateUtils.get_current_brasilia_sp_datetime()
+    def test_get_brasilia_datetime(self):
+        current_sp_time = DateUtils.get_brasilia_datetime()
         self.assertIsInstance(current_sp_time, datetime)
         self.assertEqual(current_sp_time, datetime.now(pytz.timezone("America/Sao_Paulo")))
         self.assertEqual(current_sp_time.tzinfo.zone, "America/Sao_Paulo")
 
-    def test_get_brasilia_today(self):
-        current_sp_date = DateUtils.get_brasilia_today()
+    def test_get_brasilia_date(self):
+        current_sp_date = DateUtils.get_brasilia_date()
         self.assertIsInstance(current_sp_date, date)
         self.assertEqual(current_sp_date, datetime.now(pytz.timezone("America/Sao_Paulo")).date())
 
-    def test_get_utc_today(self):
-        self.assertEqual(DateUtils.get_utc_today(), datetime.now().date())
+    def test_get_utc_date(self):
+        current_utc_date = DateUtils.get_utc_date()
+        self.assertIsInstance(current_utc_date, date)
+        self.assertEqual(current_utc_date, datetime.now().date())
 
 
 class TestHashUtils(unittest.TestCase):

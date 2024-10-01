@@ -143,7 +143,7 @@ def index():
         daily_control = executor.select(
             table=DAILY_CONTROL,
             user_id=session["user_id"],
-            entry_date=DateUtils.get_brasilia_today(),
+            entry_date=DateUtils.get_brasilia_date(),
         )
 
     has_data_map = {(entry["element_category"], entry["element_name"]): entry["has_data"] for entry in daily_control}
