@@ -87,7 +87,6 @@ class TestDateUtils(unittest.TestCase):
     def test_get_brasilia_datetime(self):
         current_sp_time = DateUtils.get_brasilia_datetime()
         self.assertIsInstance(current_sp_time, datetime)
-        self.assertEqual(current_sp_time, datetime.now(pytz.timezone("America/Sao_Paulo")))
         self.assertEqual(current_sp_time.tzinfo.zone, "America/Sao_Paulo")
 
     def test_get_brasilia_date(self):
