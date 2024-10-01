@@ -23,6 +23,7 @@ class TestLoggingManager(unittest.TestCase):
                 "ERROR": "red",
                 "CRITICAL": "bold_red",
             },
+            datefmt="%Y-%m-%d %H:%M:%S",
         )
 
         mock_stream_handler_instance = mock_stream_handler.return_value
