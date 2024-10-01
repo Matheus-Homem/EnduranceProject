@@ -70,11 +70,15 @@ class DateUtils:
         return date.fromisoformat(date_to_convert)
 
     @staticmethod
-    def current_brasilia_sp_time():
+    def get_current_brasilia_sp_datetime() -> datetime:
         return datetime.now(pytz.timezone("America/Sao_Paulo"))
 
     @staticmethod
-    def get_today_date():
+    def get_brasilia_today() -> date:
+        return datetime.now(pytz.timezone("America/Sao_Paulo")).date()
+
+    @staticmethod
+    def get_utc_today() -> date:
         return datetime.now().date()
 
 
