@@ -76,8 +76,8 @@ class ElementEntries(MySqlTable):
     element_string = Column(Text, nullable=False)
     schema_encoded = Column(Text, nullable=False)
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
-    created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
-    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
+    created_at = Column(DateTime, nullable=False, default=DateUtils.get_brasilia_datetime)
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.get_brasilia_datetime, onupdate=DateUtils.get_brasilia_datetime)
 
     __table_args__ = (UniqueConstraint("entry_date", "user_id", "element_category", "element_name", name=__unique_constraint_name__),)
 
@@ -94,8 +94,8 @@ class ElementSchemas(MySqlTable):
     schema_fields = Column(Text, nullable=False)
     schema_dtypes = Column(Text, nullable=False)
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
-    created_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time)
-    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
+    created_at = Column(DateTime, nullable=False, default=DateUtils.get_brasilia_datetime)
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.get_brasilia_datetime, onupdate=DateUtils.get_brasilia_datetime)
 
     __table_args__ = (UniqueConstraint("element_category", "element_name", "schema_version", name=__unique_constraint_name__),)
 
@@ -120,6 +120,6 @@ class MockTable(MySqlTable):
     mock_id = Column(String(36), primary_key=True)
     mock_colA = Column(String(255))
     op = Column(Enum("c", "u", "d"), nullable=False, default="c")
-    updated_at = Column(DateTime, nullable=False, default=DateUtils.current_brasilia_sp_time, onupdate=DateUtils.current_brasilia_sp_time)
+    updated_at = Column(DateTime, nullable=False, default=DateUtils.get_brasilia_datetime, onupdate=DateUtils.get_brasilia_datetime)
 
     __table_args__ = (UniqueConstraint("mock_id", name=__unique_constraint_name__),)
