@@ -14,7 +14,6 @@ class CustomColoredFormatter(colorlog.ColoredFormatter):
         record.pathname = record.pathname[src_index:]
 
         if hasattr(record, "funcName") and hasattr(record, "module"):
-            class_name = record.name
-            record.funcName = f"{class_name}.{record.funcName}"
+            record.funcName = f"{record.name}.{record.funcName}" if not "." in record.funcName else record.funcName
 
         return super().format(record)
