@@ -4,10 +4,10 @@ VENV_NAME := .venv
 
 clear:
 	@$(if $(filter $(OS),Windows_NT), \
-		del /Q /S *.pyc && \
-		del /Q /S __pycache__, \
-		find . -type f -name '*.pyc' -delete && \
-		rm -rf __pycache__)
+		del /Q /S src\*.pyc && \
+		del /Q /S src\__pycache__, \
+		find src -type f -name '*.pyc' -delete && \
+		rm -rf src/__pycache__)
 
 create-venv:
 	@echo Creating virtual environment...
