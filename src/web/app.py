@@ -145,7 +145,7 @@ def menu_entry(entry_date):
 
     smp.success("Accessing the Entries Menu page")
 
-    with DatabaseExecutorBuilder(use_production_db=True) as executor:
+    with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
         daily_control = executor.select(
             table=DAILY_CONTROL,
             user_id=session["user_id"],
