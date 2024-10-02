@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Menu de Inserção
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="page-title">
+        <h1>Home</h1>
+        <h2>Home</h2>
+    </div>
+
+    <form action="/entry" method="get" onsubmit="redirectToMenuEntry(event)">
+        <label for="entry_date">Data:</label>
+        <input type="date" id="entry_date" name="entry_date" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+
+    <form action="/logout" method="POST">
+        <div class="buttonContainer">
+            <button type="submit" class="loginButton" id="logout">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Logout
+            </button>
+        </div>
+    </form>
+    
+    <script>
+        function redirectToMenuEntry(event) {
+            event.preventDefault();
+            const entryDate = document.getElementById('entry_date').value;
+            window.location.href = `/entry/${entryDate}`;
+        }
+    </script>
+
+{% endblock %}
