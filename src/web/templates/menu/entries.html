@@ -88,14 +88,12 @@
         </div>
     </div>
 
-    <form action="/logout" method="POST">
-        <div class="buttonContainer">
-            <button type="submit" class="loginButton" id="logout">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Logout
-            </button>
-        </div>
-    </form>
+    <div class="buttonContainer">
+        <button type="button" class="loginButton" id="home" onclick="window.location.href='/'">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </button>
+    </div>
 
     <script>
         const entryDate = "{{ entry_date }}";
