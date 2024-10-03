@@ -46,9 +46,10 @@ def login_required(f):
     return wrap
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
+
 
 @app.route("/flash/<page>/<flash_category>/<message>", methods=["GET", "POST"])
 def flash_message(page, flash_category, message):
@@ -136,12 +137,12 @@ def unauthorized():
     smp.error("Unauthorized access attempt")
     return render_template("accounts/unauthorized.html"), 401
 
-@app.route("/entry/<entry_date>", methods=["GET"])
+
+@app.route("/entry/<entry_date>/menu/", methods=["GET"])
 @login_required
-@cache.cached(timeout=300)
 def menu_entry(entry_date):
     if not entry_date:
-        return redirect(url_for('index'))
+        return redirect(url_for("index"))
 
     smp.success("Accessing the Entries Menu page")
 
