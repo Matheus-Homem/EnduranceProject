@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Menu de Inserção
+    Home
 {% endblock %}
 
 
@@ -13,9 +13,30 @@
     </div>
 
     <form action="/entry" method="get" onsubmit="redirectToMenuEntry(event)">
-        <label for="entry_date">Data:</label>
-        <input type="date" id="entry_date" name="entry_date" required>
-        <button type="submit">Enviar</button>
+
+        <div class="element-box">
+            <div class="element-table">
+
+                <div class="element-row">
+                    <div class="element-cell cell-100">
+                        <span><strong>Menu</strong></span>
+                    </div>
+                </div>
+                <div class="element-row">
+                    <div class="element-cell cell-50">
+                        <input type="date" id="entry_date" name="entry_date" required>
+                    </div>
+                    <div class="element-cell cell-50">
+                        <button type="submit" class="insertButton" id="submit">
+                            <i class="fa-solid fa-signature"></i>
+                            Inserir
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </form>
 
 
@@ -32,7 +53,7 @@
         function redirectToMenuEntry(event) {
             event.preventDefault();
             const entryDate = document.getElementById('entry_date').value;
-            window.location.href = `/entry/${entryDate}`;
+            window.location.href = `/entry/${entryDate}/menu/`;
         }
     </script>
 
