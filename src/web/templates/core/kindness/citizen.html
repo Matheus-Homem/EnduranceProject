@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form id="myForm" action="/entry/kindness/citizen/" method="POST" onsubmit="submitForm(event)">
+<form id="myForm" action="/entry/{{ entry_date }}/kindness/citizen/" method="POST" onsubmit="submitForm(event)">
     <div class="element-box kindness">
         <div class="element-header">
             <span>Cidadão</span>
@@ -18,7 +18,7 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" dtype="date" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
                 </div>
             </div>
 
@@ -76,15 +76,15 @@
     </div>
 
     <div class="buttonContainer">
-        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
-            <i class="fas fa-home"></i>
-            Home
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
         </button>
         <button type="submit" class="submitButton" id="submit">
             <i class="fa-solid fa-share"></i>
             Submit
         </button>
-        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/strength/athlete/'">
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/{{ entry_date }}/strength/athlete/'">
             <i class="fa-solid fa-forward"></i>
             Next
         </button>
@@ -92,9 +92,15 @@
 </form>
 
 <script>
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    
     const now = new Date();
-    now.setHours(now.getHours() - 3);
-    document.getElementById('date_input').value = now.toISOString().split('T')[0];
+
 
     document.getElementById('string_coexistence').value = 'Conviver com pessoas me faz: \n-> \n-> ';
     document.getElementById('string_coexistence').addEventListener('blur', function() {
