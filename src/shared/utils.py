@@ -75,7 +75,6 @@ class DateUtils:
         if not format:
             return date.fromisoformat(date_to_convert)
         return datetime.strptime(date_to_convert, format).date()
-        
 
     @staticmethod
     def get_brasilia_datetime() -> datetime:
