@@ -1,3 +1,4 @@
+import logging
 from typing import Dict
 
 import sshtunnel
@@ -5,20 +6,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
-from src.shared.logging.adapters import LoggingPrinter
 
 sshtunnel.SSH_TIMEOUT = 20.0
 sshtunnel.TUNNEL_TIMEOUT = 20.0
 
 
-class DatabaseConnector(LoggingPrinter):
+class DatabaseConnector:
 
     def __init__(
         self,
         use_production_db: bool,
     ):
-        super().__init__(class_name=self.__class__.__name__)
-
+        self.logger = logging.getLogger(__class__.__name__)
         self.use_production_db = use_production_db
         self.Session = None
         self.engine = None

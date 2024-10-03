@@ -1,10 +1,10 @@
+import logging
 from typing import Any, Dict, List, Tuple
 
 from src.database.connection.builder import DatabaseExecutorBuilder
 from src.database.schema.parser import HTMLSchemaParser
 from src.database.tables import ElementSchemas, MySqlTable
 from src.shared.credentials import PRD
-from src.shared.logging.adapters import LoggingPrinter
 from src.shared.utils import DictUtils, StringUtils
 
 
@@ -12,20 +12,20 @@ class ColumnNotDefinedError(Exception):
     pass
 
 
-class DatabaseSchemaUpdater(LoggingPrinter):
+class DatabaseSchemaUpdater:
 
     def __init__(
         self,
         table: MySqlTable = ElementSchemas,
-        parser: HTMLSchemaParser = HTMLSchemaParser(),
+        parser: HTMLSchemaParser = HTMLSchemaParser,
         encoded_column: str = "schema_encoded",
         version_column: str = "schema_version",
         category_column: str = "element_category",
         element_column: str = "element_name",
     ):
-        super().__init__(class_name=self.__class__.__name__)
+        self.logger = logging.getLogger(__class__.__name__)
         self.table = table
-        self.parser = parser
+        self.parser = parser()
         self.directory_path = "src/web/templates/core"
         self.encoded_column = encoded_column
         self.version_column = version_column

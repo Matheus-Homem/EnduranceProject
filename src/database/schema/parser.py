@@ -1,3 +1,4 @@
+import logging
 from typing import Dict, List
 
 from bs4 import BeautifulSoup
@@ -9,13 +10,12 @@ from os_local import (
     join_paths,
     list_directory_contents,
 )
-from src.shared.logging.adapters import LoggingPrinter
 
 
-class HTMLSchemaParser(LoggingPrinter):
+class HTMLSchemaParser:
 
     def __init__(self):
-        super().__init__(class_name=self.__class__.__name__)
+        self.logger = logging.getLogger(__class__.__name__)
         self.category_keyname = "category"
         self.field_keyname = "fields"
         self.dtype_keyname = "dtypes"

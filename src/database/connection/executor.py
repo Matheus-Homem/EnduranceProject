@@ -1,3 +1,4 @@
+import logging
 from typing import List, Union
 
 from sqlalchemy import UniqueConstraint, and_, select, text
@@ -6,15 +7,14 @@ from sqlalchemy.orm import Session
 from tabulate import tabulate
 
 from src.database.tables import MySqlTable
-from src.shared.logging.adapters import LoggingPrinter
 
 
-class DatabaseExecutor(LoggingPrinter):
+class DatabaseExecutor:
     def __init__(
         self,
         session: Session,
     ):
-        super().__init__(class_name=self.__class__.__name__)
+        self.logger = logging.getLogger(__class__.__name__)
         self.session = session
 
     def describe(self, table: MySqlTable) -> None:
