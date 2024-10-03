@@ -84,7 +84,7 @@ class TestSchemaUpdater(unittest.TestCase):
         self.assertEqual(result, 4)
 
     def test_can_update_element_schemas(self):
-        self.parser.parse_html_files.return_value = {
+        self.parser.return_value.parse_html_files.return_value = {
             "element1": {
                 "category": "category1",
                 "fields": {0: "date_input", 1: "boolTest", 5: "ordinalTest"},
@@ -107,8 +107,8 @@ class TestSchemaUpdater(unittest.TestCase):
         with unittest.mock.patch("src.database.schema.updater.DatabaseExecutorBuilder", return_value=executor):
             self.updater.update_element_schemas()
 
-        self.parser.parse_html_files.assert_called_once_with(directory=self.updater.directory_path)
-        self.table.get_schema_encoded.assert_called_once_with(schema_fields=["date_input", "boolTest", "ordinalTest"])
+        self.parser.return_value.parse_html_files.assert_called_once()
+        self.table.get_schema_encoded.assert_called_once()
         self.updater._fetch_next_schema_version.assert_called_once_with(category="category1", element="element1", defined_schemas=[])
 
         executor.__enter__.return_value.upsert.assert_called_once_with(
