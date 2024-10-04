@@ -143,6 +143,6 @@ class DatabaseSchemaUpdater:
                         schema_fields=StringUtils.stringify_list(list=sorted_fields),
                         schema_dtypes=DictUtils.serialize_dict(dict=mapped_dtypes),
                     )
-        self.logger.success("Schema update process completed")
         self.logger.info(f"Skipped schemas: {skipped_schemas}")
         self.logger.info(f"Updated schemas: {updated_schemas}")
+        self.logger.success("Schema update process completed")
