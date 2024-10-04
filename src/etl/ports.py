@@ -14,9 +14,9 @@ PandasDF = pandas.DataFrame
 
 class IOHandler(ABC):
 
-    def __init__(self, layer: Layer):
-        self.logger = logging.getLogger(__class__.__name__)
-        self.path = join_paths(DATA_FOLDER, layer.value)
+    def __init__(self, class_name: str, layer: Layer, format: str = None):
+        self.logger = logging.getLogger(class_name)
+        self.path = join_paths(DATA_FOLDER, layer.value) + f".{format}" if format else join_paths(DATA_FOLDER, layer.value)
         self.layer = layer
         self.pd = pandas
 
@@ -25,15 +25,16 @@ class IOHandler(ABC):
         pass
 
     @abstractmethod
-    def write(self, table: Union[DatabaseDF, PandasDF]) -> None:
+    def write(self, table: PandasDF) -> None:
         pass
 
 
 class Engine(ABC):
 
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+    def __init__(self, class_name: str):
+        self.logger = logging.getLogger(class_name)
         self.pd = pandas
 
     @abstractmethod
-    def process(self, table: Union[DatabaseDF, PandasDF]) -> None: ...
+    def process(self, table: Union[DatabaseDF, PandasDF]) -> PandasDF:
+        pass
