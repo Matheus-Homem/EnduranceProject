@@ -17,7 +17,7 @@ class TestPipeline(unittest.TestCase):
         self.table = DataFrame({"col1": [1, 2], "col2": [3, 4]})
         self.processed_table = DataFrame({"col1": [10, 20], "col2": [30, 40]})
 
-        self.reader.read.return_value = [self.table]
+        self.reader.read.return_value = self.table
         self.engine.process.return_value = self.processed_table
 
         self.pipeline = Pipeline(reader=self.reader, engine=self.engine, writer=self.writer)
