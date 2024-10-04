@@ -66,5 +66,4 @@ class HTMLSchemaParser:
                 element = filename[:-5]
                 parsed_element_mapping[element] = self._process_html_file(filepath, subfolder)
 
-        self.logger.info(f"HTML files parsed successfully")
         return parsed_element_mapping
