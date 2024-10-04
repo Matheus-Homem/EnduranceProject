@@ -1,3 +1,5 @@
+import logging
+
 from src.etl.ports import Engine, IOHandler
 
 
@@ -9,11 +11,14 @@ class Pipeline:
         engine: Engine,
         writer: IOHandler,
     ):
+        self.logger = logging.getLogger(__class__.__name__)
         self.reader = reader
         self.engine = engine
         self.writer = writer
+        self.pipeline_type = self.engine.__class__.__name__.replace("Engine", "").upper()
 
     def execute(self) -> None:
-        for table in self.reader.read():
-            processed_table = self.engine.process(table=table)
-            self.writer.write(table=processed_table)
+        self.logger.info(f"Starting {self.pipeline_type } pipeline execution")
+        table = self.reader.read()
+        processed_table = self.engine.process(table=table)
+        self.writer.write(table=processed_table)
