@@ -46,6 +46,11 @@ def login_required(f):
     return wrap
 
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 @app.route("/flash/<page>/<flash_category>/<message>", methods=["GET", "POST"])
 def flash_message(page, flash_category, message):
     flash(message, category=flash_category)
@@ -97,7 +102,7 @@ def register():
 
             return redirect(url_for("flash_message", page="login", flash_category="success", message="User registered successfully"))
 
-    return render_template("register.html")
+    return render_template("accounts/register.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -117,7 +122,7 @@ def login():
             session["user_id"] = user.get("user_id")
             return redirect(url_for("index"))
 
-    return render_template("login.html")
+    return render_template("accounts/login.html")
 
 
 @app.route("/logout", methods=["POST"])
@@ -130,30 +135,32 @@ def logout():
 @app.route("/unauthorized", methods=["GET"])
 def unauthorized():
     smp.error("Unauthorized access attempt")
-    return render_template("unauthorized.html"), 401
+    return render_template("accounts/unauthorized.html"), 401
 
 
-@app.route("/", methods=["GET"])
+@app.route("/entry/<entry_date>/menu/", methods=["GET"])
 @login_required
-@cache.cached(timeout=300)
-def index():
-    smp.success("Accessing the index page")
+def menu_entry(entry_date):
+    if not entry_date:
+        return redirect(url_for("index"))
+
+    smp.success("Accessing the Entries Menu page")
 
     with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
         daily_control = executor.select(
             table=DAILY_CONTROL,
             user_id=session["user_id"],
-            entry_date=DateUtils.get_brasilia_date(),
+            entry_date=DateUtils.convert_date_input(date_to_convert=entry_date, format="%Y-%m-%d"),
         )
 
     has_data_map = {(entry["element_category"], entry["element_name"]): entry["has_data"] for entry in daily_control}
 
-    return render_template("index.html", has_data_map=has_data_map)
+    return render_template("menu/entries.html", has_data_map=has_data_map, entry_date=entry_date)
 
 
-@app.route("/add/<category>/<element>/", methods=["GET", "POST"])
+@app.route("/entry/<entry_date>/<category>/<element>/", methods=["GET", "POST"])
 @login_required
-def add_entry(category, element):
+def upsert_entry(entry_date, category, element):
     smp.success(f"Accessing the entry page with Category: {category.capitalize()} and Element: {element.capitalize()}")
 
     if request.method == "POST":
@@ -199,7 +206,7 @@ def add_entry(category, element):
         smp.error("Error inserting into the database after multiple attempts")
         return jsonify({"message": "Error inserting into the database after multiple attempts"}), 500
     else:
-        return render_template(f"core/{category}/{element}.html")
+        return render_template(f"core/{category}/{element}.html", entry_date=entry_date)
 
 
 if __name__ == "__main__":
