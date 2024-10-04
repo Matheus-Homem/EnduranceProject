@@ -9,7 +9,7 @@ from src.etl.io.parquet import ParquetHandler
 from src.etl.pipeline import Pipeline
 
 
-def orchestrate_etl_process():
+def orchestrate_etl_process(update_schema: bool = True) -> None:
     extraction_pipeline = Pipeline(
         reader=DatabaseHandler(layer=Layer.DATABASE),
         engine=ExtractionEngine(),
@@ -25,8 +25,11 @@ def orchestrate_etl_process():
         engine=RefinementEngine(),
         writer=DeltaHandler(layer=Layer.GOLD),
     )
-    schema_updater = DatabaseSchemaUpdater()
-    schema_updater.update_element_schemas()
+
+    if update_schema:
+        schema_updater = DatabaseSchemaUpdater()
+        schema_updater.update_element_schemas()
+
     extraction_pipeline.execute()
     cleaning_pipeline.execute()
     refinement_pipeline.execute()
