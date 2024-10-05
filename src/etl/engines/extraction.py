@@ -1,4 +1,4 @@
-from src.etl.ports import DatabaseDF, Engine, PandasDF
+from src.etl.core.definitions import DatabaseDF, Engine, PandasDF
 
 
 class ExtractionEngine(Engine):
@@ -8,4 +8,4 @@ class ExtractionEngine(Engine):
 
     def process(self, table: DatabaseDF) -> PandasDF:
         self.logger.info("Starting data processing for extraction tables")
-        return self.pd.DataFrame([table])
+        return self.pd.DataFrame(table)
