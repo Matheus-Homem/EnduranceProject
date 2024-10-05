@@ -1,4 +1,4 @@
-from src.etl.ports import Engine, PandasDF
+from src.etl.core.definitions import Engine, PandasDF
 
 
 class RefinementEngine(Engine):
