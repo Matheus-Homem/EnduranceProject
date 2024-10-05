@@ -1,5 +1,5 @@
 import logging
-from typing import List, Union
+from typing import Any, Dict, List, Union
 
 from sqlalchemy import UniqueConstraint, and_, select, text
 from sqlalchemy.dialects.mysql import insert as mysql_insert
@@ -29,7 +29,7 @@ class DatabaseExecutor:
         print(self.session.query(table).count())
         self.logger.info(f"Count of records in {table.__tablename__} selected successfully")
 
-    def select(self, table, **filters) -> List[dict]:
+    def select(self, table: MySqlTable, **filters) -> List[Dict[str, Any]]:
         """
         Example:
             Select rows from the `LocalTest` table where id is 1 and name is 'Alice':
