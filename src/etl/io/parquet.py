@@ -1,5 +1,6 @@
-from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 from pandas import read_parquet
+
+from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 
 
 class ParquetHandler(IOHandler):

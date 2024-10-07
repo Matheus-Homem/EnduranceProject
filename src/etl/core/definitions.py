@@ -77,7 +77,7 @@ class Engine(ABC):
         self._need_split = need_split
 
     def should_split_data(self) -> bool:
-        return self._need_split 
+        return self._need_split
 
     @abstractmethod
     def process(self, dataframe: DataFrameType) -> DataFrameType:
