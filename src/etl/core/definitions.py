@@ -77,5 +77,17 @@ class Engine(ABC):
         self.pd = pandas
 
     @abstractmethod
+    def need_split(self) -> bool:
+        pass
+
+    @abstractmethod
     def process(self, dataframe: DataFrameType) -> DataFrameType:
+        pass
+
+    @abstractmethod
+    def split(self, dataframe: DataFrameType) -> List[DataFrameType]:
+        pass
+
+    @abstractmethod
+    def get_table_name(self, dataframe: DataFrameType) -> TableName:
         pass
