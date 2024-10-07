@@ -72,13 +72,13 @@ class IOHandler(ABC):
 
 class Engine(ABC):
 
-    def __init__(self, class_name: str):
+    def __init__(self, class_name: str, need_split: bool = False):
         self.logger = logging.getLogger(class_name)
         self.pd = pandas
+        self._need_split = need_split
 
-    @abstractmethod
-    def need_split(self) -> bool:
-        pass
+    def should_split_data(self) -> bool:
+        return self._need_split 
 
     @abstractmethod
     def process(self, dataframe: DataFrameType) -> DataFrameType:
