@@ -13,7 +13,6 @@ from src.database.tables import (
     MySqlTable,
     Users,
 )
-from src.etl.core.entity import EntityDTO
 
 DATA_FOLDER = get_absolute_path("data")
 
@@ -51,24 +50,18 @@ class IOHandler(ABC):
         if self.layer not in supported_layers:
             raise ValueError(f"Layer {self.layer} is not supported by {class_name}")
 
-    def validate_table_name(self, table_name: str) -> None:
-        if not isinstance(table_name, TableName):
-            raise TypeError(f"Expected table_name to be of type TableName, got {type(table_name).__name__} instead")
-
     def generate_path(self, table_name: TableName) -> Union[str, MySqlTable]:
-        self.validate_table_name(table_name)
-
         if self.layer == Layer.DATABASE:
             mysql_table_mapping = {
                 TableName("element_entries"): ElementEntries,
                 TableName("element_schemas"): ElementSchemas,
                 TableName("users"): Users,
-                TableName("daily_control"): DailyControl
+                TableName("daily_control"): DailyControl,
             }
             try:
                 return mysql_table_mapping[table_name]
             except KeyError:
-                raise ValueError(f"Table '{table_name}' not found in database")
+                raise ValueError(f"Table '{table_name}' is not a MySQL Database valid table")
         elif self.layer == Layer.BRONZE:
             return join_paths(DATA_FOLDER, self.layer.value, f"{table_name}.parquet")
         elif self.layer in [Layer.SILVER, Layer.GOLD]:
@@ -84,5 +77,5 @@ class Engine(ABC):
         self.pd = pandas
 
     @abstractmethod
-    def process(self, entity: EntityDTO) -> EntityDTO:
+    def process(self, dataframe: DataFrameType) -> DataFrameType:
         pass
