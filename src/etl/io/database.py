@@ -8,7 +8,7 @@ class DatabaseHandler(IOHandler):
     def __init__(self, layer: Layer):
         super().__init__(class_name=__class__.__name__, supported_layers=[Layer.DATABASE], layer=layer)
 
-    def read(self, table_name: TableName = TableName("element_entries")) -> DatabaseDF:
+    def read(self, table_name: TableName) -> DatabaseDF:
         self.logger.info(f"Reading data from database connection")
         mysql_table = self.generate_path(table_name)
         with DatabaseExecutorBuilder(use_production_db=PRD) as executor:
