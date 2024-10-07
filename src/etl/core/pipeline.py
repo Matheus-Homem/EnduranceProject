@@ -1,6 +1,6 @@
 import logging
 
-from src.etl.core.definitions import Engine, IOHandler, TableName
+from src.etl.core.definitions import Engine, IOHandler, TableName, DataFrameType
 
 
 class Pipeline:
@@ -20,17 +20,17 @@ class Pipeline:
     def execute(self, table_to_read: TableName = None, table_to_write: TableName = None) -> None:
         data = self.reader.read(table_name=table_to_read)
 
-        if self.engine.need_split():
-            self._process_and_write_subsets(data, table_to_write)
+        if self.engine.should_split_data():
+            self._split_and_write_data_subsets(data)
         else:
             self._process_and_write(data, table_to_write)
 
-    def _process_and_write(self, data, table_to_write: TableName) -> None:
-        processed_table = self.engine.process(data)
+    def _process_and_write(self, dataframe: DataFrameType, table_to_write: TableName) -> None:
+        processed_table = self.engine.process(dataframe)
         self.writer.write(dataframe=processed_table, table_name=table_to_write)
 
-    def _process_and_write_subsets(self, data, table_to_write: TableName) -> None:
+    def _split_and_write_data_subsets(self, data: DataFrameType) -> None:
         data_subsets = self.engine.split(data)
         for subset in data_subsets:
-            table_to_write = self.engine.get_table_name(subset)
-            self._process_and_write(subset, table_to_write)
+            table_name = self.engine.get_table_name(subset)
+            self._process_and_write(dataframe=subset, table_to_write=table_name)
