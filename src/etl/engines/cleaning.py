@@ -6,11 +6,8 @@ from src.etl.core.definitions import Engine, PandasDF, TableName
 class CleaningEngine(Engine):
 
     def __init__(self, column_to_split: str = "element_name"):
-        super().__init__(class_name=__class__.__name__)
+        super().__init__(class_name=__class__.__name__, need_split=True)
         self.column_to_split = column_to_split
-
-    def need_split(self) -> bool:
-        return True
 
     def process(self, dataframe: PandasDF) -> PandasDF:
         self.logger.info("Starting data cleaning process")
