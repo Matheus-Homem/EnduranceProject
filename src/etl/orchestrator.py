@@ -1,6 +1,5 @@
 from src.database.schema.updater import DatabaseSchemaUpdater
 from src.etl.core.definitions import Layer
-from src.etl.core.entity import EntityDTO
 from src.etl.core.pipeline import Pipeline
 from src.etl.engines.cleaning import CleaningEngine
 from src.etl.engines.extraction import ExtractionEngine
@@ -32,9 +31,6 @@ def orchestrate_etl_process(update_schema: bool = True) -> None:
         schema_updater = DatabaseSchemaUpdater()
         schema_updater.update_element_schemas()
 
-    entity_dto = EntityDTO()
-
-    extraction_pipeline.set_entity(entity=entity_dto)
     extraction_pipeline.execute()
     cleaning_pipeline.execute()
     refinement_pipeline.execute()
