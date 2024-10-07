@@ -34,7 +34,6 @@ class IOHandler(ABC):
 
     def __init__(self, class_name: str, supported_layers: List[Layer], layer: Layer):
         self.logger = logging.getLogger(class_name)
-        self.pd = pandas
         self.layer = layer
         self.validate_layer(class_name, supported_layers)
 

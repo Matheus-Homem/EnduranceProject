@@ -1,4 +1,5 @@
 from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
+from pandas import read_parquet
 
 
 class ParquetHandler(IOHandler):
@@ -9,7 +10,7 @@ class ParquetHandler(IOHandler):
     def read(self, table_name: TableName) -> PandasDF:
         path = self.generate_path(table_name=table_name)
         self.logger.info(f"Reading Parquet file from {repr(path)}")
-        return self.pd.read_parquet(path)
+        return read_parquet(path)
 
     def write(self, dataframe: PandasDF, table_name: TableName) -> None:
         path = self.generate_path(table_name=table_name)
