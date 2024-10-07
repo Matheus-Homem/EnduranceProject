@@ -10,10 +10,10 @@ class DeltaHandler(IOHandler):
 
     def read(self, table_name: TableName) -> PandasDF:
         path = self.generate_path(table_name=table_name)
-        self.logger.info(f"Reading Delta Lake file from {path}")
+        self.logger.info(f"Reading Delta Lake file from {repr(path)}")
         return DeltaTable(path).to_pandas()
 
     def write(self, table: PandasDF, table_name: TableName) -> None:
         path = self.generate_path(table_name=table_name)
-        self.logger.info(f"Writing Delta Lake file to {path}")
+        self.logger.info(f"Writing Delta Lake file to {repr(path)}")
         write_deltalake(path, table, mode="overwrite", schema_mode="overwrite")
