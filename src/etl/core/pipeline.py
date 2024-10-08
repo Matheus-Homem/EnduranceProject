@@ -17,7 +17,7 @@ class Pipeline:
         self.writer = writer
         self._set_pipeline_type(engine.__class__.__name__)
 
-    def _set_pipeline_type(self, engine_class_name:str) -> str:
+    def _set_pipeline_type(self, engine_class_name: str) -> str:
         self.pipeline_type = engine_class_name.replace("Engine", "").upper()
 
     def _proccess_and_save(self, dataframe: DataFrameType, table_to_write: TableName) -> None:
@@ -33,7 +33,7 @@ class Pipeline:
 
     def execute(self, table_to_read: TableName = None, table_to_write: TableName = None) -> None:
         self.logger.info(f"Starting pipeline execution for {self.pipeline_type} layer")
-        
+
         data = self.reader.read(table_name=table_to_read)
 
         if self.engine.should_split_data():
