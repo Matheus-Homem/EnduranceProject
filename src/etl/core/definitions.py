@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Any, Dict, List, NewType, Union
+from typing import Any, Dict, List, NewType, Optional, Union
 
 import pandas
 
@@ -32,7 +32,12 @@ class Layer(Enum):
 
 class IOHandler(ABC):
 
-    def __init__(self, class_name: str, supported_layers: List[Layer], layer: Layer):
+    def __init__(
+        self,
+        class_name: str,
+        layer: Layer,
+        supported_layers: List[Layer],
+    ):
         self.logger = logging.getLogger(class_name)
         self.layer = layer
         self.validate_layer(class_name, supported_layers)
@@ -69,19 +74,15 @@ class IOHandler(ABC):
             raise ValueError(f"Unsupported layer: {self.layer}")
 
 
-class Engine(ABC):
+class Splitter(ABC):
 
-    def __init__(self, class_name: str, need_split: bool = False):
+    def __init__(
+        self,
+        class_name: str,
+        column_to_split: str,
+    ):
         self.logger = logging.getLogger(class_name)
-        self.pd = pandas
-        self._need_split = need_split
-
-    def should_split_data(self) -> bool:
-        return self._need_split
-
-    @abstractmethod
-    def process(self, dataframe: DataFrameType) -> DataFrameType:
-        pass
+        self.column_to_split = column_to_split
 
     @abstractmethod
     def split(self, dataframe: DataFrameType) -> List[DataFrameType]:
@@ -89,4 +90,24 @@ class Engine(ABC):
 
     @abstractmethod
     def get_table_name(self, dataframe: DataFrameType) -> TableName:
+        pass
+
+
+class Engine(ABC):
+
+    def __init__(
+        self,
+        class_name: str,
+        splitter: Optional[Splitter] = None,
+    ):
+        self.logger = logging.getLogger(class_name)
+        self.pd = pandas
+        self.splitter = splitter
+        self._need_split = True if splitter else False
+
+    def should_split_data(self) -> bool:
+        return self._need_split
+
+    @abstractmethod
+    def process(self, dataframe: DataFrameType) -> DataFrameType:
         pass
