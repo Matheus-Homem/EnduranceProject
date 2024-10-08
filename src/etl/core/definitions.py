@@ -74,6 +74,12 @@ class IOHandler(ABC):
             raise ValueError(f"Unsupported layer: {self.layer}")
 
 
+class CastingStrategy(ABC):
+    @abstractmethod
+    def cast(self, col: PandasDF, pandas: pandas = None) -> PandasDF:
+        pass
+
+
 class Splitter(ABC):
 
     def __init__(
@@ -93,16 +99,29 @@ class Splitter(ABC):
         pass
 
 
+class Tool(ABC):
+
+    def __init__(self) -> None:
+        self.pd = pandas
+
+    @abstractmethod
+    def apply(self, dataframe: DataFrameType) -> DataFrameType:
+        pass
+
+
 class Engine(ABC):
 
     def __init__(
         self,
         class_name: str,
+        tool: Optional[Tool] = None,
         splitter: Optional[Splitter] = None,
     ):
         self.logger = logging.getLogger(class_name)
         self.pd = pandas
+        self.tool = tool
         self.splitter = splitter
+
         self._need_split = True if splitter else False
 
     def should_split_data(self) -> bool:
