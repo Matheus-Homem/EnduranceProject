@@ -15,15 +15,10 @@ class Pipeline:
         self.reader = reader
         self.engine = engine
         self.writer = writer
-        self.pipeline_type = self.engine.__class__.__name__.replace("Engine", "").upper()
+        self._set_pipeline_type(engine.__class__.__name__)
 
-    def execute(self, table_to_read: TableName = None, table_to_write: TableName = None) -> None:
-        data = self.reader.read(table_name=table_to_read)
-
-        if self.engine.should_split_data():
-            self._split_process_and_save(data)
-        else:
-            self._proccess_and_save(data, table_to_write)
+    def _set_pipeline_type(self, engine_class_name:str) -> str:
+        self.pipeline_type = engine_class_name.replace("Engine", "").upper()
 
     def _proccess_and_save(self, dataframe: DataFrameType, table_to_write: TableName) -> None:
         processed_table = self.engine.process(dataframe)
@@ -35,3 +30,15 @@ class Pipeline:
             table_to_write = self.engine.splitter.get_table_name(subset)
             processed_table = self.engine.process(subset)
             self.writer.write(dataframe=processed_table, table_name=table_to_write)
+
+    def execute(self, table_to_read: TableName = None, table_to_write: TableName = None) -> None:
+        self.logger.info(f"Starting pipeline execution for {self.pipeline_type} layer")
+        
+        data = self.reader.read(table_name=table_to_read)
+
+        if self.engine.should_split_data():
+            self._split_process_and_save(data)
+        else:
+            self._proccess_and_save(data, table_to_write)
+
+        self.logger.info(f"Pipeline execution for {self.pipeline_type} layer finished")
