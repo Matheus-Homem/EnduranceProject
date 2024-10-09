@@ -23,6 +23,18 @@ PandasDF = pandas.DataFrame
 DataFrameType = Union[DatabaseDF, PandasDF]
 
 
+class DataType(Enum):
+    BOOL = "bool"
+    DATE = "date"
+    DOUBLE = "double"
+    DURATION_HHMMSS = "hhmmss"
+    DURATION_HHMM = "hhmm"
+    INTEGER = "int"
+    ORDINAL = "ordinal"
+    STRING = "string"
+    TIMESTAMP = "timestamp"
+
+
 class Layer(Enum):
     DATABASE = "database"
     BRONZE = "bronze"
