@@ -97,24 +97,32 @@ class TestCastingStrategies(unittest.TestCase):
 
     def test_string_casting_strategy(self):
         strategy = StringCastingStrategy()
-        df = pd.DataFrame({"string_col": ["a", None, "c"]})
-        result = strategy.cast(df["string_col"])
+        df = pd.DataFrame({"col_to_string": ["a", None, "c"]})
+        result = strategy.cast(df["col_to_string"])
         expected = pd.Series(
             ["a", None, "c"],
-            name="string_col",
+            name="col_to_string",
             dtype="string",
         )
         pd.testing.assert_series_equal(result, expected)
 
     def test_timestamp_casting_strategy(self):
         strategy = TimestampCastingStrategy()
-        df = pd.DataFrame({"timestamp_col": ["2024-09-28 12:34:56", None, "2023-05-15 01:23:45"]})
+        df = pd.DataFrame({
+            "timestamp_col": [
+                "2024-09-28 12:34:56",
+                None,
+                "2023-05-15 01:23:45",
+                "2024-10-14T20:43"
+            ]
+        })
         result = strategy.cast(df["timestamp_col"])
-        expected = pd.Series(
-            [datetime(2024, 9, 28, 12, 34, 56), None, datetime(2023, 5, 15, 1, 23, 45)],
-            name="timestamp_col",
-            dtype="datetime64[ns]",
-        )
+        expected = pd.Series([
+            datetime(2024, 9, 28, 12, 34, 56),
+            None,
+            datetime(2023, 5, 15, 1, 23, 45),
+            datetime(2024, 10, 14, 20, 43)
+        ], name="timestamp_col", dtype="datetime64[ns]")
         pd.testing.assert_series_equal(result, expected)
 
 
