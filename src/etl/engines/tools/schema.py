@@ -21,11 +21,12 @@ class SchemaTool(Tool):
     def apply(self, dataframe: PandasDF) -> PandasDF:
         self.schema = self._read_schema_dataframe("data/bronze/schemas.parquet")
         df_merged = self.pd.merge(dataframe, self.schema, on=["schema_encoded", "element_category", "element_name"], how="inner")
-        
+
         for schema_code in df_merged["schema_encoded"].unique():
             schema = self._get_dtype_dict(df_merged, schema_code)
             for column, column_type in schema.items():
                 strategy = CastingStrategyFactory.get_strategy(column_type)
+                df_merged[column] = df_merged[column].replace("", None)
                 df_merged[column] = strategy.cast(df_merged[column])
 
         return df_merged
