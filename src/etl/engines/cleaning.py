@@ -31,9 +31,12 @@ class CleaningEngine(Engine):
     def process(self, dataframe: PandasDF) -> PandasDF:
         self.logger.info("Starting data cleaning process")
         return (
-            dataframe
-            .pipe(self._explode_json_column, field_name="element_string")
-            .pipe(self._reorder_columns, start_cols=["date_input", "element_category", "element_name"], end_cols=["user_id", "schema_encoded", "created_at", "updated_at"])
+            dataframe.pipe(self._explode_json_column, field_name="element_string")
+            .pipe(
+                self._reorder_columns,
+                start_cols=["date_input", "element_category", "element_name"],
+                end_cols=["user_id", "schema_encoded", "created_at", "updated_at"],
+            )
             .pipe(self.tool.apply)
             .pipe(self._drop_columns, columns=["id", "entry_date", "op", "schema_dtypes", "schema_fields"])
         )
