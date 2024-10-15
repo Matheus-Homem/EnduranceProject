@@ -75,4 +75,12 @@ class StringCastingStrategy(CastingStrategy):
 
 class TimestampCastingStrategy(CastingStrategy):
     def cast(self, col: Series) -> Series:
-        return col.apply(lambda x: datetime.strptime(x, "%Y-%m-%d %H:%M:%S") if x else None).astype("datetime64[ns]")
+        def parse_datetime(x):
+            if x:
+                try:
+                    return datetime.strptime(x, "%Y-%m-%dT%H:%M")
+                except ValueError:
+                    return datetime.strptime(x, "%Y-%m-%d %H:%M:%S")
+            return None
+
+        return col.apply(parse_datetime).astype("datetime64[ns]")
