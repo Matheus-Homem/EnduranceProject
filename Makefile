@@ -62,7 +62,7 @@ sql-export:
 chore:
 	@echo Running autoflake...
 	@autoflake --remove-all-unused-imports --in-place --recursive tests/
-	@autoflake --remove-all-unused-imports --in-place --recursive src/
+	@autoflake --remove-all-unused-imports --in-place --recursive --exclude=__init__.py src/
 	@autoflake --remove-all-unused-imports --in-place --recursive scripts/
 	@echo Running isort...
 	@isort tests/
