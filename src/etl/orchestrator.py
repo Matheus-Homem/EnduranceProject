@@ -1,30 +1,26 @@
 from src.database.schema.updater import DatabaseSchemaUpdater
-from src.etl.core.definitions import Layer
+from src.etl.core.definitions import Format, Layer
 from src.etl.core.pipeline import Pipeline
-from src.etl.engines.cleaning import CleaningEngine
-from src.etl.engines.extraction import ExtractionEngine
-from src.etl.engines.refinement import RefinementEngine
-from src.etl.io.database import DatabaseHandler
-from src.etl.io.delta import DeltaHandler
-from src.etl.io.parquet import ParquetHandler
+from src.etl.engines import CleaningEngine, ExtractionEngine, RefinementEngine
+from src.etl.io import IOHandler
 
 
 def orchestrate_etl_process(update_schema: bool = True) -> None:
 
     extraction_pipeline = Pipeline(
-        reader=DatabaseHandler(layer=Layer.DATABASE),
+        reader=IOHandler(layer=Layer.DATABASE, format=Format.JDBC),
         engine=ExtractionEngine(),
-        writer=ParquetHandler(layer=Layer.BRONZE),
+        writer=IOHandler(layer=Layer.BRONZE, format=Format.PARQUET),
     )
     cleaning_pipeline = Pipeline(
-        reader=ParquetHandler(layer=Layer.BRONZE),
+        reader=IOHandler(layer=Layer.BRONZE, format=Format.PARQUET),
         engine=CleaningEngine(),
-        writer=DeltaHandler(layer=Layer.SILVER),
+        writer=IOHandler(layer=Layer.SILVER, format=Format.DELTA),
     )
     refinement_pipeline = Pipeline(
-        reader=DeltaHandler(layer=Layer.SILVER),
+        reader=IOHandler(layer=Layer.SILVER, format=Format.DELTA),
         engine=RefinementEngine(),
-        writer=DeltaHandler(layer=Layer.GOLD),
+        writer=IOHandler(layer=Layer.GOLD, format=Format.DELTA),
     )
 
     if update_schema:
