@@ -42,7 +42,13 @@ class Layer(Enum):
     GOLD = "gold"
 
 
-class IOHandler(ABC):
+class Format(Enum):
+    JDBC = "jdbc"
+    PARQUET = "parquet"
+    DELTA = "delta"
+
+
+class IOHandlerInterface(ABC):
 
     def __init__(
         self,
