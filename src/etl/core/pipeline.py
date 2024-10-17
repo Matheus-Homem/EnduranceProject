@@ -1,6 +1,7 @@
 import logging
 
-from src.etl.core.definitions import DataFrameType, Engine, IOHandler, TableName
+from src.etl.core.definitions import DataFrameType, Engine, TableName
+from src.etl.io import IOHandler
 
 
 class Pipeline:
