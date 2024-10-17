@@ -1,9 +1,9 @@
 from deltalake import DeltaTable, write_deltalake
 
-from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
+from src.etl.core.definitions import IOHandlerInterface, Layer, PandasDF, TableName
 
 
-class DeltaHandler(IOHandler):
+class DeltaHandler(IOHandlerInterface):
 
     def __init__(self, layer: Layer):
         super().__init__(class_name=__class__.__name__, supported_layers=[Layer.SILVER, Layer.GOLD], layer=layer)

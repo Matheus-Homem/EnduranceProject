@@ -1,9 +1,9 @@
 from pandas import read_parquet
 
-from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
+from src.etl.core.definitions import IOHandlerInterface, Layer, PandasDF, TableName
 
 
-class ParquetHandler(IOHandler):
+class ParquetHandler(IOHandlerInterface):
 
     def __init__(self, layer: Layer):
         super().__init__(class_name=__class__.__name__, supported_layers=[Layer.BRONZE], layer=layer)
