@@ -1,16 +1,16 @@
 import logging
 
 from src.etl.core.definitions import DataFrameType, Engine, TableName
-from src.etl.io import IOHandler
+from src.etl.io.manager import IOManager
 
 
 class Pipeline:
 
     def __init__(
         self,
-        reader: IOHandler,
+        reader: IOManager,
         engine: Engine,
-        writer: IOHandler,
+        writer: IOManager,
     ):
         self.logger = logging.getLogger(__class__.__name__)
         self.reader = reader

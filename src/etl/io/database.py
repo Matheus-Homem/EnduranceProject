@@ -1,9 +1,9 @@
 from src.database.connection.builder import DatabaseExecutorBuilder
-from src.etl.core.definitions import DatabaseDF, IOHandlerInterface, Layer, TableName
+from src.etl.core.definitions import DatabaseDF, IOHandler, Layer, TableName
 from src.shared.credentials import PRD
 
 
-class DatabaseHandler(IOHandlerInterface):
+class DatabaseHandler(IOHandler):
 
     def __init__(self, layer: Layer):
         super().__init__(class_name=__class__.__name__, supported_layers=[Layer.DATABASE], layer=layer)

@@ -1,7 +1,7 @@
 from src.etl.core.definitions import (
     DataFrameType,
     Format,
-    IOHandlerInterface,
+    IOHandler,
     Layer,
     TableName,
 )
@@ -13,7 +13,7 @@ from src.etl.io.parquet import ParquetHandler
 class IOHandlerFactory:
 
     @staticmethod
-    def get_handler(layer: Layer, format: Format) -> IOHandlerInterface:
+    def get_handler(layer: Layer, format: Format) -> IOHandler:
 
         if format == Format.JDBC:
             return DatabaseHandler(layer=layer)
@@ -28,7 +28,7 @@ class IOHandlerFactory:
             raise ValueError(f"Unsupported format: {format}")
 
 
-class IOHandler:
+class IOManager:
 
     def __init__(
         self,

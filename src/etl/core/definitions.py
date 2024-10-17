@@ -48,7 +48,7 @@ class Format(Enum):
     DELTA = "delta"
 
 
-class IOHandlerInterface(ABC):
+class IOHandler(ABC):
 
     def __init__(
         self,

@@ -2,25 +2,25 @@ from src.database.schema.updater import DatabaseSchemaUpdater
 from src.etl.core.definitions import Format, Layer
 from src.etl.core.pipeline import Pipeline
 from src.etl.engines import CleaningEngine, ExtractionEngine, RefinementEngine
-from src.etl.io import IOHandler
+from src.etl.io.manager import IOManager
 
 
 def orchestrate_etl_process(update_schema: bool = True) -> None:
 
     extraction_pipeline = Pipeline(
-        reader=IOHandler(layer=Layer.DATABASE, format=Format.JDBC),
+        reader=IOManager(layer=Layer.DATABASE, format=Format.JDBC),
         engine=ExtractionEngine(),
-        writer=IOHandler(layer=Layer.BRONZE, format=Format.PARQUET),
+        writer=IOManager(layer=Layer.BRONZE, format=Format.PARQUET),
     )
     cleaning_pipeline = Pipeline(
-        reader=IOHandler(layer=Layer.BRONZE, format=Format.PARQUET),
+        reader=IOManager(layer=Layer.BRONZE, format=Format.PARQUET),
         engine=CleaningEngine(),
-        writer=IOHandler(layer=Layer.SILVER, format=Format.DELTA),
+        writer=IOManager(layer=Layer.SILVER, format=Format.DELTA),
     )
     refinement_pipeline = Pipeline(
-        reader=IOHandler(layer=Layer.SILVER, format=Format.DELTA),
+        reader=IOManager(layer=Layer.SILVER, format=Format.DELTA),
         engine=RefinementEngine(),
-        writer=IOHandler(layer=Layer.GOLD, format=Format.DELTA),
+        writer=IOManager(layer=Layer.GOLD, format=Format.DELTA),
     )
 
     if update_schema:
