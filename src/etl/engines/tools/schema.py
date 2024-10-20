@@ -1,8 +1,8 @@
-from json import loads as json_loads
 from typing import Dict
 
 from src.etl.core.definitions import PandasDF, Tool
 from src.etl.engines.tools.casting import CastingStrategyFactory
+from src.shared.utils import DictUtils
 
 
 class SchemaTool(Tool):
@@ -14,7 +14,7 @@ class SchemaTool(Tool):
     def _get_dtype_dict(self, df_schema: PandasDF, schema_encoded: str) -> Dict[str, str]:
         try:
             schema = df_schema[(df_schema["schema_encoded"] == schema_encoded)]
-            return json_loads(schema["schema_dtypes"].iloc[0])
+            return DictUtils.deserialize_dict(schema["schema_dtypes"].iloc[0])
         except Exception as e:
             raise Exception(f"Error while getting schema dtype dictionary: {e}")
 
