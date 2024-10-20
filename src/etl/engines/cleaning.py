@@ -1,9 +1,9 @@
-from json import loads as json_loads
 from typing import List
 
 from src.etl.core.definitions import Engine, PandasDF, Splitter, Tool
 from src.etl.engines.tools.schema import SchemaTool
 from src.etl.engines.tools.splitter import CleaningSplitter
+from src.shared.utils import DictUtils
 
 
 class CleaningEngine(Engine):
@@ -17,7 +17,7 @@ class CleaningEngine(Engine):
 
     def _explode_json_column(self, dataframe: PandasDF, field_name: str) -> PandasDF:
         base_dataframe = dataframe.drop([field_name], axis=1)
-        exploded_json_columns = dataframe[field_name].apply(json_loads).apply(self.pd.Series)
+        exploded_json_columns = dataframe[field_name].apply(DictUtils.deserialize_dict).apply(self.pd.Series)
         return self.pd.concat([base_dataframe, exploded_json_columns], axis=1)
 
     def _reorder_columns(self, dataframe: PandasDF, start_cols: List[str], end_cols: List[str]) -> PandasDF:
