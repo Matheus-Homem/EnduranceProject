@@ -1,10 +1,4 @@
-from src.etl.core.definitions import (
-    DataFrameType,
-    Format,
-    IOHandler,
-    Layer,
-    TableName,
-)
+from src.etl.core.definitions import DataFrameType, Format, IOHandler, Layer, TableName
 from src.etl.io.database import DatabaseHandler
 from src.etl.io.delta import DeltaHandler
 from src.etl.io.parquet import ParquetHandler
