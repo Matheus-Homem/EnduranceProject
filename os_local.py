@@ -24,3 +24,6 @@ def is_directory(path: str) -> bool:
 
 def list_directory_contents(base_path: str) -> Iterator[Tuple[str, List[str], List[str]]]:
     return os.walk(base_path)
+
+def extract_basename(path:str) -> str:
+    return os.path.basename(path)
