@@ -1,6 +1,6 @@
 from typing import List
 
-from src.etl.core.definitions import Engine, PandasDF, Splitter, Tool
+from src.etl.core.definitions import Engine, EngineType, PandasDF, Splitter, Tool
 from src.etl.engines.tools.schema import SchemaTool
 from src.etl.engines.tools.splitter import CleaningSplitter
 from src.shared.utils import DictUtils
@@ -13,7 +13,7 @@ class CleaningEngine(Engine):
         tool: Tool = SchemaTool(),
         splitter: Splitter = CleaningSplitter(),
     ):
-        super().__init__(class_name=__class__.__name__, tool=tool, splitter=splitter)
+        super().__init__(class_name=__class__.__name__, type=EngineType.CLEANING, tool=tool, splitter=splitter)
 
     def _explode_json_column(self, dataframe: PandasDF, field_name: str) -> PandasDF:
         base_dataframe = dataframe.drop([field_name], axis=1)
