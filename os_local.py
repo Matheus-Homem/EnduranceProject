@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Iterator, Tuple
 
 def get_absolute_path(path: str) -> str:
     return os.path.abspath(path)
@@ -21,3 +21,6 @@ def is_file(path: str) -> bool:
 
 def is_directory(path: str) -> bool:
     return os.path.isdir(path)
+
+def list_directory_contents(base_path: str) -> Iterator[Tuple[str, List[str], List[str]]]:
+    return os.walk(base_path)
