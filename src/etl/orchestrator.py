@@ -5,7 +5,7 @@ from src.etl.engines import CleaningEngine, ExtractionEngine, RefinementEngine
 from src.etl.io.manager import IOManager
 
 
-def orchestrate_etl_process(update_schema: bool = True) -> None:
+def orchestrate_etl_process(refresh_schema: bool = True) -> None:
 
     extraction_pipeline = Pipeline(
         reader=IOManager(layer=Layer.DATABASE, format=Format.JDBC),
@@ -23,12 +23,13 @@ def orchestrate_etl_process(update_schema: bool = True) -> None:
         writer=IOManager(layer=Layer.GOLD, format=Format.DELTA),
     )
 
-    if update_schema:
+    if refresh_schema:
         schema_updater = DatabaseSchemaUpdater()
         schema_updater.update_element_schemas()
 
-    extraction_pipeline.execute()
-    cleaning_pipeline.execute()
+    extraction_pipeline.execute(table_to_read="element_entries", table_to_write="entries")
+    extraction_pipeline.execute(table_to_read="element_schemas", table_to_write="schemas")
+    cleaning_pipeline.execute(table_to_read="entries")
     refinement_pipeline.execute()
 
 
