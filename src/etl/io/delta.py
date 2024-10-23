@@ -17,7 +17,6 @@ class DeltaHandler(IOHandler):
         return DeltaTable(path).to_pandas()
 
     def write(self, dataframe: PandasDF, table_name: TableName) -> None:
-        print(table_name)
         path = self.generate_path(table_name=table_name)
         self.logger.info(f"Writing Delta Lake file to {repr(path)}")
         write_deltalake(path, dataframe, mode="overwrite", schema_mode="overwrite")
