@@ -48,6 +48,12 @@ class Format(Enum):
     DELTA = "delta"
 
 
+class EngineType(Enum):
+    EXTRACTION = "extraction"
+    CLEANING = "cleaning"
+    REFINEMENT = "refinement"
+
+
 class IOHandler(ABC):
 
     def __init__(
@@ -132,6 +138,7 @@ class Engine(ABC):
     def __init__(
         self,
         class_name: str,
+        type: EngineType = None,
         tool: Optional[Tool] = None,
         splitter: Optional[Splitter] = None,
     ):
@@ -139,11 +146,7 @@ class Engine(ABC):
         self.pd = pandas
         self.tool = tool
         self.splitter = splitter
-
-        self._need_split = True if splitter else False
-
-    def should_split_data(self) -> bool:
-        return self._need_split
+        self.type = type
 
     @abstractmethod
     def process(self, dataframe: DataFrameType) -> DataFrameType:
