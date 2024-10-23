@@ -1,9 +1,11 @@
+from typing import List
+
 from deltalake import DeltaTable, write_deltalake
 
+from os_local import list_directory_contents
 from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 
-from typing import List
-from os_local import list_directory_contents
+
 class DeltaHandler(IOHandler):
 
     def __init__(self, layer: Layer):
@@ -28,5 +30,7 @@ class DeltaHandler(IOHandler):
 
     def list_delta_tables(self) -> List[str]:
         base_path = self.generate_path(table_name="")
-        delta_tables = [root.split("/")[0] for root, dirs, files in list_directory_contents(base_path) if "_delta_log" in dirs and self._is_delta_table(root)]
+        delta_tables = [
+            root.split("/")[0] for root, dirs, files in list_directory_contents(base_path) if "_delta_log" in dirs and self._is_delta_table(root)
+        ]
         return delta_tables

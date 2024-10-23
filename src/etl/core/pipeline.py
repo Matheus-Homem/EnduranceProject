@@ -2,8 +2,8 @@ import logging
 
 from src.etl.core.definitions import Engine, EngineType, TableName
 from src.etl.engines.tools.utils import get_subset_table_name, split_dataframe
-from src.etl.io.manager import IOManager
 from src.etl.io.delta import DeltaHandler
+from src.etl.io.manager import IOManager
 
 
 class Pipeline:

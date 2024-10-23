@@ -1,7 +1,6 @@
 from src.etl.core.definitions import Engine, EngineType, PandasDF
 
 
-
 class RefinementEngine(Engine):
 
     def __init__(self):
