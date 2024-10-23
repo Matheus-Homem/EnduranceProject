@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Any, Dict, List, NewType, Optional, Union
+from typing import Any, Dict, List, NewType, Union
 
 import pandas
 
@@ -104,26 +104,7 @@ class CastingStrategy(ABC):
         pass
 
 
-class Splitter(ABC):
-
-    def __init__(
-        self,
-        class_name: str,
-        column_to_split: str,
-    ):
-        self.logger = logging.getLogger(class_name)
-        self.column_to_split = column_to_split
-
-    @abstractmethod
-    def split(self, dataframe: DataFrameType) -> List[DataFrameType]:
-        pass
-
-    @abstractmethod
-    def get_table_name(self, dataframe: DataFrameType) -> TableName:
-        pass
-
-
-class Tool(ABC):
+class AbstractTool(ABC):
 
     def __init__(self) -> None:
         self.pd = pandas
@@ -139,14 +120,16 @@ class Engine(ABC):
         self,
         class_name: str,
         type: EngineType = None,
-        tool: Optional[Tool] = None,
-        splitter: Optional[Splitter] = None,
     ):
         self.logger = logging.getLogger(class_name)
         self.pd = pandas
-        self.tool = tool
-        self.splitter = splitter
-        self.type = type
+        self._set_engine_type(type)
+
+    def _set_engine_type(self, type: EngineType) -> None:
+        if isinstance(type, EngineType):
+            self.type = type
+        else:
+            raise ValueError(f"Invalid EngineType: {type}")
 
     @abstractmethod
     def process(self, dataframe: DataFrameType) -> DataFrameType:

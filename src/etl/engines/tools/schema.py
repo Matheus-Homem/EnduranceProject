@@ -1,11 +1,12 @@
 from typing import Dict
 
-from src.etl.core.definitions import PandasDF, Tool
+from src.etl.core.definitions import AbstractTool, PandasDF
 from src.etl.engines.tools.casting import CastingStrategyFactory
 from src.shared.utils import DictUtils
 
 
-class SchemaTool(Tool):
+class SchemaTool(AbstractTool):
+
     def _read_schema_dataframe(self, schema_path: str) -> PandasDF:
         df_schema = self.pd.read_parquet(schema_path)
         df_schema_filtered = df_schema[["schema_encoded", "element_category", "element_name", "schema_dtypes", "schema_fields"]]
