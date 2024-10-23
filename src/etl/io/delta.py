@@ -2,7 +2,7 @@ from typing import List
 
 from deltalake import DeltaTable, write_deltalake
 
-from os_local import list_directory_contents
+from os_local import list_directory_contents, extract_basename
 from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 
 
@@ -17,6 +17,7 @@ class DeltaHandler(IOHandler):
         return DeltaTable(path).to_pandas()
 
     def write(self, dataframe: PandasDF, table_name: TableName) -> None:
+        print(table_name)
         path = self.generate_path(table_name=table_name)
         self.logger.info(f"Writing Delta Lake file to {repr(path)}")
         write_deltalake(path, dataframe, mode="overwrite", schema_mode="overwrite")
@@ -31,6 +32,6 @@ class DeltaHandler(IOHandler):
     def list_delta_tables(self) -> List[str]:
         base_path = self.generate_path(table_name="")
         delta_tables = [
-            root.split("/")[0] for root, dirs, files in list_directory_contents(base_path) if "_delta_log" in dirs and self._is_delta_table(root)
+            extract_basename(root) for root, dirs, files in list_directory_contents(base_path) if "_delta_log" in dirs and self._is_delta_table(root)
         ]
         return delta_tables
