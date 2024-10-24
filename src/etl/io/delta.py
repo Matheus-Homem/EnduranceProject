@@ -2,7 +2,7 @@ from typing import List
 
 from deltalake import DeltaTable, write_deltalake
 
-from os_local import extract_basename, list_directory_contents
+from os_local import explore_directory, extract_basename
 from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 
 
@@ -30,6 +30,6 @@ class DeltaHandler(IOHandler):
     def list_delta_tables(self) -> List[str]:
         base_path = self.generate_path(table_name="")
         delta_tables = [
-            extract_basename(root) for root, dirs, files in list_directory_contents(base_path) if "_delta_log" in dirs and self._is_delta_table(root)
+            extract_basename(root) for root, dirs, files in explore_directory(base_path) if "_delta_log" in dirs and self._is_delta_table(root)
         ]
         return delta_tables
