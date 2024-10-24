@@ -1,23 +1,25 @@
 import unittest
 from unittest.mock import MagicMock
-import pandas as pd
-from typing import Optional
 
-from src.etl.core.definitions import PandasDF
+import pandas as pd
+
 from src.etl.engines.refinement import RefinementEngine
+
 
 class TestRefinementEngine(unittest.TestCase):
 
     def setUp(self):
         # Configuração inicial para os testes
         self.engine = RefinementEngine()
-        self.df = pd.DataFrame({
-            'element_category': ['cat1', 'cat2'],
-            'element_name': ['name1', 'name2'],
-            'user_id': ['user1', 'user2'],
-            'date_input': pd.to_datetime(['2023-01-01', '2023-01-02']),
-            'value': [10, 20]
-        })
+        self.df = pd.DataFrame(
+            {
+                "element_category": ["cat1", "cat2"],
+                "element_name": ["name1", "name2"],
+                "user_id": ["user1", "user2"],
+                "date_input": pd.to_datetime(["2023-01-01", "2023-01-02"]),
+                "value": [10, 20],
+            }
+        )
 
     def test_build_summary_statistics(self):
         # Mock do método _build_summary_statistics
@@ -56,5 +58,6 @@ class TestRefinementEngine(unittest.TestCase):
         self.assertIsInstance(result[0], pd.DataFrame)
         self.assertIsInstance(result[1], pd.DataFrame)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
