@@ -3,8 +3,8 @@ from unittest.mock import MagicMock
 
 from pandas import DataFrame
 
-from src.etl.pipeline import Pipeline
-from src.etl.ports import Engine, IOHandler
+from src.etl.core.definitions import Engine, IOHandler
+from src.etl.core.pipeline import Pipeline
 
 
 class TestPipeline(unittest.TestCase):
