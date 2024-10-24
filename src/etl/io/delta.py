@@ -2,7 +2,7 @@ from typing import List
 
 from deltalake import DeltaTable, write_deltalake
 
-from os_local import list_directory_contents, extract_basename
+from os_local import extract_basename, list_directory_contents
 from src.etl.core.definitions import IOHandler, Layer, PandasDF, TableName
 
 
