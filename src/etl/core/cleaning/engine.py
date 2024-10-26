@@ -1,7 +1,7 @@
 from typing import List
 
+from src.etl.core.cleaning.schema.transformer import SchemaTransformer
 from src.etl.core.definitions import Engine, EngineType, PandasDF
-from src.etl.engines.transformers.schema import SchemaTransformer
 from src.shared.utils import DictUtils
 
 
