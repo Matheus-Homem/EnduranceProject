@@ -25,20 +25,16 @@
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_engineer" class="toggle" onclick="toggleButton('engineer')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-50">
+                    <div id="id_engineer" class="check" onclick="checkButton('id_engineer', 'input_engineer', 'False', 'True')">
+                        <span>Engenharia</span>
                     </div>
-                    <span>Engenharia</span>
                     <input type="hidden" id="input_engineer" dtype="bool" name="engineer" value="False">
                 </div>
-            </div>
-            <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_neuroscience" class="toggle" onclick="toggleButton('neuroscience')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-50">
+                    <div id="id_neuroscience" class="check" onclick="checkButton('id_neuroscience', 'input_neuroscience', 'False', 'True')">
+                        <span>Neurociências</span>
                     </div>
-                    <span>Neurociências</span>
                     <input type="hidden" id="input_neuroscience" dtype="bool" name="neuroscience" value="False">
                 </div>
             </div>
