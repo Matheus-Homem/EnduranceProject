@@ -1,9 +1,8 @@
 import logging
 
 from src.etl.core.definitions import Engine, EngineType, TableName
+from src.etl.core.io import DeltaHandlerType, IOManager
 from src.etl.core.utils import PipelineUtils
-from src.etl.io.delta import DeltaHandler
-from src.etl.io.manager import IOManager
 
 
 class Pipeline:
@@ -34,7 +33,7 @@ class Pipeline:
             self.writer.write(dataframe=processed_table, table_name=subset_table_name)
 
     def __refine(self) -> None:
-        if isinstance(self.reader, DeltaHandler):
+        if isinstance(self.reader, DeltaHandlerType):
             list_of_tables = self.reader.list_delta_tables()
             for table in list_of_tables:
                 df = self.reader.read(table_name=table)

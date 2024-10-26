@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pandas as pd
 
-from src.etl.engines.refinement import RefinementEngine
+from src.etl.core.refinement import RefinementEngine
 
 
 class TestRefinementEngine(unittest.TestCase):

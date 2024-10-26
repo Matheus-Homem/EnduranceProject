@@ -3,7 +3,7 @@ import unittest
 import pandas as pd
 from IPython.display import display
 
-from src.etl.engines.extraction import ExtractionEngine
+from src.etl.core.extraction import ExtractionEngine
 
 
 class TestExtractionEngine(unittest.TestCase):
