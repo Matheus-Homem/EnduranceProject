@@ -1,7 +1,7 @@
 from src.etl.core.definitions import Format, IOHandler, Layer
-from src.etl.io.database import DatabaseHandler
-from src.etl.io.delta import DeltaHandler
-from src.etl.io.parquet import ParquetHandler
+from src.etl.core.io.database import DatabaseHandler
+from src.etl.core.io.delta import DeltaHandler
+from src.etl.core.io.parquet import ParquetHandler
 
 
 class IOManager:
