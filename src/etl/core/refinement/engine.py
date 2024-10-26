@@ -2,10 +2,19 @@ from typing import List, Optional
 
 from src.etl.core.definitions import Engine, EngineType, PandasDF
 
+# from src.etl.core.refinement.groupers.summary import SummaryDataFrameTransformer
+# from src.etl.core.refinement.groupers.monthly import MonthlyDataFrameTransformer
+# from src.etl.core.refinement.groupers.weekly import WeeklyDataFrameTransformer
+
 
 class RefinementEngine(Engine):
 
-    def __init__(self):
+    def __init__(
+        self,
+        #         summary_transformer: SummaryDataFrameTransformer = SummaryDataFrameTransformer(),
+        #         monthly_transformer: MonthlyDataFrameTransformer = MonthlyDataFrameTransformer(),
+        #         weekly_transformer: WeeklyDataFrameTransformer = WeeklyDataFrameTransformer(),
+    ):
         super().__init__(class_name=__class__.__name__, type=EngineType.REFINEMENT)
 
     def _build_summary_statistics(self, cleaned_table: PandasDF) -> Optional[PandasDF]:
