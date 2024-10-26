@@ -1,6 +1,6 @@
+from src.database.connection.connector import DatabaseConnector
+from src.database.connection.executor import DatabaseExecutor
 from src.shared.credentials import MySqlCredential, SshCredential
-from src.shared.database.connector import DatabaseConnector
-from src.shared.database.executor import DatabaseExecutor
 
 
 class DatabaseExecutorBuilder:

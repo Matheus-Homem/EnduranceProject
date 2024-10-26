@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from src.shared.database.tables import MySqlTable
+from src.database.tables import MySqlTable
 from src.web.schema.parser import HTMLParser
 from src.web.schema.updater import ColumnNotDefinedError, SchemaUpdater
 

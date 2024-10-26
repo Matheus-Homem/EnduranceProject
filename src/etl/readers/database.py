@@ -1,8 +1,8 @@
 from polars import DataFrame
 
+from src.database.connection.builder import DatabaseExecutorBuilder
+from src.database.tables import MySqlTable
 from src.etl.definitions import Reader
-from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.tables import MySqlTable
 
 
 class DatabaseReader(Reader):
