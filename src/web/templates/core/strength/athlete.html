@@ -25,21 +25,26 @@
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
             <div class="element-row">
-                <div class="element-cell cell-60 ">
-                    <div id="toggle_runningAction" class="toggle" onclick="toggleButton('runningAction')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-50">
+                    <div id="id_runningAction" class="check" onclick="checkButton('id_runningAction', 'input_runningAction', 'False', 'True')">
+                        <span>Corrida</span>
                     </div>
-                    <span>Corrida</span>
                     <input type="hidden" id="input_runningAction" dtype="bool" name="runningAction" value="False">
                 </div>
-                <div class="element-cell cell-40 ">
-                    <div id="toggle_runningMute" class="toggle" onclick="toggleButton('runningMute')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-25">
+                    <div id="id_noSinging" class="check" onclick="checkButton('id_noSinging', 'input_noSinging', 'False', 'True')">
+                        <span><i class="fa-solid fa-microphone-slash"></i></span>
                     </div>
-                    <span><i class="fa-solid fa-volume-xmark"></i></span>
-                    <input type="hidden" id="input_runningMute" dtype="bool" name="runningMute" value="False">
+                    <input type="hidden" id="input_noSinging" dtype="bool" name="noSinging" value="False">
+                </div>
+                <div class="element-cell cell-25">
+                    <div id="id_noMusic" class="check" onclick="checkButton('id_noMusic', 'input_noMusic', 'False', 'True')">
+                        <span><i class="fa-solid fa-volume-xmark"></i></span>
+                    </div>
+                    <input type="hidden" id="input_noMusic" dtype="bool" name="noMusic" value="False">
                 </div>
             </div>
+
             <div class="element-row">
                 <div class="element-cell cell-40">Distância</div>
                 <div class="element-cell cell-30">
