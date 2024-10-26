@@ -25,21 +25,36 @@
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_work" class="toggle" onclick="toggleButton('work')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-100">
+                    <div id="id_work" class="check" onclick="checkButton('id_work', 'input_work', 'False', 'True')">
+                        <span>Trabalho</span>
                     </div>
-                    <span>Trabalho</span>
                     <input type="hidden" id="input_work" dtype="bool" name="work" value="False">
                 </div>
             </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_excelence" class="toggle" onclick="toggleButton('excelence')">
+                <div class="element-cell cell-50"><span>Turno</span></div>
+                <div class="element-cell cell-50"><span>Autoelogio</span></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Matinal</span></div>
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_morning_excelence" class="toggle" onclick="toggleButton('morning_excelence')">
                         <div class="toggle-button"></div>
                     </div>
-                    <span>Autoelogio</span>
-                    <input type="hidden" id="input_excelence" dtype="bool" name="excelence" value="False">
+                    <input type="hidden" id="input_morning_excelence" dtype="bool" name="morning_excelence" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Verspertino</span></div>
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_afternoon_excelence" class="toggle" onclick="toggleButton('afternoon_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <input type="hidden" id="input_afternoon_excelence" dtype="bool" name="afternoon_excelence" value="False">
                 </div>
             </div>
 
