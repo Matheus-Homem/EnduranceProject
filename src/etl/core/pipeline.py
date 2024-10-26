@@ -1,7 +1,7 @@
 import logging
 
 from src.etl.core.definitions import Engine, EngineType, TableName
-from src.etl.engines.tools.utils import get_subset_table_name, split_dataframe
+from src.etl.core.utils import PipelineUtils
 from src.etl.io.delta import DeltaHandler
 from src.etl.io.manager import IOManager
 
@@ -27,9 +27,9 @@ class Pipeline:
 
     def __clean(self, table_to_read: TableName) -> None:
         df = self.reader.read(table_name=table_to_read)
-        data_subsets = split_dataframe(dataframe=df, column_to_split=self.column_separator)
+        data_subsets = PipelineUtils.split_dataframe(dataframe=df, column_to_split=self.column_separator)
         for subset in data_subsets:
-            subset_table_name = get_subset_table_name(dataframe=subset, subset_col_id=self.column_separator)
+            subset_table_name = PipelineUtils.get_subset_table_name(dataframe=subset, subset_col_id=self.column_separator)
             processed_table = self.engine.process(subset)
             self.writer.write(dataframe=processed_table, table_name=subset_table_name)
 
