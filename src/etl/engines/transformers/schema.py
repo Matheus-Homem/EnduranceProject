@@ -1,11 +1,11 @@
 from typing import Dict
 
-from src.etl.core.definitions import AbstractTool, PandasDF
-from src.etl.engines.tools.casting import CastingStrategyFactory
+from src.etl.core.definitions import Transformer, PandasDF
+from src.etl.engines.transformers.casting import CastingStrategyFactory
 from src.shared.utils import DictUtils
 
 
-class SchemaTool(AbstractTool):
+class SchemaTransformer(Transformer):
 
     def _read_schema_dataframe(self, schema_path: str) -> PandasDF:
         df_schema = self.pd.read_parquet(schema_path)
