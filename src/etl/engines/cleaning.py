@@ -1,7 +1,7 @@
 from typing import List
 
 from src.etl.core.definitions import Engine, EngineType, PandasDF
-from src.etl.engines.tools.schema import SchemaTool
+from src.etl.engines.transformers.schema import SchemaTransformer
 from src.shared.utils import DictUtils
 
 
@@ -9,7 +9,7 @@ class CleaningEngine(Engine):
 
     def __init__(
         self,
-        schema: SchemaTool = SchemaTool(),
+        schema: SchemaTransformer = SchemaTransformer(),
     ):
         super().__init__(class_name=__class__.__name__, type=EngineType.CLEANING)
         self.schema = schema

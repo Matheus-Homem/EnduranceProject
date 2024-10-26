@@ -104,7 +104,7 @@ class CastingStrategy(ABC):
         pass
 
 
-class AbstractTool(ABC):
+class Transformer(ABC):
 
     def __init__(self) -> None:
         self.pd = pandas
