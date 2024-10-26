@@ -100,7 +100,7 @@ class IOHandler(ABC):
 
 class CastingStrategy(ABC):
     @abstractmethod
-    def cast(self, col: PandasDF, pandas: pandas = None) -> PandasDF:
+    def cast(self, col: PandasDF) -> PandasDF:
         pass
 
 
