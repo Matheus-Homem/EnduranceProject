@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form id="myForm" action="/add/strength/athlete/" method="POST" onsubmit="submitForm(event)">
+<form id="myForm" action="/entry/{{ entry_date }}/strength/athlete/" method="POST" onsubmit="submitForm(event)">
     <div class="element-box strength">
         <div class="element-header">
             <span>Atleta</span>
@@ -18,28 +18,33 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" dtype="date" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
                 </div>
             </div>
 
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
             <div class="element-row">
-                <div class="element-cell cell-60 ">
-                    <div id="toggle_runningAction" class="toggle" onclick="toggleButton('runningAction')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-50">
+                    <div id="id_runningAction" class="check" onclick="checkButton('id_runningAction', 'input_runningAction', 'False', 'True')">
+                        <span>Corrida</span>
                     </div>
-                    <span>Corrida</span>
                     <input type="hidden" id="input_runningAction" dtype="bool" name="runningAction" value="False">
                 </div>
-                <div class="element-cell cell-40 ">
-                    <div id="toggle_runningMute" class="toggle" onclick="toggleButton('runningMute')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-25">
+                    <div id="id_noSinging" class="check" onclick="checkButton('id_noSinging', 'input_noSinging', 'False', 'True')">
+                        <span><i class="fa-solid fa-microphone-slash"></i></span>
                     </div>
-                    <span><i class="fa-solid fa-volume-xmark"></i></span>
-                    <input type="hidden" id="input_runningMute" dtype="bool" name="runningMute" value="False">
+                    <input type="hidden" id="input_noSinging" dtype="bool" name="noSinging" value="False">
+                </div>
+                <div class="element-cell cell-25">
+                    <div id="id_noMusic" class="check" onclick="checkButton('id_noMusic', 'input_noMusic', 'False', 'True')">
+                        <span><i class="fa-solid fa-volume-xmark"></i></span>
+                    </div>
+                    <input type="hidden" id="input_noMusic" dtype="bool" name="noMusic" value="False">
                 </div>
             </div>
+
             <div class="element-row">
                 <div class="element-cell cell-40">Distância</div>
                 <div class="element-cell cell-30">
@@ -118,15 +123,15 @@
     </div>
 
     <div class="buttonContainer">
-        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
-            <i class="fas fa-home"></i>
-            Home
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
         </button>
         <button type="submit" class="submitButton" id="submit">
             <i class="fa-solid fa-share"></i>
             Submit
         </button>
-        <button type="button" class="nextButton" id="next" onclick="window.location.href='/add/kindness/diplomat/'">
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/{{ entry_date }}/kindness/diplomat/'">
             <i class="fa-solid fa-forward"></i>
             Next
         </button>
@@ -134,9 +139,15 @@
 </form>
 
 <script>
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    
     const now = new Date();
-    now.setHours(now.getHours() - 3);
-    document.getElementById('date_input').value = now.toISOString().split('T')[0];
+
 </script>
 
 {% endblock %}

@@ -3,6 +3,8 @@ import hashlib
 import unittest
 from datetime import date, datetime
 
+import pytz
+
 from src.shared.utils import (
     DateUtils,
     DictUtils,
@@ -82,13 +84,20 @@ class TestDateUtils(unittest.TestCase):
     def test_convert_date_input(self):
         self.assertEqual(DateUtils.convert_date_input("2023-01-01"), date(2023, 1, 1))
 
-    def test_current_brasilia_sp_time(self):
-        current_time = DateUtils.current_brasilia_sp_time()
-        self.assertIsInstance(current_time, datetime)
-        self.assertEqual(current_time.tzinfo.zone, "America/Sao_Paulo")
+    def test_get_brasilia_datetime(self):
+        current_sp_time = DateUtils.get_brasilia_datetime()
+        self.assertIsInstance(current_sp_time, datetime)
+        self.assertEqual(current_sp_time.tzinfo.zone, "America/Sao_Paulo")
 
-    def test_get_today_date(self):
-        self.assertEqual(DateUtils.get_today_date(), datetime.now().date())
+    def test_get_brasilia_date(self):
+        current_sp_date = DateUtils.get_brasilia_date()
+        self.assertIsInstance(current_sp_date, date)
+        self.assertEqual(current_sp_date, datetime.now(pytz.timezone("America/Sao_Paulo")).date())
+
+    def test_get_utc_date(self):
+        current_utc_date = DateUtils.get_utc_date()
+        self.assertIsInstance(current_utc_date, date)
+        self.assertEqual(current_utc_date, datetime.now().date())
 
 
 class TestHashUtils(unittest.TestCase):

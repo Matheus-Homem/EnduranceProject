@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form id="myForm" action="/add/stability/sponsor/" method="POST" onsubmit="submitForm(event)">
+<form id="myForm" action="/entry/{{ entry_date }}/stability/sponsor/" method="POST" onsubmit="submitForm(event)">
     <div class="element-box stability">
         <div class="element-header">
             <span>Patrocinador</span>
@@ -18,28 +18,43 @@
 
             <div class="element-row">
                 <div class="element-cell cell-100">
-                    <input type="date" id="date_input" dtype="date" name="date_input">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
                 </div>
             </div>
 
             <div class="element-row"><div class="element-cell cell-100"><br></div></div>
 
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_work" class="toggle" onclick="toggleButton('work')">
-                        <div class="toggle-button"></div>
+                <div class="element-cell cell-100">
+                    <div id="id_work" class="check" onclick="checkButton('id_work', 'input_work', 'False', 'True')">
+                        <span>Trabalho</span>
                     </div>
-                    <span>Trabalho</span>
                     <input type="hidden" id="input_work" dtype="bool" name="work" value="False">
                 </div>
             </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
             <div class="element-row">
-                <div class="element-cell cell-100 ">
-                    <div id="toggle_excelence" class="toggle" onclick="toggleButton('excelence')">
+                <div class="element-cell cell-50"><span>Turno</span></div>
+                <div class="element-cell cell-50"><span>Autoelogio</span></div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Matinal</span></div>
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_morning_excelence" class="toggle" onclick="toggleButton('morning_excelence')">
                         <div class="toggle-button"></div>
                     </div>
-                    <span>Autoelogio</span>
-                    <input type="hidden" id="input_excelence" dtype="bool" name="excelence" value="False">
+                    <input type="hidden" id="input_morning_excelence" dtype="bool" name="morning_excelence" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50"><span>Verspertino</span></div>
+                <div class="element-cell cell-50 ">
+                    <div id="toggle_afternoon_excelence" class="toggle" onclick="toggleButton('afternoon_excelence')">
+                        <div class="toggle-button"></div>
+                    </div>
+                    <input type="hidden" id="input_afternoon_excelence" dtype="bool" name="afternoon_excelence" value="False">
                 </div>
             </div>
 
@@ -47,15 +62,15 @@
     </div>
 
     <div class="buttonContainer">
-        <button type="button" class="homeButton" id="return" onclick="window.location.href='/'">
-            <i class="fas fa-home"></i>
-            Home
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
         </button>
         <button type="submit" class="submitButton" id="submit">
             <i class="fa-solid fa-share"></i>
             Submit
         </button>
-        <button type="button" class="nextButton" id="next" onclick="window.location.href='/add/kindness/caretaker/'">
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/{{ entry_date }}/kindness/caretaker/'">
             <i class="fa-solid fa-forward"></i>
             Next
         </button>
@@ -63,9 +78,15 @@
 </form>
 
 <script>
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    
     const now = new Date();
-    now.setHours(now.getHours() - 3);
-    document.getElementById('date_input').value = now.toISOString().split('T')[0];
+
 </script>
 
 {% endblock %}

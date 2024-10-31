@@ -17,6 +17,17 @@
 
 }
 
+.insertButton {
+    background-color: var(--black-color);
+    color: var(--text-color);
+    border: solid 2px var(--gray-color-9);
+    font-size: 12px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    border-radius: 25px;
+}
+
 .nextButton, .submitButton, .homeButton, .loginButton {
     background-color: var(--gray-color-4);
     border: none;
@@ -28,12 +39,17 @@
     border-radius: 5px;
 }
 
-.nextButton:active, .submitButton:active, .homeButton:active, .addButton:active, .removeButton:active, .loginButton:active {
+.nextButton:active, .submitButton:active, .homeButton:active, .addButton:active, .removeButton:active, .loginButton:active, .insertButton:active {
     transform: scale(0.90);
 }
 
 .addButton:hover, .removeButton:hover {
     background-color: var(--section-color);
+}
+
+.insertButton:hover, .insertButton:focus {
+    background-color: var(--yellow-color-darker);
+    border: solid 2px var(--white-color);
 }
 
 .nextButton:hover, .submitButton:hover, .homeButton:hover, .loginButton:hover {

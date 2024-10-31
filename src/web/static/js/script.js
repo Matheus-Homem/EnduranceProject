@@ -152,8 +152,6 @@ function selectAlternativeOverwrite(id, questionGroup, answer) {
 }
 
 
-let rowIndex = 1;
-
 // Function to toggle the button status
 function toggleButton(suffixId) {
     const toggleId = `toggle_${suffixId}`;
@@ -167,53 +165,6 @@ function toggleButton(suffixId) {
     inputElement.value = (inputElement.value === 'True') ? 'False' : 'True';
 }
 
-
-function addRow() {
-    const formContainer = document.getElementById('form-container');
-    const newRow = document.createElement('div');
-    newRow.setAttribute('input-index', rowIndex);
-
-    newRow.innerHTML = `
-        <div class="element-row"><div class="element-cell cell-100"><br></div></div>
-        <div class="element-row">
-            <div class="element-cell cell-100 ">
-                <input type="text" dtype="string" name="book_${rowIndex}" placeholder="Nome do Livro">
-            </div>
-        </div>
-        <div class="element-row">
-            <div class="element-cell cell-33">
-                <div id="id_read_${rowIndex}" class="check" onclick="checkButton('id_read_${rowIndex}', 'input_read_${rowIndex}', 'False', 'True')">
-                    <span><i class="fas fa-glasses"></i></span>
-                </div>
-                <input type="hidden" id="input_read_${rowIndex}" dtype="bool" name="read_${rowIndex}" value="False">
-            </div>
-            <div class="element-cell cell-33">
-                <div id="id_listen_${rowIndex}" class="check" onclick="checkButton('id_listen_${rowIndex}', 'input_listen_${rowIndex}', 'False', 'True')">
-                    <span><i class="fas fa-headphones-alt"></i></span>
-                </div>
-                <input type="hidden" id="input_listen_${rowIndex}" dtype="bool" name="listen_${rowIndex}" value="False">
-            </div>
-            <div class="element-cell cell-33">
-                <div id="id_notes_${rowIndex}" class="check" onclick="checkButton('id_notes_${rowIndex}', 'input_notes_${rowIndex}', 'False', 'True')">
-                    <span><i class="fas fa-quote-right"></i></span>
-                </div>
-                <input type="hidden" id="input_notes_${rowIndex}" dtype="bool" name="notes_${rowIndex}" value="False">
-            </div>
-        </div>
-    `;
-
-    formContainer.appendChild(newRow);
-    rowIndex++;
-}
-
-
-function removeRow() {
-    const formContainer = document.getElementById('form-container');
-    if (formContainer.childElementCount > 1) {
-        formContainer.removeChild(formContainer.lastChild);
-        rowIndex--;
-    }
-}
 
 function submitForm(event) {
     event.preventDefault();

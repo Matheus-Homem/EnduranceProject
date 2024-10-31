@@ -66,15 +66,26 @@ class ValidationUtils:
 class DateUtils:
 
     @staticmethod
-    def convert_date_input(date_to_convert: str) -> date:
-        return date.fromisoformat(date_to_convert)
+    def convert_date_input(date_to_convert: str, format=None) -> date:
+        """
+        For YYYY-MM-DD format, use format='%Y-%m-%d'
+        For YYYY/MM/DD format, use format='%Y/%m/%d'
+        For YYYYMMDD format, use format='%Y%m%d'
+        """
+        if not format:
+            return date.fromisoformat(date_to_convert)
+        return datetime.strptime(date_to_convert, format).date()
 
     @staticmethod
-    def current_brasilia_sp_time():
+    def get_brasilia_datetime() -> datetime:
         return datetime.now(pytz.timezone("America/Sao_Paulo"))
 
     @staticmethod
-    def get_today_date():
+    def get_brasilia_date() -> date:
+        return datetime.now(pytz.timezone("America/Sao_Paulo")).date()
+
+    @staticmethod
+    def get_utc_date() -> date:
         return datetime.now().date()
 
 
