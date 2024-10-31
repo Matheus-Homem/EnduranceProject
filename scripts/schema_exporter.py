@@ -1,11 +1,11 @@
 from os_local import get_absolute_path, join_paths
+from src.database.connection.builder import DatabaseExecutorBuilder
 from src.shared.credentials import PRD
-from src.shared.database.builder import DatabaseExecutorBuilder
 
 
 def export_db_statements():
-    path = get_absolute_path("database")
-    file_path = join_paths(path, "create_tables.sql")
+    source_directory = get_absolute_path("src")
+    file_path = join_paths(source_directory, "database", "sql", "create_tables.sql")
     create_table_statements = []
 
     with DatabaseExecutorBuilder(use_production_db=PRD) as executor:

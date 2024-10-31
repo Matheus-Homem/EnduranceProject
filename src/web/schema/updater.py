@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Tuple
 
+from src.database.connection.builder import DatabaseExecutorBuilder
+from src.database.tables import ElementSchemas, MySqlTable
 from src.shared.credentials import PRD
-from src.shared.database.builder import DatabaseExecutorBuilder
-from src.shared.database.tables import ElementSchemas, MySqlTable
 from src.shared.logging.adapters import LoggingPrinter
 from src.shared.utils import DictUtils
 from src.web.schema.parser import HTMLParser
