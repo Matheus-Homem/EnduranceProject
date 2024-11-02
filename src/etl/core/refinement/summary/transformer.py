@@ -3,13 +3,17 @@ from typing import List, Literal, Optional, Union
 from pandas import Series, Timedelta, Timestamp, to_datetime
 
 from src.etl.core.definitions import PandasDF, Transformer
+from src.etl.core.refinement.summary.melter import SummaryDataFrameMelter
 
-DEFAULT_COLUMNS = ["element_category", "element_name", "user_id", "date_input"]
 
 class SummaryDataFrameTransformer(Transformer):
 
-    def __init__(self):
+    def __init__(
+        self,
+        melter: SummaryDataFrameMelter = SummaryDataFrameMelter(),
+    ):
         super().__init__()
+        self.melter = melter
         self.habit_detail_dict = {
             "navigator": "book",
         }
@@ -178,52 +182,8 @@ class SummaryDataFrameTransformer(Transformer):
     def _get_habit_detail_col(
         self,
         dataframe: PandasDF,
-    ) -> Optional[Union[str, List[str]]]:
+    ) -> Optional[str]:
         return self.habit_detail_dict.get(dataframe["element_name"].unique()[0])
-    
-    def _melt_dataframe_without_detail_col(
-        self,
-        dataframe: PandasDF,
-        value_vars: List[str],
-        default_cols: List[str] = DEFAULT_COLUMNS,
-    ) -> PandasDF:
-        return dataframe.melt(
-            id_vars=default_cols,
-            value_vars=value_vars,
-            var_name="habit_action",
-            value_name="value",
-        )
-
-    def _melt_dataframe_with_detail_col(
-        self,
-        dataframe: PandasDF,
-        value_vars: List[str],
-        habit_detail_col: str,
-        default_cols: List[str] = DEFAULT_COLUMNS,
-    ) -> PandasDF:
-        detail_cols = list(dataframe.columns[dataframe.columns.str.startswith(habit_detail_col)])
-        dataframes_to_concatenate = []
-        for col in detail_cols:
-            variant = col.replace(habit_detail_col, "")
-            col_value_vars = [f"{value}{variant}" for value in value_vars if f"{value}{variant}" in dataframe.columns]
-            df_melted = self._melt_dataframe_without_detail_col(
-                dataframe,
-                value_vars=col_value_vars,
-                default_cols=default_cols + [col],
-            ).rename(columns={col: 'habit_detail'})
-            df_melted['habit_action'] = df_melted['habit_action'].str.replace(variant, '')
-            dataframes_to_concatenate.append(df_melted)
-        return self.pd.concat(dataframes_to_concatenate).reset_index().drop(columns=['index'])
-    
-    def _melt_dataframe(
-        self,
-        dataframe: PandasDF,
-        habit_detail_col: Optional[str] = None,
-        **kwargs,
-    ) -> PandasDF:
-        if habit_detail_col:
-            return self._melt_dataframe_with_detail_col(dataframe, **kwargs)
-        return self._melt_dataframe_without_detail_col(dataframe, **kwargs)
 
     def _set_habit_group(self, dataframe: PandasDF) -> PandasDF:
         pass
@@ -267,7 +227,7 @@ class SummaryDataFrameTransformer(Transformer):
     def apply(self, dataframe: PandasDF) -> PandasDF:
         habit_detail_col = self._get_habit_detail_col(dataframe)
         return (
-            dataframe.pipe(self._melt_dataframe, habit_detail_col=habit_detail_col)
+            dataframe.pipe(self.melter.apply, habit_detail_col=habit_detail_col)
             .pipe(self._set_habit_group)
             .pipe(self._group_dataframe)
             .pipe(self._add_fields)
