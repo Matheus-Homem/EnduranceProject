@@ -1,9 +1,9 @@
 from typing import List
 
 from src.etl.core.definitions import Engine, EngineType, PandasDF
-from src.etl.core.refinement.groupers.monthly import MonthlyDataFrameTransformer
-from src.etl.core.refinement.groupers.summary import SummaryDataFrameTransformer
-from src.etl.core.refinement.groupers.weekly import WeeklyDataFrameTransformer
+from src.etl.core.refinement.monthly.transformer import MonthlyDataFrameTransformer
+from src.etl.core.refinement.summary.transformer import SummaryDataFrameTransformer
+from src.etl.core.refinement.weekly.transformer import WeeklyDataFrameTransformer
 
 
 class RefinementEngine(Engine):
