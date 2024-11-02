@@ -19,10 +19,10 @@ class TestSummaryDataFrameTransformer(TestCase):
         detail_cols = self.melter._get_detail_columns(self.df_navigator, detail_id="book")
         self.assertEqual(detail_cols, ["book_A", "book_B"])
 
-    def test_get_value_columns(self):
-        value_cols = self.melter._get_value_columns(
+    def test_filter_value_columns(self):
+        value_cols = self.melter._filter_value_columns(
             dataframe=self.df_navigator,
-            values=["read", "listen", "notes"],
+            value_columns=["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"],
             variant="_A",
         )
         self.assertEqual(value_cols, ["read_A", "listen_A", "notes_A"])
@@ -45,9 +45,11 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertIn("value", df_melted.columns)
 
     def test_melt_with_detail_col(self):
-        value_vars = ["read", "listen", "notes"]
+        value_vars = ["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
         detail_col_id = "book"
-        detail_cols = [col for col in self.df_navigator.columns if col.startswith(detail_col_id)]
+
+        number_of_value_columns = len([col for col in self.df_navigator.columns if col in value_vars and col.endswith("_A")])
+        number_of_detail_columns = len([col for col in self.df_navigator.columns if col.startswith(detail_col_id)])
 
         df_melted = self.melter._melt_with_detail_col(
             dataframe=self.df_navigator,
@@ -55,7 +57,7 @@ class TestSummaryDataFrameTransformer(TestCase):
             detail=detail_col_id,
         )
 
-        self.assertEqual(len(df_melted), len(self.df_navigator) * len(value_vars) * len(detail_cols))
+        self.assertEqual(len(df_melted), len(self.df_navigator) * number_of_value_columns * number_of_detail_columns)
         self.assertIn("element_category", df_melted.columns)
         self.assertIn("element_name", df_melted.columns)
         self.assertIn("user_id", df_melted.columns)
@@ -64,12 +66,12 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertIn("habit_action", df_melted.columns)
         self.assertIn("value", df_melted.columns)
 
-    @patch.object(SummaryDataFrameMelter, '_melt_with_detail_col')
-    @patch.object(SummaryDataFrameMelter, '_melt_without_detail_col')
+    @patch.object(SummaryDataFrameMelter, "_melt_with_detail_col")
+    @patch.object(SummaryDataFrameMelter, "_melt_without_detail_col")
     def test_apply(self, mock_melt_without_detail_col, mock_melt_with_detail_col):
 
-        _ = self.melter.apply(self.df_navigator, detail='book')
-        mock_melt_with_detail_col.assert_called_once_with(self.df_navigator, 'book')
+        _ = self.melter.apply(self.df_navigator, detail="book")
+        mock_melt_with_detail_col.assert_called_once_with(dataframe=self.df_navigator, detail="book")
 
         _ = self.melter.apply(self.df_diplomat)
         mock_melt_without_detail_col.assert_called_once_with(self.df_diplomat)
