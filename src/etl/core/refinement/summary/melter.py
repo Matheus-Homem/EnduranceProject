@@ -15,16 +15,13 @@ class SummaryDataFrameMelter(Transformer):
     def _get_detail_columns(self, dataframe: PandasDF, detail_id: str) -> List[str]:
         return list(dataframe.columns[dataframe.columns.str.startswith(detail_id)])
 
-    def _get_value_columns(
+    def _filter_value_columns(
         self,
         dataframe: PandasDF,
-        values: List[str],
+        value_columns: List[str],
         variant: str,
     ) -> List[str]:
-        """
-        Variants usually are identifications like '_A', '_B' or '_1', '_2'.
-        """
-        return [f"{value}{variant}" for value in values if f"{value}{variant}" in dataframe.columns]
+        return [col for col in dataframe.columns if col in value_columns and col.endswith(variant)]
 
     def _melt_without_detail_col(
         self,
@@ -53,13 +50,13 @@ class SummaryDataFrameMelter(Transformer):
 
             df_melted = self._melt_without_detail_col(
                 dataframe,
-                value_vars=self._get_value_columns(dataframe, values=value_vars, variant=variant),
+                value_vars=self._filter_value_columns(dataframe, value_columns=value_vars, variant=variant),
                 default_cols=default_cols + [col],
             )
             df_renamed = df_melted.rename(columns={col: "habit_detail"})
             df_renamed["habit_action"] = df_renamed["habit_action"].str.replace(variant, "")
             dataframes_to_concatenate.append(df_renamed)
-        
+
         return self.pd.concat(dataframes_to_concatenate).reset_index().drop(columns=["index"])
 
     def apply(
@@ -69,7 +66,7 @@ class SummaryDataFrameMelter(Transformer):
         **kwargs: Dict[str, Any],
     ) -> PandasDF:
         if detail:
-            df_melted = self._melt_with_detail_col(dataframe, detail, **kwargs)
+            df_melted = self._melt_with_detail_col(dataframe=dataframe, detail=detail, **kwargs)
         else:
             df_melted = self._melt_without_detail_col(dataframe, **kwargs)
             df_melted["habit_detail"] = None
