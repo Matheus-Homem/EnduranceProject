@@ -106,7 +106,11 @@ class CastingStrategy(ABC):
 
 class Transformer(ABC):
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        class_name=None,
+    ) -> None:
+        self.logger = logging.getLogger(class_name)
         self.pd = pandas
 
     @abstractmethod
