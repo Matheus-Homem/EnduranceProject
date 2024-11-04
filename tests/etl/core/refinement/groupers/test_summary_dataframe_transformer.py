@@ -14,6 +14,7 @@ class TestSummaryDataFrameTransformer(TestCase):
         delta_handler = IOManager(layer=Layer.SILVER, format=Format.DELTA).get_handler()
 
         self.df_navigator = delta_handler.read("navigator")
+        self.df_alchemist = delta_handler.read("alchemist")
         self.df_diplomat = delta_handler.read("diplomat")
 
         self.df1 = self.transformer.melter.apply(
@@ -43,7 +44,7 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertEqual(habit_detail, "book")
 
     def test_get_value_columns(self):
-        value_vars = self.transformer._get_value_columns(self.df_navigator, detail_column="book")
+        value_vars = self.transformer._get_value_columns(self.df_navigator)
         expected_value_vars = ["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
         self.assertEqual(value_vars, expected_value_vars)
 
@@ -99,8 +100,33 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertEqual(list(df.columns), expected_columns_sequence)
 
     def test_apply(self):
+        expected_columns = [
+            "element_category",
+            "element_name",
+            "user_id",
+            "habit_group",
+            "habit_action",
+            "habit_detail",
+            "total",
+            "first_date",
+            "last_date",
+            "days_since_last",
+            "longest_streak",
+            "longest_gap",
+        ]
 
-        df_result = self.transformer.apply(self.df_diplomat)
-        df_result2 = self.transformer.apply(self.df_navigator)
-
-        self.assertEqual(list(df_result.columns), list(df_result2.columns))
+        for df in [self.df_navigator, self.df_diplomat, self.df_alchemist]: #TODO: fix types
+            df_result = self.transformer.apply(df)
+            self.assertEqual(df_result.columns.tolist(), expected_columns)
+            self.assertEqual(df_result["element_category"].dtype, "object")
+            self.assertEqual(df_result["element_name"].dtype, "object")
+            self.assertEqual(df_result["user_id"].dtype, "object")
+            self.assertEqual(df_result["habit_group"].dtype, "object")
+            self.assertEqual(df_result["habit_action"].dtype, "object")
+            self.assertEqual(df_result["habit_detail"].dtype, "object")
+            self.assertEqual(df_result["total"].dtype, "float64") 
+            self.assertEqual(df_result["first_date"].dtype, "<M8[ns]")
+            self.assertEqual(df_result["last_date"].dtype, "<M8[ns]")
+            self.assertEqual(df_result["days_since_last"].dtype, "float64")
+            self.assertEqual(df_result["longest_streak"].dtype, "int64")
+            self.assertEqual(df_result["longest_gap"].dtype, "float64")
