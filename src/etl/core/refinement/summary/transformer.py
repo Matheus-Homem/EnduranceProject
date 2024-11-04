@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from src.etl.core.definitions import PandasDF, Transformer
 from src.etl.core.refinement.summary.aggregator import SummaryDataFrameAggregator
@@ -17,6 +17,44 @@ class SummaryDataFrameTransformer(Transformer):
             "navigator": "book",
         }
         self.default_columns = ["element_category", "element_name", "user_id", "date_input", "schema_encoded", "created_at", "updated_at"]
+        self.ordened_columns = [
+            "element_category",
+            "element_name",
+            "user_id",
+            "habit_group",
+            "habit_action",
+            "habit_detail",
+            "total",
+            "first_date",
+            "last_date",
+            "days_since_last",
+            "longest_streak",
+            "longest_gap",
+        ]
+
+        self.dtype_dict = {
+            "element_category": "string",
+            "element_name": "string",
+            "user_id": "string",
+            "habit_group": "string",
+            "habit_action": "string",
+            "habit_detail": "string",
+            "total": "Int64",
+            "first_date": "datetime64[ns]",
+            "last_date": "datetime64[ns]",
+            "days_since_last": "Int64",
+            "longest_streak": "Int64",
+            "longest_gap": "Int64",
+        }
+
+        self.columns_to_sort = [
+            "element_category",
+            "element_name",
+            "user_id",
+            "habit_group",
+            "habit_action",
+            "habit_detail",
+        ]
 
     def _get_habit_detail_col(
         self,
@@ -65,40 +103,25 @@ class SummaryDataFrameTransformer(Transformer):
         )
         return dataframe
 
-    def _reshape_dataframe(self, dataframe: PandasDF) -> PandasDF:
-        return dataframe[
-            [
-                "element_category",
-                "element_name",
-                "user_id",
-                "habit_group",
-                "habit_action",
-                "habit_detail",
-                "total",
-                "first_date",
-                "last_date",
-                "days_since_last",
-                "longest_streak",
-                "longest_gap",
-            ]
-        ].sort_values(
-            by=[
-                "element_category",
-                "element_name",
-                "user_id",
-                "habit_group",
-                "habit_action",
-                "habit_detail",
-            ]
-        )
+    def _order_columns(self, dataframe: PandasDF, column_sequence: List[str]) -> PandasDF:
+        return dataframe[column_sequence]
+
+    def _cast_columns(self, dataframe: PandasDF, dtypes: Dict[str, str]) -> PandasDF:
+        return dataframe.astype(dtypes)
+
+    def _sort_columns(self, dataframe: PandasDF, sort_keys: List[str]) -> PandasDF:
+        return dataframe.sort_values(by=sort_keys)
 
     def apply(self, dataframe: PandasDF) -> PandasDF:
         detail_column = self._get_habit_detail_col(dataframe)
         value_columns = self._get_value_columns(dataframe)
+
         return (
             dataframe.pipe(self.melter.apply, detail=detail_column, value_vars=value_columns)
             .pipe(self._set_habit_group)
             .pipe(self._calculate_summary_fields)
             .pipe(self._add_fields)
-            .pipe(self._reshape_dataframe)
+            .pipe(self._order_columns, column_sequence=self.ordened_columns)
+            .pipe(self._cast_columns, dtypes=self.dtype_dict)
+            .pipe(self._sort_columns, sort_keys=self.columns_to_sort)
         )
