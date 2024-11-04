@@ -11,12 +11,21 @@ class SummaryDataFrameTransformer(Transformer):
         self,
         melter: SummaryDataFrameMelter = SummaryDataFrameMelter(),
     ):
-        super().__init__()
+        super().__init__(class_name=__class__.__name__)
         self.melter = melter
         self.habit_detail_dict = {
             "navigator": "book",
         }
-        self.default_columns = ["element_category", "element_name", "user_id", "date_input", "schema_encoded", "created_at", "updated_at"]
+        self.default_columns = [
+            "element_category",
+            "element_name",
+            "user_id",
+            "date_input",
+            "schema_encoded",
+            "created_at",
+            "updated_at",
+        ]
+
         self.ordened_columns = [
             "element_category",
             "element_name",
@@ -69,8 +78,8 @@ class SummaryDataFrameTransformer(Transformer):
         element_name = dataframe["element_name"].unique()[0]
         habit_group_dict = {
             "navigator": "book",
-            "diplomat": "relate",
             "alchemist": "emotion",
+            "diplomat": "relate",
         }
 
         dataframe["habit_group"] = habit_group_dict.get(element_name)
@@ -103,25 +112,30 @@ class SummaryDataFrameTransformer(Transformer):
         )
         return dataframe
 
-    def _order_columns(self, dataframe: PandasDF, column_sequence: List[str]) -> PandasDF:
-        return dataframe[column_sequence]
-
-    def _cast_columns(self, dataframe: PandasDF, dtypes: Dict[str, str]) -> PandasDF:
-        return dataframe.astype(dtypes)
-
-    def _sort_columns(self, dataframe: PandasDF, sort_keys: List[str]) -> PandasDF:
-        return dataframe.sort_values(by=sort_keys)
+    def _reshape_dataframe(
+        self,
+        dataframe: PandasDF,
+        column_sequence: List[str],
+        dtypes: Dict[str, str],
+        sort_keys: List[str],
+    ) -> PandasDF:
+        return dataframe[column_sequence].astype(dtypes).sort_values(by=sort_keys)
 
     def apply(self, dataframe: PandasDF) -> PandasDF:
         detail_column = self._get_habit_detail_col(dataframe)
         value_columns = self._get_value_columns(dataframe)
-
-        return (
-            dataframe.pipe(self.melter.apply, detail=detail_column, value_vars=value_columns)
-            .pipe(self._set_habit_group)
-            .pipe(self._calculate_summary_fields)
-            .pipe(self._add_fields)
-            .pipe(self._order_columns, column_sequence=self.ordened_columns)
-            .pipe(self._cast_columns, dtypes=self.dtype_dict)
-            .pipe(self._sort_columns, sort_keys=self.columns_to_sort)
-        )
+        try:
+            return (
+                dataframe.pipe(self.melter.apply, detail=detail_column, value_vars=value_columns)
+                .pipe(self._set_habit_group)
+                .pipe(self._calculate_summary_fields)
+                .pipe(self._add_fields)
+                .pipe(
+                    self._reshape_dataframe,
+                    column_sequence=self.ordened_columns,
+                    dtypes=self.dtype_dict,
+                    sort_keys=self.columns_to_sort,
+                )
+            )
+        except IndexError as e:
+            self.logger.warning(f"DataFrame is empty: {e}")
