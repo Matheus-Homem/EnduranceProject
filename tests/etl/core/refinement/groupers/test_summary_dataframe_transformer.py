@@ -16,6 +16,13 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.df_navigator = delta_handler.read("navigator")
         self.df_alchemist = delta_handler.read("alchemist")
         self.df_diplomat = delta_handler.read("diplomat")
+        self.df_test = pd.DataFrame(
+            {
+                "a": [3, 2, 1],
+                "b": [4, 5, 6],
+                "c": [7, 8, 9],
+            }
+        )
 
         self.df1 = self.transformer.melter.apply(
             self.df_navigator, detail="book", value_vars=["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
@@ -79,27 +86,26 @@ class TestSummaryDataFrameTransformer(TestCase):
         df = self.transformer._add_fields(self.df3)
         self.assertIn("days_since_last", df.columns)
 
-    def test_reshape_dataframe(self):
-        df = self.transformer._reshape_dataframe(self.df4)
+    def test_order_columns(self):
+        column_sequence = ["c", "a", "b"]
+        expected_df = self.df_test[column_sequence]
+        result_df = self.transformer._order_columns(self.df_test, column_sequence)
+        pd.testing.assert_frame_equal(result_df, expected_df)
 
-        expected_columns_sequence = [
-            "element_category",
-            "element_name",
-            "user_id",
-            "habit_group",
-            "habit_action",
-            "habit_detail",
-            "total",
-            "first_date",
-            "last_date",
-            "days_since_last",
-            "longest_streak",
-            "longest_gap",
-        ]
+    def test_cast_columns(self):
+        dtypes = {"a": "float64", "b": "Int64", "c": "string"}
+        expected_df = self.df_test.astype(dtypes)
+        result_df = self.transformer._cast_columns(self.df_test, dtypes)
+        pd.testing.assert_frame_equal(result_df, expected_df)
 
-        self.assertEqual(list(df.columns), expected_columns_sequence)
+    def test_sort_columns(self):
+        sort_keys = ["a"]
+        expected_df = self.df_test.sort_values(by=sort_keys)
+        result_df = self.transformer._sort_columns(self.df_test, sort_keys)
+        pd.testing.assert_frame_equal(result_df, expected_df)
 
     def test_apply(self):
+        cleaned_dataframes = [self.df_navigator, self.df_diplomat, self.df_alchemist]
         expected_columns = [
             "element_category",
             "element_name",
@@ -115,18 +121,18 @@ class TestSummaryDataFrameTransformer(TestCase):
             "longest_gap",
         ]
 
-        for df in [self.df_navigator, self.df_diplomat, self.df_alchemist]: #TODO: fix types
-            df_result = self.transformer.apply(df)
-            self.assertEqual(df_result.columns.tolist(), expected_columns)
-            self.assertEqual(df_result["element_category"].dtype, "object")
-            self.assertEqual(df_result["element_name"].dtype, "object")
-            self.assertEqual(df_result["user_id"].dtype, "object")
-            self.assertEqual(df_result["habit_group"].dtype, "object")
-            self.assertEqual(df_result["habit_action"].dtype, "object")
-            self.assertEqual(df_result["habit_detail"].dtype, "object")
-            self.assertEqual(df_result["total"].dtype, "float64") 
-            self.assertEqual(df_result["first_date"].dtype, "<M8[ns]")
-            self.assertEqual(df_result["last_date"].dtype, "<M8[ns]")
-            self.assertEqual(df_result["days_since_last"].dtype, "float64")
-            self.assertEqual(df_result["longest_streak"].dtype, "int64")
-            self.assertEqual(df_result["longest_gap"].dtype, "float64")
+        for df_cleaned in cleaned_dataframes:
+            df_refined = self.transformer.apply(df_cleaned)
+            self.assertEqual(df_refined.columns.tolist(), expected_columns)
+            self.assertEqual(df_refined["element_category"].dtype, "string")
+            self.assertEqual(df_refined["element_name"].dtype, "string")
+            self.assertEqual(df_refined["user_id"].dtype, "string")
+            self.assertEqual(df_refined["habit_group"].dtype, "string")
+            self.assertEqual(df_refined["habit_action"].dtype, "string")
+            self.assertEqual(df_refined["habit_detail"].dtype, "string")
+            self.assertEqual(df_refined["total"].dtype, pd.Int64Dtype())
+            self.assertEqual(df_refined["first_date"].dtype, "<M8[ns]")
+            self.assertEqual(df_refined["last_date"].dtype, "<M8[ns]")
+            self.assertEqual(df_refined["days_since_last"].dtype, pd.Int64Dtype())
+            self.assertEqual(df_refined["longest_streak"].dtype, pd.Int64Dtype())
+            self.assertEqual(df_refined["longest_gap"].dtype, pd.Int64Dtype())
