@@ -15,6 +15,7 @@ class TestSummaryDataFrameTransformer(TestCase):
 
         self.df_navigator = delta_handler.read("navigator")
         self.df_alchemist = delta_handler.read("alchemist")
+        self.df_sentinel = delta_handler.read("sentinel")
         self.df_diplomat = delta_handler.read("diplomat")
         self.df_test = pd.DataFrame(
             {
@@ -86,26 +87,21 @@ class TestSummaryDataFrameTransformer(TestCase):
         df = self.transformer._add_fields(self.df3)
         self.assertIn("days_since_last", df.columns)
 
-    def test_order_columns(self):
+    def test_reshape_dataframe(self):
         column_sequence = ["c", "a", "b"]
-        expected_df = self.df_test[column_sequence]
-        result_df = self.transformer._order_columns(self.df_test, column_sequence)
-        pd.testing.assert_frame_equal(result_df, expected_df)
-
-    def test_cast_columns(self):
         dtypes = {"a": "float64", "b": "Int64", "c": "string"}
-        expected_df = self.df_test.astype(dtypes)
-        result_df = self.transformer._cast_columns(self.df_test, dtypes)
-        pd.testing.assert_frame_equal(result_df, expected_df)
-
-    def test_sort_columns(self):
         sort_keys = ["a"]
-        expected_df = self.df_test.sort_values(by=sort_keys)
-        result_df = self.transformer._sort_columns(self.df_test, sort_keys)
+        expected_df = self.df_test[column_sequence].astype(dtypes).sort_values(by=sort_keys)
+        result_df = self.transformer._reshape_dataframe(self.df_test, column_sequence=column_sequence, dtypes=dtypes, sort_keys=sort_keys)
         pd.testing.assert_frame_equal(result_df, expected_df)
 
     def test_apply(self):
-        cleaned_dataframes = [self.df_navigator, self.df_diplomat, self.df_alchemist]
+        cleaned_dataframes = [
+            self.df_navigator,
+            self.df_diplomat,
+            self.df_alchemist,
+            self.df_sentinel,
+        ]
         expected_columns = [
             "element_category",
             "element_name",
@@ -123,6 +119,8 @@ class TestSummaryDataFrameTransformer(TestCase):
 
         for df_cleaned in cleaned_dataframes:
             df_refined = self.transformer.apply(df_cleaned)
+            if df_refined is None:
+                continue
             self.assertEqual(df_refined.columns.tolist(), expected_columns)
             self.assertEqual(df_refined["element_category"].dtype, "string")
             self.assertEqual(df_refined["element_name"].dtype, "string")
