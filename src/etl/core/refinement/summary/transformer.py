@@ -24,16 +24,15 @@ class SummaryDataFrameTransformer(Transformer):
     ) -> Optional[str]:
         return self.habit_detail_dict.get(dataframe["element_name"].unique()[0])
 
-    def _get_value_columns(self, dataframe: PandasDF, detail_column: str) -> List[str]:
-        if detail_column:
-            return [col for col in dataframe.columns if col not in self.default_columns and not col.startswith(detail_column)]
-        return [col for col in dataframe.columns if col not in self.default_columns]
+    def _get_value_columns(self, dataframe: PandasDF) -> List[str]:
+        return [col for col in dataframe.columns if col not in self.default_columns and dataframe[col].dtype == "bool"]
 
     def _set_habit_group(self, dataframe: PandasDF) -> PandasDF:
         element_name = dataframe["element_name"].unique()[0]
         habit_group_dict = {
             "navigator": "book",
             "diplomat": "relate",
+            "alchemist": "emotion",
         }
 
         dataframe["habit_group"] = habit_group_dict.get(element_name)
@@ -61,7 +60,9 @@ class SummaryDataFrameTransformer(Transformer):
         return df_grouped
 
     def _add_fields(self, dataframe: PandasDF) -> PandasDF:
-        dataframe["days_since_last"] = (self.pd.to_datetime("today") - dataframe["last_date"]).dt.days
+        dataframe["days_since_last"] = (
+            (self.pd.to_datetime("today") - dataframe["last_date"]).dt.days if not dataframe["last_date"].isnull().all() else None
+        )
         return dataframe
 
     def _reshape_dataframe(self, dataframe: PandasDF) -> PandasDF:
@@ -93,7 +94,7 @@ class SummaryDataFrameTransformer(Transformer):
 
     def apply(self, dataframe: PandasDF) -> PandasDF:
         detail_column = self._get_habit_detail_col(dataframe)
-        value_columns = self._get_value_columns(dataframe, detail_column)
+        value_columns = self._get_value_columns(dataframe)
         return (
             dataframe.pipe(self.melter.apply, detail=detail_column, value_vars=value_columns)
             .pipe(self._set_habit_group)
