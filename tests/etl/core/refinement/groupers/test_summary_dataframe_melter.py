@@ -14,6 +14,7 @@ class TestSummaryDataFrameTransformer(TestCase):
 
         self.df_navigator = delta_handler.read("navigator")
         self.df_diplomat = delta_handler.read("diplomat")
+        self.df_alchemist = delta_handler.read("alchemist")
 
     def test_get_detail_columns(self):
         detail_cols = self.melter._get_detail_columns(self.df_navigator, detail_id="book")
@@ -66,14 +67,20 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertIn("habit_action", df_melted.columns)
         self.assertIn("value", df_melted.columns)
 
-    @patch.object(SummaryDataFrameMelter, "_melt_with_detail_col")
-    @patch.object(SummaryDataFrameMelter, "_melt_without_detail_col")
-    def test_apply(self, mock_melt_without_detail_col, mock_melt_with_detail_col):
+    def test_apply(self):
 
-        _ = self.melter.apply(self.df_navigator, detail="book")
-        mock_melt_with_detail_col.assert_called_once_with(dataframe=self.df_navigator, detail="book")
+        with patch.object(self.melter, "_melt_with_detail_col") as mock_melt_with_detail_col:
+            _ = self.melter.apply(self.df_navigator, detail="book")
+            mock_melt_with_detail_col.assert_called_once_with(dataframe=self.df_navigator, detail="book")
 
-        _ = self.melter.apply(self.df_diplomat)
-        mock_melt_without_detail_col.assert_called_once_with(self.df_diplomat)
-        expected_result = mock_melt_without_detail_col.return_value.copy()
-        expected_result["habit_detail"] = None
+        with patch.object(self.melter, "_melt_without_detail_col") as mock_melt_without_detail_col:
+            _ = self.melter.apply(self.df_alchemist)
+            mock_melt_without_detail_col.assert_called_once_with(self.df_alchemist)
+            expected_result = mock_melt_without_detail_col.return_value.copy()
+            expected_result["habit_detail"] = None
+
+        with patch.object(self.melter, "_melt_without_detail_col") as mock_melt_without_detail_col:
+            _ = self.melter.apply(self.df_diplomat)
+            mock_melt_without_detail_col.assert_called_once_with(self.df_diplomat)
+            expected_result = mock_melt_without_detail_col.return_value.copy()
+            expected_result["habit_detail"] = None
