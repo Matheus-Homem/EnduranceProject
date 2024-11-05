@@ -11,12 +11,10 @@ class TestSummaryDataFrameTransformer(TestCase):
 
     def setUp(self):
         self.transformer = SummaryDataFrameTransformer()
-        delta_handler = IOManager(layer=Layer.SILVER, format=Format.DELTA).get_handler()
+        self.delta_handler = IOManager(layer=Layer.SILVER, format=Format.DELTA).get_handler()
 
-        self.df_navigator = delta_handler.read("navigator")
-        self.df_alchemist = delta_handler.read("alchemist")
-        self.df_sentinel = delta_handler.read("sentinel")
-        self.df_diplomat = delta_handler.read("diplomat")
+        self.df_navigator = self.delta_handler.read("navigator")
+        self.df_diplomat = self.delta_handler.read("diplomat")
         self.df_test = pd.DataFrame(
             {
                 "a": [3, 2, 1],
@@ -96,11 +94,22 @@ class TestSummaryDataFrameTransformer(TestCase):
         pd.testing.assert_frame_equal(result_df, expected_df)
 
     def test_apply(self):
-        cleaned_dataframes = [
-            self.df_navigator,
-            self.df_diplomat,
-            self.df_alchemist,
-            self.df_sentinel,
+        cleaned_tables = [
+            "navigator",
+            "alchemist",
+            "sentinel",
+            "sponsor",
+            "patron",
+            "treasurer",
+            "athlete",
+            "cook",
+            "nutritionist",
+            "caretaker",
+            "diplomat",
+            "citizen",
+            "oracle",
+            "atharva_bindu",
+            "witness",
         ]
         expected_columns = [
             "element_category",
@@ -117,7 +126,8 @@ class TestSummaryDataFrameTransformer(TestCase):
             "longest_gap",
         ]
 
-        for df_cleaned in cleaned_dataframes:
+        for table in cleaned_tables:
+            df_cleaned = self.delta_handler.read(table)
             df_refined = self.transformer.apply(df_cleaned)
             if df_refined is None:
                 continue
