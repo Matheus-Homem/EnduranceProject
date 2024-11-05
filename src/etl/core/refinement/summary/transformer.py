@@ -90,9 +90,7 @@ class SummaryDataFrameTransformer(Transformer):
 
         if element_name == "atharva_bindu":
             reset_actions = [action for action in list(dataframe["habit_action"].unique()) if action.endswith("Reset")]
-            dataframe["habit_group"] = dataframe["habit_action"].apply(
-                lambda action: "reset" if action in reset_actions else "outlook"
-            )
+            dataframe["habit_group"] = dataframe["habit_action"].apply(lambda action: "reset" if action in reset_actions else "outlook")
         else:
             dataframe["habit_group"] = habit_group_dict.get(element_name)
 
