@@ -13,8 +13,8 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.transformer = SummaryDataFrameTransformer()
         self.delta_handler = IOManager(layer=Layer.SILVER, format=Format.DELTA).get_handler()
 
-        self.df_navigator = self.delta_handler.read("navigator")
-        self.df_diplomat = self.delta_handler.read("diplomat")
+        self.df_cleaned_real = self.delta_handler.read("navigator")
+
         self.df_test = pd.DataFrame(
             {
                 "a": [3, 2, 1],
@@ -24,7 +24,7 @@ class TestSummaryDataFrameTransformer(TestCase):
         )
 
         self.df1 = self.transformer.melter.apply(
-            self.df_navigator, detail="book", value_vars=["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
+            self.df_cleaned_real, detail="book", value_vars=["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
         )
 
         self.df2 = self.df1.copy()
@@ -42,26 +42,42 @@ class TestSummaryDataFrameTransformer(TestCase):
             .reset_index()
         )
 
-        self.df4 = self.df3.copy()
-        self.df4["days_since_last"] = (self.df4["last_date"] - self.df4["first_date"]).dt.days
-
-    def test_get_habit_detail_col(self):
-        habit_detail = self.transformer._get_habit_detail_col(self.df_navigator)
-        self.assertEqual(habit_detail, "book")
-
     def test_get_value_columns(self):
-        value_vars = self.transformer._get_value_columns(self.df_navigator)
+        value_vars = self.transformer._get_value_columns(self.df_cleaned_real)
         expected_value_vars = ["read_A", "listen_A", "notes_A", "read_B", "listen_B", "notes_B"]
         self.assertEqual(value_vars, expected_value_vars)
 
-    def test_set_habit_group(self):
-        df = self.transformer._set_habit_group(self.df_navigator)
-        habit_group = df["habit_group"].unique()[0]
-        self.assertEqual(habit_group, "book")
+    def test_set_habit_group_for_atharva(self):
+        df_cleaned = pd.DataFrame(
+            {
+                "element_name": ["atharva_bindu", "atharva_bindu", "atharva_bindu", "atharva_bindu"],
+                "habit_action": ["action1Reset", "action2", "action2Reset", "action1"],
+                "user_id": [1, 2, 3, 4],
+                "date_input": pd.to_datetime(["2022-01-01", "2022-01-02", "2022-01-03", "2022-01-04"]),
+                "value": [1, 1, 1, 1],
+            }
+        )
 
-        df = self.transformer._set_habit_group(self.df_diplomat)
-        habit_group = df["habit_group"].unique()[0]
-        self.assertEqual(habit_group, "relate")
+        df_refined = self.transformer._set_habit_group(df_cleaned, {"navigator": "book", "diplomat": "relate"})
+
+        self.assertIn("habit_group", df_refined.columns)
+        self.assertEqual(df_refined["habit_group"].tolist(), ["reset", "outlook", "reset", "outlook"])
+
+    def test_set_habit_group(self):
+        df_cleaned = pd.DataFrame(
+            {
+                "element_name": ["element", "element", "element", "element"],
+                "habit_action": ["action1", "action2", "action3", "action4"],
+                "user_id": [1, 2, 3, 4],
+                "date_input": pd.to_datetime(["2022-01-01", "2022-01-02", "2022-01-03", "2022-01-04"]),
+                "value": [1, 1, 1, 1],
+            }
+        )
+
+        df_refined = self.transformer._set_habit_group(df_cleaned, {"element": "group", "element2": "group2"})
+
+        self.assertIn("habit_group", df_refined.columns)
+        self.assertEqual(df_refined["habit_group"].unique().tolist(), ["group"])
 
     def test_calculate_summary_fields(self):
         df_grouped = self.transformer._calculate_summary_fields(self.df2)
