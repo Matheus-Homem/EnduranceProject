@@ -76,13 +76,26 @@ class SummaryDataFrameTransformer(Transformer):
 
     def _set_habit_group(self, dataframe: PandasDF) -> PandasDF:
         element_name = dataframe["element_name"].unique()[0]
+
         habit_group_dict = {
             "navigator": "book",
             "alchemist": "emotion",
+            "sponsor": "duty",
+            "patron": "study",
+            "athlete": "running",
             "diplomat": "relate",
+            "citizen": "group",
+            "oracle": "overhaul",
         }
 
-        dataframe["habit_group"] = habit_group_dict.get(element_name)
+        if element_name == "atharva_bindu":
+            reset_actions = [action for action in list(dataframe["habit_action"].unique()) if action.endswith("Reset")]
+            dataframe["habit_group"] = dataframe["habit_action"].apply(
+                lambda action: "reset" if action in reset_actions else "outlook"
+            )
+        else:
+            dataframe["habit_group"] = habit_group_dict.get(element_name)
+
         return dataframe
 
     def _calculate_summary_fields(
@@ -138,4 +151,5 @@ class SummaryDataFrameTransformer(Transformer):
                 )
             )
         except IndexError as e:
-            self.logger.warning(f"DataFrame is empty: {e}")
+            self.logger.warning(f"DataFrame '{dataframe['element_name'].unique()[0]}' is empty due to the absence of boolean columns.")
+            return None
