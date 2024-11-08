@@ -8,4 +8,4 @@ class ExtractionEngine(Engine):
 
     def process(self, dataframe: DatabaseDF) -> PandasDF:
         self.logger.info("Starting data processing for extraction tables")
-        return self.pd.DataFrame(dataframe)
+        return self._pd.DataFrame(dataframe)

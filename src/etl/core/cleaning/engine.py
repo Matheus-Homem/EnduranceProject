@@ -1,7 +1,7 @@
 from typing import List
 
 from src.etl.core.cleaning.schema.transformer import SchemaTransformer
-from src.etl.core.definitions import Engine, EngineType, PandasDF
+from src.etl.core.definitions import Engine, EngineType, PandasDF, PandasSeries
 from src.shared.utils import DictUtils
 
 
@@ -20,8 +20,8 @@ class CleaningEngine(Engine):
         field_name: str,
     ) -> PandasDF:
         base_dataframe = dataframe.drop([field_name], axis=1)
-        exploded_json_columns = dataframe[field_name].apply(DictUtils.deserialize_dict).apply(self.pd.Series)
-        return self.pd.concat([base_dataframe, exploded_json_columns], axis=1)
+        exploded_json_columns = dataframe[field_name].apply(DictUtils.deserialize_dict).apply(PandasSeries)
+        return self._pd.concat([base_dataframe, exploded_json_columns], axis=1)
 
     def _reorder_columns(
         self,

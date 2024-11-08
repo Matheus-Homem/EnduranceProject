@@ -2,7 +2,7 @@ from src.database.schema.updater import DatabaseSchemaUpdater
 from src.etl.core.cleaning import CleaningEngine
 from src.etl.core.definitions import Format, Layer
 from src.etl.core.extraction import ExtractionEngine
-from src.etl.core.io import IOManager
+from src.etl.core.io.manager import IOManager
 from src.etl.core.pipeline import Pipeline
 from src.etl.core.refinement import RefinementEngine
 

@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from src.etl.core.definitions import PandasDF, Transformer
 from src.etl.core.refinement.summary.aggregator import SummaryDataFrameAggregator
@@ -123,7 +123,7 @@ class SummaryDataFrameTransformer(Transformer):
     ) -> PandasDF:
         return dataframe[column_sequence].astype(dtypes).sort_values(by=sort_keys)
 
-    def apply(self, dataframe: PandasDF) -> PandasDF:
+    def apply(self, dataframe: PandasDF) -> Optional[PandasDF]:
         detail_column = "book" if dataframe["element_name"].unique()[0] == "navigator" else None
         value_columns = self._get_value_columns(dataframe)
 
