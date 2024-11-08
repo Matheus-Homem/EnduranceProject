@@ -2,7 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from src.etl.core.definitions import Format, Layer
-from src.etl.core.io import IOManager
+from src.etl.core.io.manager import IOManager
 from src.etl.core.refinement.summary.melter import SummaryDataFrameMelter
 
 
