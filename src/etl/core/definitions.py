@@ -20,7 +20,14 @@ TableName = NewType("TableName", str)
 
 DatabaseDF = List[Dict[str, Any]]
 PandasDF = pandas.DataFrame
+PandasSeries = pandas.Series
 DataFrameType = Union[DatabaseDF, PandasDF]
+
+
+class RefinementType(Enum):
+    SUMMARY = "summary"
+    MONTHLY = "monthly"
+    WEEKLY = "weekly"
 
 
 class DataType(Enum):
@@ -126,7 +133,7 @@ class Engine(ABC):
         type: EngineType = None,
     ):
         self.logger = logging.getLogger(class_name)
-        self.pd = pandas
+        self._pd = pandas
         self._set_engine_type(type)
 
     def _set_engine_type(self, type: EngineType) -> None:
