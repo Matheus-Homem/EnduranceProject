@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import List, Iterator, Tuple
 
 def get_absolute_path(path: str) -> str:
@@ -27,3 +28,7 @@ def is_directory(path: str) -> bool:
 
 def extract_basename(path:str) -> str:
     return os.path.basename(path)
+
+def remove_path_if_exists(path: str) -> None:
+    if os.path.exists(path):
+        shutil.rmtree(path)
