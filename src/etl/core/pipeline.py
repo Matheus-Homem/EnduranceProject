@@ -1,7 +1,15 @@
 import logging
 
-from src.etl.core.definitions import Engine, EngineType, TableName
-from src.etl.core.io import DeltaHandlerType, IOManager
+from src.etl.core.definitions import (
+    Engine,
+    EngineType,
+    Format,
+    RefinementType,
+    TableName,
+)
+from src.etl.core.io.delta import DeltaHandler
+from src.etl.core.io.manager import IOManager
+from src.etl.core.refinement.engine import RefinementEngine
 from src.etl.core.utils import PipelineUtils
 
 
@@ -14,6 +22,7 @@ class Pipeline:
         writer: IOManager,
     ):
         self.logger = logging.getLogger(__class__.__name__)
+        self.reader_format = reader.format
         self.reader = reader.get_handler()
         self.engine = engine
         self.writer = writer.get_handler()
@@ -33,12 +42,23 @@ class Pipeline:
             self.writer.write(dataframe=processed_table, table_name=subset_table_name)
 
     def __refine(self) -> None:
-        if isinstance(self.reader, DeltaHandlerType):
-            list_of_tables = self.reader.list_delta_tables()
-            for table in list_of_tables:
-                df = self.reader.read(table_name=table)
-                df = self.engine.process(df)
-                self.writer.write(dataframe=df, table_name=table)
+        if (self.reader_format == Format.DELTA) and (self.engine.type == EngineType.REFINEMENT):
+            self.reader: DeltaHandler
+            self.engine: RefinementEngine
+
+            # for refined_table in ["summary", "monthly", "weekly"]:
+            #     remove_path_if_exists(self.writer.generate_path(table_name=refined_table))
+
+            for type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
+                self.engine.set_refinement_type(type)
+                processed_dataframes = []
+                for cleaned_path in self.reader.list_delta_tables():
+                    df_cleaned = self.reader.read(table_name=cleaned_path)
+                    df_processed = self.engine.process(df_cleaned)
+                    processed_dataframes.append(df_processed) if df_processed is not None else None
+                df_refined = self.engine.union_dataframes(dataframes=processed_dataframes)
+                self.writer.write(dataframe=df_refined, table_name=type.value)
+
         else:
             self.logger.error("Reader is not an instance of DeltaHandler for REFINEMENT process")
 
