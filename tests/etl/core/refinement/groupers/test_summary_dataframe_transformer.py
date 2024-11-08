@@ -3,7 +3,7 @@ from unittest import TestCase
 import pandas as pd
 
 from src.etl.core.definitions import Format, Layer
-from src.etl.core.io import IOManager
+from src.etl.core.io.manager import IOManager
 from src.etl.core.refinement.summary.transformer import SummaryDataFrameTransformer
 
 
