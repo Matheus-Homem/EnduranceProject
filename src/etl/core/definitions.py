@@ -118,7 +118,7 @@ class Transformer(ABC):
         class_name=None,
     ) -> None:
         self.logger = logging.getLogger(class_name)
-        self.pd = pandas
+        self._pd = pandas
 
     @abstractmethod
     def apply(self, dataframe: DataFrameType) -> DataFrameType:

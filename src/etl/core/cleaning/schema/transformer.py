@@ -8,7 +8,7 @@ from src.shared.utils import DictUtils
 class SchemaTransformer(Transformer):
 
     def _read_schema_dataframe(self, schema_path: str) -> PandasDF:
-        df_schema = self.pd.read_parquet(schema_path)
+        df_schema = self._pd.read_parquet(schema_path)
         df_schema_filtered = df_schema[["schema_encoded", "element_category", "element_name", "schema_dtypes", "schema_fields"]]
         return df_schema_filtered
 
@@ -21,7 +21,7 @@ class SchemaTransformer(Transformer):
 
     def apply(self, dataframe: PandasDF) -> PandasDF:
         self.schema = self._read_schema_dataframe("data/bronze/schemas.parquet")
-        df_merged = self.pd.merge(dataframe, self.schema, on=["schema_encoded", "element_category", "element_name"], how="inner")
+        df_merged = self._pd.merge(dataframe, self.schema, on=["schema_encoded", "element_category", "element_name"], how="inner")
 
         for schema_code in df_merged["schema_encoded"].unique():
             schema = self._get_dtype_dict(df_merged, schema_code)

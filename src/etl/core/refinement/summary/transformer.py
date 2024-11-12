@@ -110,7 +110,7 @@ class SummaryDataFrameTransformer(Transformer):
 
     def _add_fields(self, dataframe: PandasDF) -> PandasDF:
         dataframe["days_since_last"] = (
-            (self.pd.to_datetime("today") - dataframe["last_date"]).dt.days if not dataframe["last_date"].isnull().all() else None
+            (self._pd.to_datetime("today") - dataframe["last_date"]).dt.days if not dataframe["last_date"].isnull().all() else None
         )
         return dataframe
 

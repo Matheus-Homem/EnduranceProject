@@ -57,7 +57,7 @@ class SummaryDataFrameMelter(Transformer):
             df_renamed["habit_action"] = df_renamed["habit_action"].str.replace(variant, "")
             dataframes_to_concatenate.append(df_renamed)
 
-        return self.pd.concat(dataframes_to_concatenate).reset_index().drop(columns=["index"])
+        return self._pd.concat(dataframes_to_concatenate).reset_index().drop(columns=["index"])
 
     def apply(
         self,
