@@ -1,12 +1,12 @@
 import unittest
 
 from src.etl.core.cleaning.schema.casting import (
+    BoolCastingStrategy,
     CastingStrategyFactory,
     DateCastingStrategy,
-    BoolCastingStrategy,
     DoubleCastingStrategy,
-    DurationHHMMSSCastingStrategy,
     DurationHHMMCastingStrategy,
+    DurationHHMMSSCastingStrategy,
     IntegerCastingStrategy,
     OrdinalCastingStrategy,
     StringCastingStrategy,
@@ -33,9 +33,8 @@ class TestCastingStrategyFactory(unittest.TestCase):
         for column_type, expected_class in strategy_mapping.items():
             with self.subTest(column_type=column_type):
                 strategy = CastingStrategyFactory.get_strategy(column_type)
-                self.assertIsInstance(strategy, expected_class,
-                                      f"Strategy for {column_type} should be {expected_class.__name__}")
+                self.assertIsInstance(strategy, expected_class, f"Strategy for {column_type} should be {expected_class.__name__}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
