@@ -92,6 +92,10 @@ class DateUtils:
     def get_utc_date() -> date:
         return datetime.now().date()
 
+    @staticmethod
+    def fetch_current_date_sao_paulo() -> str:
+        return datetime.now(pytz.timezone("America/Sao_Paulo")).strftime("%Y-%m-%d")
+
 
 class HashUtils:
 
