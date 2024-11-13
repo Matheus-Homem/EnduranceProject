@@ -1,0 +1,35 @@
+/* Estilo para o dropdown de filtro habit_action */
+.dropdown {
+    width: 90%;
+    padding: 8px 15px;
+    color: var(--text-color);
+    background-color: var(--gray-color-2);
+    border: 1px solid var(--green-color);
+    border-radius: 15px;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+}
+
+.dropdown:focus {
+    border-color: var(--yellow-color);
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    outline: none;
+}
+
+.dropdown option {
+    font-weight: normal;
+    color: var(--text-color);
+    background-color: var(--gray-color-2);
+}
+
+@media (max-width: 600px) {
+    .dropdown {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
