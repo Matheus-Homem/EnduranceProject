@@ -17,6 +17,33 @@
 
     <div class="element-table">
 
+        <form method="get" action="{{ request.path }}">
+            <div class="element-row">
+                <div class="element-cell cell-100 ">
+                    <label for="habit_action">Filtrar por Ação do Hábito:</label>
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-80">
+                    <select name="habit_action" class="dropdown">
+                        <option value="read">Leitura</option>
+                        <option value="notes">Notas</option>
+                        <option value="listen">Audiobook</option>
+                        {% for action in habit_actions %}
+                            <option value="{{ action }}" {% if action == selected_habit_action %}selected{% endif %}>{{ action }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="element-cell cell-20">
+                    <button type="submit" class="filterButton">Filtrar</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="element-table">
+
         <div class="element-row">
             <div class="element-cell cell-40 ">
                 <span>Livro</span>
