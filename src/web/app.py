@@ -219,7 +219,13 @@ def report(category, element):
     summary_elements = ["navigator"]
 
     if element in summary_elements:
-        summary_dict = GoldReader.summary(habit_action="read")
+        habit_action = request.args.get('habit_action', None)
+
+        summary_dict = GoldReader.summary(element=element)
+
+        if habit_action:
+            summary_dict = [entry for entry in summary_dict if entry["habit_action"] == habit_action]
+
         print(summary_dict)
 
     return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dict)
