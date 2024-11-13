@@ -28,6 +28,19 @@
     border-radius: 25px;
 }
 
+.filterButton {
+    background-color: var(--gray-color-2);
+    border: 1px solid;
+    color: var(--green-color);
+    font-size: 12px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    border-radius: 15px;
+    border-color: var(--green-color);
+    font-weight: bold;
+}
+
 .nextButton, .submitButton, .homeButton, .loginButton {
     background-color: var(--gray-color-4);
     border: none;
@@ -39,7 +52,7 @@
     border-radius: 5px;
 }
 
-.nextButton:active, .submitButton:active, .homeButton:active, .addButton:active, .removeButton:active, .loginButton:active, .insertButton:active {
+.nextButton:active, .submitButton:active, .homeButton:active, .addButton:active, .removeButton:active, .loginButton:active, .insertButton:active, .filterButton:active {
     transform: scale(0.90);
 }
 
@@ -58,4 +71,11 @@
 
 .nextButton:focus, .submitButton:focus, .homeButton:focus, .loginButton:focus {
     background-color: var(--gray-color-8);
+}
+
+.filterButton:hover, .filterButton:focus {
+    background-color: var(--green-color);
+    border: 1px solid;
+    color: var(--gray-color-2);
+    border-color: var(--gray-color-2);
 }
