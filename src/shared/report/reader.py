@@ -4,13 +4,14 @@ from typing import Dict, List
 from src.etl.core.definitions import Format, Layer
 from src.etl.core.io.manager import IOManager
 
+COLUMNS_TO_SORT = {"last_date": False, "total": False, "longest_streak": False, "longest_gap": False}
 
 class GoldReader:
 
     @staticmethod
     def summary(element: str) -> List[Dict[str, str]]:
         gold_handler = IOManager(layer=Layer.GOLD, format=Format.DELTA).get_handler()
-        df_sorted = gold_handler.read("summary").sort_values(by="last_date", ascending=False)
+        df_sorted = gold_handler.read("summary").sort_values(by=list(COLUMNS_TO_SORT.keys()), ascending=list(COLUMNS_TO_SORT.values()))
         df_filtered = df_sorted[df_sorted["element_name"] == element]
         return convert_all_float_to_int(df_filtered.to_dict(orient="records"))
 
