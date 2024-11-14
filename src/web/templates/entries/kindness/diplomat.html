@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Diplomata
+    [New] Diplomata
 {% endblock %}
 
 {% block content %}
@@ -74,13 +74,13 @@
             <i class="fa-solid fa-bars"></i>
             Menu
         </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/kindness/diplomat/'">
+            <i class="fa-solid fa-chart-column"></i>
+            Report
+        </button>
         <button type="submit" class="submitButton" id="submit">
             <i class="fa-solid fa-share"></i>
             Submit
-        </button>
-        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/{{ entry_date }}/strength/cook/'">
-            <i class="fa-solid fa-forward"></i>
-            Next
         </button>
     </div>
 </form>
