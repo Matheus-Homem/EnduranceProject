@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+    [Report] Cidadão
+{% endblock %}
+
+{% block content %}
+
+
+<div class="element-box kindness">
+    <div class="element-header">
+        <span>Cidadão</span>
+    </div>
+    <div class="element-habit">
+        <span>Sobre o hábito da <strong>Conectar-se</strong></span>
+    </div>
+
+    <div class="element-table">
+
+        <div class="element-row">
+            <div class="element-cell cell-40 ">
+                <span>Grupos</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>Total</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>Last</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>Streak</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>Gap</span>
+            </div>
+        </div>
+        
+        {% for row in summary_data %}
+        <div class="element-row">
+            <div class="element-cell cell-40 ">
+                <span>{{ row.habit_action }}</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>{{ row.total }}</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>{{ row.days_since_last }}</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>{{ row.longest_streak }}</span>
+            </div>
+            <div class="element-cell cell-15 ">
+                <span>{{ row.longest_gap }}</span>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button type="button" class="nextButton" id="menu" onclick="window.location.href='/entry/{{ entry_date }}/menu/'">
+        <i class="fa-solid fa-bars"></i>
+        Menu
+    </button>
+    <button type="button" class="submitButton" id="submit" onclick="window.location.href='/entry/{{ entry_date }}/kindness/citizen/'">
+        <i class="fa-solid fa-file-pen"></i>
+        New Entry
+    </button>
+    <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/strength/athlete/'">
+        <i class="fa-solid fa-forward"></i>
+        Next
+    </button>
+</div>
+
+{% endblock %}
