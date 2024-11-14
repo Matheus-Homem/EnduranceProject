@@ -4,7 +4,7 @@
     padding: 8px 15px;
     color: var(--text-color);
     background-color: var(--gray-color-2);
-    border: 1px solid var(--green-color);
+    border: 1px solid var(--section-color);
     border-radius: 15px;
     appearance: none;
     cursor: pointer;
@@ -16,8 +16,8 @@
 }
 
 .dropdown:focus {
-    border-color: var(--yellow-color);
-    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    border-color: var(--white-color);
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.8);
     outline: none;
 }
 
