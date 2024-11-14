@@ -6,6 +6,7 @@ from src.etl.core.io.manager import IOManager
 
 COLUMNS_TO_SORT = {"last_date": False, "total": False, "longest_streak": False, "longest_gap": False}
 
+
 class GoldReader:
 
     @staticmethod
