@@ -26,7 +26,7 @@ class DatabaseSchemaUpdater:
         self.logger = logging.getLogger(__class__.__name__)
         self.table = table
         self.parser = parser()
-        self.directory_path = "src/web/templates/core"
+        self.directory_path = "src/web/templates/entries"
         self.encoded_column = encoded_column
         self.version_column = version_column
         self.category_column = category_column

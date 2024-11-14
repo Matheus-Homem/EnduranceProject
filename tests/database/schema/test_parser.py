@@ -41,7 +41,7 @@ class TestHTMLParser(unittest.TestCase):
     def test_process_html_file(self):
         mock_open_file = mock_open(read_data="<input name='field1' dtype='text'><input name='field2' dtype='number'>")
         with patch("builtins.open", mock_open_file):
-            filepath = "src/web/templates/core/test.html"
+            filepath = "src/web/templates/entries/test.html"
             subfolder = "core"
             parsed_data = self.parser._process_html_file(filepath, subfolder)
 
@@ -57,7 +57,7 @@ class TestHTMLParser(unittest.TestCase):
         self.assertEqual(self.parser.get_dtype_keyname(), "dtypes")
 
     def test_parse_html_file(self):
-        parsed_data = self.parser.parse_html_files("src/web/templates/core")
+        parsed_data = self.parser.parse_html_files("src/web/templates/entries")
         test_data = parsed_data.get("test")
         expected_test_data = {
             "category": "_template",
