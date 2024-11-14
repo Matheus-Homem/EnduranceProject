@@ -216,19 +216,28 @@ def report(category, element):
     smp.success(f"Accessing the REPORT page with Category: {category.capitalize()} and Element: {element.capitalize()}")
 
     entry_date = DateUtils.fetch_current_date_sao_paulo()
-    summary_elements = ["navigator"]
+    summary_elements = [
+        "navigator",
+        "alchemist",
+        "patron",
+        "sponsor" "athlete",
+        "diplomat",
+        "citizen",
+        "oracle",
+        "atharva_bindu",
+    ]
 
     if element in summary_elements:
-        habit_action = request.args.get('habit_action', None)
+        habit_action = request.args.get("habit_action", None)
 
-        summary_dict = GoldReader.summary(element=element)
+        summary_dicts = GoldReader.summary(element=element)
 
         if habit_action:
-            summary_dict = [entry for entry in summary_dict if entry["habit_action"] == habit_action]
+            summary_dicts = [entry for entry in summary_dicts if entry["habit_action"] == habit_action]
 
-        print(summary_dict)
+        print(summary_dicts[0])
 
-    return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dict)
+    return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dicts)
 
 
 if __name__ == "__main__":
