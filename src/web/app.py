@@ -21,6 +21,7 @@ from src.shared.credentials import PRD
 from src.shared.report.reader import GoldReader
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
+from src.web.helpers import filter_dictionary
 
 MAX_RETRIES = 15
 ELEMENT_ENTRIES = ElementEntries
@@ -229,14 +230,13 @@ def report(category, element):
     ]
 
     if element in summary_elements:
-        habit_action = request.args.get("habit_action", None)
 
         summary_dicts = GoldReader.summary(element=element)
 
-        if habit_action:
-            summary_dicts = [entry for entry in summary_dicts if entry["habit_action"] == habit_action]
+        summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_action", request=request)
+        summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_group", request=request)
 
-        print(summary_dicts[0])
+        print(summary_dicts)
 
     return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dicts)
 
