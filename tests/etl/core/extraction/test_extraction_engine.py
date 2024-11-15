@@ -1,7 +1,6 @@
 import unittest
 
 import pandas as pd
-from IPython.display import display
 
 from src.etl.core.extraction import ExtractionEngine
 
@@ -28,7 +27,6 @@ class TestExtractionEngine(unittest.TestCase):
         ]
 
         expected_df = pd.DataFrame(data)
-        display(expected_df.head())
 
         result_df = self.engine.process(data)
 
