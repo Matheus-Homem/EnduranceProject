@@ -1,20 +1,16 @@
-from unittest import TestCase
 from unittest.mock import patch
 
-from src.etl.core.definitions import Format, Layer
-from src.etl.core.io.manager import IOManager
 from src.etl.core.refinement.summary.melter import SummaryDataFrameMelter
+from tests.etl.core.refinement.base import GoldDataframeTestCase
 
 
-class TestSummaryDataFrameTransformer(TestCase):
+class TestSummaryDataFrameMelter(GoldDataframeTestCase):
 
     def setUp(self):
         self.melter = SummaryDataFrameMelter()
-        delta_handler = IOManager(layer=Layer.SILVER, format=Format.DELTA).get_handler()
 
-        self.df_navigator = delta_handler.read("navigator")
-        self.df_diplomat = delta_handler.read("diplomat")
-        self.df_alchemist = delta_handler.read("alchemist")
+        self.df_navigator = self.generate_mock_dataframe(cleaned_table="navigator")
+        self.df_diplomat = self.generate_mock_dataframe(cleaned_table="diplomat")
 
     def test_get_detail_columns(self):
         detail_cols = self.melter._get_detail_columns(self.df_navigator, detail_id="book")
@@ -29,7 +25,7 @@ class TestSummaryDataFrameTransformer(TestCase):
         self.assertEqual(value_cols, ["read_A", "listen_A", "notes_A"])
 
     def test_melt_without_detail_col(self):
-        value_vars = ["animals", "family", "friends", "society", "contacts", "coworkers"]
+        value_vars = ["group1", "group2", "group3", "group4", "group5", "group6"]
 
         df_melted = self.melter._melt_without_detail_col(
             dataframe=self.df_diplomat,
@@ -72,12 +68,6 @@ class TestSummaryDataFrameTransformer(TestCase):
         with patch.object(self.melter, "_melt_with_detail_col") as mock_melt_with_detail_col:
             _ = self.melter.apply(self.df_navigator, detail="book")
             mock_melt_with_detail_col.assert_called_once_with(dataframe=self.df_navigator, detail="book")
-
-        with patch.object(self.melter, "_melt_without_detail_col") as mock_melt_without_detail_col:
-            _ = self.melter.apply(self.df_alchemist)
-            mock_melt_without_detail_col.assert_called_once_with(self.df_alchemist)
-            expected_result = mock_melt_without_detail_col.return_value.copy()
-            expected_result["habit_detail"] = None
 
         with patch.object(self.melter, "_melt_without_detail_col") as mock_melt_without_detail_col:
             _ = self.melter.apply(self.df_diplomat)
