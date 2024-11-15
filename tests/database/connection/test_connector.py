@@ -74,7 +74,6 @@ class TestDatabaseConnector(unittest.TestCase):
             ),
         )
         mock_tunnel.start.assert_called_once()
-        self.database_connector.logger.info.assert_called_once_with("SSH tunnel started successfully")
         self.assertEqual(
             result,
             self.database_connector._construct_engine_url(self.mock_mysql_keys, "localhost:12345"),
@@ -101,7 +100,6 @@ class TestDatabaseConnector(unittest.TestCase):
         session = self.database_connector.get_session(mock_mysql_keys, mock_ssh_keys)
 
         mock_create_engine.assert_called_once_with(mock_mysql_keys, mock_ssh_keys)
-        self.database_connector.logger.info.assert_called_once_with("Session is not initialized. Creating engine.")
 
     @patch("src.database.connection.connector.DatabaseConnector._create_engine")
     def test_can_get_existing_session(self, mock_create_engine):
@@ -123,7 +121,6 @@ class TestDatabaseConnector(unittest.TestCase):
         self.database_connector.logger.info.assert_any_call("Session closed successfully")
 
         self.database_connector.engine.dispose.assert_called_once()
-        self.database_connector.logger.info.assert_any_call("Engine disposed successfully")
 
         self.database_connector.ssh_tunnel.stop.assert_called_once()
         self.database_connector.logger.info.assert_any_call("SSH tunnel stopped successfully")

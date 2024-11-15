@@ -11,6 +11,7 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    inspect,
 )
 from sqlalchemy.orm import declarative_base
 
@@ -27,6 +28,18 @@ class MySqlTable(Base):
     @classmethod
     def get_unique_constraint_name(cls) -> str:
         return cls.__unique_constraint_name__
+
+    @classmethod
+    def get_columns(cls):
+        inspector = inspect(cls)
+        columns = [column.name for column in inspector.columns]
+        return columns
+
+    @classmethod
+    def get_dtypes(cls):
+        inspector = inspect(cls)
+        dtypes = {column.name: str(column.type) for column in inspector.columns}
+        return dtypes
 
     @staticmethod
     def get_schema_encoded(schema_fields: List[str]) -> str:

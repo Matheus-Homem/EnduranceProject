@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}
+    [New] Atharva Bindu
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/entry/{{ entry_date }}/devotion/atharva_bindu/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box devotion">
+        <div class="element-header">
+            <span>Atharva Bindu</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Recomeçar</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_dailyReset" class="check" onclick="checkButton('id_dailyReset', 'input_dailyReset', 'False', 'True')">
+                        <span>O Dia</span>
+                    </div>
+                    <input type="hidden" id="input_dailyReset" dtype="bool" name="dailyReset" value="False" dtype="bool">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_weeklyReset" class="check" onclick="checkButton('id_weeklyReset', 'input_weeklyReset', 'False', 'True')">
+                        <span>A Semana</span>
+                    </div>
+                    <input type="hidden" id="input_weeklyReset" dtype="bool" name="weeklyReset" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_monthlyReset" class="check" onclick="checkButton('id_monthlyReset', 'input_monthlyReset', 'False', 'True')">
+                        <span>O Mês</span>
+                    </div>
+                    <input type="hidden" id="input_monthlyReset" dtype="bool" name="monthlyReset" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_quarterlyReset" class="check" onclick="checkButton('id_quarterlyReset', 'input_quarterlyReset', 'False', 'True')">
+                        <span>O Trimestre</span>
+                    </div>
+                    <input type="hidden" id="input_quarterlyReset" dtype="bool" name="quarterlyReset" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_annualReset" class="check" onclick="checkButton('id_annualReset', 'input_annualReset', 'False', 'True')">
+                        <span>O Ano</span>
+                    </div>
+                    <input type="hidden" id="input_annualReset" dtype="bool" name="annualReset" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_lifetimeReset" class="check" onclick="checkButton('id_lifetimeReset', 'input_lifetimeReset', 'False', 'True')">
+                        <span>A Vida</span>
+                    </div>
+                    <input type="hidden" id="input_lifetimeReset" dtype="bool" name="lifetimeReset" value="False">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <span>Hedonismo:</span>&nbsp;
+                    <strong><span id="hedonicOutput">0</span></strong>
+                </div>
+                <div class="element-cell cell-50">
+                    <input type="range" id="hedonism" dtype="ordinal" name="hedonism" min="0" max="3" value="0" checked oninput="hedonicOutput.innerText = this.value">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <span>Eudaimonismo:</span>&nbsp;
+                    <strong><span id="eudaimonicOutput">0</span></strong>
+                </div>
+                <div class="element-cell cell-50">
+                    <input type="range" id="eudaimonic" dtype="ordinal" name="eudaimonic" min="0" max="3" value="0" checked oninput="eudaimonicOutput.innerText = this.value">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-50">
+                    <div id="id_sunset" class="check" onclick="checkButton('id_sunset', 'input_sunset', 'False', 'True')">
+                        <span>Ocaso</span>
+                    </div>
+                    <input type="hidden" id="input_sunset" dtype="bool" name="sunset" value="False">
+                </div>
+                <div class="element-cell cell-50">
+                    <div id="id_dawn" class="check" onclick="checkButton('id_dawn', 'input_dawn', 'False', 'True')">
+                        <span>Alvorada</span>
+                    </div>
+                    <input type="hidden" id="input_dawn" dtype="bool" name="dawn" value="False">
+                </div>
+            </div>
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_badDay" class="check" onclick="checkButton('id_badDay', 'input_badDay', 'False', 'True')">
+                        <span>Dia Ruim</span>
+                    </div>
+                    <input type="hidden" id="input_badDay" dtype="bool" name="badDay" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_goodDay" class="check" onclick="checkButton('id_goodDay', 'input_goodDay', 'False', 'True')">
+                        <span>Dia Bom</span>
+                    </div>
+                    <input type="hidden" id="input_goodDay" dtype="bool" name="goodDay" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_bestDay" class="check" onclick="checkButton('id_bestDay', 'input_bestDay', 'False', 'True')">
+                        <span>Melhor Dia</span>
+                    </div>
+                    <input type="hidden" id="input_bestDay" dtype="bool" name="bestDay" value="False">
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
+        </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/devotion/atharva_bindu/'">
+            <i class="fa-solid fa-chart-column"></i>
+            Report
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+    </div>
+</form>
+
+<script>
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    
+    const now = new Date();
+
+</script>
+
+{% endblock %}

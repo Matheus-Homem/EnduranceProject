@@ -59,10 +59,10 @@ sql-export:
 		export PYTHONPATH=./ && \
 		python3 scripts/schema_exporter.py)
 
-chore:
+lint:
 	@echo Running autoflake...
 	@autoflake --remove-all-unused-imports --in-place --recursive tests/
-	@autoflake --remove-all-unused-imports --in-place --recursive src/
+	@autoflake --remove-all-unused-imports --in-place --recursive --exclude=__init__.py src/
 	@autoflake --remove-all-unused-imports --in-place --recursive scripts/
 	@echo Running isort...
 	@isort tests/
@@ -75,7 +75,7 @@ chore:
 	@echo autoflake, isort, and black ran successfully!
 
 test:
-	@make chore
+	@make lint
 	@echo Running tests with code coverage...
 	@pytest -vv --cov=src --cov-config=.coveragerc --cov-report=term-missing --cov-fail-under=90
 	@python -c "import os; os.remove('.coverage') if os.path.exists('.coverage') else None"
@@ -91,7 +91,7 @@ help:
 	@echo "  |  prepare-environment  : Build the project (clean, create virtual environment, and activate it)   |
 	@echo "  |  prepare-requirements : Install project dependencies from requirements.txt                       |
 	@echo "  |  server               : Run the web application                                                  |
-	@echo "  |  chore                : Run code formatting tools (isort and black) on the project               |
+	@echo "  |  lint                : Run code formatting tools (isort and black) on the project               |
 	@echo "  |  test                 : Run tests with code coverage and clean up afterward                      |
 	@echo "  |__________________________________________________________________________________________________|
 

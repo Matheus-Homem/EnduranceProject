@@ -63,6 +63,10 @@
     padding: 7px 0px 7px 0px;
 }
 
+.element-cell span {
+    text-align: center;
+}
+
 @media (max-width: 600px) {
     .element-box {
         padding: 15px;

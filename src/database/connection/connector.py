@@ -1,28 +1,28 @@
-from typing import Dict
+import logging
+from typing import Dict, Literal
 
 import sshtunnel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
 from src.shared.credentials import PRD, MySqlCredential, SshCredential
-from src.shared.logging.adapters import LoggingPrinter
 
 sshtunnel.SSH_TIMEOUT = 20.0
 sshtunnel.TUNNEL_TIMEOUT = 20.0
 
 
-class DatabaseConnector(LoggingPrinter):
+class DatabaseConnector:
 
     def __init__(
         self,
         use_production_db: bool,
     ):
-        super().__init__(class_name=self.__class__.__name__)
-
+        self.logger = logging.getLogger(__class__.__name__)
         self.use_production_db = use_production_db
         self.Session = None
         self.engine = None
         self.ssh_tunnel = None
+        self.connection_type: Literal["local", "production"] = None
 
     def _is_prd_environment(self) -> bool:
         return PRD == "EnduranceProject"
@@ -33,15 +33,14 @@ class DatabaseConnector(LoggingPrinter):
             ssh_keys = ssh_credentials.get_all_credentials()
 
             if self._is_prd_environment():
-                self.logger.info("Creating remote engine")
+                self.connection_type = "production"
                 engine_url = self._construct_engine_url(mysql_keys)
             else:
-                self.logger.info("Creating local engine")
+                self.connection_type = "local"
                 engine_url = self._get_local_engine_url(mysql_keys, ssh_keys)
 
             self.engine = create_engine(engine_url, pool_recycle=3600)
             self.Session = scoped_session(sessionmaker(bind=self.engine))
-            self.logger.info("Engine created successfully")
         except Exception as e:
             self.logger.error(f"Failed to create engine: {e}")
             raise
@@ -58,7 +57,6 @@ class DatabaseConnector(LoggingPrinter):
                 ),
             )
             self.ssh_tunnel.start()
-            self.logger.info("SSH tunnel started successfully")
             return self._construct_engine_url(mysql_keys, local_environment=True)
         except Exception as e:
             self.logger.error(f"Failed to start SSH tunnel: {e}")
@@ -71,8 +69,8 @@ class DatabaseConnector(LoggingPrinter):
 
     def get_session(self, mysql_credentials: MySqlCredential, ssh_credentials: SshCredential) -> Session:
         if self.Session is None:
-            self.logger.info("Session is not initialized. Creating engine.")
             self._create_engine(mysql_credentials, ssh_credentials)
+            self.logger.info(f"Session created successfully for {self.connection_type} environment")
             return self.Session
         return self.Session
 
@@ -82,7 +80,6 @@ class DatabaseConnector(LoggingPrinter):
             self.logger.info("Session closed successfully")
         if self.engine:
             self.engine.dispose()
-            self.logger.info("Engine disposed successfully")
         if self.ssh_tunnel:
             self.ssh_tunnel.stop()
             self.logger.info("SSH tunnel stopped successfully")
