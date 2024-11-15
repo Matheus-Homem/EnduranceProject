@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Oráculo
+    [New] Oráculo
 {% endblock %}
 
 {% block content %}
@@ -182,13 +182,13 @@
             <i class="fa-solid fa-bars"></i>
             Menu
         </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/devotion/oracle/'">
+            <i class="fa-solid fa-chart-column"></i>
+            Report
+        </button>
         <button type="submit" class="submitButton" id="submit">
             <i class="fa-solid fa-share"></i>
             Submit
-        </button>
-        <button type="button" class="nextButton" id="next" onclick="window.location.href='/entry/{{ entry_date }}/stability/sponsor/'">
-            <i class="fa-solid fa-forward"></i>
-            Next
         </button>
     </div>
 </form>
