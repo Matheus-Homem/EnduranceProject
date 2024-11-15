@@ -18,8 +18,10 @@ from os_local import get_environment_variable
 from src.database.connection.builder import DatabaseExecutorBuilder
 from src.database.tables import DailyControl, ElementEntries, Users
 from src.shared.credentials import PRD
+from src.shared.report.reader import GoldReader
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
 from src.web.helpers import SimpleMessagePrinter as smp
+from src.web.helpers import filter_dictionary
 
 MAX_RETRIES = 15
 ELEMENT_ENTRIES = ElementEntries
@@ -161,7 +163,7 @@ def menu_entry(entry_date):
 @app.route("/entry/<entry_date>/<category>/<element>/", methods=["GET", "POST"])
 @login_required
 def upsert_entry(entry_date, category, element):
-    smp.success(f"Accessing the entry page with Category: {category.capitalize()} and Element: {element.capitalize()}")
+    smp.success(f"Accessing the ENTRY page with Category: {category.capitalize()} and Element: {element.capitalize()}")
 
     if request.method == "POST":
         smp.success(f"Processing POST request for {element.capitalize()}")
@@ -206,7 +208,37 @@ def upsert_entry(entry_date, category, element):
         smp.error("Error inserting into the database after multiple attempts")
         return jsonify({"message": "Error inserting into the database after multiple attempts"}), 500
     else:
-        return render_template(f"core/{category}/{element}.html", entry_date=entry_date)
+        return render_template(f"entries/{category}/{element}.html", entry_date=entry_date)
+
+
+@app.route("/report/<category>/<element>/", methods=["GET"])
+@login_required
+def report(category, element):
+    smp.success(f"Accessing the REPORT page with Category: {category.capitalize()} and Element: {element.capitalize()}")
+
+    entry_date = DateUtils.fetch_current_date_sao_paulo()
+    summary_elements = [
+        "navigator",
+        "alchemist",
+        "patron",
+        "sponsor",
+        "athlete",
+        "diplomat",
+        "citizen",
+        "oracle",
+        "atharva_bindu",
+    ]
+
+    if element in summary_elements:
+
+        summary_dicts = GoldReader.summary(element=element)
+
+        summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_action", request=request)
+        summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_group", request=request)
+
+        print(summary_dicts)
+
+    return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dicts)
 
 
 if __name__ == "__main__":

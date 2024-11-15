@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+    [New] Alquimista
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/entry/{{ entry_date }}/wisdom/alchemist/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box wisdom">
+        <div class="element-header">
+            <span>Alquimista</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Evoluir</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
+                </div>
+            </div>
+            
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_anger" class="check" onclick="checkButton('id_anger', 'input_anger', 'False', 'True')">
+                        <span>Raiva</span>
+                    </div>
+                    <input type="hidden" id="input_anger" dtype="bool" name="anger" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_sadness" class="check" onclick="checkButton('id_sadness', 'input_sadness', 'False', 'True')">
+                        <span>Tristeza</span>
+                    </div>
+                    <input type="hidden" id="input_sadness" dtype="bool" name="sadness" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_fear" class="check" onclick="checkButton('id_fear', 'input_fear', 'False', 'True')">
+                        <span>Medo</span>
+                    </div>
+                    <input type="hidden" id="input_fear" dtype="bool" name="fear" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_frustration" class="check" onclick="checkButton('id_frustration', 'input_frustration', 'False', 'True')">
+                        <span>Frustração</span>
+                    </div>
+                    <input type="hidden" id="input_frustration" dtype="bool" name="frustration" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_disheartenment" class="check" onclick="checkButton('id_disheartenment', 'input_disheartenment', 'False', 'True')">
+                        <span>Desânimo</span>
+                    </div>
+                    <input type="hidden" id="input_disheartenment" dtype="bool" name="disheartenment" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_anxiety" class="check" onclick="checkButton('id_anxiety', 'input_anxiety', 'False', 'True')">
+                        <span>Ansiedade</span>
+                    </div>
+                    <input type="hidden" id="input_anxiety" dtype="bool" name="anxiety" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="vent" dtype="string" name="vent"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
+        </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/wisdom/alchemist/'">
+            <i class="fa-solid fa-chart-column"></i>
+            Report
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+    </div>
+</form>
+
+<script>
+
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    const now = new Date();
+
+
+    document.getElementById('vent').value = '• Gatilho: \n• Reação Impulsiva: \n• Resposta Desejada: ';
+    document.getElementById('vent').addEventListener('blur', function() {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'vent';
+        input.value = this.value;
+        var container = this.parentNode;
+        container.appendChild(input);
+    });
+
+</script>
+
+{% endblock %}

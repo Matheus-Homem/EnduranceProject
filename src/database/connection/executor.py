@@ -1,4 +1,5 @@
-from typing import List, Union
+import logging
+from typing import Any, Dict, List, Union
 
 from sqlalchemy import UniqueConstraint, and_, select, text
 from sqlalchemy.dialects.mysql import insert as mysql_insert
@@ -6,15 +7,14 @@ from sqlalchemy.orm import Session
 from tabulate import tabulate
 
 from src.database.tables import MySqlTable
-from src.shared.logging.adapters import LoggingPrinter
 
 
-class DatabaseExecutor(LoggingPrinter):
+class DatabaseExecutor:
     def __init__(
         self,
         session: Session,
     ):
-        super().__init__(class_name=self.__class__.__name__)
+        self.logger = logging.getLogger(__class__.__name__)
         self.session = session
 
     def describe(self, table: MySqlTable) -> None:
@@ -29,7 +29,7 @@ class DatabaseExecutor(LoggingPrinter):
         print(self.session.query(table).count())
         self.logger.info(f"Count of records in {table.__tablename__} selected successfully")
 
-    def select(self, table, **filters) -> List[dict]:
+    def select(self, table: MySqlTable, **filters) -> List[Dict[str, Any]]:
         """
         Example:
             Select rows from the `LocalTest` table where id is 1 and name is 'Alice':

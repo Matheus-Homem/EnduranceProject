@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+    [New] Cidadão
+{% endblock %}
+
+{% block content %}
+
+<form id="myForm" action="/entry/{{ entry_date }}/kindness/citizen/" method="POST" onsubmit="submitForm(event)">
+    <div class="element-box kindness">
+        <div class="element-header">
+            <span>Cidadão</span>
+        </div>
+        <div class="element-habit">
+            <span>Sobre o hábito de <strong>Conectar-se</strong></span>
+        </div>
+        <div class="element-table">
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <input type="date" id="date_input" dtype="date" name="date_input" required>
+                </div>
+            </div>
+
+            <div class="element-row"><div class="element-cell cell-100"><br></div></div>
+            
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_comunity" class="check" onclick="checkButton('id_comunity', 'input_comunity', 'False', 'True')">
+                        <span>Comunidade</span>
+                    </div>
+                    <input type="hidden" id="input_comunity" dtype="bool" name="comunity" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_family" class="check" onclick="checkButton('id_family', 'input_family', 'False', 'True')">
+                        <span>Família</span>
+                    </div>
+                    <input type="hidden" id="input_family" dtype="bool" name="family" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_friends" class="check" onclick="checkButton('id_friends', 'input_friends', 'False', 'True')">
+                        <span>Amigos</span>
+                    </div>
+                    <input type="hidden" id="input_friends" dtype="bool" name="friends" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-33">
+                    <div id="id_society" class="check" onclick="checkButton('id_society', 'input_society', 'False', 'True')">
+                        <span>Sociedade</span>
+                    </div>
+                    <input type="hidden" id="input_society" dtype="bool" name="society" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_yoga" class="check" onclick="checkButton('id_yoga', 'input_yoga', 'False', 'True')">
+                        <span>Yoga</span>
+                    </div>
+                    <input type="hidden" id="input_yoga" dtype="bool" name="yoga" value="False">
+                </div>
+                <div class="element-cell cell-33">
+                    <div id="id_exercise" class="check" onclick="checkButton('id_exercise', 'input_exercise', 'False', 'True')">
+                        <span>Exercícios</span>
+                    </div>
+                    <input type="hidden" id="input_exercise" dtype="bool" name="exercise" value="False">
+                </div>
+            </div>
+
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <textarea id="coexistence" dtype="string" name="coexistence"></textarea>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" class="nextButton" id="menu">
+            <i class="fa-solid fa-bars"></i>
+            Menu
+        </button>
+        <button type="button" class="nextButton" id="next" onclick="window.location.href='/report/kindness/citizen/'">
+            <i class="fa-solid fa-chart-column"></i>
+            Report
+        </button>
+        <button type="submit" class="submitButton" id="submit">
+            <i class="fa-solid fa-share"></i>
+            Submit
+        </button>
+    </div>
+</form>
+
+<script>
+
+    document.getElementById('menu').addEventListener('click', function() {
+        window.location.href = "/entry/{{ entry_date }}/menu/";
+    });
+    
+    const entryDate = "{{ entry_date }}";
+    document.getElementById('date_input').value = entryDate;
+    const now = new Date();
+
+
+    document.getElementById('coexistence').value = 'Conviver com pessoas me faz: \n• \n• ';
+    document.getElementById('coexistence').addEventListener('blur', function() {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'coexistence';
+        input.value = this.value;
+        var container = this.parentNode;
+        container.appendChild(input);
+    });
+
+</script>
+
+{% endblock %}
