@@ -17,6 +17,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from os_local import get_environment_variable
 from src.database.connection.builder import DatabaseExecutorBuilder
 from src.database.tables import DailyControl, ElementEntries, Users
+from src.etl.orchestrator import orchestrate_etl_process
 from src.shared.credentials import PRD
 from src.shared.report.reader import GoldReader
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
@@ -159,11 +160,13 @@ def menu_entries(entry_date):
 
     return render_template("menu/entries.html", has_data_map=has_data_map, entry_date=entry_date)
 
+
 @app.route("/menu/reports/", methods=["GET"])
 @login_required
 def menu_reports():
     smp.success("Accessing the Reports Menu page")
     return render_template("menu/reports.html")
+
 
 @app.route("/entries/<entry_date>/<category>/<element>/", methods=["GET", "POST"])
 @login_required
@@ -243,9 +246,16 @@ def report(category, element):
 
         if not PRD:
             from pprint import pprint
+
             pprint(summary_dicts)
 
     return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dicts)
+
+
+@app.route("/refresh", methods=["POST"])
+def refresh():
+    orchestrate_etl_process()
+    return jsonify({"status": "success", "message": "ETL process orchestrated successfully"})
 
 
 if __name__ == "__main__":
