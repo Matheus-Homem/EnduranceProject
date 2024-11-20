@@ -1,45 +1,42 @@
-import time
-import uuid
-
-from flask import (
-    Flask,
-    flash,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
-from flask_caching import Cache
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from os_local import get_environment_variable
-from src.database.connection.builder import DatabaseExecutorBuilder
-from src.database.tables import DailyControl, ElementEntries, Users
-from src.shared.credentials import PRD
-from src.shared.report.reader import GoldReader
-from src.shared.utils import DateUtils, DictUtils, ValidationUtils
-from src.web.helpers import SimpleMessagePrinter as smp
-from src.web.helpers import filter_dictionary
-
-MAX_RETRIES = 15
-ELEMENT_ENTRIES = ElementEntries
-DAILY_CONTROL = DailyControl
-USERS = Users
+from flask import Flask, render_template
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = get_environment_variable(var="SECRET_KEY", default="default_secret_key")
-app.config["CACHE_TYPE"] = "simple"
-app.config["CACHE_DEFAULT_TIMEOUT"] = 300
 
-cache = Cache(app)
+@app.route('/')
+def dashboard():
+    return render_template('main/dashboard.html')
 
-### A cada escolha uma renuncia
+@app.route('/users')
+def users():
+    return render_template('main/users.html')
 
-@app.route("/")
-def index():
-    return render_template("index2.html")
+@app.route('/history')
+def history():
+    return render_template('main/history.html')
 
-if __name__ == "__main__":
+@app.route('/analytics')
+def analytics():
+    return render_template('main/analytics.html')
+
+@app.route('/tickets')
+def tickets():
+    return render_template('main/tickets.html')
+
+@app.route('/sale_list')
+def sale_list():
+    return render_template('main/sale_list.html')
+
+@app.route('/reports')
+def reports():
+    return render_template('main/reports.html')
+
+@app.route('/settings')
+def settings():
+    return render_template('main/settings.html')
+
+@app.route('/new_login')
+def new_login():
+    return render_template('main/new_login.html')
+
+if __name__ == '__main__':
     app.run(debug=True)
