@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1" />
-    <title>Responsive Dashboard Design #1 | AsmrProg</title>
+    <title>{% block title %}Dashboard{% endblock %} | AsmrProg</title>
 </head>
 <body>
 
     <div class="container">
         <!-- Sidebar Section -->
-         <aside>
+        <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="static/images/logo.png">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}">
                     <h2>Na<span class="danger">gi</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -25,56 +25,56 @@
             </div>
 
             <div class="sidebar">
-                <a href="#">
+                <a href="{{ url_for('dashboard') }}">
                     <span class="material-symbols-rounded">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('users') }}">
                     <span class="material-symbols-rounded">
                         person_outline
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('history') }}">
                     <span class="material-symbols-rounded">
                         receipt_long
                     </span>
                     <h3>History</h3>
                 </a>
-                <a href="#" class="active">
+                <a href="{{ url_for('analytics') }}" class="active">
                     <span class="material-symbols-rounded">
                         insights
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('tickets') }}">
                     <span class="material-symbols-rounded">
                         mail_outline
                     </span>
                     <h3>Tickets</h3>
                     <span class="message-count">27</span>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('sale_list') }}">
                     <span class="material-symbols-rounded">
                         inventory
                     </span>
                     <h3>Sale List</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('reports') }}">
                     <span class="material-symbols-rounded">
                         report_gmailerrorred
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('settings') }}">
                     <span class="material-symbols-rounded">
                         settings
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('new_login') }}">
                     <span class="material-symbols-rounded">
                         add
                     </span>
@@ -91,109 +91,8 @@
         <!-- End of Sidebar Section -->
 
         <!-- Main Section -->
-         <main>
-            <h1>Analytics</h1>
-            <!-- Analyses -->
-
-            <div class="analyse">
-                <div class="sales">
-                    <div class="status">
-                        <div class="info">
-                            <h3>Total Sales</h3>
-                            <h1>$65,024</h1>
-                        </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+81%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="visits">
-                    <div class="status">
-                        <div class="info">
-                            <h3>Site Visit</h3>
-                            <h1>24,981</h1>
-                        </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>-48%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="searches">
-                    <div class="status">
-                        <div class="info">
-                            <h3>Searches</h3>
-                            <h1>14,147</h1>
-                        </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+21%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Analyses -->
-
-            <!-- New Users Section -->
-            <div class="new-users">
-                <h2>New Users</h2>
-                <div class="user-list">
-                    <div class="user">
-                        <img src="static/images/profile-2.jpg">
-                        <h2>Jack</h2>
-                        <p>54 Min Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="static/images/profile-3.jpg">
-                        <h2>Amir</h2>
-                        <p>3 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="static/images/profile-4.jpg">
-                        <h2>Ember</h2>
-                        <p>6 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="static/images/plus.png">
-                        <h2>More</h2>
-                        <p>New User</p>
-                    </div>
-                </div>
-            </div>
-            <!-- End of New Users Section -->
-
-            <!-- Recent Orders Table -->
-            <div class="recent-orders">
-                <h2>Recent Orders</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course Name</th>
-                            <th>Course Number</th>
-                            <th>Payment</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
-            <!-- End of Recent Orders -->
-
+        <main>
+            {% block content %}{% endblock %}
         </main>
         <!-- End of Main Content -->
 
@@ -220,7 +119,7 @@
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="static/images/profile-1.jpg">
+                        <img src="{{ url_for('static', filename='images/profile-1.jpg') }}">
                     </div>
                 </div>
 
@@ -229,7 +128,7 @@
 
             <div class="user-profile">
                 <div class="logo">
-                    <img src="static/images/logo.png">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}">
                     <h2>AsmrProg</h2>
                     <p>Fullstack Web Developer</p>
                 </div>
@@ -293,7 +192,6 @@
             </div>
 
         </div>
-
 
     </div>
 
