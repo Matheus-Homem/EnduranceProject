@@ -51,6 +51,14 @@ server:
 		export PYTHONPATH=./ && \
 		python3 src/web/app.py)
 
+server2:
+	@echo Running the web application...
+	@$(if $(filter $(OS),Windows_NT), \
+		set PYTHONPATH=./ && \
+		python src\web\app2.py, \
+		export PYTHONPATH=./ && \
+		python3 src/web/app2.py)
+
 sql-export:
 	@echo Running the web application...
 	@$(if $(filter $(OS),Windows_NT), \
