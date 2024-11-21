@@ -25,62 +25,62 @@
             </div>
 
             <div class="sidebar">
-                <a href="{{ url_for('dashboard') }}">
+                <a href="{{ url_for('dashboard') }}" id="dashboard-link" class="{% if active_page == 'dashboard' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="{{ url_for('users') }}">
+                <a href="{{ url_for('users') }}" id="users-link" class="{% if active_page == 'users' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         person_outline
                     </span>
                     <h3>Users</h3>
                 </a>
-                <a href="{{ url_for('history') }}">
+                <a href="{{ url_for('history') }}" id="history-link" class="{% if active_page == 'history' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         receipt_long
                     </span>
                     <h3>History</h3>
                 </a>
-                <a href="{{ url_for('analytics') }}" class="active">
+                <a href="{{ url_for('analytics') }}" id="analytics-link" class="{% if active_page == 'analytics' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         insights
                     </span>
                     <h3>Analytics</h3>
                 </a>
-                <a href="{{ url_for('tickets') }}">
+                <a href="{{ url_for('tickets') }}" id="tickets-link" class="{% if active_page == 'tickets' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         mail_outline
                     </span>
                     <h3>Tickets</h3>
                     <span class="message-count">27</span>
                 </a>
-                <a href="{{ url_for('sale_list') }}">
+                <a href="{{ url_for('sale_list') }}" id="sale-list-link" class="{% if active_page == 'sale_list' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         inventory
                     </span>
                     <h3>Sale List</h3>
                 </a>
-                <a href="{{ url_for('reports') }}">
+                <a href="{{ url_for('reports') }}" id="reports-link" class="{% if active_page == 'reports' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         report_gmailerrorred
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="{{ url_for('settings') }}">
+                <a href="{{ url_for('settings') }}" id="settings-link" class="{% if active_page == 'settings' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         settings
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="{{ url_for('new_login') }}">
+                <a href="{{ url_for('new_login') }}" id="new-login-link" class="{% if active_page == 'new_login' %}active{% endif %}">
                     <span class="material-symbols-rounded">
                         add
                     </span>
                     <h3>New Login</h3>
                 </a>
-                <a href="#">
+                <a href="#" id="logout-link">
                     <span class="material-symbols-rounded">
                         logout
                     </span>
