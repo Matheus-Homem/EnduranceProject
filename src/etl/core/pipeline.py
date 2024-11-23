@@ -27,14 +27,17 @@ class Pipeline:
         self.engine = engine
         self.writer = writer.get_handler()
         self.column_separator = "element_name"
-        self.extraction_date_column = "entry_date"
-        self.parquet_partition_cols = ["year", "month", "day"]
+        self.partition_columns_for_parquet = ["year", "month", "day"]
+        self.date_column_mapping = {
+            "entries": "entry_date",
+            "schemas": "updated_at",
+        }
 
     def _extract(self, table_to_read: TableName, table_to_write: TableName) -> None:
         df = self.reader.read(table_name=table_to_read)
-        self.engine.set_date_column(date_column_to_partition=self.extraction_date_column)
+        self.engine.set_date_column(date_column_to_partition=self.date_column_mapping[table_to_read])
         df = self.engine.process(df)
-        self.writer.write(dataframe=df, table_name=table_to_write, partition_cols=self.parquet_partition_cols)
+        self.writer.write(dataframe=df, table_name=table_to_write, partition_cols=self.partition_columns_for_parquet)
 
     def _clean(self, table_to_read: TableName) -> None:
         df = self.reader.read(table_name=table_to_read)
