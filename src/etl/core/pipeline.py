@@ -54,16 +54,17 @@ class Pipeline:
 
             # for refined_table in ["summary", "monthly", "weekly"]:
             #     remove_path_if_exists(self.writer.generate_path(table_name=refined_table))
+            
 
-            for type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
-                self.engine.set_refinement_type(type)
+            for refinement_type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
+                self.engine.set_refinement_type(refinement_type)
                 processed_dataframes = []
                 for cleaned_path in self.reader.list_delta_tables():
                     df_cleaned = self.reader.read(table_name=cleaned_path)
                     df_processed = self.engine.process(df_cleaned)
                     processed_dataframes.append(df_processed) if df_processed is not None else None
                 df_refined = self.engine.union_dataframes(dataframes=processed_dataframes)
-                self.writer.write(dataframe=df_refined, table_name=type.value)
+                self.writer.write(dataframe=df_refined, table_name=refinement_type.value)
 
         else:
             self.logger.error("Reader is not an instance of DeltaHandler for REFINEMENT process")
