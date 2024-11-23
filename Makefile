@@ -24,9 +24,9 @@ create-venv:
 activate-venv:
 	@echo Activating virtual environment...
 	@$(if $(filter $(OS),Windows_NT), \
-		call .\$(VENV_NAME)\Scripts\activate && cmd /k, \
+		call .\$(VENV_NAME)\Scripts\activate && set PYTHONPATH=./ && cmd /k, \
 		echo This is not a Windows system. Please activate the virtual environment with: && \
-		echo source $(VENV_NAME)/bin/activate)
+		echo source $(VENV_NAME)/bin/activate && export PYTHONPATH=./)
 		
 prepare-environment:
 	@echo Building project...

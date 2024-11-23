@@ -27,11 +27,17 @@ class Pipeline:
         self.engine = engine
         self.writer = writer.get_handler()
         self.column_separator = "element_name"
+        self.partition_columns_for_parquet = ["year", "month", "day"]
+        self.date_column_mapping = {
+            TableName("element_entries"): "entry_date",
+            TableName("element_schemas"): "updated_at",
+        }
 
     def _extract(self, table_to_read: TableName, table_to_write: TableName) -> None:
         df = self.reader.read(table_name=table_to_read)
+        self.engine.set_date_column(date_column_to_partition=self.date_column_mapping[table_to_read])
         df = self.engine.process(df)
-        self.writer.write(dataframe=df, table_name=table_to_write)
+        self.writer.write(dataframe=df, table_name=table_to_write, partition_cols=self.partition_columns_for_parquet)
 
     def _clean(self, table_to_read: TableName) -> None:
         df = self.reader.read(table_name=table_to_read)
@@ -49,15 +55,15 @@ class Pipeline:
             # for refined_table in ["summary", "monthly", "weekly"]:
             #     remove_path_if_exists(self.writer.generate_path(table_name=refined_table))
 
-            for type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
-                self.engine.set_refinement_type(type)
+            for refinement_type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
+                self.engine.set_refinement_type(refinement_type)
                 processed_dataframes = []
                 for cleaned_path in self.reader.list_delta_tables():
                     df_cleaned = self.reader.read(table_name=cleaned_path)
                     df_processed = self.engine.process(df_cleaned)
                     processed_dataframes.append(df_processed) if df_processed is not None else None
                 df_refined = self.engine.union_dataframes(dataframes=processed_dataframes)
-                self.writer.write(dataframe=df_refined, table_name=type.value)
+                self.writer.write(dataframe=df_refined, table_name=refinement_type.value)
 
         else:
             self.logger.error("Reader is not an instance of DeltaHandler for REFINEMENT process")

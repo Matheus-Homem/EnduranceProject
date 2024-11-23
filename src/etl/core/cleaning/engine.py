@@ -53,5 +53,5 @@ class CleaningEngine(Engine):
                 end_cols=["user_id", "schema_encoded", "created_at", "updated_at"],
             )
             .pipe(self.schema.apply)
-            .pipe(self._drop_columns, columns=["id", "entry_date", "op", "schema_dtypes", "schema_fields"])
+            .pipe(self._drop_columns, columns=["id", "entry_date", "op", "schema_dtypes", "schema_fields", "year", "month", "day"])
         )

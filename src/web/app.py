@@ -17,6 +17,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from os_local import get_environment_variable
 from src.database.connection.builder import DatabaseExecutorBuilder
 from src.database.tables import DailyControl, ElementEntries, Users
+from src.etl.orchestrator import orchestrate_etl_process
 from src.shared.credentials import PRD
 from src.shared.report.reader import GoldReader
 from src.shared.utils import DateUtils, DictUtils, ValidationUtils
@@ -140,9 +141,9 @@ def unauthorized():
     return render_template("accounts/unauthorized.html"), 401
 
 
-@app.route("/entry/<entry_date>/menu/", methods=["GET"])
+@app.route("/menu/entries/<entry_date>/", methods=["GET"])
 @login_required
-def menu_entry(entry_date):
+def menu_entries(entry_date):
     if not entry_date:
         return redirect(url_for("index"))
 
@@ -160,7 +161,14 @@ def menu_entry(entry_date):
     return render_template("menu/entries.html", has_data_map=has_data_map, entry_date=entry_date)
 
 
-@app.route("/entry/<entry_date>/<category>/<element>/", methods=["GET", "POST"])
+@app.route("/menu/reports/", methods=["GET"])
+@login_required
+def menu_reports():
+    smp.success("Accessing the Reports Menu page")
+    return render_template("menu/reports.html")
+
+
+@app.route("/entries/<entry_date>/<category>/<element>/", methods=["GET", "POST"])
 @login_required
 def upsert_entry(entry_date, category, element):
     smp.success(f"Accessing the ENTRY page with Category: {category.capitalize()} and Element: {element.capitalize()}")
@@ -236,9 +244,18 @@ def report(category, element):
         summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_action", request=request)
         summary_dicts = filter_dictionary(dicts=summary_dicts, by="habit_group", request=request)
 
-        print(summary_dicts)
+        if not PRD:
+            from pprint import pprint
+
+            pprint(summary_dicts)
 
     return render_template(f"reports/{category}/{element}.html", entry_date=entry_date, summary_data=summary_dicts)
+
+
+@app.route("/refresh", methods=["POST"])
+def refresh():
+    orchestrate_etl_process()
+    return jsonify({"status": "success", "message": "ETL process orchestrated successfully"})
 
 
 if __name__ == "__main__":

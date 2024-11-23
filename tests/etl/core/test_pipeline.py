@@ -35,7 +35,7 @@ class TestPipeline(unittest.TestCase):
         engine.process.assert_called_once_with(df)
         df = engine.process.return_value
 
-        writer.write.assert_called_once_with(dataframe=df, table_name="entries")
+        writer.write.assert_called_once_with(dataframe=df, table_name="entries", partition_cols=["year", "month", "day"])
 
     @patch("src.etl.core.pipeline.PipelineUtils.split_dataframe")
     @patch("src.etl.core.pipeline.PipelineUtils.get_subset_table_name")

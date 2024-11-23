@@ -1,8 +1,11 @@
 from typing import Dict
 
+from os_local import join_paths
 from src.etl.core.cleaning.schema.casting import CastingStrategyFactory
 from src.etl.core.definitions import PandasDF, Transformer
 from src.shared.utils import DictUtils
+
+SCHEMAS_PATH = join_paths("data", "bronze", "schemas")
 
 
 class SchemaTransformer(Transformer):
@@ -20,7 +23,7 @@ class SchemaTransformer(Transformer):
             raise Exception(f"Error while getting schema dtype dictionary: {e}")
 
     def apply(self, dataframe: PandasDF) -> PandasDF:
-        self.schema = self._read_schema_dataframe("data/bronze/schemas.parquet")
+        self.schema = self._read_schema_dataframe(SCHEMAS_PATH)
         df_merged = self._pd.merge(dataframe, self.schema, on=["schema_encoded", "element_category", "element_name"], how="inner")
 
         for schema_code in df_merged["schema_encoded"].unique():

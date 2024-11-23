@@ -100,7 +100,7 @@ function formatValue(value, type) {
     }
 }
 
-
+// Function to update the output value
 function updateOutput(outputId, value, type) {
     document.getElementById(outputId).value = formatValue(value, type);
 }
@@ -137,6 +137,7 @@ function selectAlternative(id, inputName, value) {
     document.getElementById(`option${id}`).classList.add('selected');
 }
 
+// Function to select an alternative option and overwrite the answer
 function selectAlternativeOverwrite(id, questionGroup, answer) {
     const alternatives = document.querySelectorAll(`.alternative[data-question-group="${questionGroup}"]`);
     alternatives.forEach(alternative => {
@@ -165,7 +166,7 @@ function toggleButton(suffixId) {
     inputElement.value = (inputElement.value === 'True') ? 'False' : 'True';
 }
 
-
+// Function to submit the form
 function submitForm(event) {
     event.preventDefault();
     const form = event.target;
@@ -202,4 +203,42 @@ function submitForm(event) {
     }
 
     trySubmit(1);
+}
+
+// Fuction to refresh the page
+function refreshPage() {
+    const statusMessageContainer = document.createElement('div');
+    statusMessageContainer.className = 'element-box';
+    statusMessageContainer.innerHTML = `
+        <div class="element-table">
+            <div class="element-row">
+                <div class="element-cell cell-100">
+                    <div id="statusMessage" class="status-message">Refreshing data... Please wait...</div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(statusMessageContainer);
+
+    fetch('/refresh', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const statusMessage = document.getElementById('statusMessage');
+        if (data.status === "success") {
+            statusMessage.innerText = 'Data refreshed successfully.';
+        } else {
+            statusMessage.innerText = 'There was a problem refreshing the data.';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const statusMessage = document.getElementById('statusMessage');
+        statusMessage.innerText = 'There was a problem refreshing the data.';
+    });
 }
