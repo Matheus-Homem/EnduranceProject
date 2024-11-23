@@ -29,8 +29,8 @@ class Pipeline:
         self.column_separator = "element_name"
         self.partition_columns_for_parquet = ["year", "month", "day"]
         self.date_column_mapping = {
-            "entries": "entry_date",
-            "schemas": "updated_at",
+            TableName("element_entries"): "entry_date",
+            TableName("element_schemas"): "updated_at",
         }
 
     def _extract(self, table_to_read: TableName, table_to_write: TableName) -> None:
