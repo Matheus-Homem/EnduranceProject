@@ -54,7 +54,6 @@ class Pipeline:
 
             # for refined_table in ["summary", "monthly", "weekly"]:
             #     remove_path_if_exists(self.writer.generate_path(table_name=refined_table))
-            
 
             for refinement_type in [RefinementType.SUMMARY]:  # , RefinementType.MONTHLY, RefinementType.WEEKLY]:
                 self.engine.set_refinement_type(refinement_type)
