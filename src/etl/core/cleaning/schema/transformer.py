@@ -1,9 +1,9 @@
 from typing import Dict
 
+from os_local import join_paths
 from src.etl.core.cleaning.schema.casting import CastingStrategyFactory
 from src.etl.core.definitions import PandasDF, Transformer
 from src.shared.utils import DictUtils
-from os_local import join_paths
 
 SCHEMAS_PATH = join_paths("data", "bronze", "schemas")
 
