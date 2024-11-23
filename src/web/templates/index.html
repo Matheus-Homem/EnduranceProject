@@ -12,14 +12,14 @@
         <h2>Home</h2>
     </div>
 
-    <form action="/entry" method="get" onsubmit="redirectToMenuEntry(event)">
+    <form method="get" onsubmit="redirectToMenuEntry(event)">
 
         <div class="element-box">
             <div class="element-table">
 
                 <div class="element-row">
                     <div class="element-cell cell-100">
-                        <span><strong>Menu</strong></span>
+                        <span><strong>Menus</strong></span>
                     </div>
                 </div>
                 <div class="element-row">
@@ -29,7 +29,15 @@
                     <div class="element-cell cell-50">
                         <button type="submit" class="insertButton" id="submit">
                             <i class="fa-solid fa-signature"></i>
-                            Inserir
+                            Inserções
+                        </button>
+                    </div>
+                </div>
+                <div class="element-row">
+                    <div class="element-cell cell-100">
+                        <button type="button" class="insertButton" id="reports" onclick="redirectToReports()">
+                            <i class="fa-solid fa-chart-column"></i>                            
+                            <span>Relatórios</span>
                         </button>
                     </div>
                 </div>
@@ -38,7 +46,6 @@
         </div>
         
     </form>
-
 
     <form action="/logout" method="POST">
         <div class="buttonContainer">
@@ -53,7 +60,11 @@
         function redirectToMenuEntry(event) {
             event.preventDefault();
             const entryDate = document.getElementById('entry_date').value;
-            window.location.href = `/entry/${entryDate}/menu/`;
+            window.location.href = `/menu/entries/${entryDate}/`;
+        }
+
+        function redirectToReports() {
+            window.location.href = '/menu/reports/';
         }
     </script>
 

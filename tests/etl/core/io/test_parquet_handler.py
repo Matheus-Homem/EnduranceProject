@@ -35,6 +35,25 @@ class TestParquetHandler(unittest.TestCase):
         table_name = "test_table"
         dataframe = MagicMock(spec=PandasDF)
         expected_path = "/path/to/test_table.parquet"
+        partition_cols = ["year", "month", "day"]
+
+        handler.generate_path = MagicMock(return_value=expected_path)
+
+        # Execution
+        handler.write(dataframe=dataframe, table_name=table_name, partition_cols=partition_cols)
+
+        # Asserts
+        handler.generate_path.assert_called_once_with(table_name=table_name)
+        dataframe.to_parquet.assert_called_once_with(expected_path, index=False, partition_cols=partition_cols)
+
+    @patch("src.etl.core.io.parquet.PandasDF.to_parquet")
+    def test_write_without_partition_cols(self, mock_to_parquet):
+        # Preparation
+        layer = Layer.BRONZE
+        handler = ParquetHandler(layer=layer)
+        table_name = "test_table"
+        dataframe = MagicMock(spec=PandasDF)
+        expected_path = "/path/to/test_table.parquet"
 
         handler.generate_path = MagicMock(return_value=expected_path)
 
@@ -43,7 +62,7 @@ class TestParquetHandler(unittest.TestCase):
 
         # Asserts
         handler.generate_path.assert_called_once_with(table_name=table_name)
-        dataframe.to_parquet.assert_called_once_with(expected_path, index=False)
+        dataframe.to_parquet.assert_called_once_with(expected_path, index=False, partition_cols=None)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form id="myForm" action="/entry/{{ entry_date }}/wisdom/navigator/" method="POST" onsubmit="submitForm(event)">
+<form id="myForm" action="/entries/{{ entry_date }}/wisdom/navigator/" method="POST" onsubmit="submitForm(event)">
     <div class="element-box wisdom">
         <div class="element-header">
             <span>Navegador</span>
@@ -100,7 +100,7 @@
 
 <script>
     document.getElementById('menu').addEventListener('click', function() {
-        window.location.href = "/entry/{{ entry_date }}/menu/";
+        window.location.href = "/menu/entries/{{ entry_date }}/";
     });
     
     const entryDate = "{{ entry_date }}";

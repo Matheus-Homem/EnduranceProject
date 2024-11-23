@@ -97,9 +97,7 @@ class IOHandler(ABC):
                 return mysql_table_mapping[table_name]
             except KeyError:
                 raise ValueError(f"Table '{table_name}' is not a MySQL Database valid table")
-        elif self.layer == Layer.BRONZE:
-            return join_paths(DATA_FOLDER, self.layer.value, f"{table_name}.parquet")
-        elif self.layer in [Layer.SILVER, Layer.GOLD]:
+        elif self.layer in [Layer.BRONZE, Layer.SILVER, Layer.GOLD]:
             return join_paths(DATA_FOLDER, self.layer.value, table_name)
         else:
             raise ValueError(f"Unsupported layer: {self.layer}")

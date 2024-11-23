@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form id="myForm" action="/entry/{{ entry_date }}/devotion/atharva_bindu/" method="POST" onsubmit="submitForm(event)">
+<form id="myForm" action="/entries/{{ entry_date }}/devotion/atharva_bindu/" method="POST" onsubmit="submitForm(event)">
     <div class="element-box devotion">
         <div class="element-header">
             <span>Atharva Bindu</span>
@@ -146,7 +146,7 @@
 
 <script>
     document.getElementById('menu').addEventListener('click', function() {
-        window.location.href = "/entry/{{ entry_date }}/menu/";
+        window.location.href = "/menu/entries/{{ entry_date }}/";
     });
     
     const entryDate = "{{ entry_date }}";

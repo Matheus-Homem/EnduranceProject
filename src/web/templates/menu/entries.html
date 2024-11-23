@@ -7,8 +7,8 @@
 {% block content %}
 
     <div class="page-title">
-        <h1>O Cardápio</h1>
-        <h2>O Cardápio</h2>
+        <h1>Nova Inserção</h1>
+        <h2>Nova Inserção</h2>
     </div>
 
     <div class="accordion">
@@ -98,25 +98,25 @@
     <script>
         const entryDate = "{{ entry_date }}";
 
-        document.getElementById('wisdom_navigator_link').href = `/entry/${entryDate}/wisdom/navigator/`;
-        document.getElementById('wisdom_alchemist_link').href = `/entry/${entryDate}/wisdom/alchemist/`;
-        document.getElementById('wisdom_sentinel_link').href = `/entry/${entryDate}/wisdom/sentinel/`;
+        document.getElementById('wisdom_navigator_link').href = `/entries/${entryDate}/wisdom/navigator/`;
+        document.getElementById('wisdom_alchemist_link').href = `/entries/${entryDate}/wisdom/alchemist/`;
+        document.getElementById('wisdom_sentinel_link').href = `/entries/${entryDate}/wisdom/sentinel/`;
 
-        document.getElementById('stability_sponsor_link').href = `/entry/${entryDate}/stability/sponsor/`;
-        document.getElementById('stability_patron_link').href = `/entry/${entryDate}/stability/patron/`;
-        document.getElementById('stability_treasurer_link').href = `/entry/${entryDate}/stability/treasurer/`;
+        document.getElementById('stability_sponsor_link').href = `/entries/${entryDate}/stability/sponsor/`;
+        document.getElementById('stability_patron_link').href = `/entries/${entryDate}/stability/patron/`;
+        document.getElementById('stability_treasurer_link').href = `/entries/${entryDate}/stability/treasurer/`;
 
-        document.getElementById('strength_athlete_link').href = `/entry/${entryDate}/strength/athlete/`;
-        document.getElementById('strength_cook_link').href = `/entry/${entryDate}/strength/cook/`;
-        document.getElementById('strength_nutritionist_link').href = `/entry/${entryDate}/strength/nutritionist/`;
+        document.getElementById('strength_athlete_link').href = `/entries/${entryDate}/strength/athlete/`;
+        document.getElementById('strength_cook_link').href = `/entries/${entryDate}/strength/cook/`;
+        document.getElementById('strength_nutritionist_link').href = `/entries/${entryDate}/strength/nutritionist/`;
 
-        document.getElementById('kindness_caretaker_link').href = `/entry/${entryDate}/kindness/caretaker/`;
-        document.getElementById('kindness_diplomat_link').href = `/entry/${entryDate}/kindness/diplomat/`;
-        document.getElementById('kindness_citizen_link').href = `/entry/${entryDate}/kindness/citizen/`;
+        document.getElementById('kindness_caretaker_link').href = `/entries/${entryDate}/kindness/caretaker/`;
+        document.getElementById('kindness_diplomat_link').href = `/entries/${entryDate}/kindness/diplomat/`;
+        document.getElementById('kindness_citizen_link').href = `/entries/${entryDate}/kindness/citizen/`;
 
-        document.getElementById('devotion_oracle_link').href = `/entry/${entryDate}/devotion/oracle/`;
-        document.getElementById('devotion_atharva_bindu_link').href = `/entry/${entryDate}/devotion/atharva_bindu/`;
-        document.getElementById('devotion_witness_link').href = `/entry/${entryDate}/devotion/witness/`;
+        document.getElementById('devotion_oracle_link').href = `/entries/${entryDate}/devotion/oracle/`;
+        document.getElementById('devotion_atharva_bindu_link').href = `/entries/${entryDate}/devotion/atharva_bindu/`;
+        document.getElementById('devotion_witness_link').href = `/entries/${entryDate}/devotion/witness/`;
     </script>
 
 {% endblock %}
