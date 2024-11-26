@@ -3,40 +3,44 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route('/')
-def dashboard():
-    return render_template('main/dashboard.html', active_page='dashboard')
+def home():
+    return render_template('main/home.html', active_page='home')
 
-@app.route('/users')
-def users():
-    return render_template('main/users.html', active_page='users')
+@app.route('/tracker')
+def tracker():
+    return render_template('main/tracker.html', active_page='tracker')
 
-@app.route('/history')
-def history():
-    return render_template('main/history.html', active_page='history')
+@app.route('/goals')
+def goals():
+    return render_template('main/goals.html', active_page='goals')
 
 @app.route('/analytics')
 def analytics():
     return render_template('main/analytics.html', active_page='analytics')
 
-@app.route('/tickets')
-def tickets():
-    return render_template('main/tickets.html', active_page='tickets')
-
-@app.route('/sale_list')
-def sale_list():
-    return render_template('main/sale_list.html', active_page='sale_list')
-
 @app.route('/reports')
 def reports():
     return render_template('main/reports.html', active_page='reports')
+
+@app.route('/feedbacks')
+def feedbacks():
+    return render_template('main/feedbacks.html', active_page='feedbacks')
+
+@app.route('/history')
+def history():
+    return render_template('main/history.html', active_page='history')
+
+@app.route('/profile')
+def profile():
+    return render_template('main/profile.html', active_page='profile')
 
 @app.route('/settings')
 def settings():
     return render_template('main/settings.html', active_page='settings')
 
-@app.route('/new_login')
-def new_login():
-    return render_template('main/new_login.html', active_page='new_login')
+@app.route('/support')
+def support():
+    return render_template('main/support.html', active_page='support')
 
 if __name__ == '__main__':
     app.run(debug=True)
