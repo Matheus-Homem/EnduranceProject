@@ -14,9 +14,9 @@ def tracker():
 def goals():
     return render_template('main/goals.html', active_page='goals')
 
-@app.route('/analytics')
-def analytics():
-    return render_template('main/analytics.html', active_page='analytics')
+@app.route('/analysis')
+def analysis():
+    return render_template('main/analysis.html', active_page='analysis')
 
 @app.route('/reports')
 def reports():
